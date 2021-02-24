@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<!--<record id="product_serial_item_inherit" model="ir.ui.view">-->
+			<!--<field name="name">Series</field>-->
+			<!--<field name="model">product.product</field>-->
+            <!--<field name="inherit_id" ref="product.product_normal_form_view"/>-->
+			<!--<field name="arch" type="xml">-->
+                <!--<xpath expr="//page[@string='Sales']" position="after">-->
+                    <!--<page string="Series">-->
+                        <!--<field name="serial_items">-->
+                            <!--<tree string="Series" editable="bottom">-->
+                                <!--<field name="name"/>-->
+                                <!--<field name="amount_cost"/>-->
+                                <!--<field name="importation_amount"/>-->
+                                <!--<field name="assigned"/>-->
+                            <!--</tree>-->
+                        <!--</field>-->
+                    <!--</page>-->
+                <!--</xpath>-->
+            <!--</field>-->
+        <!--</record>-->
+	</data>
+</openerp>

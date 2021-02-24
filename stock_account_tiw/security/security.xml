@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data noupdate="1">
+        <record model="res.groups" id="group_create_invoice_from_picking">
+            <field name="name">Crear Facturas desde Albaran</field>
+            <field name="category_id" ref="base.module_category_accounting_and_finance"/>
+        </record>
+	</data>
+</openerp>

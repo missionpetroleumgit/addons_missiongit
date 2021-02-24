@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data noupdate='1'>
+
+		<!--
+			Sequence Type
+		-->
+
+		<record id="ir_seq_type_reconciled" model="ir.sequence.type">
+			<field name="name">Conciliacion</field>
+			<field name="code">account.bank.reconcile</field>
+		</record>
+
+		<!--
+			Sequence
+		-->
+
+		<record id="ir_seq_reconciled" model="ir.sequence">
+			<field name="name">Conciliacion</field>
+			<field name="code">account.bank.reconcile</field>
+			<field name="prefix">CB</field>
+			<field name="padding">7</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+
+	</data>
+</openerp>

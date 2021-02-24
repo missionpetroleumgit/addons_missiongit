@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_account_reconcile_document">
+    <t t-call="report.external_layout">
+        <div class="page">
+            <div class="row">
+                <div class="col-xs-5 col-xs-offset-7">
+                    <address t-field="o.company_id.partner_id"
+                        t-field-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}' />
+                </div>
+            </div>
+
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <td><strong>Número:</strong><span t-field="o.name"/></td>
+                        <td><strong>Fecha:</strong><span t-field="o.date_created"/></td>
+                        <td><strong>Período:</strong><span t-field="o.period_id.name"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Saldo en Libros:</strong><span t-field="o.amount_ledger"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Depósitos en Tránsito:</strong><span t-field="o.amount_transit"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cheques Girados no Cobrados:</strong><span t-field="o.amount_voucher"/></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Referencia</th>
+                        <th>Proveedor</th>
+                        <th class="text-right">Débito</th>
+                        <th class="text-right">Crédito</th>
+                    </tr>
+                </thead>
+                <tbody class="invoice_tbody">
+                    <tr t-foreach="o.reconcile_lines" t-as="l">
+                        <t t-if="not l.is_reconciled">
+                            <td><span t-field="l.date_line"/></td>
+                            <td>
+                                <span t-field="l.name"/>
+                            </td>
+                            <td>
+                                <span t-field="l.partner_id.name"/>
+                            </td>
+                            <td class="text-right"><span t-field="l.debit"/></td>
+                            <td class="text-right">
+                                <span t-field="l.credit"/>
+                            </td>
+                        </t>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table>
+                <tr>
+                    <td class="text-rigth"><strong><h4>Saldo final: <span t-field="o.amount"/></h4></strong></td>
+                </tr>
+            </table>
+
+        </div>
+    </t>
+</template>
+
+<template id="report_reconcile_doc">
+    <t t-call="report.html_container">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'company_id.name', 'bit_account.report_account_reconcile_document')"/>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

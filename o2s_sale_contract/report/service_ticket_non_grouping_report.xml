@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<template id="service_ticket_non_grouping_report_document">
+    <!--report_invoice_disaggregated_document-->
+    <t t-call="report.external_layout">
+        <div class="page">
+            <div class="row mt32 mb32">
+                <div class="col-xs-5">
+                    <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="max-height:120px"/>
+                </div>
+                <div class="col-xs-5">
+                    <h4 class="text-right">TICKET DE SERVICIO / BIENES</h4>
+                    <p class="text-right"><strong>Nro Ticket:</strong><span t-field="o.name"/></p>
+                </div>
+            </div>
+            <div class="row mt32 mb32">
+                <div class="col-xs-5">
+                    <strong>Fecha Inicial:</strong><span t-field="o.date_start"/>
+                </div>
+                <div class="col-xs-5">
+                    <strong>Fecha Final:</strong><span t-field="o.date_end"/>
+                </div>
+            </div>
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td><strong>Cliente:</strong></td>
+                        <td><span t-field="o.partner_id.name"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Proyecto:</strong></td>
+                        <td><span t-field="o.project_id"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Contrato:</strong></td>
+                        <td><span t-field="o.contract_id"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Campo:</strong></td>
+                        <td><span t-field="o.field_id"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>RIG:</strong></td>
+                        <td><span t-field="o.drill_id"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pozo:</strong></td>
+                        <td><span t-field="o.service_well_id"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Descripcion:</strong></td>
+                        <td><span t-field="o.description"/></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Cant</th>
+                        <th>Descripción</th>
+                        <!--<th>Serial</th>-->
+                        <th>Código</th>
+                        <th class="text-right">Precio Unitario</th>
+                        <th class="text-right">Precio Total</th>
+                    </tr>
+                </thead>
+                <tbody class="invoice_tbody">
+                    <!--<t t-foreach="get_locations_data(line)" t-as="data"></t>-->
+                    <t t-set="total" t-value="0" />
+                    <t t-set="total_amount" t-value="0" />
+                    <t t-foreach="o.order_ids" t-as="order">
+                        <t t-if="order.state in ('progress','done')">
+                            <t t-foreach="order.order_line" t-as="l">
+                                <t t-set="total" t-value="total+1" />
+                                <t t-set="total_amount" t-value="total_amount+l.price_subtotal" />
+                                <t t-if="l.product_id.is_lumpsum">
+                                    <tr>
+                                        <td><t t-esc="total"/></td>
+                                        <td><span t-field="l.product_uom_qty"/></td>
+                                        <td><span t-field="l.name"/></td>
+                                        <!--<td></td>-->
+                                        <td><span t-field="l.custom_identificator"/></td>
+                                        <td class="text-right">
+                                            <span t-field="l.price_unit"/>
+                                            <!--<span t-esc="l['uos_id']"  groups="product.group_uom"/>-->
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="l.price_subtotal"/>
+                                        </td>
+                                    </tr>
+                                    <t t-foreach="l.product_id.components" t-as="cmpt">
+                                        <tr>
+                                            <td></td>
+                                            <td><span t-field="cmpt.qty"/></td>
+                                            <td><span t-esc="get_description(cmpt, order)[0]"/></td>
+                                            <td><span t-esc="get_description(cmpt, order)[1]"/></td>
+                                            <!--<td><span t-esc="get_name(cmp.product_id)[0]"/></td>-->
+                                            <!--<td></td>-->
+                                            <!--<td><span t-field="get_name(cmp.product_id)[1]"/></td>-->
+                                        </tr>
+                                    </t>
+                                </t>
+                                <t t-if="not l.product_id.is_lumpsum">
+                                    <tr>
+                                        <td><t t-esc="total"/></td>
+                                        <td><span t-field="l.product_uom_qty"/></td>
+                                        <td><span t-field="l.name"/></td>
+                                        <!--<td></td>-->
+                                        <td><span t-field="l.custom_identificator"/></td>
+                                        <td class="text-right">
+                                            <span t-field="l.price_unit"/>
+                                            <!--<span t-esc="l['uos_id']"  groups="product.group_uom"/>-->
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="l.price_subtotal"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </t>
+                        </t>
+                    </t>
+                    <tr>
+                        <td class="text-right" colspan="5"><strong>TOTAL:</strong></td>
+                        <td class="text-right"><t t-esc="total_amount" t-esc-options='{"widget": "monetary", "display_currency": "o.company_id.currency_id"}'/></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="footer">
+                <p><strong>NOTA:</strong>LOS PRECIOS NO INCLUYEN IVA Y ESTAN SUJETOS A CAMBIOS POR EL DEPARTAMENTO DE FACTURACIÓN.</p>
+                <div class="row mt32 mb32">
+                    <div class="col-xs-5">
+                        <p class="text-center">______________________________</p>
+                        <p class="text-center">Representante Tiw</p>
+                    </div>
+                    <div class="col-xs-5">
+                        <p class="text-center">______________________________</p>
+                        <p class="text-center">Company Man Cliente</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</template>
+
+<template id="service_ticket_non_grouping_report">
+    <t t-call="report.html_container">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'o2s_sale_contract.service_ticket_non_grouping_report_document')"/>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

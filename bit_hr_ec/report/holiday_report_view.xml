@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="holiday_report_view">
+    <t t-call="report.html_container">
+    <t t-foreach="docs" t-as="o">
+         <div class="page">
+         	<table class="table table-condensed table-bordered">
+                <tr>
+	                <td align="center"><img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="max-height:80px"/></td>
+	                <td align="center"><h4><strong><span t-field="o.company_id.partner_id" t-field-options='{"widget": "contact", "fields": ["name"], "no_marker": true, "no_tag_br": true}'/></strong></h4><span t-field="o.company_id.partner_id" t-field-options='{"widget": "contact", "fields": ["address"], "no_marker": true, "no_tag_br": true}'/></td>
+                </tr>
+                <tr>
+	              	<td align="center"><h9><strong>RUC: </strong><span t-esc="o.company_id.partner_id.part_number"/></h9></td>
+	                <td align="center"><h5><strong>Reporte Vacaciones</strong></h5></td>
+                </tr>
+            </table>
+            <table class="table table-condensed table-bordered">
+                <tr>
+                    <th class="text-center" >No. Cédula</th>
+                    <th class="text-left" >Nombre empleado</th>
+                    <th class="text-left" >Cargo</th>
+                    <th class="text-center" >Región</th>
+                    <th class="text-center" >Días</th>
+                </tr>
+	            <tbody class="invoice_tbody">
+                    <tr t-foreach="docs" t-as="o">
+                        <td class="text-center" width="60px"><span t-esc="o.identification_id"/></td>
+                        <td class="text-left" width="250px"><span t-esc="o.name"/></td>
+                        <td class="text-left" width="250px"><span t-esc="o.job_id.name"/></td>
+                        <td class="text-right" width="50px"><span t-esc="o.region"/></td>
+                        <td class="text-right" width="30px"><span t-esc="o.availables_days"/></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+    </t>
+</t>
+</template>
+<!-- <template id="report_invoice">
+    <t t-call="report.html_container">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'account.report_invoice_document')"/>
+        </t>
+    </t>
+</template> -->
+</data>
+</openerp>

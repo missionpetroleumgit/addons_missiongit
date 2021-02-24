@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<!-- Customer Account Invoice -->
+	<!-- Form -->
+        <record id="invoice_form_customer_inherit_tiw" model="ir.ui.view">
+            <field name="name">account.invoice.customer.inherit.tiw</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="bit_account.invoice_form_customer_inherit"/>
+            <field name="arch" type="xml">
+				<page string="Authorization" position='after'>
+					<page string="Service Ticket">
+						<group col="4">
+		                	<!--<field name="ticket" domain="[('partner_id','=',partner_id)]"/>-->
+		                	<!--<field name="contract" domain="[('type', '=', 'contract'),('partner_id','=',partner_id)]"/>-->
+		                	<!--<field name="project" domain="[('type', '=', 'view'),('parent_id','=',contract)]"/>-->
+                            <!--<field name="field"/>-->
+                            <!--<field name="well"/>-->
+                            <!--<field name="rig"/>-->
+                            <field name="oc"/>
+                            <field name="oet"/>
+                            <field name="pre_invoice"/>
+			    <field name="guiaremision_ref"/>
+		                </group>
+                        <field name="ticket_ids"/>
+	                </page>
+				</page>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_filter_tiw" model="ir.ui.view">
+            <field name="name">account.invoice.select.tiw</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="bit_account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+            	<field name="number_seq" position="after">
+            		<field name="ticket" />
+            	</field>
+            </field>
+		</record>
+
+    </data>
+</openerp>

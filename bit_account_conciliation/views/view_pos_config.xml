@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <!--
+      CSV:19-10-2016:Pos Config Aumento Cuentas Conciliacion Tarjetas
+    -->
+
+     <record id="view_pos_config_form_add_acc_fp_id" model="ir.ui.view">
+        <field name="name">Pos Config - Add accounts on form</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_config_form"/>
+        <field name="arch" type="xml">
+           	   <field name="sequence_id" position="after">
+               	<field name="default_comision_account_id" />
+               </field>
+        </field>
+    </record>
+
+</data>
+</openerp>

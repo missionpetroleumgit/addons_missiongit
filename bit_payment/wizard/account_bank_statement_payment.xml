@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_bit_payment_file_acc_voucher">
+            <field name="name">payment.file.acc.voucher</field>
+            <field name="model">payment.file.acc.voucher</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <form string="Generar Archivo" version="7.0">
+                    <group col="4" colspan="2">
+                        <field name="bank_id"/>
+                        <group/>
+                        <field name="txt_filename" invisible="1"/>
+                    </group>
+                    <field name="txt_binary" filename="txt_filename"/>
+                  	<footer>
+						<button name="generate_file" string="Generar archivo" class="oe_highlight" type="object"/>
+					</footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- <delete model="ir.actions.act_window" id="action_account_payment_file"/> -->
+
+		<act_window name="Generar Archivo"
+            context="{'search_default_draft': 1, 'wizard': 'check'}"
+            res_model="payment.file.acc.voucher"
+            src_model="account.bank.statement"
+            view_mode="form"
+            view_id="view_bit_payment_file_acc_voucher"
+            target="new"
+            multi="True"
+            key2="client_action_multi"
+            id="action_view_bit_payment_file_acc_voucher"/>
+
+    </data>
+</openerp>

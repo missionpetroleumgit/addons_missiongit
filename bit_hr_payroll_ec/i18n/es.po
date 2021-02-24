@@ -1,0 +1,1224 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* bit_hr_payroll_ec
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20150209\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-30 15:57+0000\n"
+"PO-Revision-Date: 2015-06-30 15:57+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: bit_hr_payroll_ec
+#: model:res.partner.bank.type,format_layout:bit_hr_payroll_ec.bank_ahorro
+#: model:res.partner.bank.type,format_layout:bit_hr_payroll_ec.bank_corriente
+msgid "%(bank_name)s: %(acc_number)s"
+msgstr "%(bank_name)s: %(acc_number)s"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.actions.act_window,help:bit_hr_payroll_ec.action_hr_adm_bono
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click para registrar un nuevo Bono.\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                Click para registrar un nuevo Bono.\n"
+"              </p>\n"
+"            "
+
+#. module: bit_hr_payroll_ec
+#: model:ir.actions.act_window,help:bit_hr_payroll_ec.action_hr_expense
+#: model:ir.actions.act_window,help:bit_hr_payroll_ec.action_hr_expense_type
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click para registrar un nuevo Egreso.\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                Click para registrar un nuevo Egreso.\n"
+"              </p>\n"
+"            "
+
+#. module: bit_hr_payroll_ec
+#: model:ir.actions.act_window,help:bit_hr_payroll_ec.action_hr_adm_income
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click para registrar un nuevo Ingreso.\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                Click para registrar un nuevo Ingreso.\n"
+"              </p>\n"
+"            "
+
+#. module: bit_hr_payroll_ec
+#: model:ir.actions.act_window,help:bit_hr_payroll_ec.action_hr_income
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click para registrar un nuevo Ingreso.\n"
+"              </p>\n"
+"               "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                Click para registrar un nuevo Ingreso.\n"
+"              </p>\n"
+"               "
+
+#. module: bit_hr_payroll_ec
+#: model:ir.actions.act_window,help:bit_hr_payroll_ec.hr_employee_liquidation_action
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to configure income taxes. \n"
+"              </p><p>\n"
+"                Odoo will ensure the whole process is followed; the expense\n"
+"                sheet is validated by manager(s), the employee is reimbursed\n"
+"                from his expenses, some expenses must be re-invoiced to the\n"
+"                customers.\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to configure income taxes. \n"
+"              </p><p>\n"
+"                Odoo will ensure the whole process is followed; the expense\n"
+"                sheet is validated by manager(s), the employee is reimbursed\n"
+"                from his expenses, some expenses must be re-invoiced to the\n"
+"                customers.\n"
+"              </p>\n"
+"            "
+
+#. module: bit_hr_payroll_ec
+#: field:hr.employee,bank_account:0
+#: field:hr.payslip.analysis,acc_number:0
+msgid "Account Number"
+msgstr "Número de Cuenta"
+
+#. module: bit_hr_payroll_ec
+#: view:website:bit_hr_payroll_ec.report_payslip_confidential2
+msgid "Address"
+msgstr "Dirección"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.adm.bono:bit_hr_payroll_ec.hr_adm_bono_form_view
+#: view:hr.adm.incomes:bit_hr_payroll_ec.hr_adm_bono_search_view
+#: model:ir.actions.act_window,name:bit_hr_payroll_ec.action_hr_adm_bono
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_adm_bono
+msgid "Administracion de Bonos"
+msgstr "Administracion de Bonos"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.expense.type:bit_hr_payroll_ec.hr_expense_type_search_view
+#: model:ir.actions.act_window,name:bit_hr_payroll_ec.action_hr_expense_type
+msgid "Administracion de Egresos"
+msgstr "Administracion de Egresos"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_expense_type
+msgid "Administracion de Egresos al Rol de Pagos"
+msgstr "Administracion de Egresos al Rol de Pagos"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.expense.type:bit_hr_payroll_ec. hr_expense_type_form_view
+msgid "Administracion de Engresos"
+msgstr "Administracion de Engresos"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.adm.incomes:bit_hr_payroll_ec.hr_adm_income_form_view
+#: view:hr.adm.incomes:bit_hr_payroll_ec.hr_adm_income_search_view
+#: model:ir.actions.act_window,name:bit_hr_payroll_ec.action_hr_adm_income
+msgid "Administracion de Ingresos"
+msgstr "Administracion de Ingresos"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_adm_incomes
+msgid "Administracion de Ingresos del Rol de Pagos"
+msgstr "Administracion de Ingresos del Rol de Pagos"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_hr_adm_bono
+msgid "Administración de Bonos"
+msgstr "Administración de Bonos"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_hr_expense_type
+msgid "Administración de Egresos"
+msgstr "Administración de Egresos"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_hr_adm_income
+msgid "Administración de Ingresos"
+msgstr "Administración de Ingresos"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.payslip.analysis,amount:0
+#: field:hr.payslip.department.analysis,amount:0
+#: field:hr.payslip.last.analysis,amount:0
+#: field:hr.payslip.last.analysis.categ,amount:0
+#: field:hr.payslip.last.analysis.categ2,amount:0
+#: view:website:bit_hr_payroll_ec.report_payslip_confidential2
+msgid "Amount"
+msgstr "Importe"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.actions.act_window,name:bit_hr_payroll_ec.action_hr_payslip_last_analysis_categ2_all
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_hr_payslip_last_categ2_analysis_all
+msgid "Análisis Provisiones"
+msgstr "Análisis Provisiones"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.payroll.analysis:bit_hr_payroll_ec.view_hr_payroll_analysis_graph
+#: view:hr.payroll.analysis:bit_hr_payroll_ec.view_hr_payroll_analysis_search
+#: model:ir.actions.act_window,name:bit_hr_payroll_ec.action_hr_payroll_analysis_all
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_payroll_analysis
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_hr_payroll_analysis_all
+msgid "Análisis Roles"
+msgstr "Análisis Roles"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.expense.type,aporte_iess:0
+msgid "Aportes Iess"
+msgstr "Aportes Iess"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.payroll.export,data:0
+#: field:wizard.import.egresos,data:0
+#: field:wizard.import.ingresos,data:0
+msgid "Archivo"
+msgstr "Archivo"
+
+#. module: bit_hr_payroll_ec
+#: model:hr.holidays.status,name:bit_hr_payroll_ec.hr_holidays_status_ocasional
+msgid "Ausencia ocasional"
+msgstr "AUSENCIA OCACIONAL"
+
+#. module: bit_hr_payroll_ec
+#: view:website:bit_hr_payroll_ec.report_payslip_confidential2
+msgid "Authorized signature"
+msgstr "Firma autorizada"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.payslip,anios_trabajados:0
+msgid "Años Trabajados"
+msgstr "Años Trabajados"
+
+#. module: bit_hr_payroll_ec
+#: view:website:bit_hr_payroll_ec.report_payslip_confidential2
+msgid "Bank Account"
+msgstr "Cuenta bancaria"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.payslip.analysis,bank_account_id:0
+#: field:hr.payslip.department.analysis,bank_account_id:0
+#: field:hr.payslip.last.analysis,bank_account_id:0
+#: field:hr.payslip.last.analysis.categ,bank_account_id:0
+#: field:hr.payslip.last.analysis.categ2,bank_account_id:0
+msgid "Bank Account Number"
+msgstr "Número de cuenta bancaría"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_hr_Bono
+#: view:wizard.import.bonos:bit_hr_payroll_ec.wizard_import_bonos_view
+msgid "Bonos"
+msgstr "Bonos"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_wizard_import_bonos
+#: view:wizard.import.bonos:bit_hr_payroll_ec.wizard_import_bonos_view
+msgid "Bonos de empleados"
+msgstr "Bonos de empleados"
+
+#. module: bit_hr_payroll_ec
+#: selection:wizard.import.egresos,state:0
+#: selection:wizard.import.ingresos,state:0
+msgid "Borrador"
+msgstr "Borrador"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.filters,name:bit_hr_payroll_ec.filter_hr_payslip_analysis_employee
+#: model:ir.filters,name:bit_hr_payroll_ec.filter_hr_payslip_last_analysis_categ2_employee
+#: model:ir.filters,name:bit_hr_payroll_ec.filter_hr_payslip_last_analysis_categ_employee
+#: model:ir.filters,name:bit_hr_payroll_ec.filter_hr_payslip_last_analysis_employee
+msgid "By Employee Name"
+msgstr "Por nombre de empleado"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.payroll.export:bit_hr_payroll_ec.view_hr_payroll_export
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.employee.liquidation:bit_hr_payroll_ec.wizard_employee_liquidation_view
+#: view:wizard.import.bonos:bit_hr_payroll_ec.wizard_import_bonos_view
+#: view:wizard.import.egresos:bit_hr_payroll_ec.wizard_import_egresos_view
+#: view:wizard.import.ingresos:bit_hr_payroll_ec.wizard_import_ingresos_view
+msgid "Cancelar"
+msgstr "Cancelar"
+
+#. module: bit_hr_payroll_ec
+#: code:addons/bit_hr_payroll_ec/hr_payroll.py:235
+#, python-format
+msgid "Cannot delete delivery payslip(s) that are already Done. Change its to draft state !"
+msgstr "Cannot delete delivery payslip(s) that are already Done. Change its to draft state !"
+
+#. module: bit_hr_payroll_ec
+#: selection:wizard.import.egresos,state:0
+#: selection:wizard.import.ingresos,state:0
+msgid "Cerrado"
+msgstr "Cerrado"
+
+#. module: bit_hr_payroll_ec
+#: view:website:bit_hr_payroll_ec.report_payslip_confidential2
+msgid "Code"
+msgstr "Código"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.adm.bono,code:0
+#: field:hr.adm.incomes,code:0
+#: field:hr.expense.type,code:0
+msgid "Codigo"
+msgstr "Codigo"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.expense,comment:0
+#: field:hr.income,comment:0
+msgid "Comentario"
+msgstr "Comentario"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.employee.liquidation,contract_id:0
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_contract
+#: field:wizard.employee.liquidation,contract_id:0
+msgid "Contract"
+msgstr "Contrato"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.adm.bono,create_uid:0
+#: field:hr.adm.incomes,create_uid:0
+#: field:hr.bono,create_uid:0
+#: field:hr.employee.liquidation,create_uid:0
+#: field:hr.expense,create_uid:0
+#: field:hr.expense.type,create_uid:0
+#: field:hr.income,create_uid:0
+#: field:hr.payroll.export,create_uid:0
+#: field:hr.salary.rule.percentage.base,create_uid:0
+#: field:wizard.employee.liquidation,create_uid:0
+#: field:wizard.import.bonos,create_uid:0
+#: field:wizard.import.egresos,create_uid:0
+#: field:wizard.import.ingresos,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.adm.bono,create_date:0
+#: field:hr.adm.incomes,create_date:0
+#: field:hr.bono,create_date:0
+#: field:hr.employee.liquidation,create_date:0
+#: field:hr.expense,create_date:0
+#: field:hr.expense.type,create_date:0
+#: field:hr.income,create_date:0
+#: field:hr.payroll.export,create_date:0
+#: field:hr.salary.rule.percentage.base,create_date:0
+#: field:wizard.employee.liquidation,create_date:0
+#: field:wizard.import.bonos,create_date:0
+#: field:wizard.import.egresos,create_date:0
+#: field:wizard.import.ingresos,create_date:0
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: bit_hr_payroll_ec
+#: model:res.partner.bank.type,name:bit_hr_payroll_ec.bank_corriente
+msgid "Cuenta Corriente"
+msgstr "Cuenta Corriente"
+
+#. module: bit_hr_payroll_ec
+#: model:res.partner.bank.type,name:bit_hr_payroll_ec.bank_ahorro
+msgid "Cuenta de Ahorro"
+msgstr "Cuenta de Ahorro"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.payslip.employees:bit_hr_payroll_ec.view_hr_payslip_by_employees_inherited
+msgid "Data"
+msgstr "Datos"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.payslip.analysis,date_from:0
+#: field:hr.payslip.department.analysis,date_from:0
+#: field:hr.payslip.employees,date_from:0
+#: field:hr.payslip.last.analysis,date_from:0
+#: field:hr.payslip.last.analysis.categ,date_from:0
+#: field:hr.payslip.last.analysis.categ2,date_from:0
+#: view:website:bit_hr_payroll_ec.report_payslip_confidential2
+msgid "Date From"
+msgstr "Fecha desde"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.payslip.analysis,date_to:0
+#: field:hr.payslip.department.analysis,date_to:0
+#: field:hr.payslip.employees,date_to:0
+#: field:hr.payslip.last.analysis,date_to:0
+#: field:hr.payslip.last.analysis.categ,date_to:0
+#: field:hr.payslip.last.analysis.categ2,date_to:0
+#: view:website:bit_hr_payroll_ec.report_payslip_confidential2
+msgid "Date To"
+msgstr "Fecha hasta"
+
+#. module: bit_hr_payroll_ec
+#: help:hr.payslip.employees,struct_id:0
+msgid "Defines the rules that have to be applied to this payslip, accordingly to the contract chosen. If you let empty the field contract, this field isn't mandatory anymore and thus the rules applied will be all the rules set on the structure of all contracts of the employee valid for the chosen period"
+msgstr "Define las reglas salariales a aplicar en las nóminas del empleado."
+
+#. module: bit_hr_payroll_ec
+#: field:hr.payroll.analysis,department_id:0
+msgid "Departamento"
+msgstr "Departamento"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.payslip,department_id:0
+#: field:hr.payslip.department.analysis,department:0
+#: field:hr.payslip.line,department_id:0
+msgid "Department"
+msgstr "Departmento"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.payslip.department.analysis:bit_hr_payroll_ec.view_hr_payslip_department_analysis_graph
+msgid "Department Pay Slip"
+msgstr "Pago por departamentos"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.actions.act_window,name:bit_hr_payroll_ec.action_hr_payslip_department_analysis_all
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_hr_payslip_department_analysis_all
+msgid "Department Pay Slip Analysis"
+msgstr "Análisis de nómina por departamento"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.payslip.department.analysis:bit_hr_payroll_ec.view_hr_payslip_department_analysis_search
+msgid "Department Pay Slip analysis"
+msgstr "Análisis de nómina por departamento"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.adm.bono,name:0
+#: field:hr.adm.incomes,name:0
+#: field:hr.expense,name:0
+#: field:hr.expense.type,name:0
+#: field:hr.payroll.analysis,salary_rule_id:0
+msgid "Descripcion"
+msgstr "Descripción"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.bono,name:0
+#: field:hr.income,name:0
+#: field:hr.salary.rule.percentage.base,name:0
+msgid "Description"
+msgstr "Description"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.payroll.export,date_from:0
+msgid "Desde"
+msgstr "Desde"
+
+#. module: bit_hr_payroll_ec
+#: selection:hr.employee.liquidation,type:0
+#: selection:wizard.employee.liquidation,type:0
+msgid "Deshaucio"
+msgstr "Deshaucio"
+
+#. module: bit_hr_payroll_ec
+#: view:website:bit_hr_payroll_ec.report_payslip_confidential2
+msgid "Designation"
+msgstr "Designación"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.contract,day_pay:0
+msgid "Día de Pago"
+msgstr "Día de Pago"
+
+#. module: bit_hr_payroll_ec
+#: view:wizard.import.egresos:bit_hr_payroll_ec.wizard_import_egresos_view
+msgid "EGRESOS DE EMPLEADOS"
+msgstr "EGRESOS DE EMPLEADOS"
+
+#. module: bit_hr_payroll_ec
+#: model:hr.holidays.status,name:bit_hr_payroll_ec.hr_holidays_status_enfermedad
+msgid "ENFERMEDAD"
+msgstr "ENFERMEDAD"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.expense:bit_hr_payroll_ec.hr_expense_view
+#: model:ir.actions.act_window,name:bit_hr_payroll_ec.action_hr_expense
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_hr_Egresos
+msgid "Egresos"
+msgstr "Egresos"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.expense:bit_hr_payroll_ec.view_hr_expense_form
+#: view:hr.expense:bit_hr_payroll_ec.view_hr_expense_tree
+msgid "Egresos de Empleado"
+msgstr "Egresos de Empleado"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_wizard_import_egresos
+msgid "Egresos de Empleados"
+msgstr "Egresos de Empleados"
+
+#. module: bit_hr_payroll_ec
+#: sql_constraint:hr.adm.bono:0
+#: sql_constraint:hr.adm.incomes:0
+#: sql_constraint:hr.expense.type:0
+msgid "El codigo debe ser unico"
+msgstr "El codigo debe ser unico"
+
+#. module: bit_hr_payroll_ec
+#: sql_constraint:hr.expense:0
+msgid "El pago por mes es único."
+msgstr "El pago por mes es único."
+
+#. module: bit_hr_payroll_ec
+#: view:website:bit_hr_payroll_ec.report_payslip_confidential2
+msgid "Email"
+msgstr "Correo electrónico"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.employee.liquidation,employee_id:0
+#: field:hr.expense,employee_id:0
+#: field:hr.income,employee_id:0
+#: view:website:bit_hr_payroll_ec.report_payroll_resume
+#: field:wizard.employee.liquidation,employee_id:0
+msgid "Empleado"
+msgstr "Empleado"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.payslip.analysis,employee_id:0
+#: field:hr.payslip.department.analysis,employee_id:0
+#: field:hr.payslip.last.analysis,employee_id:0
+#: field:hr.payslip.last.analysis.categ,employee_id:0
+#: field:hr.payslip.last.analysis.categ2,employee_id:0
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_employee
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: bit_hr_payroll_ec
+#: code:addons/bit_hr_payroll_ec/wizard/wizard_employee_liquidation.py:99
+#: view:hr.employee.liquidation:bit_hr_payroll_ec.view_employee_liquidation_filter
+#: view:hr.employee.liquidation:bit_hr_payroll_ec.view_employee_liquidation_form
+#: view:hr.employee.liquidation:bit_hr_payroll_ec.view_employee_liquidation_tree
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_employee_liquidation
+#, python-format
+msgid "Employee Liquidation"
+msgstr "Liquidación de empleados"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.payslip.analysis,employee_name:0
+#: field:hr.payslip.department.analysis,employee_name:0
+#: field:hr.payslip.last.analysis,employee_name:0
+#: field:hr.payslip.last.analysis.categ,employee_name:0
+#: field:hr.payslip.last.analysis.categ2,employee_name:0
+msgid "Employee Name"
+msgstr "Nombre del empleado"
+
+#. module: bit_hr_payroll_ec
+#: code:addons/bit_hr_payroll_ec/hr_contract_period.py:97
+#, python-format
+msgid "Error !"
+msgstr "Error !"
+
+#. module: bit_hr_payroll_ec
+#: field:wizard.import.egresos,state:0
+#: field:wizard.import.ingresos,state:0
+msgid "Estado"
+msgstr "Estado"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.adm.incomes,payroll_label:0
+#: field:hr.expense.type,payroll_label:0
+msgid "Etiqueta en el Rol de Pagos"
+msgstr "Etiqueta en el Rol de Pagos"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_expense
+msgid "Expenses for Employee"
+msgstr "Expenses for Employee"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.employee.liquidation,date:0
+#: field:hr.payroll.analysis,date_create:0
+#: field:wizard.employee.liquidation,date:0
+#: field:wizard.import.bonos,date:0
+#: field:wizard.import.egresos,date:0
+#: field:wizard.import.ingresos,date:0
+msgid "Fecha"
+msgstr "Fecha"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.bono,date:0
+#: field:hr.expense,date:0
+#: field:hr.income,date:0
+msgid "Fecha de Registro"
+msgstr "Fecha de Registro"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.holidays,finalizado:0
+msgid "Finalizado"
+msgstr "Finalizado"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.expense.type,fondo_reserva:0
+msgid "Fondo de Reserva"
+msgstr "Fondo de Reserva"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.actions.act_window,name:bit_hr_payroll_ec.wizard_import_bonos
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_wizard_import_bonos
+#: view:wizard.import.bonos:bit_hr_payroll_ec.wizard_import_bonos_view
+msgid "Generar"
+msgstr "Generar"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_payslip_employees
+msgid "Generate payslips for all selected employees"
+msgstr "Generar las nóminas para todos los empleados seleccionados"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_sgdoc
+msgid "Gestión Documentos"
+msgstr "Gestión Documentos"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.adm.bono:bit_hr_payroll_ec.hr_adm_bono_tree_view
+#: view:hr.adm.incomes:bit_hr_payroll_ec.hr_adm_income_tree_view
+#: view:hr.expense.type:bit_hr_payroll_ec. hr_expense_type_tree_view
+msgid "Gestión de Documentos"
+msgstr "Gestión de Documentos"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.payroll.export,date_to:0
+msgid "Hasta"
+msgstr "Hasta"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.income,horas:0
+msgid "Horas"
+msgstr "Horas"
+
+#. module: bit_hr_payroll_ec
+#: field:resource.calendar,hours_work_per_week:0
+msgid "Hours per week"
+msgstr "Hours per week"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.adm.bono,id:0
+#: field:hr.adm.incomes,id:0
+#: field:hr.bono,id:0
+#: field:hr.employee.liquidation,id:0
+#: field:hr.expense,id:0
+#: field:hr.expense.type,id:0
+#: field:hr.income,id:0
+#: field:hr.payroll.analysis,id:0
+#: field:hr.payroll.export,id:0
+#: field:hr.payslip.analysis,id:0
+#: field:hr.payslip.department.analysis,id:0
+#: field:hr.payslip.last.analysis,id:0
+#: field:hr.payslip.last.analysis.categ,id:0
+#: field:hr.payslip.last.analysis.categ2,id:0
+#: field:hr.salary.rule.percentage.base,id:0
+#: field:report.bit_hr_payroll_ec.report_payroll_resume,id:0
+#: field:report.bit_hr_payroll_ec.report_payslip_confidential2,id:0
+#: field:wizard.employee.liquidation,id:0
+#: field:wizard.import.bonos,id:0
+#: field:wizard.import.egresos,id:0
+#: field:wizard.import.ingresos,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: bit_hr_payroll_ec
+#: view:wizard.import.ingresos:bit_hr_payroll_ec.wizard_import_ingresos_view
+msgid "INGRESOS DE EMPLEADOS"
+msgstr "INGRESOS DE EMPLEADOS"
+
+#. module: bit_hr_payroll_ec
+#: view:website:bit_hr_payroll_ec.report_payslip_confidential2
+msgid "Identification No"
+msgstr "Nº identificación"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.payslip.analysis,identification_id:0
+#: field:hr.payslip.department.analysis,identification_id:0
+#: field:hr.payslip.last.analysis,identification_id:0
+#: field:hr.payslip.last.analysis.categ,identification_id:0
+#: field:hr.payslip.last.analysis.categ2,identification_id:0
+msgid "Identity card"
+msgstr "Tarjeta de identidad"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.actions.act_window,name:bit_hr_payroll_ec.wizard_import_egresos
+#: model:ir.actions.act_window,name:bit_hr_payroll_ec.wizard_import_ingresos
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_wizard_import_egresos
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_wizard_import_ingresos
+msgid "Importar"
+msgstr "Importar"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.payroll.export:bit_hr_payroll_ec.view_hr_payroll_export
+msgid "Imprimir"
+msgstr "Imprimir"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.expense.type,impuesto_renta:0
+msgid "Impuesto Renta"
+msgstr "Impuesto Renta"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_income
+msgid "Incomes for Employee"
+msgstr "Incomes for Employee"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.income:bit_hr_payroll_ec.hr_income_view
+#: model:ir.actions.act_window,name:bit_hr_payroll_ec.action_hr_income
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_hr_Ingresos
+#: view:wizard.import.egresos:bit_hr_payroll_ec.wizard_import_egresos_view
+#: view:wizard.import.ingresos:bit_hr_payroll_ec.wizard_import_ingresos_view
+msgid "Ingresos"
+msgstr "Ingresos"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.income:bit_hr_payroll_ec.view_hr_income_form
+#: view:hr.income:bit_hr_payroll_ec.view_hr_income_tree
+msgid "Ingresos de Empleado"
+msgstr "Ingresos de Empleado"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_wizard_import_ingresos
+msgid "Ingresos de empleados"
+msgstr "Ingresos de empleados"
+
+#. module: bit_hr_payroll_ec
+#: code:addons/bit_hr_payroll_ec/hr_payroll.py:235
+#, python-format
+msgid "Invalid action !"
+msgstr "Invalid action !"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.payslip.last.analysis:bit_hr_payroll_ec.view_hr_payslip_last_analysis_graph
+msgid "Last Pay Slip"
+msgstr "Último Rol de Pago"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.actions.act_window,name:bit_hr_payroll_ec.action_hr_payslip_last_analysis_all
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_hr_payslip_last_analysis_all
+msgid "Last Pay Slip Analysis"
+msgstr "Análisis último rol"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.actions.act_window,name:bit_hr_payroll_ec.action_hr_payslip_last_analysis_categ_all
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_hr_payslip_last_categ_analysis_all
+msgid "Last Pay Slip Analysis by Categories"
+msgstr "Análisis último rol por categorías"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.payslip.last.analysis.categ:bit_hr_payroll_ec.view_hr_payslip_last_analysis_categ_graph
+msgid "Last Pay Slip By Categories"
+msgstr "Último rol por categorías"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.payslip.last.analysis.categ:bit_hr_payroll_ec.view_hr_payslip_last_analysis_categ_search
+msgid "Last Pay Slip Categories analysis"
+msgstr "Análisis último rol por categorías"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.payslip.last.analysis.categ2:bit_hr_payroll_ec.view_hr_payslip_last_analysis_categ2_graph
+#: view:hr.payslip.last.analysis.categ2:bit_hr_payroll_ec.view_hr_payslip_last_analysis_categ2_search
+msgid "Last Pay Slip Provitions"
+msgstr "Último análisis proviciones"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.payslip.last.analysis:bit_hr_payroll_ec.view_hr_payslip_last_analysis_search
+msgid "Last Pay Slip analysis"
+msgstr "Análisis último rol"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.employee,last_pay_slip_amount:0
+msgid "Last Slip Amount"
+msgstr "Último pago"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.employee,last_pay_slip_date:0
+msgid "Last Slip Date"
+msgstr "Fecha último rol"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.adm.bono,write_uid:0
+#: field:hr.adm.incomes,write_uid:0
+#: field:hr.bono,write_uid:0
+#: field:hr.employee.liquidation,write_uid:0
+#: field:hr.expense,write_uid:0
+#: field:hr.expense.type,write_uid:0
+#: field:hr.income,write_uid:0
+#: field:hr.payroll.export,write_uid:0
+#: field:hr.salary.rule.percentage.base,write_uid:0
+#: field:wizard.employee.liquidation,write_uid:0
+#: field:wizard.import.bonos,write_uid:0
+#: field:wizard.import.egresos,write_uid:0
+#: field:wizard.import.ingresos,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.adm.bono,write_date:0
+#: field:hr.adm.incomes,write_date:0
+#: field:hr.bono,write_date:0
+#: field:hr.employee.liquidation,write_date:0
+#: field:hr.expense,write_date:0
+#: field:hr.expense.type,write_date:0
+#: field:hr.income,write_date:0
+#: field:hr.payroll.export,write_date:0
+#: field:hr.salary.rule.percentage.base,write_date:0
+#: field:wizard.employee.liquidation,write_date:0
+#: field:wizard.import.bonos,write_date:0
+#: field:wizard.import.egresos,write_date:0
+#: field:wizard.import.ingresos,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_holidays
+msgid "Leave"
+msgstr "Ausencia"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.employee.liquidation:bit_hr_payroll_ec.wizard_employee_liquidation_view
+msgid "Liquidacion"
+msgstr "Liquidacion"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.employee.liquidation:bit_hr_payroll_ec.wizard_employee_liquidation_view
+msgid "Liquidacion de empleados"
+msgstr "Liquidacion de empleados"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_hr_root_liquidaciones
+msgid "Liquidaciones"
+msgstr "Liquidaciones"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.actions.act_window,name:bit_hr_payroll_ec.hr_employee_liquidation_action
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.hr_employee_liquidation_menu
+msgid "Liquidaciones Realizadas"
+msgstr "Liquidaciones Realizadas"
+
+#. module: bit_hr_payroll_ec
+#: model:hr.holidays.status,name:bit_hr_payroll_ec.hr_holidays_status_maternidad
+msgid "MATERNIDAD"
+msgstr "MATERNIDAD"
+
+#. module: bit_hr_payroll_ec
+#: view:website:bit_hr_payroll_ec.report_payslip_confidential2
+msgid "Name"
+msgstr "Nombre"
+
+#. module: bit_hr_payroll_ec
+#: selection:hr.bono,state:0
+#: selection:hr.expense,state:0
+#: selection:hr.income,state:0
+msgid "No Procesado"
+msgstr "No Procesado"
+
+#. module: bit_hr_payroll_ec
+#: selection:hr.bono,state:0
+#: selection:hr.income,state:0
+msgid "No Usado"
+msgstr "No Usado"
+
+#. module: bit_hr_payroll_ec
+#: code:addons/bit_hr_payroll_ec/hr_contract_period.py:97
+#, python-format
+msgid "No period defined for this date !\n"
+"Please create a fiscal year."
+msgstr "No period defined for this date !\n"
+"Please create a fiscal year."
+
+#. module: bit_hr_payroll_ec
+#: field:hr.contract,number_of_year:0
+msgid "No. de años de servicio"
+msgstr "No. de años de servicio"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.payroll.export,name:0
+msgid "Nombre"
+msgstr "Nombre"
+
+#. module: bit_hr_payroll_ec
+#: code:addons/bit_hr_payroll_ec/hr_payroll.py:154
+#, python-format
+msgid "Normal Working Days paid at 100%"
+msgstr "Normal Working Days paid at 100%"
+
+#. module: bit_hr_payroll_ec
+#: help:resource.calendar,hours_work_per_week:0
+msgid "Number of hours of work per week."
+msgstr "Number of hours of work per week."
+
+#. module: bit_hr_payroll_ec
+#: field:wizard.import.ingresos,num_registrosb:0
+msgid "Numero de registros con valor 0"
+msgstr "Numero de registros con valor 0"
+
+#. module: bit_hr_payroll_ec
+#: field:wizard.import.egresos,num_registrosb:0
+msgid "Numero de registros erroneos"
+msgstr "Numero de registros erroneos"
+
+#. module: bit_hr_payroll_ec
+#: field:wizard.import.egresos,num_registrosc:0
+#: field:wizard.import.ingresos,num_registrosc:0
+msgid "Numero de registros procesados"
+msgstr "Numero de registros procesados"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.income,payslip_id:0
+msgid "Nómina"
+msgstr "Nómina"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.employee.liquidation,observation:0
+#: field:wizard.employee.liquidation,observation:0
+msgid "Observacion"
+msgstr "Observación"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.adm.incomes,orden:0
+#: field:hr.expense.type,orden:0
+#: field:hr.payroll.analysis,orden:0
+msgid "Orden"
+msgstr "Orden"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.payslip.analysis,order:0
+#: field:hr.payslip.department.analysis,order:0
+#: field:hr.payslip.last.analysis,order:0
+#: field:hr.payslip.last.analysis.categ,order:0
+#: field:hr.payslip.last.analysis.categ2,order:0
+#: field:hr.salary.rule,order:0
+msgid "Order"
+msgstr "Orden"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_payslip
+msgid "Pay Slip"
+msgstr "Nómina"
+
+#. module: bit_hr_payroll_ec
+#: view:website:bit_hr_payroll_ec.report_payslip_confidential2
+msgid "Pay Slip Confidential"
+msgstr "Nómina confidencial"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_payslip_department_analysis
+msgid "Pay Slip Department Analysis"
+msgstr "Análisis de Pago por Departamentos"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_payslip_last_analysis
+msgid "Pay Slip Last Analysis"
+msgstr "Análisis último rol"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_payslip_last_analysis_categ
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_payslip_last_analysis_categ2
+msgid "Pay Slip Last Analysis by Categories"
+msgstr "Análisis úlltimo rol por categorías"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.payslip.analysis:bit_hr_payroll_ec.view_hr_payslip_analysis_graph
+msgid "Pay slip"
+msgstr "Nómina"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.actions.act_window,name:bit_hr_payroll_ec.action_hr_payslip_analysis_all
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_payslip_analysis
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_hr_payslip_analysis_all
+msgid "Pay slip Analysis"
+msgstr "Análisis de Nómina"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.payslip.analysis:bit_hr_payroll_ec.view_hr_payslip_analysis_search
+msgid "Pay slip analysis"
+msgstr "Análisis de Nómina"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.actions.report.xml,name:bit_hr_payroll_ec.action_report_payslip_resume
+msgid "Payroll Resume"
+msgstr "Resumen Nómina"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_payslip_line
+msgid "Payslip Line"
+msgstr "Línea de nómina"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.payslip.analysis,paylist_name:0
+#: field:hr.payslip.department.analysis,paylist_name:0
+#: field:hr.payslip.last.analysis,paylist_name:0
+#: field:hr.payslip.last.analysis.categ,paylist_name:0
+#: field:hr.payslip.last.analysis.categ2,paylist_name:0
+msgid "Payslip Name"
+msgstr "Nombre de Nómina"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.salary.rule.percentage.base,base:0
+msgid "Percentage based on"
+msgstr "Percentage based on"
+
+#. module: bit_hr_payroll_ec
+#: selection:hr.employee.liquidation,type:0
+#: selection:wizard.employee.liquidation,type:0
+msgid "Por Despido Intempestivo 3 meses"
+msgstr "Por Despido Intempestivo 3 meses"
+
+#. module: bit_hr_payroll_ec
+#: selection:hr.employee.liquidation,type:0
+#: selection:wizard.employee.liquidation,type:0
+msgid "Por Despido Intempestivo Meses Faltantes"
+msgstr "Por Despido Intempestivo Meses Faltantes"
+
+#. module: bit_hr_payroll_ec
+#: selection:hr.bono,state:0
+#: selection:hr.expense,state:0
+#: selection:hr.income,state:0
+msgid "Procesado"
+msgstr "Procesado"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.employee.liquidation:bit_hr_payroll_ec.wizard_employee_liquidation_view
+msgid "Procesar"
+msgstr "Procesar"
+
+#. module: bit_hr_payroll_ec
+#: view:wizard.import.egresos:bit_hr_payroll_ec.wizard_import_egresos_view
+#: view:wizard.import.ingresos:bit_hr_payroll_ec.wizard_import_ingresos_view
+msgid "Procesar Archivo"
+msgstr "Procesar Archivo"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.actions.server,name:bit_hr_payroll_ec.hr_expense_process_action
+msgid "Process Expenses"
+msgstr "Procesar egresos"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.actions.server,name:bit_hr_payroll_ec.hr_income_process_action
+msgid "Process Incomes"
+msgstr "Procesar Ingresos"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.actions.act_window,name:bit_hr_payroll_ec.wizard_employee_liquidation
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_wizard_employee_liquidation
+msgid "Process Liquidation"
+msgstr "Procesar Liquidación"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_holidays_public
+msgid "Public Holidays"
+msgstr "Vacaciones públicas"
+
+#. module: bit_hr_payroll_ec
+#: view:website:bit_hr_payroll_ec.report_payslip_confidential2
+msgid "Quantity/rate"
+msgstr "Cantidad/Tasa"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.payslip.analysis,number:0
+#: field:hr.payslip.department.analysis,number:0
+#: field:hr.payslip.last.analysis,number:0
+#: field:hr.payslip.last.analysis.categ,number:0
+#: field:hr.payslip.last.analysis.categ2,number:0
+#: view:website:bit_hr_payroll_ec.report_payslip_confidential2
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_hr_expense
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_hr_income
+msgid "Registrar"
+msgstr "Registrar"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.income,h_registro:0
+msgid "Registrar En Horas?"
+msgstr "Registrar En Horas?"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.adm.bono:bit_hr_payroll_ec.hr_adm_bono_form_view
+#: view:hr.adm.incomes:bit_hr_payroll_ec.hr_adm_income_form_view
+#: view:hr.expense.type:bit_hr_payroll_ec. hr_expense_type_form_view
+msgid "Registro"
+msgstr "Registro"
+
+#. module: bit_hr_payroll_ec
+#: selection:hr.employee.liquidation,type:0
+#: selection:wizard.employee.liquidation,type:0
+msgid "Renuncia"
+msgstr "Renuncia"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_resource_calendar
+msgid "Resource Calendar"
+msgstr "Calendario recurso"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_base_retention
+msgid "Retention Table"
+msgstr "Retention Table"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_base_retencion_line
+msgid "Retention Table Line"
+msgstr "Retention Table Line"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.payroll.export:bit_hr_payroll_ec.view_hr_payroll_export
+#: model:ir.actions.act_window,name:bit_hr_payroll_ec.action_hr_payroll_export
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_payroll_export
+#: model:ir.ui.menu,name:bit_hr_payroll_ec.menu_account_central_journal
+msgid "Rol Resumido"
+msgstr "Rol Resumido"
+
+#. module: bit_hr_payroll_ec
+#: view:website:bit_hr_payroll_ec.report_payroll_resume
+msgid "Rol de Pagos"
+msgstr "Rol de Pagos"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.payslip.analysis,salary_rule:0
+#: field:hr.payslip.department.analysis,salary_rule:0
+#: field:hr.payslip.last.analysis,salary_rule:0
+#: field:hr.payslip.last.analysis.categ,salary_rule:0
+#: field:hr.payslip.last.analysis.categ2,salary_rule:0
+msgid "Salary Rule"
+msgstr "Regla salarial"
+
+#. module: bit_hr_payroll_ec
+#: help:hr.expense.type,fondo_reserva:0
+msgid "Seleccione si es su valor se toma en cuenta para el fondo de reserva"
+msgstr "Seleccione si es su valor se toma en cuenta para el fondo de reserva"
+
+#. module: bit_hr_payroll_ec
+#: sql_constraint:hr.payslip:0
+msgid "Solo se puede generar un Rol por período !"
+msgstr "Solo se puede generar un Rol por período !"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.bono,state:0
+#: field:hr.expense,state:0
+#: field:hr.income,state:0
+msgid "Status"
+msgstr "Status"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.payslip.employees,struct_id:0
+msgid "Structure"
+msgstr "Estructura"
+
+#. module: bit_hr_payroll_ec
+#: view:wizard.import.egresos:bit_hr_payroll_ec.wizard_import_egresos_view
+#: view:wizard.import.ingresos:bit_hr_payroll_ec.wizard_import_ingresos_view
+msgid "Subir archivo .CSV"
+msgstr "Subir archivo .CSV"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.payslip:bit_hr_payroll_ec.view_hr_payroll_filter_inherited
+#: view:hr.payslip.analysis:bit_hr_payroll_ec.view_hr_payslip_analysis_search
+msgid "This Month"
+msgstr "Este mes"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.bono,adm_id:0
+#: field:wizard.import.bonos,adm_id:0
+msgid "Tipo de Bono"
+msgstr "Tipo de Bono"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.expense,expense_type_id:0
+#: field:wizard.import.egresos,expense_type_id:0
+msgid "Tipo de Egreso"
+msgstr "Tipo de Egreso"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.income,adm_id:0
+#: field:wizard.import.ingresos,adm_id:0
+msgid "Tipo de Ingreso"
+msgstr "Tipo de Ingreso"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.employee.liquidation,type:0
+#: field:wizard.employee.liquidation,type:0
+msgid "Tipo de liquidacion"
+msgstr "Tipo de liquidacion"
+
+#. module: bit_hr_payroll_ec
+#: view:website:bit_hr_payroll_ec.report_payslip_confidential2
+msgid "Total"
+msgstr "Total"
+
+#. module: bit_hr_payroll_ec
+#: help:hr.contract,number_of_year:0
+#: help:hr.payslip,anios_trabajados:0
+msgid "Total years of work experience"
+msgstr "Total de años de experiencia laboral"
+
+#. module: bit_hr_payroll_ec
+#: model:hr.holidays.status,name:bit_hr_payroll_ec.hr_holidays_status_vacacion
+msgid "Vacaciones pagadas"
+msgstr "VACACIONES PAGADAS"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.bono,value:0
+#: field:hr.expense,value:0
+#: field:hr.income,value:0
+#: field:hr.payroll.analysis,amount:0
+msgid "Valor"
+msgstr "Valor"
+
+#. module: bit_hr_payroll_ec
+#: field:hr.adm.bono,default_value:0
+#: field:hr.adm.incomes,default_value:0
+#: field:hr.expense.type,default_value:0
+msgid "Valor Por Defecto"
+msgstr "Valor Por Defecto"
+
+#. module: bit_hr_payroll_ec
+#: code:addons/bit_hr_payroll_ec/wizard/hr_payroll_payslips_by_employees.py:53
+#, python-format
+msgid "Warning!"
+msgstr "Advertencia!"
+
+#. module: bit_hr_payroll_ec
+#: sql_constraint:hr.bono:0
+#: sql_constraint:hr.income:0
+msgid "Ya se ha cargado la informacion de este rol !."
+msgstr "Ya se ha cargado la informacion de este rol !."
+
+#. module: bit_hr_payroll_ec
+#: code:addons/bit_hr_payroll_ec/wizard/hr_payroll_payslips_by_employees.py:53
+#, python-format
+msgid "You must select employee(s) to generate payslip(s)."
+msgstr "Debe seleccionar empleados para generar las nóminas."
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_hr_bono
+msgid "clase bonos"
+msgstr "clase bonos"
+
+#. module: bit_hr_payroll_ec
+#: model:ir.model,name:bit_hr_payroll_ec.model_wizard_employee_liquidation
+msgid "liquidacion de empleados"
+msgstr "liquidacion de empleados"
+
+#. module: bit_hr_payroll_ec
+#: view:hr.payroll.export:bit_hr_payroll_ec.view_hr_payroll_export
+msgid "or"
+msgstr "or"
+
+#. module: bit_hr_payroll_ec
+#: help:hr.salary.rule.percentage.base,base:0
+msgid "result will be affected to a variable"
+msgstr "result will be affected to a variable"
+

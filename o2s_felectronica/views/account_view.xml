@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+
+    <!--
+	Tax Codes Aumenta codigo facturacion electronica y codigo tarifa %
+      -->
+  <record id="view_account_tax_code_factelec_form" model="ir.ui.view">
+      <field name="name">account.tax.code.factelec.form</field>
+      <field name="model">account.tax.code</field>
+      <field name="inherit_id" ref="account.view_tax_code_form"/>
+      <field name="arch" type="xml">
+      <field name="sign" position="after">
+        <separator colspan="4" string="Informacion Electronica" />
+      	<field name="cod_imp_fe" required = "1"/>
+      	<field name="cod_tarifa" attrs="{'required':[('cod_imp_fe','!=','1')]}"/>
+      	<field name="tarifa" required = "1"/>
+      </field>
+      </field>
+   </record>
+  </data>
+</openerp>

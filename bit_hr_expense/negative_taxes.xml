@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+  <data>
+        <record id="view_hr_negative_taxes_filter" model="ir.ui.view">
+            <field name="name">hr.negative.taxes</field>
+            <field name="model">negative.taxes</field>
+            <field name="arch" type="xml">
+                <search string="Historial de Imp. Negativos">
+                    <field name="employee_id" string="Empleado"/>
+                    <separator/>
+                    <group expand="0" string="Agrupar por">
+                        <filter string="Empleado" icon="terp-personal" domain="[]" context="{'group_by':'employee_id'}"/>
+                        <filter string="Fecha" icon="terp-personal" domain="[]" context="{'group_by':'create_date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        <record id="view_negative_taxes_tree" model="ir.ui.view">
+            <field name="name">negative.taxes.tree</field>
+            <field name="model">negative.taxes</field>
+            <field name="arch" type="xml">
+                <tree string="Impuestos Negativos" create="0" editable="0">
+                    <field name="employee_id"/>
+                    <field name="amount"/>
+                    <field name="user_id"/>
+                    <field name="create_date" string="Fecha"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_hr_negative_taxes_tree_action" model="ir.actions.act_window">
+            <field name="name">Historial Imp. Negativos</field>
+            <field name="res_model">negative.taxes</field>
+            <field name="view_type">form</field>
+            <field name="search_view_id" ref="view_hr_negative_taxes_filter"/>
+            <field name="view_id" ref="view_negative_taxes_tree"/>
+        </record>
+
+        <menuitem action="view_hr_negative_taxes_tree_action" id="hr_negative_taxes_menu" parent="hr.menu_hr_configuration"/>
+
+  </data>
+</openerp>

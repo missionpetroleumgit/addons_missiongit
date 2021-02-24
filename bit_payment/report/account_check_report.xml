@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <report
+                id="action_report_account_voucher_check"
+                model="account.voucher"
+                string="Cheque Austro"
+                report_type="qweb-pdf"
+                name="bit_payment.report_check_supp"
+                file="bit_payment.report_check_supp"
+                />
+
+        <report
+                id="action_report_check_bco_pacifico"
+                model="account.voucher"
+                string="Cheque Pacifico"
+                report_type="qweb-pdf"
+                name="bit_payment.report_check_bco_pacifico"
+                file="bit_payment.report_check_bco_pacifico"
+                />
+
+        <report
+                id="action_report_check_bco_internacional"
+                model="account.bank.statement"
+                string="Cheque Austro"
+                report_type="qweb-pdf"
+                name="bit_payment.report_check_bco_internacional"
+                file="bit_payment.report_check_bco_internacional"
+                />
+
+	<report
+                id="account_voucher_pichincha_check_report"
+                model="account.voucher"
+                string="Cheque Pichincha"
+                report_type="qweb-pdf"
+                name="bit_payment.a_voucher_pichincha_check_report"
+                file="bit_payment.a_voucher_pichincha_check_report"
+                />
+
+        <report
+                id="account_statement_pichincha_check_report"
+                model="account.bank.statement"
+                string="Cheque Pichincha"
+                report_type="qweb-pdf"
+                name="bit_payment.a_statement_pichincha_check_report"
+                file="bit_payment.a_statement_pichincha_check_report"
+                />
+
+        <!--
+                <record id="action_report_account_voucher_check" model="ir.actions.report.xml">
+                    <field name="paperformat_id" ref="bit_payment.paperformat_check"/>
+                </record>
+         -->
+
+        <report
+                id="action_report_check_egresoo2s"
+                model="account.voucher"
+                string="Comprobante de Egreso"
+                report_type="qweb-pdf"
+                name="bit_payment.report_check_egreso"
+                file="bit_payment.report_check_egreso"
+                />
+
+        <!--<report-->
+                <!--id="report_print_egreso_cheque"-->
+                <!--model="account.voucher"-->
+                <!--string="Cheque/Egreso"-->
+                <!--report_type="qweb-pdf"-->
+                <!--name="bit_payment.report_print_egreso_hr"-->
+                <!--file="bit_payment.report_print_egreso_cheque"-->
+                <!--/>-->
+
+        <!--NUEVOS FORMATOS REPORTES PARA ACCOUNT VOUCHER Y STATEMENT -->
+
+        <report
+                id="report_bank_statement_inter_check"
+                model="account.bank.statement"
+                string="Cheque Pacifico"
+                report_type="qweb-pdf"
+                name="bit_payment.report_statement_inter_check"
+                file="bit_payment.report_statement_inter_check"
+                />
+
+        <report
+                id="account_voucher_solidario_check_report"
+                model="account.voucher"
+                string="Cheque Guayaquil"
+                report_type="qweb-pdf"
+                name="bit_payment.voucher_solidario_check_report"
+                file="bit_payment.voucher_solidario_check_report"
+                />
+
+       <report
+                id="account_statement_solidario_check_report"
+                model="account.bank.statement"
+                string="Cheque Guayaquil"
+                report_type="qweb-pdf"
+                name="bit_payment.statement_solidario_check_report"
+                file="bit_payment.statement_solidario_check_report"
+                />
+
+    </data>
+</openerp>

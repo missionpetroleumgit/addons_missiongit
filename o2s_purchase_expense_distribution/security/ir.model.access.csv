@@ -1,0 +1,19 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_purchase_cost_order,purchase.cost.order,model_purchase_cost_order,purchase.group_purchase_user,1,1,1,1
+access_purchase_cost_order_manager,purchase.cost.order,model_purchase_cost_order,purchase.group_purchase_manager,1,1,1,1
+
+access_purchase_cost_order_line,purchase.cost.order.line user,model_purchase_cost_order_line,purchase.group_purchase_user,1,1,1,1
+access_purchase_cost_order_line_manager,purchase.cost.order.line manager,model_purchase_cost_order_line,purchase.group_purchase_manager,1,0,0,0
+
+access_purchase_cost_order_expense,purchase.cost.order.expense,model_purchase_cost_order_expense,purchase.group_purchase_user,1,1,1,1
+access_purchase_cost_order_expense_manager,purchase.cost.order.expense,model_purchase_cost_order_expense,purchase.group_purchase_manager,1,1,1,1
+
+access_purchase_cost_order_line_expense,purchase.cost.order.line.expense user,model_purchase_cost_order_line_expense,purchase.group_purchase_user,1,1,1,1
+access_purchase_cost_order_line_expense_manager,purchase.cost.order.line.expense manager,model_purchase_cost_order_line_expense,purchase.group_purchase_manager,1,0,0,0
+
+access_purchase_cost_expense_type,purchase.cost.expense.type user,model_purchase_cost_expense_type,purchase.group_purchase_user,1,1,1,1
+access_purchase_cost_expense_type_manager,purchase.cost.expense.type manager,model_purchase_cost_expense_type,purchase.group_purchase_manager,1,0,0,0
+
+access_purchase_cost_order_log,purchase.cost.order.log user,model_purchase_cost_order_log,purchase.group_purchase_user,1,1,1,1
+access_purchase_cost_order_log_manager,purchase.cost.order.log manager,model_purchase_cost_order_log,purchase.group_purchase_manager,1,0,0,0

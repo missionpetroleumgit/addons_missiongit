@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="sancion_report">
+    <t t-call="report.html_container">
+            <div class="page">
+                <table class="table table-bordered" border="2">
+                    <thead>
+                        <tr>
+                            <td><img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height:120px"/></td>
+                            <td class="text-center">
+                                <h4>Departamento de Recursos Humanos</h4>
+                                <h4>Accion de Personal</h4>
+                            </td>
+                        </tr>
+                    </thead>
+                </table>
+
+                <table class="table" border="2">
+                    <thead>
+                        <tr>
+                            <th><h5>AMONESTACION:</h5></th>
+                            <th><h5><span t-if="data['expense_type_id'][1] == 'AMONESTACIONES'">___X___</span></h5></th>
+                            <th><h5>MULTA:</h5></th>
+                            <th><h5><span t-if="data['expense_type_id'][1] == 'MULTAS'">___X___</span></h5></th>
+                        </tr>
+                    </thead>
+                </table>
+                <t t-foreach="create_report(data)" t-as="values">
+                    <table class="table table-bordered" border="2">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <h5>Nombre y Apellidos</h5>
+                                    <h5><p t-esc="data['employee_id'][1]"/></h5>
+                                </th>
+                                <th><h5>Codigo Empleado</h5></th>
+                                <th><h5>Fecha de Ingreso: <p t-esc="values['fecha_contrato']"/></h5></th>
+                                <th><h5>Cedula: <p t-esc="values['cedula']"/></h5></th>
+                                <th><h5>Fecha de Hoy: <p t-esc="values['today']"/></h5></th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <h5>Empresa Actual: <p t-esc="company.name"/></h5>
+                                </th>
+                                <th><h5>Proyecto Actual</h5></th>
+                                <th/>
+                                <th><h5>Provincia de trabajo: <p t-esc="values['provincia']"/></h5></th>
+                                <th><h5>Fecha efectiva desde: <p t-esc="data['date']"/></h5></th>
+                            </tr>
+                            <tr>
+                                <th><h5>Pais de origen: <p t-esc="values['pais']"/></h5></th>
+                                <th><h5>Nacionalidad: <p t-esc="values['pais']"/></h5></th>
+                                <th>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th><h5>Extranjero</h5></th>
+                                                <th><h5>Sí</h5></th>
+                                                <th><h5>___</h5></th>
+                                            </tr>
+                                            <tr>
+                                                <th><h5/></th>
+                                                <th><h5>No</h5></th>
+                                                <th><h5>___</h5></th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </th>
+                                <th><h5>Discapacitado</h5></th>
+                                <th>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th><h5>Si</h5></th>
+                                                <th><h5>___</h5></th>
+                                            </tr>
+                                            <tr>
+                                                <th><h5>No</h5></th>
+                                                <th><h5>___</h5></th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th><h4>Porcentaje: <t t-esc="values['percent']"/></h4></th>
+                            </tr>
+                        </thead>
+                    </table>
+                    <table class="table table-bordered" border="2">
+                        <thead>
+                            <tr>
+                                <th width="200px" style="border-bottom: 1px solid black;"><h5>Empresa</h5></th>
+                                <th><h5><p t-esc="company.name"/></h5></th>
+                            </tr>
+                            <tr>
+                                <th><h5>Centro de Costo/Local</h5></th>
+                                <th><h5><p t-esc="values['centros']"/></h5></th>
+                            </tr>
+                            <tr>
+                                <th><h5>Provincia de Trabajo</h5></th>
+                                <th><h5><p t-esc="values['provincia']"/></h5></th>
+                            </tr>
+                            <tr>
+                                <th><h5>Tipo de contrato</h5></th>
+                                <th><h5><p t-esc="values['contract_type']"/></h5></th>
+                            </tr>
+                            <tr>
+                                <th><h5>Título del puesto y/o grado</h5></th>
+                                <th><h5><p t-esc="values['puesto']"/></h5></th>
+                            </tr>
+                            <tr>
+                                <th><h5>Salario básico($)</h5></th>
+                                <th><h5><p t-esc="values['wage']"/></h5></th>
+                            </tr>
+                            <tr>
+                                <th align="rigth"><h5>Valor de la multa:<p t-esc="values['value']"/></h5></th>
+                            </tr>
+                        </thead>
+                    </table>
+                </t>
+                <table class="table table-bordered" border="2">
+                    <thead>
+                        <tr>
+                            <th><strong><h4 align="center">Motivo Comentario o Intrucciones Especiales</h4></strong></th>
+                        </tr>
+                        <tr style="height: 100px">
+                            <th><h5><p t-esc="data['comment']"/></h5></th>
+                        </tr>
+                    </thead>
+                </table>
+                <div>
+                    <div class="col-xs-5">
+                        <h5 align="center">________________________________________</h5>
+                    </div>
+                    <div class="col-xs-5">
+                        <h5 align="center">________________________________________</h5>
+                    </div>
+                </div>
+                <div>
+                    <div class="col-xs-5">
+                        <h6 align="center">Firma de aceptación del empleado</h6>
+                    </div>
+                    <div class="col-xs-5">
+                        <h6 align="center">Departamento de Recursos Humanos</h6>
+                    </div>
+                </div>
+            </div>
+    </t>
+</template>
+</data>
+</openerp>

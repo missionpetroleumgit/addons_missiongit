@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+	<!--  Categoria -->
+        <record id="hr_training_category_1" model="hr.training.category">
+            <field name="name">JEFES DE AGENCIA</field>
+        </record> 
+		
+	<!--  Cursos -->
+         <record id="hr_training_1" model="hr.training">
+            <field name="name">ATENCION AL CLIENTE</field>
+            <field name="training_category_id" ref="hr_training_category_1"/>
+        </record>
+
+	<record id="hr_training_2" model="hr.training">
+            <field name="name">SEGUIMIENTO Y RECUPERACION DE CREDITOS</field>
+            <field name="training_category_id" ref="hr_training_category_1"/>
+        </record>
+
+	<record id="hr_training_3" model="hr.training">
+            <field name="name">TRABAJO EN EQUIPO, MOTIVACION Y LIDERAZGO</field>
+            <field name="training_category_id" ref="hr_training_category_1"/>
+        </record>
+
+	<record id="hr_training_4" model="hr.training">
+            <field name="name">EXCEL Y WORD AVANZADO</field>
+            <field name="training_category_id" ref="hr_training_category_1"/>
+        </record>
+
+	<record id="hr_training_5" model="hr.training">
+            <field name="name">ANALISIS DE MICROCREDITO</field>
+            <field name="training_category_id" ref="hr_training_category_1"/>
+        </record>
+
+	<record id="hr_training_6" model="hr.training">
+            <field name="name">PROCEDIMIENTOS INTERNO Y SERVICIOS Y PRODUCTOS</field>
+            <field name="training_category_id" ref="hr_training_category_1"/>
+        </record>
+
+	<!--  Categoria -->
+
+        <record id="hr_training_category_2" model="hr.training.category">
+            <field name="name">RECIBIDORES PAGADORES</field>
+            
+        </record> 
+
+	<!--  Cursos -->
+
+  	<record id="hr_training_1" model="hr.training">
+            <field name="name">SERVICIO AL CLIENTE</field>
+            <field name="training_category_id" ref="hr_training_category_2"/>
+        </record>
+
+	<record id="hr_training_2" model="hr.training">
+            <field name="name">PROCEDIMIENTOS INTERNO Y SERVICIOS Y PRODUCTOS</field>
+            <field name="training_category_id" ref="hr_training_category_2"/>
+        </record>
+
+	<record id="hr_training_3" model="hr.training">
+            <field name="name">LAVADO DE ACTIVOS</field>
+            <field name="training_category_id" ref="hr_training_category_2"/>
+        </record>
+
+	<record id="hr_training_4" model="hr.training">
+            <field name="name">ESCUELA DE CAJEROS</field>
+            <field name="training_category_id" ref="hr_training_category_2"/>
+        </record>
+
+	<record id="hr_training_5" model="hr.training">
+            <field name="name">EXCEL Y WORD MEDIO Y  AVANZADO</field>
+            <field name="training_category_id" ref="hr_training_category_2"/>
+        </record>
+
+	<record id="hr_training_6" model="hr.training">
+            <field name="name">TRABAJO EN EQUIPO, MOTIVACION Y LIDERAZGO</field>
+            <field name="training_category_id" ref="hr_training_category_2"/>
+        </record>
+
+	<!--  Categoria -->
+
+        <record id="hr_training_category_3" model="hr.training.category">
+            <field name="name">COBRANZAS</field>
+            
+        </record> 
+
+	<!--  Cursos -->
+
+	<record id="hr_training_1" model="hr.training">
+            <field name="name">TECNICAS DE NEGOCIACION Y RECUPERACION DE CARTERA</field>
+            <field name="training_category_id" ref="hr_training_category_3"/>
+        </record>
+
+	<record id="hr_training_2" model="hr.training">
+            <field name="name">ATENCION AL CLIENTE</field>
+            <field name="training_category_id" ref="hr_training_category_3"/>
+        </record>
+
+	<record id="hr_training_3" model="hr.training">
+            <field name="name">MOTIVACION, LIDERAZGO Y TRABAJO EN EQUIPO</field>
+            <field name="training_category_id" ref="hr_training_category_3"/>
+        </record>
+
+	<record id="hr_training_4" model="hr.training">
+            <field name="name">EXCEL  Y WORD AVANZADO</field>
+            <field name="training_category_id" ref="hr_training_category_3"/>
+        </record>
+
+	<!--  Categoria -->
+
+        <record id="hr_training_category_4" model="hr.training.category">
+            <field name="name">CREDITO</field>
+            
+        </record> 
+
+	<!--  Cursos -->
+
+	<record id="hr_training_1" model="hr.training">
+            <field name="name">EXCEL  Y WORD AVANZADO</field>
+            <field name="training_category_id" ref="hr_training_category_4"/>
+        </record>
+
+	<record id="hr_training_2" model="hr.training">
+            <field name="name">TECNICAS DE NEGOCIACION Y RECUPERACION DE CARTERA</field>
+            <field name="training_category_id" ref="hr_training_category_4"/>
+        </record>
+
+	<record id="hr_training_3" model="hr.training">
+            <field name="name">MOTIVACION, LIDERAZGO Y TRABAJO EN EQUIPO</field>
+            <field name="training_category_id" ref="hr_training_category_4"/>
+        </record>
+
+	<record id="hr_training_4" model="hr.training">
+            <field name="name">CONCESIÓN DE CREDITO CONSUMO, COMERCIALES  Y MICROCREDITO</field>
+            <field name="training_category_id" ref="hr_training_category_4"/>
+        </record>
+
+	<!--  Categoria -->
+        <record id="hr_training_category_5" model="hr.training.category">
+            <field name="name">SERVICIO AL CLIENTE</field>
+            
+        </record> 
+
+	
+	<!--  Cursos -->
+         <record id="hr_training_1" model="hr.training">
+            <field name="name">ATENCION AL CLIENTE</field>
+            <field name="training_category_id" ref="hr_training_category_5"/>
+        </record>
+
+	<record id="hr_training_2" model="hr.training">
+            <field name="name">COLOCACIÓN DE CREDITOS</field>
+            <field name="training_category_id" ref="hr_training_category_5"/>
+        </record>
+
+	<record id="hr_training_3" model="hr.training">
+            <field name="name">SEGUIMIENTO Y RECUPERACIÓN DE CREDITOS</field>
+            <field name="training_category_id" ref="hr_training_category_5"/>
+        </record>
+
+	<record id="hr_training_4" model="hr.training">
+            <field name="name">CAPTACION DE SOCIOS,  CLIENTE E  INVERSIONES</field>
+            <field name="training_category_id" ref="hr_training_category_5"/>
+        </record>
+
+	<record id="hr_training_5" model="hr.training">
+            <field name="name">EXCEL  Y WORD AVANZADO</field>
+            <field name="training_category_id" ref="hr_training_category_5"/>
+        </record>
+
+	<record id="hr_training_6" model="hr.training">
+            <field name="name">PESCUELA DE CAJEROS</field>
+            <field name="training_category_id" ref="hr_training_category_5"/>
+        </record>
+
+	<record id="hr_training_7" model="hr.training">
+            <field name="name">PROCEDIMIENTO, PRODUCTOS Y SERVICIOS DE LA COOPERATIVA</field>
+            <field name="training_category_id" ref="hr_training_category_5"/>
+        </record>
+
+	<record id="hr_training_8" model="hr.training">
+            <field name="name">MANEJO DE QUEJAS Y RECLAMOS</field>
+            <field name="training_category_id" ref="hr_training_category_5"/>
+        </record>
+
+	<!--  Categoria -->
+        <record id="hr_training_category_6" model="hr.training.category">
+            <field name="name">NEGOCIOS</field>
+            
+        </record> 
+
+	
+	<!--  Cursos -->
+         <record id="hr_training_1" model="hr.training">
+            <field name="name">ESTUDIOS DE MERCADO</field>
+            <field name="training_category_id" ref="hr_training_category_6"/>
+        </record>
+
+	<record id="hr_training_2" model="hr.training">
+            <field name="name">TECNICAS DE VENTAS</field>
+            <field name="training_category_id" ref="hr_training_category_6"/>
+        </record>
+
+	<record id="hr_training_3" model="hr.training">
+            <field name="name">MERCADEO</field>
+            <field name="training_category_id" ref="hr_training_category_6"/>
+        </record>
+
+	<!--  Categoria -->
+        <record id="hr_training_category_7" model="hr.training.category">
+            <field name="name">OPERACIONES</field>
+            
+        </record> 
+
+	
+	<!--  Cursos -->
+         <record id="hr_training_1" model="hr.training">
+            <field name="name">GESTION DE PROCESOS</field>
+            <field name="training_category_id" ref="hr_training_category_7"/>
+        </record>
+
+	<record id="hr_training_2" model="hr.training">
+            <field name="name">GESTION OPERATIVA</field>
+            <field name="training_category_id" ref="hr_training_category_7"/>
+        </record>
+
+	<record id="hr_training_3" model="hr.training">
+            <field name="name">AUDITORIA DE PROCESOS</field>
+            <field name="training_category_id" ref="hr_training_category_7"/>
+        </record>
+
+	<record id="hr_training_4" model="hr.training">
+            <field name="name">EANALISIS DE CREDITO</field>
+            <field name="training_category_id" ref="hr_training_category_7"/>
+        </record>
+
+	<record id="hr_training_5" model="hr.training">
+            <field name="name">WORD Y EXCEL AVANZADO</field>
+            <field name="training_category_id" ref="hr_training_category_7"/>
+        </record>
+
+	<!--  Categoria -->
+        <record id="hr_training_category_8" model="hr.training.category">
+            <field name="name">CUMPLIMIENTO</field>
+            
+        </record> 
+
+	
+	<!--  Cursos -->
+         <record id="hr_training_1" model="hr.training">
+            <field name="name"> MATRICES DE RIESGOS</field>
+            <field name="training_category_id" ref="hr_training_category_8"/>
+        </record>
+
+	<record id="hr_training_2" model="hr.training">
+            <field name="name">ACTUALIZACION EN TEMAS LAVADO DE ACTIVOS</field>
+            <field name="training_category_id" ref="hr_training_category_8"/>
+        </record>
+
+	<!--  Categoria -->
+        <record id="hr_training_category_9" model="hr.training.category">
+            <field name="name">RIESGOS</field>
+            
+        </record> 
+
+	
+	<!--  Cursos -->
+         <record id="hr_training_1" model="hr.training">
+            <field name="name">CURSOS SOBRE TEMAS DE ADMINISTRACION INTEGRAL DE RIESGOS</field>
+            <field name="training_category_id" ref="hr_training_category_9"/>
+        </record>
+
+	<record id="hr_training_2" model="hr.training">
+            <field name="name">SEGURIDAD DE INSTITUCIONES FINANCIERAS</field>
+            <field name="training_category_id" ref="hr_training_category_9"/>
+        </record>
+
+	<record id="hr_training_3" model="hr.training">
+            <field name="name">EXCEL INTERMEDIO Y AVANZADO</field>
+            <field name="training_category_id" ref="hr_training_category_9"/>
+        </record>
+
+	<!--  Categoria -->
+        <record id="hr_training_category_10" model="hr.training.category">
+            <field name="name">CONTABILIDAD</field>
+            
+        </record> 
+
+	
+	<!-- Cursos -->
+         <record id="hr_training_1" model="hr.training">
+            <field name="name">ACTUALIZACION TRIBUTARIA</field>
+            <field name="training_category_id" ref="hr_training_category_10"/>
+        </record>
+
+	<record id="hr_training_2" model="hr.training">
+            <field name="name">FACTURAION ELECTRONICA</field>
+            <field name="training_category_id" ref="hr_training_category_10"/>
+        </record>
+
+	<record id="hr_training_3" model="hr.training">
+            <field name="name">IMPUESTO A LA RENTA AÑO 2014</field>
+            <field name="training_category_id" ref="hr_training_category_10"/>
+        </record>
+
+	<!--  Categoria -->
+        <record id="hr_training_category_11" model="hr.training.category">
+            <field name="name">FINANCIERO</field>
+            
+        </record> 
+
+	
+	<!--  Cursos -->
+         <record id="hr_training_1" model="hr.training">
+            <field name="name">ANALISIS FINANCIERO</field>
+            <field name="training_category_id" ref="hr_training_category_11"/>
+        </record>
+
+	<record id="hr_training_2" model="hr.training">
+            <field name="name">TESORERIA</field>
+            <field name="training_category_id" ref="hr_training_category_11"/>
+        </record>
+
+	<record id="hr_training_3" model="hr.training">
+            <field name="name">FLUJO DE CAJA</field>
+            <field name="training_category_id" ref="hr_training_category_11"/>
+        </record>
+
+	<record id="hr_training_4" model="hr.training">
+            <field name="name">PRESUPUESTO</field>
+            <field name="training_category_id" ref="hr_training_category_11"/>
+        </record>
+
+	<!--  Categoria -->
+        <record id="hr_training_category_12" model="hr.training.category">
+            <field name="name">RECURSOS HUMANOS</field>
+            
+        </record> 
+
+	
+	<!--  Cursos -->
+         <record id="hr_training_1" model="hr.training">
+            <field name="name">MANEJO DE NOMINA Y ACTULIZACION DE POLITICAS</field>
+            <field name="training_category_id" ref="hr_training_category_12"/>
+        </record>
+
+	<record id="hr_training_2" model="hr.training">
+            <field name="name">WORD Y EXCEL AVANZADO</field>
+            <field name="training_category_id" ref="hr_training_category_12"/>
+        </record>
+
+	<!--  Categoria -->
+        <record id="hr_training_category_13" model="hr.training.category">
+            <field name="name">GERENCIA GENERAL</field>
+            
+        </record> 
+
+	
+	<!--  Cursos -->
+         <record id="hr_training_1" model="hr.training">
+            <field name="name">ACTUALIZACION EN TEMAS SECRETARIALES PARA ASAMBLEAS Y CONSEJOS</field>
+            <field name="training_category_id" ref="hr_training_category_13"/>
+        </record>
+
+	<record id="hr_training_2" model="hr.training">
+            <field name="name">ATENCION AL CLIENTE</field>
+            <field name="training_category_id" ref="hr_training_category_13"/>
+        </record>
+
+	<!--  Categoria -->
+        <record id="hr_training_category_14" model="hr.training.category">
+            <field name="name">TECNOLOGIA DE INFORMACION</field>
+            
+        </record> 
+
+	
+	<!--  Cursos -->
+         <record id="hr_training_1" model="hr.training">
+            <field name="name">COBIT FUNDAMENTOS</field>
+            <field name="training_category_id" ref="hr_training_category_14"/>
+        </record>
+
+	<record id="hr_training_2" model="hr.training">
+            <field name="name">COBIT IMPLEMENTACION</field>
+            <field name="training_category_id" ref="hr_training_category_14"/>
+        </record>
+
+	<record id="hr_training_3" model="hr.training">
+            <field name="name">CISA UDITORIA INFORMATICA</field>
+            <field name="training_category_id" ref="hr_training_category_14"/>
+        </record>
+
+	<record id="hr_training_4" model="hr.training">
+            <field name="name">SYBASE ADMINISTRACIN INTERMEDIA</field>
+            <field name="training_category_id" ref="hr_training_category_14"/>
+        </record>
+
+	<record id="hr_training_5" model="hr.training">
+            <field name="name">SYBASE ADMINISTRACIN AVANZA</field>
+            <field name="training_category_id" ref="hr_training_category_14"/>
+        </record>
+
+	<!--  Categoria -->
+        <record id="hr_training_category_15" model="hr.training.category">
+            <field name="name">AUDITORIA INTERNA</field>
+            
+        </record> 
+
+	
+	<!--  Cursos -->
+         <record id="hr_training_1" model="hr.training">
+            <field name="name">CAPACITACION DEL SISTEMA DE CONTROL INTERNO COSO</field>
+            <field name="training_category_id" ref="hr_training_category_15"/>
+        </record>
+
+	<record id="hr_training_2" model="hr.training">
+            <field name="name">GESTION INTEGRAL DE RIESGOSN</field>
+            <field name="training_category_id" ref="hr_training_category_15"/>
+        </record>
+
+	<record id="hr_training_3" model="hr.training">
+            <field name="name">AUDITORIA DE PROCESOS</field>
+            <field name="training_category_id" ref="hr_training_category_15"/>
+        </record>
+
+    </data>
+</openerp>

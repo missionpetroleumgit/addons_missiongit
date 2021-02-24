@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="0">
+
+        <!--    Importations Orders Users Groups        -->
+        <record model="res.groups" id="group_importation_order_approve">
+            <field name="name">Impor Aprobacion Solicitud</field>
+        </record>
+        <record model="res.groups" id="group_importation_order_request_confirm">
+            <field name="name"> Confirmar solicitud presupuesto (gerentes area)</field>
+        </record>
+        <record model="res.groups" id="group_importation_order_request_requisition">
+            <field name="name">Impor Solicitar Presupuesto</field>
+        </record>
+        <record model="res.groups" id="group_importation_order_budgeted">
+            <field name="name">Impor Grupo Presupuestado</field>
+        </record>
+        <record model="res.groups" id="group_importation_finance_budgeted">
+            <field name="name">Presupuestar Importacion (financiero)</field>
+        </record>
+        <record model="res.groups" id="group_importation_order_line_managers">
+            <field name="name">Impor Aprobacion Gerentes de linea</field>
+        </record>
+        <record model="res.groups" id="group_importation_order_general_manager_approve">
+            <field name="name">Impor Aprobacion Gerente general</field>
+        </record>
+        <record model="res.groups" id="group_erp_importation_order_order_confirm">
+            <field name="name">Impor Confirmacion Orden</field>
+        </record>
+        <record model="res.groups" id="group_previus_control_approve">
+            <field name="name">Control Previo Importaciones</field>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+        <record model="res.groups" id="group_importatios_access">
+            <field name="name">Acceso registros importaciones</field>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+
+    </data>
+</openerp>

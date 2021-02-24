@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="a_statement_pichincha_check_report">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <!-- cheque pichincha delta extracto -->
+                        <div t-if="True">
+                            <div class="row mt32 mb32">
+                                <div t-if="o.partner_id">
+                                    <div class="col-xs-9" style="position:absolute;left:70;top:56px;font-size: 14px">
+                                        <address t-field="o.partner_id.name"/>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3" style="position:absolute;left:510;top:56px;font-size: 16px">
+                                    ***<span t-esc="round(o.balance_start, 2)"/><br/>
+                                </div>
+                            </div>
+                            <div class="row mt32 mb32">
+                                <div class="col-xs-12" style="position:absolute;left:40;top:90px;font-size: 14px">
+                                    <span t-esc="o.get_amount_in_letters(o.balance_start)"/>
+                                </div>
+                            </div>
+                            <div class="row mt32 mb32">
+                                <div class="col-xs-12" style="position:absolute;left:5;top:145px;font-size: 14px">
+                                    Ibarra, <span t-esc="o.get_format(o.date)"/><br/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>
+

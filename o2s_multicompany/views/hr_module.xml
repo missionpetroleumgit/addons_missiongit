@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="form_payslip_run_inherited_multicompany" model="ir.ui.view">
+			<field name="name">Prenomina</field>
+			<field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+			<field name="arch" type="xml">
+                <field name="credit_note" position="after">
+                    <field name="company_id" groups="base.group_multi_company" widget="selection" string="Compañía" on_change="company_id_change(company_id)"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="form_holidays_inherited_multicompany" model="ir.ui.view">
+			<field name="name">Holidays</field>
+			<field name="model">hr.holidays</field>
+            <field name="inherit_id" ref="hr_holidays.edit_holiday_new"/>
+			<field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="company_id" groups="base.group_multi_company" widget="selection" string="Compañía" required="1"/>
+                </field>
+                <field name="employee_id" position="replace">
+                    <field name="employee_id" attrs="{'required':[('holiday_type','=','employee')],'invisible':[('holiday_type','=','category')]}" on_change="onchange_employee(employee_id)" groups="base.group_hr_user" domain="[('company_id', '=', company_id)]"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="form_contract_inherited_multicompany" model="ir.ui.view">
+			<field name="name">Contrato</field>
+			<field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+			<field name="arch" type="xml">
+                <field name="employee_id" position="before">
+                    <field name="company_id" readonly="1" groups="base.group_multi_company" widget="selection" string="Compañía"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_hr_loan_form_multicompany" model="ir.ui.view">
+			<field name="name">hr.loan.form.multicompany</field>
+			<field name="model">hr.loan</field>
+            <field name="inherit_id" ref="hr_loan.view_hr_loan_form"/>
+			<field name="arch" type="xml">
+                <field name="employee_id" position="before">
+                    <field name="company_id" groups="base.group_multi_company" widget="selection" string="Compañía" required="1"/>
+                </field>
+                <field name="employee_id" position="replace">
+                    <field name="employee_id" on_change="onchange_employee_id(employee_id)" attrs="{'readonly':[('state','=','approve')]}" domain="[('company_id', '=', company_id)]"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_hr_income_form_multicompany" model="ir.ui.view">
+			<field name="name">hr.income.form.multicompany</field>
+			<field name="model">hr.income</field>
+            <field name="inherit_id" ref="bit_hr_payroll_ec.view_hr_income_form"/>
+			<field name="arch" type="xml">
+                <field name="company_id" position="replace">
+                    <field name="company_id" required="1" groups="base.group_multi_company" widget="selection" string="Compañía"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_hr_expense_form_multicompany" model="ir.ui.view">
+			<field name="name">hr.expense.form.multicompany</field>
+			<field name="model">hr.expense</field>
+            <field name="inherit_id" ref="bit_hr_payroll_ec.view_hr_expense_form"/>
+			<field name="arch" type="xml">
+                <field name="company_id" position="replace">
+                    <field name="company_id" required="1" groups="base.group_multi_company" widget="selection" string="Compañía"/>
+                </field>
+            </field>
+        </record>
+	</data>
+</openerp>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_account_reconcile_tree" model="ir.ui.view">
+            <field name="name">account.bank.reconcile.tree</field>
+            <field name="model">account.bank.reconcile</field>
+			<field name="arch" type="xml">
+                <tree string="Conciliciones Bancarias">
+                    <field name="name"/>
+                    <field name="journal_id"/>
+                    <field name="account_id"/>
+                    <field name="period_id"/>
+                    <field name="date_created"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_account_reconcile_form" model="ir.ui.view">
+            <field name="name">account.bank.reconcile.form</field>
+            <field name="model">account.bank.reconcile</field>
+            <field name="arch" type="xml">
+                <form string="Conciliación Bancaria">
+                    <header>
+                        <button name="set_reconciled" string="Conciliado" type="object" class="oe_highlight" states="process"/>
+                        <button name="set_draft" string="Cambiar a borrador" type="object" states="reconciled"/>
+                        <field name="state" widget="statusbar" nolabel="1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="find_to" attrs="{'readonly': [('state', '=', 'reconciled')]}"/>
+                                    <field name="account_id" attrs="{'readonly': [('reconcile_lines', '!=', [])],'invisible':[('find_to','not in',('account',))],'required':[('find_to','in',('account',))]}"
+                                           options="{'no_create':True}" domain="[('company_id','=',company_id)]"/>
+                                    <field name="journal_id" attrs="{'readonly': [('reconcile_lines', '!=', [])],'invisible':[('find_to','not in',('journal',))],'required':[('find_to','in',('journal',))]}"/>
+                                    <field name="period_id" attrs="{'readonly': [('state', '=', 'reconciled')]}"/>
+                                    <field name="company_id" attrs="{'readonly': [('state', '=', 'reconciled')]}"
+                                           string="Compañía"/>
+                                </group>
+                                <group>
+                                    <field name="date_created" attrs="{'readonly': [('state', '=', 'reconciled')]}"/>
+                                    <field name="amount_before" readonly="1"/>
+                                    <!-- <field name="amount_before_saldo" readonly="1"/> -->
+                                    <field name="amount_ledger" readonly="1"/>
+                                    <field name="amount_transit" readonly="1"/>
+                                    <field name="amount_voucher" readonly="1"/>
+                                    <field name="amount" readonly="1"/>
+                                </group>
+                        </group>
+                        <notebook>
+                            <page string="Detalles Conciliación">
+                                <button name="load_lines" string="Cargar Líneas" type="object" class="oe_highlight"/>
+                                <button name="check_lines" string="Marcar/Desmarcar" type="object" class="oe_right"/>
+                                <field name="reconcile_lines" attrs="{'readonly': [('state', '=', 'reconciled')]}">
+                                    <tree string="Lineas" editable="botton">
+                                        <field name="date_line"/>
+                                        <field name="name"/>
+                                        <field name="no_check"/>
+                                        <field name="partner_id"/>
+                                        <field name="debit"/>
+                                        <field name="credit"/>
+                                        <field name="is_reconciled"/>
+                                        <field name="line_id" readonly="1"/>
+                                        <field name="company_id" readonly="1" groups="base.group_multi_company"/>
+                                        <field name="moves" invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_account_reconcile" model="ir.actions.act_window">
+            <field name="name">Conciliacion Bancaria</field>
+            <field name="res_model">account.bank.reconcile</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{
+				'readonly_by_pass': True,
+				}</field>
+        </record>
+
+        <menuitem action="action_account_reconcile" id="menu_account_reconcile" parent="account.periodical_processing_reconciliation"/>
+    </data>
+</openerp>

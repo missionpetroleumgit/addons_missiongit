@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<openerp>
+    <data noupdate="0">
+
+        <!--
+            Users Groups
+            Note that the field 'category_id' is set later in
+            base/module/module_data.xml
+        -->
+        <record model="res.groups" id="group_erp_purchase_authorization">
+            <field name="name">Autorizacion Compra</field>
+        </record>
+    </data>
+</openerp>
+

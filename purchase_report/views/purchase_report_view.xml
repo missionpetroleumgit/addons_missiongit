@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_purchase_four_report_view" model="ir.ui.view">
+            <field name="name">view.purchase.report.ffour.view.form</field>
+            <field name="model">purchase.report.ffour</field>
+            <field name="arch" type="xml">
+                <form string="Reporte F4">
+                    <sheet>
+                        <group col="1" colspan="2">
+                            <separator string="Reporte F4"/>
+                            <separator string="Seleccione rango de fechas"/>
+                            <div>
+                                <div>
+                                    <field name="date_from" style="width: 30%" required="1"/>
+                                    <field name="date_to" style="width: 30%" required="1"/>
+                                </div>
+                            </div>
+                            <separator string="Tipo"/>
+                            <group col="2" colspan="1">
+                                <field name="type"/>
+                                <field name="d_type"/>
+                                <field name="region"/>
+                            </group>
+                            <separator string="Proveedores"/>
+                            <field name="partner_ids" nolabel="1" options="{'no_create': True, 'no_open':True}"/>
+                            <group col="2" colspan="2">
+                                <field name="type_export"/>
+                                <field name="id" invisible="1"/>
+                            </group>
+                        </group>
+                        <button name="excel_action" type="object" string="Imprimir" attrs="{'invisible': [('id','=',False)]}"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_purchase_four_report_form" model="ir.actions.act_window">
+            <field name="name">Reporte F4</field>
+            <field name="res_model">purchase.report.ffour</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="context">{}</field>
+            <field name="target">current</field>
+        </record>
+
+        <menuitem action="action_purchase_four_report_form"
+                  id="menu_action_purchase_four_report_form"
+                  parent="purchase.menu_purchase_config_purchase"
+                  string="Reporte F4"/>
+    </data>
+</openerp>

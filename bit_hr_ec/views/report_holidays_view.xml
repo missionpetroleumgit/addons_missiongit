@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record id="hr_holidays_employee_rep" model="ir.ui.view">
+            <field name="name">Holidays report</field>
+            <field name="model">hr.payroll.vacaciones.report</field>
+            <field name="arch" type="xml">
+            	<form string="Generar reporte vacación">
+                    <separator string="Reporte Vacaciones"/>
+                    <group col="4" colspan="2">
+                        <field name="region" string="Región "/>
+                        <field name="company_id" groups="base.group_multi_company" widget="selection" string="Compañía"/>
+                    </group>
+                    <field name="file_name" invisible="1"/>
+                    <field name="data" filename='file_name'/>
+                    <field name="id" invisible="1"/>
+                   <footer>
+                       <button name="action_excel" string="Imprimir" type="object" default_focus="1" class="oe_highlight"/>
+                   </footer>
+				</form>
+            </field>
+        </record>
+
+		<record id="action_hr_holidays_employee_rep" model="ir.actions.act_window">
+             <field name="name">Holidays report</field>
+             <field name="res_model">hr.payroll.vacaciones.report</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">form</field>
+             <field name="target">current</field>
+             <field name="view_id" ref="hr_holidays_employee_rep"/>
+       </record>
+
+        <menuitem icon="STOCK_PRINT"
+            	  name="Reporte vacaciones"
+            	  action="action_hr_holidays_employee_rep"
+            	  id="menu_hr_holidays_employee_rep"
+            	  parent="hr.menu_hr_main"/>
+    </data>
+</openerp>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+<!--        <delete model="ir.ui.menu" id="o2s_purchase_expense_distribution.menu_purchase_cost_expenses_types"/>     Menu: Tipos de gastos-->
+<!--        <delete model="ir.ui.menu" id="o2s_purchase_expense_distribution.menu_purchase_importation2"/>            Menu: Importaciones-->
+<!--        <delete model="ir.ui.menu" id="o2s_purchase_expense_distribution.menu_purchase_importation1"/>            Menu: Peticiones de Importacion-->
+<!--        <delete model="ir.ui.menu" id="o2s_purchase_expense_distribution.menu_purchase_cost_orders"/>             Menu: Distribucion de ordenes de costo-->
+    </data>
+</openerp>

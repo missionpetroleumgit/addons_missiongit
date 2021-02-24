@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <report
+                id="action_report_financial2"
+                model="account.financial.report"
+                string="Financial report extend"
+                report_type="qweb-pdf"
+                name="bit_account.report_financial"
+                file="bit_account.report_financial_inherited"
+                menu="False"
+            />
+            
+    <report
+                id="action_report_generalledger2"
+                model="report.account.general.ledger"
+                string="Mayor report extend"
+                report_type="qweb-pdf"
+                name="bit_account.report_generalledger"
+                file="bit_account.report_general_ledger_inherit"
+                menu="False"
+            />
+
+    <report
+            id="action_report_trial_balance"
+            model="account.balance.report"
+            string="Trial Balance"
+            report_type="qweb-pdf"
+            name="bit_account.report_trialbalance"
+            file="bit_account.report_trialbalance_inherited"
+            />
+
+    <report
+            id="action_report_account_reconcile"
+            model="account.bank.reconcile"
+            string="Conciliación Bancaria"
+            report_type="qweb-pdf"
+            name="bit_account.report_reconcile_doc"
+            file="bit_account.report_reconcile"
+            />
+
+</data>
+</openerp>

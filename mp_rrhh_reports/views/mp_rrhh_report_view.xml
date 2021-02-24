@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_hr_payroll_report_report_form" model="ir.ui.view">
+            <field name="name">hr.payroll.report.view.form</field>
+            <field name="model">hr.payroll.report</field>
+            <field name="arch" type="xml">
+                <form string="Reporte de Nomina Borrador" version="7.0">
+                    <sheet>
+                        <group col="1" colspan="2">
+                            <separator string="SELEECIONE AÑO Y PERIODO"/>
+                            <group col="4" colspan="2">
+                                <field name="fiscal_year_id" string="Año Fiscal" required="1"
+                                       options="{'no_create': True, 'no_open': True}"/>
+                                <field name="period_id" required="1" options="{'no_create': True, 'no_open': True}"/>
+                            </group>
+                        </group>
+                        <separator style="color:darkgreen !important" string="OPCIONES"/>
+                        <group>
+                            <field name="company_id" readonly="1"/>
+                            <field name="employee_id" options="{'no_create': True}"/>
+                        </group>
+                        <field name="id" invisible="1"/>
+                        <group col="4" colspan="2">
+                            <field name="type_export" required="1"/>
+                        </group>
+                        <group>
+                            <button name="excel_action" style="color:green !important;font-size:20px" type="object"
+                                    string="Imprimir Nómina" attrs="{'invisible': [('id','=', False)]}"
+                                    class="oe_link"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_hr_payroll_report_report" model="ir.actions.act_window">
+            <field name="name">Nomina Borrador</field>
+            <field name="res_model">hr.payroll.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="context">{}</field>
+            <field name="target">current</field>
+        </record>
+
+        <menuitem action="action_hr_payroll_report_report"
+                  id="menu_action_hr_payroll_report_report"
+                  parent="hr.menu_hr_reporting"
+                  string="Nomina Borrador"/>
+    </data>
+</openerp>

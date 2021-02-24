@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_tenth_file">
+            <field name="name">tenth.file</field>
+            <field name="model">tenth.file</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <form string="Generar Archivo">
+                    <field name="name" invisible="1"/>
+                    <field name="txt_binary" filename="name"/>
+                    <label string="Para generar el archivo clic en el botón: 'Generar Archivo'"/>
+                  	<footer>
+						<button name="generate_file" string="Generar archivo" class="oe_highlight" type="object"/>
+					</footer>
+                </form>
+            </field>
+        </record>
+
+		<act_window name="Exportar Décimos"
+            context="{'search_default_draft': 1}"
+            res_model="tenth.file"
+            src_model="hr.remuneration.employee"
+            view_mode="form"
+            view_id="view_tenth_file"
+            target="new"
+            multi="True"
+            key2="client_action_multi"
+            id="action_export_file"/>
+
+    </data>
+</openerp>

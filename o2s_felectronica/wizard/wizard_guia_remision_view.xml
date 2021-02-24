@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_guia_electronica_file">
+            <field name="name">guia.electronica</field>
+            <field name="model">wizard.guia.remision</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <form string="Generar Archivo" version="7.0">
+                    <separator string="Asistente para generar el archivo Comprobantes Electronicos"/>
+                    <group colspan='2'>
+                    <field name="formulario" required="1"/>
+                    <field name="contingencia" attrs="{'required':[('formulario','=','contingencia')]}"/>
+                    <field name="company" required="1"/>
+                    <field name="version" required="1"/>
+                    <field name="ambiente" required="1"/>
+                    </group>
+                    <separator string="Archivo Generado"/>
+                    <field name="name" invisible="1" nolabel='1'/>
+                    <field name="data" filename="name" nolabel='1'/>
+                    <footer>
+                        <button name="generate_file" string="Enviar SRI" class="oe_highlight" type="object"/>
+                    </footer>
+                    <separator string="Mensaje"/>
+                    <field name='mensaje' nolabel='1'/>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_guia_electronica_file" model="ir.actions.act_window">
+            <field name="name">Guia Electronica</field>
+            <field name="res_model">wizard.guia.remision</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+           <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

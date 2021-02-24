@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+ 	   <!-- <record id="hr_payslip_run_form_new_inherit_expense" model="ir.ui.view">
+            <field name="name">hr.payslip.run.form.expense</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="bit_hr_payroll_ec.hr_payslip_run_form_new"/>
+            <field name="arch" type="xml">
+                    <group name="liquidacion" position="attributes">
+                        <attribute name="attrs">{'invisible':[('type','in',['rol', 'quincena', 'serv10','util'])]}</attribute>
+                    </group>
+                    <group name="quincena" position="attributes">
+                        <attribute name="attrs">{'invisible':[('type','in',['rol', 'liquidation','util'])]}</attribute>
+                    </group>
+            </field>
+        </record>-->
+
+        <record id="action_hr_payslip_pro_util" model="ir.actions.act_window">
+            <field name="name">Procesamiento de utilidad</field>
+            <field name="res_model">hr.payslip.run</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field eval="False" name="view_id"/>
+            <field name="domain">[('type','=','util')]</field>
+            <field name="context">{'type':'util'}</field>
+            <field name="view_id" ref="hr_payroll.hr_payslip_run_tree"/>
+            <field name="search_view_id" ref="hr_payroll.hr_payslip_run_filter"/>
+        </record>
+
+   	   <menuitem  name="Procesamiento de utilidad" id="menu_hr_pro_util"
+   			parent="hr_payroll.menu_hr_root_payroll" action="action_hr_payslip_pro_util"/>
+
+        <record id="action_view_hr_payslip_util" model="ir.actions.act_window">
+            <field name="name">Roles utilidad</field>
+            <field name="res_model">hr.payslip</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('type','=','util')]</field>
+            <field name="context">{'type':'util'}</field>
+            <field name="view_id" ref="hr_payroll.view_hr_payslip_tree"/>
+            <field name="search_view_id" ref="hr_payroll.view_hr_payslip_filter"/>
+        </record>
+
+   	   <menuitem  name="Roles utilidad" id="menu_hr_util_rol_empleado"
+   			parent="hr_payroll.menu_hr_root_payroll" action="action_view_hr_payslip_util"/>
+    </data>
+</openerp>

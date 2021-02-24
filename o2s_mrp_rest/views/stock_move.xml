@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="stock_move_days_view_inherit" model="ir.ui.view">
+            <field name="name">stock.move.days.view.inherit</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_tree"/>
+            <field name="arch" type="xml">
+                 <xpath expr="//tree[@string='Moves']" position="attributes">
+                     <attribute name="colors">blue:state_prod in ('Normal');orange:state_prod in ('Por Caducar');red:state_prod in ('Caducado')</attribute>
+                 </xpath>
+                <field name="location_id" position="before">
+                    <field name="days_rest" invisible="1"/>
+                </field>
+                <field name="location_id" position="before">
+                    <field name="days_rest1" />
+                </field>
+                <field name="location_id" position="before">
+                    <field name="state_prod"/>
+                </field>
+                <field name="product_uos_qty" position="after">
+                    <field name="days_vig" />
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

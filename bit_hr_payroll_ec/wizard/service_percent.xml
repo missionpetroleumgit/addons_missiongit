@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_service_percent_file">
+            <field name="name">service_percent</field>
+            <field name="model">service.percent</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <form string="Distribuir Valor">
+                    <group col="4" colspan="4">
+                        <field name="company_id"/>
+                        <field name="date_reg"/>
+                        <field name="amount"/>
+                    </group>
+                    <field name="employe_days_ids">
+                        <tree string="Empleados" editable="bottom">
+                            <field name="employee_id"/>
+                            <field name="nu_days"/>
+                        </tree>
+                    </field>
+                  	<footer>
+						<button name="percent_distribution" string="Prorratear" class="oe_highlight" type="object"/>
+					</footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_service_percent_action" model="ir.actions.act_window">
+            <field name="name">Prorratear Porciento</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">service.percent</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="view_service_percent_file"/>
+        </record>
+
+  		<menuitem id="menu_view_service_percent_action"
+   			parent="menu_hr_Ingresos" action="view_service_percent_action"/>
+
+    </data>
+</openerp>

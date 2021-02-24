@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+
+
+<template id="report_account_servicio">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <!-- This report is (obviously) a work in progress -->
+            <div class="page">
+                <table>
+	                <tr>
+		                <td>
+                            <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="max-height:120px"/>
+                        </td>
+
+	                </tr>
+                </table>
+
+               <table>
+                    <tr>
+                        <h3 style="text-align: center;"> PREFACTURA</h3><br/>
+                        <h3 style="text-align: center;"><span t-field="o.name"/></h3>
+                    </tr>
+               </table>
+                    <table class="table table-bordered">
+                        <tr>
+                            <td><strong>CLIENTE:</strong></td>
+                            <td><span t-field="o.partner_id"/></td>
+                            <td><strong>FECHA:</strong></td>
+                            <td><span t-field="o.date_order" t-field-options='{"format": "d-MMMM-y "}'/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>DIRECCION</strong></td>
+                            <td><span t-field="o.partner_id.street"/></td>
+                            <td><strong>NUESTRA REF:</strong></td>
+                            <td>--------</td>
+
+                        </tr>
+                        <tr>
+                            <td><strong>CIUDAD:</strong></td>
+                            <td><span t-field="o.partner_id.ciudad_id"/></td>
+                            <td><strong>SU REFERENCIA:</strong></td>
+                            <td>-----------</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RUC:</strong></td>
+                            <td><span t-field="o.company_id.partner_id.part_number"/></td>
+                            <td><strong>DESTINO:</strong></td>
+                            <td><span t-field="o.company_id.partner_id.part_number"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CODIGO:</strong></td>
+                            <td><span t-field="o.company_id.partner_id.part_number"/></td>
+                            <td><strong>RIG:</strong></td>
+                            <td><span t-field="o.company_id.partner_id.part_number"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>FECHA DE INICIO:</strong></td>
+                            <td><span t-field="o.company_id.partner_id.part_number"/></td>
+                            <td><strong>RIG:</strong></td>
+                            <td><span t-field="o.company_id.partner_id.part_number"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>FECHA DE TERMINACION:</strong></td>
+                            <td><span t-field="o.company_id.partner_id.part_number"/></td>
+                            <td><strong>EVENTO:</strong></td>
+                            <td><span t-field="o.company_id.partner_id.part_number"/></td>
+                        </tr>
+                    </table>
+                    <table class="table table-bordered">
+	                <tr>
+		                <td>
+                            <td><strong>ASUNTO:</strong></td>
+                            <td><span t-field="o.company_id.partner_id.part_number"/></td>
+                        </td>
+	                </tr>
+                </table>
+                <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <th>ITEM</th>
+                                <th>CODIGO CONTABLE</th>
+                                <th class="text-right">Cantidad</th>
+                                <th>UNIDAD</th>
+                                <th>CODIGO</th>
+                                <th>DESCRIPCION</th>
+                                <th>V. UNITARIO</th>
+                                <th>V. TOTAL</th>
+                            </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+                            <tr t-foreach="o.order_line" t-as="l">
+                                <td>
+
+                                </td>
+                                <td>
+                                    <!--<span t-field="l.account_id"/>-->
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.product_uom_qty"/>
+                                    <span groups="product.group_uom" t-field="l.product_uom"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.price_unit"/>
+                                </td>
+                                <td groups="sale.group_discount_per_so_line">
+                                    <span t-field="l.discount"/>
+                                </td>
+                                <td class="text-right">
+                                    <span t-field="l.price_subtotal"
+                                        t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                <div class="row">
+                        <div class="col-xs-4 pull-right">
+                            <table class="table table-condensed">
+                                <tr class="border-black">
+                                    <td>SUBTOTAL</td>
+                                    <td class="text-right">
+                                        <span t-field="o.amount_untaxed"
+                                            t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>IVA 12%</td>
+                                    <td class="text-right">
+                                        <span t-field="o.amount_tax"
+                                            t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+                                    </td>
+                                </tr>
+                                <tr class="border-black">
+                                    <td><strong>TOTAL</strong></td>
+                                    <td class="text-right">
+                                        <span t-field="o.amount_total"
+                                            t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+            </div>
+        </t>
+    </t>
+</template>
+
+
+</data>
+</openerp>

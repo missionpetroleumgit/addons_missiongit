@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+		<record id="form_importhe_view" model="ir.ui.view">
+			<field name="name">Importar horas extras</field>
+			<field name="model">import.he</field>
+			<field name="arch" type="xml">
+				<form string="Horas">
+                    <group>
+                        <field name="company_id"/>
+                        <field name="date_reg"/>
+                        <field name="file"/>
+                    </group>
+                    <button name="button_import" type="object" string="Importar"/>
+				</form>
+			</field>
+		</record>
+
+        <record id="action_form_importhe_view" model="ir.actions.act_window">
+            <field name="name">Importar horas extras</field>
+            <field name="res_model">import.he</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="domain">[]</field>
+        </record>
+
+		<menuitem name="Importar Horas"
+			parent="bit_hr_payroll_ec.menu_hr_Ingresos"
+			id="menu_importhe"
+		    action="action_form_importhe_view"/>
+
+	</data>
+</openerp>

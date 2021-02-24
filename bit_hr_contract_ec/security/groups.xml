@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+    
+    <record id="group_con_salominco" model="res.groups">
+      <field name="name">Contrato / Salominco</field>
+    </record>
+    
+    <record id="group_con_cooperativa" model="res.groups">
+      <field name="name">Contrato / Cooperativa</field>
+    </record>
+    
+     <record id="group_con_part" model="res.groups">
+      <field name="name">Contrato /Part Time 4H</field>
+    </record>
+    
+     <record id="group_con_full" model="res.groups">
+      <field name="name">Contrato / Full Time</field>
+    </record>
+    
+    <record id="group_report_lpair" model="res.groups">
+      <field name="name">Contratos/Lpair</field>
+    </record>
+
+  </data>
+</openerp>
+
+

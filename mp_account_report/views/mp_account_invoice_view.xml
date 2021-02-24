@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="invoice_form_customer_sale_order_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.sale.order.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="bit_account.invoice_form_customer_inherit"/>
+            <field name="arch" type="xml">
+                <page string="Authorization" position='after'>
+                    <page string="Service Ticket">
+                        <group col="4">
+                            <field name="fields_id"/>
+                            <field name="pit_id"/>
+                            <field name="business_unit_id"/>
+                        </group>
+                    </page>
+                </page>
+            </field>
+        </record>
+
+        <record id="invoice_form_supplier_ticket_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.form.supplier.ticket.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page[@string='Payments']" position='after'>
+                    <page string="Ticket Venta">
+                        <separator string="Info"/>
+                        <group col="4">
+                            <field name="fields_id"/>
+                            <field name="pit_id"/>
+                            <field name="business_unit_id"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="purchase_cost_wizard_view">
+			<field name="name">purchase.cost.wizard.form</field>
+			<field name="model">purchase.cost.wizard</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Select Incoming Shipments Wizard" version="7.0">
+					<header>
+						<field name="state" invisible="1" />
+					</header>
+					<group states="step1">
+						<field name="partner_id" domain="[('supplier','=',True)]"
+							required="True" />
+					</group>
+					<group states="step2">
+						<field name="picking_id"
+							domain="[('partner_id','=',partner_id),('type','=','in'),('state','=','done')]" />
+					</group>
+					<footer>
+						<div states="step1">
+							<button string="Step 2" name="action_to_step2" type="object"
+								class="oe_highlight" states="step1" />
+							
+							<button string="Cancel" class="oe_link" special="cancel" />
+						</div>
+						<div states="step2">
+							<button string="Back" name="action_back_step1" type="object" />
+							<button string="Copy" name="action_copy_picking" type="object"
+								class="oe_highlight" />
+							
+							<button string="Cancel" class="oe_link" special="cancel" />
+						</div>
+					</footer>
+				</form>
+			</field>
+		</record>
+		<record id="action_purchase_cost_wizard_open" model="ir.actions.act_window">
+			<field name="name">Copy Incoming Shipments</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">purchase.cost.wizard</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+			<field name="view_id" ref="purchase_cost_wizard_view" />
+			<field name="context">{}</field>
+			<field name="target">new</field>
+		</record>
+	</data>
+</openerp>

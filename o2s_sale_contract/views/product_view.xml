@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="product_template_form_view_inheritance_petrol" model="ir.ui.view">
+            <field name="name">product.template.form.view.inheritance.petrol</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <div name="buttons" position="after">
+                    <label for="is_lumpsum"/>
+                    <field name="is_lumpsum"/>
+                </div>
+                <notebook position="inside">
+                    <page string="Componentes del Lump-Sum" attrs="{'invisible':[('is_lumpsum','=',False)]}">
+                        <field name="components">
+                            <tree string="Productos" editable="bottom">
+                                <field name="product_id"/>
+                                <field name="qty"/>
+                                <field name="uom_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record id="product_template_add_pn_form_view" model="ir.ui.view">
+            <field name="name">product.template.add.pn.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_code']" position="after">
+                    <field name="part_number"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_product_product_add_custom_identificator_xml" model="ir.ui.view">
+            <field name="name">product.product.add.custom.identificator</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='default_code']" position="after">
+                    <field name="part_number"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--<record id="product_template_tree_inh_view" model="ir.ui.view">-->
+        <!--<field name="name">product.template.tree.inh.view</field>-->
+        <!--<field name="model">product.template</field>-->
+        <!--<field name="inherit_id" ref="product.product_template_tree_view"/>-->
+        <!--<field name="arch" type="xml">-->
+        <!--<xpath expr="//field[@name='default_code']" position="after">-->
+        <!--<field name="part_number"/>-->
+        <!--</xpath>-->
+        <!--</field>-->
+        <!--</record>-->
+
+
+
+        <record id="product_pricelist_item_action2" model="ir.actions.act_window">
+            <field name="name">Pricelists Items</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.pricelist.item</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                action="product_pricelist_item_action2" id="menu_product_list_item"
+                parent="product.menu_product_pricelist_main" sequence="4" groups="base.group_no_one"/>
+
+    </data>
+</openerp>

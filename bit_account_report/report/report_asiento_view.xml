@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_asiento_view">
+    <t t-call="report.html_container">
+    <t t-foreach="docs" t-as="o">
+        <div class="page">
+            <div style="position:absolute;top:0px;width:100%;">
+                <table class="table table-condensed table-bordered">
+                    	<tr >
+	                        <td align="center"><img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="max-height:80px"/></td>
+	                        <td align="center"><h4><strong><span t-field="o.company_id.partner_id" t-field-options='{"widget": "contact", "fields": ["name"], "no_marker": true, "no_tag_br": true}'/></strong></h4><span t-field="o.company_id.partner_id" t-field-options='{"widget": "contact", "fields": ["address"], "no_marker": true, "no_tag_br": true}'/></td>
+                        </tr>
+                        <tr >
+	                       	<td align="center"><h9><strong>RUC: </strong><span t-esc="o.company_id.partner_id.part_number"/></h9></td>
+	                        <td align="center"><h5><strong>COMPROBANTE DE DIARIO No: <span t-field="o.number_seq"/></strong></h5></td>
+                        </tr>
+                    </table>
+                    <table class="table table-condensed table-bordered">
+                    <tr>
+	                    <td>FECHA: <span t-field="o.date_invoice" t-field-options='{"format": "d MMMM y"}'/></td>
+	                    <td>MONTO: <span t-field="o.amount_untaxed"/></td>
+                    </tr>
+                    <tr >
+                    	<td>CLIENTE: <span t-field="o.partner_id.name"/></td>
+                    	<td>FACTURA: <span t-field="o.number_seq"/></td>
+                    </tr>
+                    <tr >
+                    	<td>DIRECCION: <span t-field="o.partner_id.street"/></td>
+                    	<td>RETENCION: </td>
+                    </tr>
+                    
+                     <tr >
+                    	<td>DETALLE: <span t-field="o.name"/></td>
+                    	<td>ASIENTO: <span t-field="o.move_id"/></td>
+                    </tr>
+                    <tr >
+                     	<td>DIARIO: <span t-field="o.journal_id"/></td>
+	                    <td>CONCEPTO: <span t-field="o.reference"/></td>
+                    	<!-- <td>NOMBRE DOC.: <span t-field="o.document_type"/></td> -->
+                    </tr>
+    			</table>
+            </div>
+        
+        
+            <div style="position:absolute;left:1;top:360px;width:98%;">
+	            <table class="table table-condensed">
+	                <thead>
+	                    <tr>
+	                        <th>CUENTA</th>
+	                        <th>NOMBRE CUENTA</th>
+	                        <th class="text-right">CUENTA COSTO</th>
+	                        <th class="text-right">DETALLE</th>
+	                        <th class="text-right">DEBITO</th>
+	                        <th class="text-right">CREDITO</th>
+	                    </tr>
+	                </thead>
+	                <tbody class="invoice_tbody">
+	                    <tr t-foreach="o.move_id.line_id" t-as="l">
+	                            <t t-if="(l.debit > 0.00 and l.credit == 0.00)">
+	                                <td><span t-field="l.account_id.code"/></td>
+	                                <td><span t-field="l.account_id.name"/></td>
+	                                <td class="text-left"><span t-field="l.analytic_account_id"/></td>
+	                                <td class="text-right"><span t-field="l.product_id.name"/></td>
+	                                <td class="text-right"><span t-field="l.debit" /></td>
+	                                <td class="text-right"><span t-field="l.credit"/></td>
+	                            </t>
+		                    </tr>
+		                    <tr t-foreach="o.move_id.line_id" t-as="l">
+	                            <t t-if=" (l.debit == 0.00 and l.credit > 0.00)">
+	                                <td><span t-field="l.account_id.code"/></td>
+	                                <td><span t-field="l.account_id.name"/></td>
+	                                <td class="text-left"><span t-field="l.analytic_account_id"/></td>
+	                                <td class="text-right"><span t-field="l.product_id.name"/></td>
+	                                <td class="text-right"><span t-field="l.debit" /></td>
+	                                <td class="text-right"><span t-field="l.credit"/></td>
+	                            </t>
+		                    </tr>
+			                <tr >
+			                	<t t-set="sum_debit" t-value="0.00"/>
+			                    <t t-set="sum_credit" t-value="0.00"/>
+			                
+			                        <td colspan="4"><strong class="title">Totales</strong></td>
+			                        
+			                        <t t-foreach="o.move_id.line_id" t-as="l" class="text-right">
+			                            <strong class="title"><span t-set="sum_debit" t-value="sum_debit+l.debit"/></strong>
+			                        </t>
+			                        <t t-foreach="o.move_id.line_id" t-as="l" class="text-right">
+			                            <strong class="title"><span t-set="sum_credit" t-value="sum_credit+l.credit"/></strong>
+			                        </t>
+			                        <td class="text-right"><strong><span t-esc="sum_debit" /></strong></td>
+			                        <td class="text-right"><strong><span t-esc="sum_credit"/></strong></td>                               
+			                </tr>
+	                </tbody>
+                    <table class="table table-condensed" >
+                        <tr>
+                            <td align="center">____________________</td>
+                            <td align="center">____________________</td>
+                            <td align="center">____________________</td>
+                        </tr>
+                        <tr>
+                            <td align="center">CONTADOR</td>
+                            <td align="center">APROBADO</td>
+                            <td align="center">ELABORADO POR</td>
+                        </tr>
+        			</table>
+	            </table>
+			</div>
+        </div>
+    </t>
+</t>
+</template>
+<template id="report_invoice">
+    <t t-call="report.html_container">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'account.report_invoice_document')"/>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

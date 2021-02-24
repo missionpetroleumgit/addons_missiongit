@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_retencion_electronica_file">
+            <field name="name">retencion.electronica</field>
+            <field name="model">wizard.comprobante.retencion</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <form string="Generar Archivo" version="7.0">
+                    <separator string="Asistente para generar el archivo Comprobantes Electronicos"/>
+                    <group colspan='2'>
+                        <field name="formulario" required="1"/>
+                        <field name="contingencia" attrs="{'required':[('formulario','=','contingencia')]}"/>
+                        <field name="company" required="1"/>
+                        <field name="version" required="1"/>
+                        <field name="ambiente" required="1"/>
+                    </group>
+                    <separator string="Archivo Generado"/>
+                    <field name="name" invisible="1" nolabel='1'/>
+                    <field name="data" filename="name" nolabel='1'/>
+                    <footer>
+                        <button name="generate_file" string="Enviar SRI" class="oe_highlight" type="object"/>
+                    </footer>
+                    <separator string="Mensaje"/>
+                    <field name='mensaje' nolabel='1'/>
+                </form>
+            </field>
+        </record>
+
+        <!-- <delete model="ir.actions.act_window" id="action_account_payment_file"/> -->
+
+        <!--<act_window name="Generar Archivo"-->
+
+        <!--res_model="wizard.comprobante.retencion"-->
+        <!--src_model="account.invoice"-->
+        <!--view_mode="form"-->
+        <!--view_id="view_retencion_electronica_file"-->
+        <!--target="new"-->
+        <!--multi="True"-->
+        <!--key2="client_action_multi"-->
+        <!--id="action_retention_electronica_file"/>-->
+
+        <record id="action_retention_electronica_file" model="ir.actions.act_window">
+            <field name="name">Retencion Electronica</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.comprobante.retencion</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_retencion_electronica_file"/>
+            <field name="target">new</field>
+            <field name="multi">True</field>
+        </record>
+        <!--CSV:28-12-2017:AUMENTO PARA ENVIO MASIVO-->
+        <record model="ir.values" id="account_invoice_retectronica">
+            <field name="model_id" ref="o2s_felectronica.model_account_invoice" />
+            <field name="name">Retencion Electronica</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_retention_electronica_file'))" />
+            <field name="key">action</field>
+            <field name="model">account.invoice</field>
+        </record>
+
+    </data>
+</openerp>

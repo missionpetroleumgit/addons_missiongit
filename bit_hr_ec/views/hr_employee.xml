@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+  <data>
+
+	  <!--experiencia laboral-->
+	  <record model="ir.ui.view" id="work_experience_form_view">
+		  <field name="name">hr.employee.work.experience.form</field>
+		  <field name="model">hr.employee.work.experience</field>
+		  <field name="type">form</field>
+		  <field name="arch" type="xml">
+			  <form string="Experiencia Laboral">
+				  <group col="4">
+					  <field name="company" colspan="4"/>
+					  <field name="position"/>
+					  <field name="boss"/>
+					  <field name="phone"/>
+					  <field name="start_date"/>
+					  <field name="end_reason"/>
+					  <field name="end_date"/>
+				  </group>
+			  </form>
+		  </field>
+	  </record>
+
+     <record id="view_hr_employee_calendar" model="ir.ui.view">
+            <field name="name">hr.employee.calendar</field>
+            <field name="model">hr.employee</field>
+            <field name="arch" type="xml">
+                <calendar color="name" date_stop="birthday" date_start="birthday" string="Birthday Celebration">
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="open_view_employee_calendar" model="ir.actions.act_window">
+            <field name="name">Employees Birthdays</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">calendar</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="hr.view_employee_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to add a new employee.
+                </p><p>
+                With just a quick glance on the Odoo employee screen, you
+                can easily find all the information you need for each person;
+                contact data, job position, availability, etc.
+            </p>
+            </field>
+        </record>
+
+        <menuitem action="open_view_employee_calendar" id="menu_open_view_employee_calendar" sequence="3" parent="hr.menu_hr_main"/>
+
+        <record id="view_employee_add_nom_ape_form" model="ir.ui.view">
+            <field name="name">employee.add.nom.ape</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="emp_apellidos" required="1" placeholder="Apellidos" on_change="onchange_completa_nombre(emp_nombres, emp_apellidos)" />
+                    <field name="emp_nombres"  required="1" placeholder="Nombres" on_change="onchange_completa_nombre(emp_nombres, emp_apellidos)" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_employee_del_name_form" model="ir.ui.view">
+            <field name="name">employee.del.name</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="name" invisible="1" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_employee_mod_identification_form" model="ir.ui.view">
+            <field name="name">employee.mod.identification</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="identification_id" position="replace">
+                    <field name="identification_id" on_change="onchange_valida_ced_ruc(identification_id,emp_tipo_doc)" attrs="{'required':[('emp_tipo_doc','=','c')]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_employee_del_passport_form" model="ir.ui.view">
+            <field name="name">employee.del.passport</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="passport_id" position="replace">
+                </field>
+            </field>
+        </record>
+
+        <!-- Discapacidad -->
+        <record id="view_employee_add_discapacidad_form" model="ir.ui.view">
+            <field name="name">employee.add.discapacidad</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="otherid" position="after">
+		<separator colspan="2"/>
+		<field name="height"/>
+		<field name="weight"/>
+		<field name="blood_type"/>
+                    <group string="Discapacidad">
+                        <field name="emp_discapacidad"/>
+                        <field name="emp_tipo_disc" attrs="{'required':[('emp_discapacidad','=',True)], 'invisible':[('emp_discapacidad','=',False)]}"/>
+                        <field name="emp_porcentaje_disc" attrs="{'required':[('emp_discapacidad','=',True)], 'invisible':['|', ('emp_discapacidad','=',False), ('disc_percentage','=',True)]}"/>
+                        <field name="disc_percentage" widget="percentpie" nolabel="1" attrs="{'invisible':[('emp_discapacidad','=',False)]}"/>
+                    </group>
+                </field>
+            </field>
+        </record>
+
+<!--	  <record id="view_employee_del_bank_form" model="ir.ui.view">
+	      <field name="name">employee.del.bank</field>
+	      <field name="model">hr.employee</field>
+	      <field name="inherit_id" ref="hr.view_employee_form"/>
+	      <field name="arch" type="xml">
+	      <field name="bank_account_id" position="replace">
+	      </field>
+	      </field>
+	  </record>-->
+
+        <!-- Informacion Pago -->
+        <record id="view_employee_add_nomina_form" model="ir.ui.view">
+            <field name="name">employee.add.nomina</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="address_home_id" position="after">
+                    <group string="Informacion Pago">
+                        <field name="emp_modo_pago"/>
+                        <field name="bank_account_id" attrs="{'required':[('emp_modo_pago','=','transferencia')]}"/>
+                        <field name="emp_quincena"/>
+                        <field name="emp_quincena_tipo" attrs="{'invisible':[('emp_quincena','=',False)]}"/>
+                        <div>
+                            <div>
+                                <field name="change_type" readonly="1" style="width: 12%%"
+                                       attrs="{'invisible': [('emp_quincena', '=', False)]}"/>
+                                <field name="emp_quincena_valor" class="oe_inline" attrs="{'required':[('emp_quincena','=',True)], 'invisible':[('emp_quincena','=',False)]}"/>
+                                <!---->
+                            </div>
+                        </div>
+                        <separator string="Fondo de Reserva y Extensión Conyugue" colspan="2"/>
+                        <group>
+                            <field name="emp_fondo_reserva"/>
+                            <field name="emp_ext_cony"/>
+                            <field name="f_reserva_reingreso"/>
+                        </group>
+                        <separator string="Décimos Mensualizados" colspan="2"/>
+                        <field name="emp_dec_tercero"/>
+                        <field name="third_date" attrs="{'required':[('emp_dec_tercero','=',True)], 'invisible':[('emp_dec_tercero','=',False)]}"/>
+                        <field name="emp_dec_cuarto"/>
+                        <field name="fourth_date" attrs="{'required':[('emp_dec_cuarto','=',True)], 'invisible':[('emp_dec_cuarto','=',False)]}"/>
+                    </group>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_employee_mod_otherid_form" model="ir.ui.view">
+            <field name="name">employee.mod.otherid</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="otherid" position="replace">
+                    <field name="otherid" string="Código Sectorial"/>
+                </field>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Vacaciones">
+                        <field name="holidays"/>
+                        <group col="4">
+                            <field name="availables_days"/>
+                            <field name="pending_payment"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_employee_add_cargas_form" model="ir.ui.view">
+            <field name="name">employee.add.cargas</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Cargas Familiares">
+                        <group colspan="4">
+                            <field name="wife_id" domain="[('relationship', '=', 'wife_husband')]" />
+                        </group>
+                        <field name="child_ids" string="Cargas Familiares" domain="[('relationship', 'in', ('child','couple'))]" nolabel="1" colspan="4" />
+                    </page>
+		    <page string="Nivel Educación">
+                        <field name="education_ids" string="Nivel de Educación" nolabel="1" colspan="4"></field>
+                    </page>
+
+                </notebook>
+            </field>
+        </record>
+
+        <record id="view_employee_add_state_form" model="ir.ui.view">
+            <field name="name">employee.add.state</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="coach_id" position="after">
+                    <field name="state_emp" readonly="1"/>
+                    <field name="pagar_rol_l" string="Pagar rol en liquidación" readonly="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_employee_add_pro_ciu_form" model="ir.ui.view">
+            <field name="name">employee.add.pro.ciu</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="country_id" position="after">
+                    <field name="provincia_id" />
+                    <field name="canton_id" string="Cantón"/>
+                    <field name="region" string="Región"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_employee_add_tipodoc_form" model="ir.ui.view">
+            <field name="name">employee.add.tipodoc.name</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="identification_id" position="before">
+                    <field name="emp_tipo_doc" string="Tipo de indentificación"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_employee_del_addre_form" model="ir.ui.view">
+            <field name="name">employee.del.addre</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="address_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

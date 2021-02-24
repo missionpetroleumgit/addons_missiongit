@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Asset category -->
+        <record id="view_bit_account_asset_category_form" model="ir.ui.view">
+            <field name="name">account.asset.category.inherit</field>
+            <field name="model">account.asset.category</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_category_form"/>
+            <field name="arch" type="xml">
+                <field name="account_expense_depreciation_id" position="after">
+                    <field name="account_cost_id"/>
+                </field>
+                <field name="account_analytic_id" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+                <field name="prorata" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="open_asset" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+            </field>
+        </record>
+
+
+        <!-- Asset -->
+        <!-- Form -->
+        <record id="view_bit_account_asset_asset_form" model="ir.ui.view">
+            <field name="name">account.asset.asset.form</field>
+            <field name="model">account.asset.asset</field>
+            <field name="inherit_id" ref="account_asset.view_account_asset_asset_form"/>
+            <field name="arch" type="xml">
+                <field name="prorata" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="partner_id" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+                <field name="purchase_date" position="after">
+                    <field name="asset_type" required='1'/>
+                    <field name="analytics_id" required='1'/>
+                    <field name="invoice_id" string="Factura"/>
+                </field>
+                <xpath expr="//notebook" position="inside">
+                    <page string="Datos adicionales">
+                        <group col="4" colspan="4">
+                            <field name="responsible"/>
+                            <field name="case"/>
+                            <field name="marck"/>
+                            <field name="model"/>
+                            <field name="color"/>
+                            <field name="serial"/>
+                            <field name="identification"/>
+                            <field name="delivery_date"/>
+                            <field name="cilin"/>
+                            <field name="motor"/>
+                        </group>
+                        <field name="note" placeholder="Descripción..."/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Supplier Account Invoice -->
+        <!-- Form -->
+        <record id="view_bit_ass_invoice_supplier_form" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="bit_account.view_bit_invoice_supplier_form"/>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line']/tree/field[@name='account_id']" position="attributes">
+                    <attribute name="attrs">{'readonly':[('asset_category_id', '!=', False)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!--<record model="ir.ui.view" id="view_validate_invoices">-->
+            <!--<field name="name">generate.invoices</field>-->
+            <!--<field name="model">generate.invoices</field>-->
+            <!--<field name="priority">3</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form string="Validar Facturas" version="7.0">-->
+                    <!--<footer>-->
+                        <!--<button name="invoices_to_draft" string="Validar Facturas" class="oe_highlight" type="object"/>-->
+                        <!--or-->
+                        <!--<button string="Cancel" class="oe_link" special="cancel" />-->
+                    <!--</footer>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<act_window name="Cambiar a borrador Facturas"-->
+                    <!--res_model="generate.invoices"-->
+                    <!--src_model="account.invoice"-->
+                    <!--view_mode="form"-->
+                    <!--view_id="view_validate_invoices"-->
+                    <!--target="new"-->
+                    <!--multi="True"-->
+                    <!--id="action_account_validate_invoices"/>-->
+        <!--
+                <record model="ir.ui.view" id="view_bit_invoice_asset_category">
+                    <field name="name">account.invoice.supplier.form</field>
+                    <field name="model">account.invoice</field>
+                    <field name="inherit_id" ref="account_asset.view_invoice_asset_category"/>
+                    <field name="arch" type="xml">
+                        <xpath expr="//field[@name='invoice_line']/tree/field[@name='asset_category_id']" position="attributes">
+                            <attribute name="on_change">product_id_change(product_id, uos_id, quantity, name, parent.type, parent.partner_id, parent.fiscal_position, price_unit, parent.currency_id, parent.company_id)</attribute>
+                        </xpath>
+                    </field>
+                </record>
+                        <xpath expr="//field[@name='invoice_line']/tree/field[@name='asset_category_id']" position="attributes">
+                            <attribute name="on_change">onchange_categ()</attribute>
+                        </xpath>
+         -->
+    </data>
+</openerp>

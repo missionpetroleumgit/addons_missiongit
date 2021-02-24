@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="hr_adm_income_form_view" model="ir.ui.view">
+            <field name="name">hr.adm.incomes.form</field>
+            <field name="model">hr.adm.incomes</field>
+            <field name="inherit_id" ref="bit_hr_payroll_ec.hr_adm_income_form_view"/>
+            <field name="arch" type="xml">
+                <field name="orden" position="after">
+                    <field name="not_generate_benefits"/>
+                    <field name="average"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

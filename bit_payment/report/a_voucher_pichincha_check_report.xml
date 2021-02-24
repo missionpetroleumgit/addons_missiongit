@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="a_voucher_pichincha_check_report">
+			<t t-call="report.html_container">
+				<t t-foreach="docs" t-as="o">
+					<div class="page">
+						<!-- cheque pichincha voucher -->
+						<div t-if="True">
+							<div class="row mt32 mb32">
+								<div class="col-xs-9" style="position:absolute;left:20;top:46px;font-size: 14px">
+									<t t-if="o.type in ('payment', 'advance')">
+										<t t-if="o.check">
+											<address t-field="o.benef"/>
+										</t>
+										<t t-if="not o.check">
+											<address t-field="o.partner_id.name"/>
+										</t>
+									</t>
+									<t t-if="o.type=='some_pays'">
+										<address t-field="o.benef"/>
+									</t>
+								</div>
+								<div class="col-xs-3" style="position:absolute;left:480;top:40px;font-size: 16px">
+									***<span t-esc="o.to_string(o.amount)"/><br/>
+								</div>
+							</div>
+							<div class="row mt32 mb32">
+								<div class="col-xs-12" style="position:absolute;left:20;top:80px;font-size: 14px">
+									<span t-esc="get_amount_in_letters(o.amount)"/>
+								</div>
+							</div>
+							<div class="row mt32 mb32">
+								<div class="col-xs-12" style="position:absolute;left:5;top:133px;font-size: 14px">
+									Quito, <span t-esc="get_format(o.date)"/><br/>
+								</div>
+							</div>
+						</div>
+					</div>
+				</t>
+			</t>
+		</template>
+	</data>
+</openerp>
+

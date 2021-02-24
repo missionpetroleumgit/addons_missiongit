@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+	<data>
+		<record id="view_res_partner_identify" model="ir.ui.view">
+			<field name="name">res.partner.identify</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="arch" type="xml">
+				<field name="parent_id" position="before">
+					<label for="part_type" string="Identificacion"/>
+					<field name="part_type" required = "1" placeholder="Tipo Identificacion"/>
+					<field name="part_number" on_change="onchange_id_num(part_number,part_type)" attrs="{'required':[('part_type','in',('c','r'))]}" placeholder="Numero Identificacion"/>
+					<group>
+						<field name="use_another_id"/>
+						<field name="second_identification" attrs="{'invisible': [('use_another_id','=',False)],'required': [('use_another_id','=',True)]}"/>
+					</group>
+				</field>
+
+				<field name="lang" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</field>
+
+				<field name="city" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</field>
+
+				<field name="state_id" position="after">
+					<field name="ciudad_id" placeholder="Ciudad"/>
+				</field>
+
+				<field name="zip" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</field>
+
+				<field name="website" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</field>
+
+				<field name="category_id" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</field>
+
+				<field name="country_id" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</field>
+
+				<field name="state_id" position="attributes">
+					<attribute name="placeholder">Provincia</attribute>
+				</field>
+
+				<field name="is_company" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</field>
+
+				<label string="Is a Company?" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</label>
+			</field>
+		</record>
+
+		<record id="res_partner_kanban_view_inherit" model="ir.ui.view">
+			<field name="name">res.partner.kanban.inherit</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.res_partner_kanban_view"/>
+			<field name="arch" type="xml">
+				<xpath expr="//div[@class='oe_kanban_details']" position="inside">
+					<span t-if="record.part_number.value">
+						[<field name="part_number"/>]
+					</span>
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</openerp>

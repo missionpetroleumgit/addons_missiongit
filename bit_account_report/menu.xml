@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+    <menuitem
+        parent="account_analytic_plans.menu_account_analytic_multi_plan_action"
+        name="Distribución"
+        action="account_analytic_plans.account_analytic_plan_instance_action"
+        id="menu_account_analytic_plan_instance_action"
+        groups="analytic.group_analytic_accounting"/>
+         
+    
+    </data>
+</openerp>

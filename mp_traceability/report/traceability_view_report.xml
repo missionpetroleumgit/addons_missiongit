@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <report
+                id="action_traceability_material_report"
+                model="purchase.importation"
+                string="Trazailidad de Materiales"
+                report_type="qweb-pdf"
+                name="mp_traceability.traceability_material_report"
+                file="mp_traceability.traceability_material_report"
+        />
+    </data>
+</openerp>

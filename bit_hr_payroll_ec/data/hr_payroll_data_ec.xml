@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- Salary Structure -->
+
+         <record id="structure_nomina_ec" model="hr.payroll.structure">
+            <field name="code">NOMECU</field>
+            <field name="name">Nomina Ecuador</field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+		<record id="form_import_holidays_view" model="ir.ui.view">
+			<field name="name">Importar ausencias</field>
+			<field name="model">holidays.import</field>
+			<field name="arch" type="xml">
+				<form string="Ausencias">
+                    <group>
+                        <field name="company_id"/>
+                        <field name="type"/>
+                        <field name="file"/>
+                    </group>
+                    <button name="button_import" type="object" string="Importar"/>
+				</form>
+			</field>
+		</record>
+
+        <record id="action_form_import_holidays_view" model="ir.actions.act_window">
+            <field name="name">Importar Ausencias</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">holidays.import</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+            <field name="view_id" ref="form_import_holidays_view"/>
+        </record>
+
+		<menuitem name="Importar Ausencias"
+			parent="hr_holidays.menu_open_ask_holidays"
+			id="menu_holidays_import"
+		    action="action_form_import_holidays_view"/>
+
+	</data>
+</openerp>

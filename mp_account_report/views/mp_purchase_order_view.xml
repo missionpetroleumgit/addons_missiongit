@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="purchase_order_ticket_view_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.ticket.view.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page/group/field[@name='bid_validity']" position='after'>
+                    <separator string="Info Ticket Orden"/>
+                    <group col="2" colspan="2">
+                        <field name="fields_id"/>
+                        <field name="pit_id"/>
+                        <field name="business_unit_id"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

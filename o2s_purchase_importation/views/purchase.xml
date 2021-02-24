@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="tree_purchase_importation" model="ir.ui.view">
+            <field name="name">tree.purchase.importation</field>
+            <field name="model">purchase.importation</field>
+            <field name="arch" type="xml">
+                <tree string="Ordenes de Importacion" create="false">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="amount_total"/>
+                    <field name="company_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="form_purchase_importation" model="ir.ui.view">
+            <field name="name">form.purchase.importation</field>
+            <field name="model">purchase.importation</field>
+            <field name="arch" type="xml">
+                <form string="Importación">
+                    <header>
+                        <button name="imp_start" string="Iniciar Importación" type="object" class="oe_highlight" states="draft"/>
+                        <button name="pass_international" type="object" string="Pasar a Transito Internacional" class="oe_highlight" states="confirmed"/>
+                        <button name="pass_customs" type="object" string="Pasar a Aduana" class="oe_highlight" states="international"/>
+                        <button name="purchase_confirm" type="object" string="Confirmar Importación" class="oe_highlight" states="customs"/>
+                        <button name="action_prorated" type="object" string="Liquidar Importación" class="oe_highlight" id="imp_generate" states="transit"/>
+                        <button name="imp_set_transit" string="Cambiar a transito" type="object" states="done"/>
+                        <button name="create_stock_picking" string="Crear Albarán" class="oe_highlight" type="object"
+                                attrs="{'invisible': ['|', ('picking_created', '=', True), ('state', '!=', 'transit')]}"/>
+                        <button name="imp_cancel" string="Cancelar" type="object" states="confirmed,transit"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,international,customs,transit,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_right oe_button_box" name="buttons">
+                            <button type="object"
+                                    name="view_picking"
+                                    class="oe_stat_button"
+                                    icon="fa-truck"
+                                    attrs="{'invisible': [('shipment_count', '=', 0)]}"
+                                    groups="o2s_purchase_importation.group_importatios_access">
+                                <field name="shipment_count" widget="statinfo" string="In Shipments" help="Incoming Shipments"/>
+                            </button>
+                            <button type="object" name="invoice_open"
+                                    class="oe_stat_button"
+                                    icon="fa-pencil-square-o"
+                                    attrs="{'invisible': [('invoice_count', '=', 0)]}"
+                                    groups="o2s_purchase_importation.group_importatios_access">
+                                <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                            </button>
+                            <button type="object" name="pay_open"
+                                    class="oe_stat_button"
+                                    icon="fa-pencil-square-o"
+                                    attrs="{'invisible': [('pays_count', '=', 0)]}"
+                                    groups="o2s_purchase_importation.group_importatios_access">
+                                <field name="pays_count" widget="statinfo" string="Egresos"/>
+                            </button>
+                        </div>
+                        <group col="4" colspan="2">
+                            <field name="name" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])], 'required':[('state', '=', 'transit')]}"/>
+                            <field name="partner_id" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])], 'required':[('state', '=', 'customs')]}"/>
+                            <field name="company_id" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}"/>
+                            <field name="date_order" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}"/>
+                            <field name="picking_type_id" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}"/>
+                            <field name="origin"/>
+                            <field name="currency_id" groups="base.group_multi_currency" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}"/>
+                            <field name="journal_id" invisible="1"/>
+                            <field name="picking_created" invisible="1"/>
+                        </group>
+                        <group col="4" colspan="2">
+                                <field name="eta_date" attrs="{'invisible':[('state', 'in', ['draft', 'cancel'])],
+                            'required':[('state', 'not in', ['draft', 'cancel'])]}"/>
+                                <field name="etd_date" attrs="{'invisible':[('state', 'in', ['confirmed', 'draft', 'cancel'])],
+                            'required':[('state', 'not in', ['confirmed', 'draft', 'cancel'])]}"/>
+                                <field name="pn_date" attrs="{'invisible':[('state', 'in', ['international' , 'confirmed', 'draft', 'cancel'])],
+                            'required':[('state', 'not in', ['international' , 'confirmed', 'draft', 'cancel'])]}"/>
+                            </group>
+                        <notebook>
+                            <page string="Líneas de Pedido" groups="o2s_purchase_importation.group_importatios_access">
+                                <field name="order_lines"  attrs="{'readonly':[('state', 'in', ['transit','done', 'cancel'])]}">
+                                    <tree string="Purchase Order Lines" editable="bottom">
+                                        <field name="order"/>
+                                        <field name="product_id"/>
+                                        <field name="number"/>
+                                        <field name="name"/>
+                                        <field name="date_planned"/>
+                                        <field name="already_costed"/>
+                                        <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                        <field name="product_qty"/>
+                                        <field name="product_uom" groups="product.group_uom"/>
+                                        <field name="price_unit"/>
+                                        <field name="taxes_id" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','!=','sale')]"/>
+                                        <field name="subtotal_importation"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Costos de Importación"
+                                  attrs="{'invisible':[('state','=', 'draft')]}"
+                                  groups="o2s_purchase_importation.group_importatios_access">
+                                <field name="expenses_ids" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}">
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="partner_id"/>
+                                        <field name="amount"/>
+                                        <field name="invoiced" readonly="1"/>
+                                        <field name="already_costed" invisible="1"/>
+                                        <button name="action_invoice" type="object" icon="gtk-ok" attrs="{'invisible':[('invoiced','=',True)]}"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Impuestos"
+                                  attrs="{'invisible':[('state','not in', ['customs','transit','done','cancel'])]}"
+                                  groups="o2s_purchase_importation.group_importatios_access">
+                                <field name="payments_ids"  attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}">
+                                    <tree editable="bottom">
+                                        <field name="partner_id"/>
+                                        <field name="amount"/>
+                                        <field name="done" invisible="1"/>
+                                        <button name="action_payment" type="object" icon="gtk-ok" attrs="{'invisible':[('done','=', True)]}"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="amount_importation"/>
+                                </group>
+                            </page>
+                            <page string="Facturas"
+                                  attrs="{'invisible':[('state','not in', ['transit','done','cancel'])]}"
+                                  groups="o2s_purchase_importation.group_importatios_access">
+                                <field name="invoice_ids" readonly="0"/>
+                                <separator string="Actualizar Facturas Directas" colspan="4"/>
+                                <button name="button_reset_line" string="Agregar Facturas" type="object" class="oe_highlight" states="transit"/>
+                            </page>
+                            <page string="Entrada de Productos"
+                                  attrs="{'invisible':[('state','not in', ['transit','done','cancel'])]}"
+                                  groups="o2s_purchase_importation.group_importatios_access">
+                                <field name="picking_ids" readonly="1"/>
+                            </page>
+                            <page string="Información General">
+                                <group col="4" colspan="2">
+                                    <field name="location_id" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}"/>
+                                </group>
+                            </page>
+                            <!--<page string="Seguimiento"-->
+                            <!--attrs="{'invisible':[('prod_days', '=', 0)]}"-->
+                            <!--groups="o2s_purchase_importation.group_importatios_access">-->
+                            <!--<separator string="Imp. Produccion"/>-->
+                            <!--<group col="6" colspan="2">-->
+                            <!--<field name="production_date" readonly="1"/>-->
+                            <!--<field name="end_production_date" readonly="1"/>-->
+                            <!--<div>-->
+                            <!--<div>-->
+                            <!--<strong><field name="prod_days" readonly="1" style="width: 12%"/></strong>-->
+                            <!--<strong><field name="days_f" readonly="1" style="width: 12%"/></strong>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</group>-->
+                            <!--<separator string="Tránsito Internacional" attrs="{'invisible':[('international_days', '=', 0)]}"/>-->
+                            <!--<group col="6" colspan="2" attrs="{'invisible':[('international_days', '=', 0)]}">-->
+                            <!--<field name="international_date" readonly="1"/>-->
+                            <!--<field name="end_international_date" readonly="1"/>-->
+                            <!--<div>-->
+                            <!--<div>-->
+                            <!--<strong><field name="international_days" readonly="1" style="width: 12%"/></strong>-->
+                            <!--<strong><field name="days_i" readonly="1" style="width: 12%"/></strong>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</group>-->
+                            <!--<separator string="Aduana" attrs="{'invisible':[('customs_days', '=', 0)]}"/>-->
+                            <!--<group col="6" colspan="2" attrs="{'invisible':[('customs_days', '=', 0)]}">-->
+                            <!--<field name="customs_date" readonly="1"/>-->
+                            <!--<field name="end_customs_date" readonly="1"/>-->
+                            <!--<div>-->
+                            <!--<div>-->
+                            <!--<strong><field name="customs_days" readonly="1" style="width: 12%"/></strong>-->
+                            <!--<strong><field name="days_t" readonly="1" style="width: 12%"/></strong>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</group>-->
+                            <!--<separator string="Transito Nacional" attrs="{'invisible':[('local_days', '=', 0)]}"/>-->
+                            <!--<group col="6" colspan="2" attrs="{'invisible':[('local_days', '=', 0)]}">-->
+                            <!--<field name="local_date" readonly="1"/>-->
+                            <!--<field name="end_local_date" readonly="1"/>-->
+                            <!--<div>-->
+                            <!--<div>-->
+                            <!--<strong><field name="local_days" readonly="1" style="width: 12%"/></strong>-->
+                            <!--<strong><field name="days_l" readonly="1" style="width: 12%"/></strong>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</group>-->
+                            <!--<separator string="Base MP" attrs="{'invisible':[('base_date', '=', False)]}"/>-->
+                            <!--<group col="4" colspan="2" attrs="{'invisible':[('base_date', '=', False)]}">-->
+                            <!--<field name="base_date" readonly="1"/>-->
+                            <!--</group>-->
+                            <!--</page>-->
+                            <page string="Documentación">
+                                <group>
+                                    <field name="att_ids" widget="many2many_binary"/>
+                                </group>
+                            </page>
+                        </notebook>
+                        <group class="oe_subtotal_footer oe_right"
+                               groups="o2s_purchase_importation.group_importatios_access">
+                            <field name="fob_value" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="inter_cost" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="total_liq" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="amount_total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <!--<field name="amount_ct" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>-->
+                            <!--<field name="amount_nct" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>-->
+                        </group>
+                        <div class="oe_clear">
+                            <label for="comment"/>
+                        </div>
+                        <field name="comment"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_purchase_importation" model="ir.actions.act_window">
+            <field name="name">Importaciones</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.importation</field>
+            <field name="context">{
+                'readonly_by_pass': True,
+                }</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <menuitem action="action_purchase_importation" id="menu_action_purchase_importation"
+                  parent="o2s_purchase_expense_distribution.menu_purchase_cost_control" sequence="2"/>
+
+
+        <record id="purchase_order_inherited_form_add_destination" model="ir.ui.view">
+            <field name="name">purchase.order.form.add.destination</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <div class="oe_right oe_button_box" name="buttons">
+                        <button type="object"
+                                name="view_importations"
+                                class="oe_stat_button"
+                                icon="fa-plane"
+                                attrs="{'invisible': ['|', ('imp_count', '=', 0), ('destination', '=', 'internal')]}">
+                            <field name="imp_count" widget="statinfo" string="Importacion" help="Importations Generated"/>
+                        </button>
+                    </div>
+                </field>
+                <field name="company_id" position="after">
+                    <field name="destination" groups="purchase_tiw.group_confirm_order"/>
+                </field>
+                <xpath expr="//form/sheet/notebook/page[@string='Deliveries &amp; Invoices']" position="after">
+                    <page string="Importaciones" attrs="{'invisible': [('destination','=', 'internal')]}">
+                        <group>
+                            <field name="imp_ids"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_kanban_view_purchase_importation">
+            <field name="name">IMP - Importation Kanban</field>
+            <field name="model">purchase.importation</field>
+            <field name="arch" type="xml">
+                <kanban class="oe_portal_project_issue" default_group_by="state" quick_create="false" >
+                    <field name="state"/>
+                    <field name="name"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="oe_dropdown_toggle oe_dropdown_kanban">
+                                    <span class="oe_e">í</span>
+                                    <ul class="oe_dropdown_menu" t-if="widget.view.is_action_enabled('edit') or widget.view.is_action_enabled('delete')">>
+                                        <t t-if="widget.view.is_action_enabled('edit')"><li><a type="edit">Edit...</a></li></t>
+                                        <t t-if="widget.view.is_action_enabled('delete')"><li><a type="delete">Delete</a></li></t>
+                                        <li><ul class="oe_kanban_colorpicker" data-field="color"/></li>
+                                    </ul>
+                                </div>
+                                <div class="oe_kanban_content" > <!--style="padding-left: 0.5em"-->
+                                    <div>
+                                        <b>
+                                            <span style="color:red !important;">ORDEN:  </span><field name="name"/>
+                                        </b>
+                                    </div>
+                                    <div>
+                                        <b>
+                                            <span style="color:darkblue !important;">ORIGEN:  </span><field name="origin"/>
+                                        </b>
+                                    </div>
+                                    <div>
+                                        <b>
+                                            <field name="date_order"/>
+                                        </b>
+                                    </div>
+                                    <div attrs="{'invisible': [('state','in', ('draft', 'cancel'))]}">
+                                        <b>
+                                            <span style="color:darkblue !important;">ETA: </span><field name="eta_date"/>
+                                        </b>
+                                    </div>
+                                    <div attrs="{'invisible': [('state','in', ('confirmed', 'draft', 'cancel'))]}">
+                                        <b>
+                                            <span style="color:darkblue !important;">ETD: </span><field name="etd_date"/>
+                                        </b>
+                                    </div>
+                                    <div attrs="{'invisible': [('state','in', ('international', 'confirmed', 'draft', 'cancel'))]}">
+                                        <b>
+                                            <span style="color:darkblue !important;">P. NACIONALIZACION: </span><field name="pn_date"/>
+                                        </b>
+                                    </div>
+                                    <div>
+                                        <field name="partner_id"/>
+                                    </div>
+                                </div>
+                                <div class="oe_clear"></div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+    </data>
+</openerp>

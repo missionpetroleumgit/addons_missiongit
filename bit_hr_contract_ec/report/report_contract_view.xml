@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_contract_view">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <h2 class="text-center">CONTRATO  DE TRABAJO  <span t-field="o.type_id.name"/></h2>
+                    <p class="text-justify">Comparecen a la celebración del presente contrato de trabajo, por una parte el ING. JUAN CARLOS MALDONADO NUÑEZ,
+                        en calidad de Gerente Subrogante y Representante Legal de la Cooperativa de Ahorro y Crédito Cotocollao Ltda.,
+                        a quien y para efectos del presente contrato se le denominará como <strong>LA COOPERATIVA</strong>; y,
+                        por otra parte <span t-field="o.employee_id"/>, portador de la cedula de ciudadanía ·# <span t-field="o.employee_id.identification_id"/>
+                        , a quien para efectos del presente contrato se la denominará como  <strong>TRABAJADOR (A)</strong>. Los comparecientes
+                        por sus propios derechos, de común acuerdo convienen en celebrar el presente contrato de trabajo,
+                        al tenor de las siguientes cláusulas:</p>
+                    <table class="table table-condensed">
+                        <tr>
+                            <td><strong>PRIMERA:</strong></td>
+                            <td><strong>OBJETO DEL CONTRATO:</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                               El/la trabajador(a) se compromete a prestar sus servicios lícitos y personales para LA COOPERATIVA a partir
+                               del <span t-field="o.date_start"/>, en calidad de <span t-field="o.employee_id.job_id"/>, además de realizar todas
+                               las tareas propias de esta función, conforme con las regulaciones y reglamentaciones Internas del Patrono.
+                               <p>El/la Trabajador(a) está  sujeta directamente a las instrucciones de LA COOPERATIVA y se compromete a cumplir
+                               con las funciones dentro del área de trabajo en forma responsable y eficiente, sujetándose a lo establecido
+                               en el Código de Trabajo, normas internas y demás disposiciones legales. Además se compromete a prestar
+                               su colaboración con absoluta honorabilidad y puntualidad en su asistencia.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>SEGUNDA:</strong></td>
+                            <td><strong>JORNADA DE TRABAJO</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                               El/La Trabajador(a) laborará en el horario de lunes a viernes de  8H00 a 16H30, incluido media hora de almuerzo,
+                               de conformidad con la Jornada de trabajo establecida en el Código de Trabajo, sin  perjuicio que por casos
+                               de fuerza mayor, LA COOPERATIVA requiera de horas suplementarias o extras.
+                               <p>Si bien es cierto que  El/lA TRABAJADOR(A)  ha sido contratada en la Oficina Matriz ubicada en la
+                               calle Rumiurco OE4-624 y 25 de Mayo, en el sector de Cotocollao, de la ciudad de Quito, no implicará
+                               modificación alguna de este contrato ni menos podrá interpretarse como despido intempestivo, el desplazamiento
+                               a otros lugares donde LA COOPERATIVA tenga oficinas o agencias, con recargos según establece el Art. 42 núm. 22
+                               del Código de Trabajo.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>TERCERA:</strong></td>
+                            <td><strong>REMUNERACIÓN</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                               La COOPERATIVA, pagará a LA TRABAJORA un salario Unificado de $ <span t-field="o.wage"/>, más los beneficios
+                               de Ley, de los cuales se descontarán los valores correspondientes al Seguro Social y otros legalmente vigentes.
+                               <p>En caso que EL EMPLEADOR requiera de horas extraordinarias o extras,  El/lA TRABAJADOR(A), se sujetará a los que
+                               dispone el Art. 55 de las REMUNERACION por horas SUPLEMENTARIAS Y EXTRAORDINARIAS, conforme lo dispone el
+                               Código del Trabajo.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>CUARTA:</strong></td>
+                            <td class="text-justify">
+                               <p>El/la TRABAJADOR(A) de la Cooperativa Cotocollao Ltda, asume la responsabilidad  total de las transacción realizada
+                               con la clave COBIS, entregada por la Institución, y se compromete a no revelar la clave a otra persona, ya que
+                               la misma es PERSONAL E INSTRANSFERIBLE, además la funcionaria deberá  utilizar la clave única y exclusivamente
+                               para realizar las funciones de su cargo, de conformidad a lo que dispone el  Manual de Talento Humano. En caso
+                               de no acatar esta disposición, se sujetaré a las sanciones internas establecidas en el Reglamento Interno de Trabajo</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>QUINTA:</strong></td>
+                            <td><strong>DURACIÓN</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                               <p>Este contrato es un año con un periodo de Prueba de noventa días contados a partir de la suscripción del presente
+                               contrato, tiempo durante el cual cualquiera de las partes podrá darlo por terminado sin necesidad de aviso previo,
+                               ni dará lugar a .pago de indemnización alguna, de conformidad a lo establecido en el Art. 15 del Código del Trabajo.
+                               Vencido este plazo, se convertirá en contrato a plazo fijo de un año, y tendrá vigencia por el tiempo que falte para
+                               completar un año, pudiendo las partes darlo por terminado después del primer año, en la forma prevista en el Código
+                               de Trabajo. Si no lo hicieren se entenderá que el contrato esta renovado indefinidamente.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>SEXTA:</strong></td>
+                            <td><strong>ANEXOS</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                              <p>Se considera parte integrante del presente contrato el Reglamento Interno de la COOPERATIVA, Manual de Control
+                              Interno de prevención de Lavado de Activos y las funciones del TRABAJADOR(A), cuyos anexos son habilitantes para
+                              el cumplimiento de los objetivos de la COOPERATIVA.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>SEPTIMA:</strong></td>
+                            <td><strong>CONFIDENCIALIDAD</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                              <p>El/lA TRABAJADOR(A), se compromete a guardar escrupulosamente la información, operativa, financiera y cualquier otra,
+                              que en razón de las funciones a desempeñar llegue a conocer. Esta obligación supera el período de trabajo con
+                              el EMPLEADOR, y su incumplimiento, motivará según sea el caso, a terminar el contrato con el/la  TRABAJADOR(A),
+                              mediante Visto Bueno, y/o a la iniciación de las acciones civiles y penales que procedan.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>OCTAVA:</strong></td>
+                            <td class="text-justify">
+                              <p>Las partes de común acuerdo solicitan que este contrato sea inscrito ante la inspección de trabajo de la Provincia
+                              de Pichincha</p>
+                            </td>
+                        </tr>  
+                        <tr>
+                            <td><strong>NOVENA:</strong></td>
+                            <td class="text-justify">
+                              <p>Dada la naturaleza  del contrato, el plazo de duración del mismo será de noventa días contados a partir de la
+                              presente fecha, periodo dentro del cual, cualesquiera de las partes podrá darlo por terminado con la simple
+                              notificación verbal, sin que se requiera la realización de ningún procedimientos administrativo, ni judicial
+                              para el efecto, de conformidad a lo que dispone la cláusula 5ta. del presente contrato.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>DECIMA:</strong></td>
+                            <td><strong>JURISDICCIÓN Y COMPETENCIA</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                              <p>Las partes se someten a la jurisdicción y competencia de los Juzgados de Trabajo y Tribunales de la Provincia de Pichincha.</p>
+                            </td>
+                        </tr>
+                    </table>
+                   
+                    <p class="text-justify">Para constancia de lo anteriormente estipulado, las partes contratantes suscriben el presente contrato por triplicado,
+                    en Quito el <span t-field="o.date_start"/></p>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/> 
+                   
+                    <table class="table table-condensed">
+                        <tr>
+                            <td class="text-center"><strong>ING. JUAN CARLOS MALDONADO
+                            <p>GERENTE SUBROGANTE</p></strong></td>
+                            <td class="text-center"><strong><span t-field="o.employee_id"/>
+                            <p>C.I.<span t-field="o.employee_id.identification_id"/></p></strong></td>
+                        </tr>
+                    </table>
+                </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

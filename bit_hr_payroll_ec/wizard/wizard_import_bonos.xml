@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="wizard_import_bonos_view" model="ir.ui.view">
+            <field name="name">Bonos de empleados</field>
+            <field name="model">wizard.import.bonos</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Bonos de empleados" version="7.0">
+						<separator string="Bonos"/>
+                        <button icon="gtk-cancel" special="cancel" string="Cancelar"/>
+                        <button icon="gtk-ok" string="Generar" name="load_csv" type="object" class="oe_highlight"/>
+                    <group colspan="5" col="2" >
+                    <separator string="Bonos de empleados" colspan="5"/>
+                    <field name="adm_id" required="1"/>
+                    <field name="date" required="1" readonly="1"/>
+                    </group>                    
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_import_bonos" model="ir.actions.act_window">
+            <field name="name">Generar</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.import.bonos</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+            <field name="view_id" ref="wizard_import_bonos_view"/>
+        </record>
+        
+        
+    </data>
+</openerp>

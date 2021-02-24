@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<!-- Tax Codes -->
+	<!-- Search --> 
+        <record id="view_bit_tax_code_search" model="ir.ui.view">
+            <field name="name">account.tax.code.search</field>
+            <field name="model">account.tax.code</field>
+            <field name="inherit_id" ref="account.view_tax_code_search"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                	<field name="form"/>
+                </field>
+            </field>
+        </record>
+	<!-- Tree -->
+        <record id="view_bit_tax_code_tree" model="ir.ui.view">
+            <field name="name">account.tax.code.tree</field>
+            <field name="model">account.tax.code</field>
+            <field name="field_parent">child_ids</field>
+            <field name="inherit_id" ref="account.view_tax_code_tree"/>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                	<field name="form"/>
+                </field>
+                <field name="sum_period" position="after">
+                    <field name="debit"/>
+                    <field name="credit"/>
+                </field>
+            </field>
+        </record>
+	<!-- Form --> 
+        <record id="view_bit_tax_code_form" model="ir.ui.view">
+            <field name="name">account.tax.code.form</field>
+            <field name="model">account.tax.code</field>
+            <field name="inherit_id" ref="account.view_tax_code_form"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="after">
+                	<field name="form"/>
+                </field>
+            </field>
+        </record>
+        
+        
+<!-- Invoice Documents -->
+	<!-- Search -->     
+        <record id="view_bit_invoice_document_search" model="ir.ui.view">
+            <field name="name">account.invoice.document.search</field>
+            <field name="model">account.invoice.document</field>
+            <field name="arch" type="xml">
+            	<search string="Invoice document">
+                    <field name="name"/>
+                    <field name="code"/>
+                </search>
+            </field>
+        </record>  
+	<!-- Tree -->     
+        <record id="view_bit_invoice_document_tree" model="ir.ui.view">
+            <field name="name">account.invoice.document.tree</field>
+            <field name="model">account.invoice.document</field>
+            <field name="arch" type="xml">
+            	<tree string="Invoice document">
+                    <field name="name"/>
+                    <field name="code"/>                    
+                </tree>
+            </field>
+        </record>
+ 	<!-- Form -->         
+        <record id="view_bit_invoice_document_form" model="ir.ui.view">
+            <field name="name">account.invoice.document.form</field>
+            <field name="model">account.invoice.document</field>
+            <field name="arch" type="xml">
+                <form string="Account Tax Code" version="7.0">
+					<group col='20'>
+	                        <group col="12" >
+	                            <field name="name" colspan="8"/>
+	                            <field name="code"/>
+	                        </group>
+	                        <group col="8" >
+	                            <field name="is_retention"/>
+	                            <field name="is_liquidation"/>
+	                            <field name="only_sale"/>
+	                        </group>
+					</group>
+                    <notebook>
+                    	<page string="Tax supports">
+                    		<field name="support_ids"/>
+                    	</page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+ 	<!-- Action -->         
+        <record id="action_bit_invoice_document" model="ir.actions.act_window">
+            <field name="name">Documents type</field>
+            <field name="res_model">account.invoice.document</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to define a new invoice document.
+              </p><p>
+                This document are use in the invoice creation.
+              </p>
+            </field>
+        </record>
+ 	<!-- Menuitem -->
+        <menuitem action="action_bit_invoice_document" id="menu_bit_invoice_document" parent="account.next_id_27" sequence="90" groups="base.group_no_one"/>
+        
+        
+<!-- Tax support -->
+	<!-- Search -->     
+        <record id="view_bit_account_tax_support_search" model="ir.ui.view">
+            <field name="name">account.tax.support.search</field>
+            <field name="model">account.tax.support</field>
+            <field name="arch" type="xml">
+            	<search string="Tax support">
+                    <field name="type"/>
+                    <field name="code"/>
+                </search>
+            </field>
+        </record>  
+	<!-- Tree -->     
+        <record id="view_bit_account_tax_support_tree" model="ir.ui.view">
+            <field name="name">account.tax.support.tree</field>
+            <field name="model">account.tax.support</field>
+            <field name="arch" type="xml">
+            	<tree string="Tax support">
+                    <field name="type"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+ 	<!-- Form -->         
+        <record id="view_bit_account_tax_support_form" model="ir.ui.view">
+            <field name="name">account.tax.support.form</field>
+            <field name="model">account.tax.support</field>
+            <field name="arch" type="xml">
+                <form string="Tax support" version="7.0">
+                    <group>
+                        <group col="4" colspan="2">
+                            <field name="type"/>
+                            <field name="code"/>
+                        </group>
+                    </group>
+                </form>
+            </field>
+        </record>
+ 	<!-- Action -->         
+        <record id="action_bit_account_tax_support" model="ir.actions.act_window">
+            <field name="name">Tax support</field>
+            <field name="res_model">account.tax.support</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to define a new invoice document.
+              </p><p>
+                This document are use in the invoice creation.
+              </p>
+            </field>
+        </record>
+ 	<!-- Menuitem -->
+        <menuitem action="action_bit_account_tax_support" id="menu_bit_account_tax_support" parent="account.next_id_27" sequence="90" groups="base.group_no_one"/>
+
+<!-- Fiscal Position -->
+	<!-- Form -->   
+		<record id="view_bit_account_position_form" model="ir.ui.view">
+            <field name="name">account.fiscal.position.form</field>
+            <field name="model">account.fiscal.position</field>
+            <field name="inherit_id" ref="account.view_account_position_form"/>
+            <field name="arch" type="xml">
+                <field name="tax_ids" widget="one2many_list">
+                    <tree string="Tax Mapping" editable="bottom">
+                        <field name="tax_src_id" domain="[('parent_id','=',False)]"/>
+                        <field name="tax_dest_id" />
+                    </tree>
+                    <form string="Tax Mapping">
+                        <field name="tax_src_id" domain="[('parent_id','=',False)]"/>
+                        <field name="tax_dest_id" />
+                    </form>
+                </field>                       
+            </field>
+        </record>
+
+<!-- Taxes -->
+	<!-- Form -->
+        <record id="view_bit_tax_tree" model="ir.ui.view">
+            <field name="name">account.tax.tree</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_tree"/>
+            <field name="field_parent">child_ids</field>
+            <field name="arch" type="xml">
+            	<field name="description" position="replace"/>
+                <field name="name" position="before">
+                    <field name="description"/>
+                </field>
+                <field name="name" position="after">
+                    <field name="parent_id"/>
+                </field>
+            </field>
+        </record>
+	<!-- Form -->   
+		<record id="view_bit_tax_form" model="ir.ui.view">
+            <field name="name">account.tax.form</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form"/>
+            <field name="arch" type="xml">
+            	<field name="description" position="after">
+                    <field name="parent_id" context="{ 'type_tax_use': type_tax_use }"/>
+                </field>
+                <field name="active" position="before">
+                    <field name="is_iva"/>
+                </field>
+                <field name="active" position="after">
+                	<field name="string_percent"/>
+                </field>
+            </field>
+        </record>
+        <record id="account.action_tax_form" model="ir.actions.act_window">
+            <field name="name">Taxes</field>
+            <field name="res_model">account.tax</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="account.view_tax_tree"/>
+            <field name="domain"></field>
+        </record>
+           
+        <!--<record id="view_bit_bank_statement_form" model="ir.ui.view">-->
+            <!--<field name="name">account.bank.statement.form</field>-->
+            <!--<field name="model">account.bank.statement</field>-->
+            <!--<field name="inherit_id" ref="account.view_bank_statement_form"/>-->
+            <!--<field name="arch" type="xml">-->
+            	<!--<button name="%(account.action_bank_reconcile_bank_statements)d" position="attributes">-->
+					<!--<attribute name="groups">account.group_account_manager</attribute>-->
+				<!--</button>         -->
+            <!--</field>-->
+		<!--</record> -->
+		
+		<record id="invoice_form_number_invoice" model="ir.ui.view">
+            <field name="name">invoice.form.number.invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+            	<field name="number" readonly="1" class="oe_inline" position="after">
+            		<field name="number" readonly="1" invisible="1" class="oe_inline"/>
+            	</field>
+            	<field name="number" position="before">
+            		<field name="number_reem" />
+            	</field>
+			</field>
+        </record>   
+        
+        <record id="invoice_tree_inherit" model="ir.ui.view">
+            <field name="name">account.invoice.tree.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_tree"/>
+            <field name="arch" type="xml">
+            	<field name="number" position="replace">
+            		<field name="number" invisible="1"/>
+            	</field>
+				<field name="number" position="after">
+					<field name="number_reem" string="Número Factura"/>
+				</field>
+			</field>
+        </record>
+        
+        <record id="invoice_supplier_form_inherit" model="ir.ui.view">
+            <field name="name">invoice.supplier.form.inherit</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+            	<field name="number" readonly="1" class="oe_inline" position="after">
+            		<field name="number" readonly="1" invisible="1" class="oe_inline"/>
+            	</field>
+            	<field name="number" class="oe_inline"  attrs="{'invisible': [('state', '=', 'draft')]}" position="after">
+                    <field name="number_reem" readonly="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_bit_account_move_form_inherit" model="ir.ui.view">
+            <field name="name">account.move.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <field name="to_check" position="after">
+                	<field name="group_report_by_account"/>
+                </field>
+                <!--CSV:25-06-2018: AUMENTO PARA IDENTIFICAR ASIENTOS DIRECTOS PARA CONCILIACION-->
+                <field name="period_id" position="after">
+                	<field name="is_conci_direct"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_service_ticket_document">
+        <!--report_invoice_disaggregated_document-->
+        <t t-call="report.external_layout">
+            <div class="page">
+                <table style="width:100%;" class="table table-bordered" border="4">
+	                <tr >
+		                <td>
+                            <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="max-height:120px"/>
+                        </td>
+                        <td>
+                            Código:<br/>
+                            Revisión: <br/>
+                            Emisión <br/>
+                        </td>
+
+	                </tr>
+                </table>
+                <table>
+                    <h3 class="text-center">
+                        <t t-if="o.state in ('draft', 'sent')">
+                            <span t-if="o.is_rent">COTIZACION DE RENTA</span>
+                        </t>
+                        <t t-if="o.state in ('manual', 'progress')">
+                            <span t-if="o.is_rent">ORDEN DE RENTA</span>
+                        </t>
+                        <t t-if="o.state in ('draft', 'sent')">
+                            <span t-if="o.is_repair">COTIZACION DE REPARACION</span>
+                        </t>
+                        <t t-if="o.state in ('manual', 'progress')">
+                            <span t-if="o.is_repair">ORDEN DE REPARACION</span>
+                        </t>
+                        <t t-if="o.state in ('draft', 'sent')">
+                            <span t-if="not o.is_rent and not o.is_repair">COTIZACION DE VENTA</span>
+                        </t>
+                        <t t-if="o.state in ('manual', 'progress')">
+                            <span t-if="not o.is_rent and not o.is_repair">ORDEN DE VENTA</span>
+                        </t>
+                    </h3>
+                    <h4 class="text-center">
+                        <span style="color:red !important" t-field="o.name"/>
+                    </h4>
+                </table>
+                <table style="width:100%;" class="table table-bordered" border="4">
+	                <tr>
+		                <td>
+                             <strong>REPARACION:</strong>
+                        </td>
+	                </tr>
+                    <tr>
+		                <td>
+                            <span t-field="o.description"/>
+                        </td>
+	                </tr>
+                </table>
+                <table style="width:100%;" class="table table-bordered" border="4">
+                    <td><strong>CLIENTE:</strong></td>
+                    <td><span t-field="o.partner_id.name"/></td>
+                    <td><strong>CONTRATO:</strong></td>
+                    <td><span t-field="o.contract_id.name"/></td>
+                    <tr>
+                        <td><strong>FECHA:</strong></td>
+                        <td><span t-field="o.date_start"/></td>
+                        <td><strong>BLOQUE:</strong></td>
+                        <td><span t-field="o.block_field_id.name"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>EVENTO:</strong></td>
+                        <td><span t-field="o.event"/></td>
+                        <td><strong>RIG</strong></td>
+                        <td><span t-field="o.drill_id.name"/></td>
+                    </tr>
+                    <tr>
+                        <td><strong>AFP:</strong></td>
+                        <td></td>
+                        <td><strong>POZO:</strong></td>
+                        <td><span t-field="o.service_well_id.name"/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td><strong>CUENTA:</strong></td>
+                        <td></td>
+                    </tr>
+                </table>
+                <div class="table">
+                    <tr>
+                        <h4 style="text-align: center;">DETALLE DE SERVICIOS</h4>
+                    </tr>
+                </div>
+                <table class="table table-bordered" border="4">
+                    <thead>
+                        <tr>
+                            <th>ITEM</th>
+                            <th>FECHA</th>
+                            <th>CATIDAD</th>
+                            <th>CODIGO</th>
+                            <th>DESCRIPCION</th>
+                            <th>PAGINA</th>
+                            <th>VALOR</th>
+                            <th>SUBTOTAL</th>
+                        </tr>
+                    </thead>
+                        <tbody class="sale_tbody">
+                            <tr t-foreach="o.order_ids.order_line" t-as="p">
+                                <td>
+                                    <span t-field="p.id"/>
+                                </td>
+                                <td>
+                                    <span t-field="o.order_ids.date_order"/>
+                                </td>
+                                <td>
+                                    <span t-field="p.product_uom_qty"/>
+                                </td>
+                                <td>
+                                    <span t-field="p.product_id.code"/>
+                                </td>
+                                <td>
+                                    <span t-field="p.product_id.name"/>
+                                </td>
+                                 <td>
+
+                                </td>
+                                <td>
+                                    <span t-field="p.price_unit"/>
+                                </td>
+                                <td>
+                                    <span t-field="p.price_subtotal"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-xs-4 pull-right">
+                        <table class="table table-condensed">
+                            <tr class="border-black">
+                                <td><strong>SUBTOTAL</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_untaxed"
+                                        t-field-options='{"widget": "monetary", "display_currency": "p.pricelist_id.currency_id"}'/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>IVA 12%</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_tax"
+                                        t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+                                </td>
+                            </tr>
+                            <tr class="border-black">
+                                <td><strong>TOTAL</strong></td>
+                                <td class="text-right">
+                                    <span t-field="o.amount_total"
+                                        t-field-options='{"widget": "monetary", "display_currency": "o.pricelist_id.currency_id"}'/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <table>
+                    <tr>
+                        <td width="50%">
+                            <p class="text-center"><strong>______________________________</strong></p>
+                            <p class="text-center"><strong>REPRESENTANTE DEL CLIENTE</strong></p>
+                        </td>
+                        <td class="text-center" width="50%">
+                            <p class="text-center"><strong>______________________________</strong></p>
+                            <p class="text-center"><strong>REPRESENTANTE DEL SERVICIO</strong></p>
+                        </td>
+                        <td class="text-left" width="50%">
+                            <p class="text-left"><strong>______________________________</strong></p>
+                            <p class="text-center"><strong>RECIBIDO POR</strong></p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </t>
+        </template>
+
+        <template id="report_service_ticket">
+            <t t-call="report.html_container">
+            <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'o2s_sale_contract.report_service_ticket_document')"/>
+            </t>
+            </t>
+        </template>
+    </data>
+</openerp>

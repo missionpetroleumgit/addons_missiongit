@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <record model="res.groups" id="requisitions_type_material_approve_group">
+            <field name="name">Tipo Aprobador</field>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+    </data>
+</openerp>

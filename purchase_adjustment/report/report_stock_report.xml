@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <report
+                id="action_report_print_picking_out"
+                model="stock.picking"
+                string="Despacho"
+                report_type="qweb-pdf"
+                name="purchase_adjustment.report_print_picking_out"
+                file="purchase_adjustment.report_print_picking_out"
+                groups="purchase_adjustment.group_only_warehouse_access_state_transfer"
+                />
+
+    </data>
+</openerp>

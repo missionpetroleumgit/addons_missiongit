@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+	  <!-- Menu de cuentas bancarias -->
+        <menuitem action="base.action_res_partner_bank_account_form"
+                  name="Cuentas Bancarias"
+                  id="menu_action_res_employee_bank_form"
+                  parent="hr.menu_hr_configuration"
+                  groups="base.group_hr_manager"
+                />
+
+        <menuitem id="hr_job_config" parent="hr.menu_hr_configuration" action="hr.action_hr_job" name="Ocupaciones"/>
+
+    </data>
+</openerp>

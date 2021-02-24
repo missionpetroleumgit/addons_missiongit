@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_check">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div class="row mt32 mb32">
+                            <div class="col-xs-9" style="position:absolute;left:60;top:10px;font-size: 16px">
+                                <span t-field="o.partner_id.name"/>
+                            </div>
+                            <div class="col-xs-3" style="position:absolute;left:575;top:-1px;font-size: 19px">
+                                ***<span t-field="o.balance_start"/><br/>
+                            </div>
+                        </div>
+                        <div class="row mt32 mb32">
+                            <div class="col-xs-12" style="position:absolute;left:60;top:42px;font-size: 16px">
+                                <span t-esc="get_amount_in_letters(o.balance_start)"/>
+                            </div>
+                        </div>
+                        <div class="row mt32 mb32">
+                            <div class="col-xs-12" style="position:absolute;left:5;top:96px;font-size: 16px">
+                                Quito, <span t-esc="get_format(o.date)"/><br/>
+                            </div>
+                        </div>
+                        <div class="col-xs-12" style="position:absolute;left:5;top:310px;font-size: 13px">
+                            <table class="table table-condensed table-bordered">
+                                <tr >
+                                    <td align="center"><img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height:80px"/></td>
+                                    <td align="center"><h4><strong><span t-field="o.company_id.partner_id" t-field-options='{"widget": "contact", "fields": ["name"], "no_marker": true, "no_tag_br": true}'/></strong></h4><span t-field="o.company_id.partner_id" t-field-options='{"widget": "contact", "fields": ["address"], "no_marker": true, "no_tag_br": true}'/></td>
+                                </tr>
+                                <tr >
+                                    <td align="center"><h9><strong>RUC: </strong><span t-esc="o.company_id.partner_id.part_number"/></h9></td>
+                                    <td align="center"><h5>Comprobante de Egreso <span t-field="o.name"/></h5></td>
+                                </tr>
+                            </table>
+                            <div class="row mt32 mb32">
+                                <table class="table table-condensed table-bordered">
+                                    <tr>
+                                        <td><strong>Cliente: </strong><span t-field="o.partner_id.name"/></td>
+                                        <td><strong>Concepto: </strong><span t-field="o.concept"/></td>
+                                    </tr>
+                                    <tr >
+                                        <td><strong>No. Cheque: </strong><span t-esc="o.no_cheque"/></td>
+                                        <td><strong>Fecha: </strong><span t-field="o.date"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th>CUENTA</th>
+                                        <th>Descripción</th>
+                                        <!--<th>Ref.</th>-->
+                                        <th>Concepto</th>
+                                        <th>Débito</th>
+                                        <th>Crédito</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="get_lines(o.move_line_ids)" t-as="l">
+                                        <td><span t-esc="l['account_id']"/></td>
+                                        <td><span t-esc="l['description']"/></td>
+                                        <!--<td><span t-esc="l['ref']"/></td>-->
+                                        <td><span t-esc="l['name']"/></td>
+                                        <td class="text-right"><span t-esc="l['debit']"/></td>
+                                        <td class="text-right"><span t-esc="l['credit']"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <table class="table table-condensed">
+                                <tr>
+                                    <th class="col-xs-2">
+                                        <strong>Total asiento: </strong>
+                                    </th>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th/>
+                                    <th>
+                                        <h5 class="text-right"><span t-esc="formatLang(get_debit(o.move_line_ids))"/></h5>
+                                    </th>
+                                    <th>
+                                        <h5 class="text-right"><span t-esc="formatLang(get_credit(o.move_line_ids))"/></h5>
+                                    </th>
+                                </tr>
+                            </table>
+                            <table class="table table-condensed table-bordered">
+                                <tr>
+                                    <td align="center">____________________</td>
+                                    <td align="center">___________________</td>
+                                    <td align="center">___________________</td>
+                                    <td align="left">________________________________________</td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <strong>Preparado por:</strong><br/>
+                                    </td>
+                                    <td align="center" class="col-xs-2">
+                                        <strong>Aprobado por:</strong><br/>
+                                    </td>
+                                    <td align="center">
+                                        <strong>Autorizado por:</strong><br/>
+                                    </td>
+                                    <td align="left">
+                                        <strong>Recibí conforme                      </strong><br/>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td align="left" class="col-xs-4">
+                                        <br/>
+                                    </td>
+                                    <td align="left" class="col-xs-4">
+                                        <br/>
+                                    </td>
+                                    <td align="left" class="col-xs-4">
+                                        <strong>Nombre:</strong><br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td align="left" class="col-xs-4">
+                                        <br/>
+                                    </td>
+                                    <td align="left" class="col-xs-4">
+                                        <br/>
+                                    </td>
+                                    <td align="left" class="col-xs-4">
+                                        <strong>CI:</strong><br/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td align="left" class="col-xs-4">
+                                        <br/>
+                                    </td>
+                                    <td align="left" class="col-xs-4">
+                                        <br/>
+                                    </td>
+                                    <td align="left" class="col-xs-4">
+                                        <strong>Fecha:</strong><br/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

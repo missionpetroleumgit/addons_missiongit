@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Income Taxes -->
+
+        <record id="view_income_tax_tree" model="ir.ui.view">
+            <field name="name">hr.income.tax.tree</field>
+            <field name="model">hr.income.tax</field>
+            <field name="arch" type="xml">
+                <tree string="Income Taxes">
+                    <field name="name"/>
+                    <field name="fiscalyear_id"/>
+<!--                     <field name="company_id"/> -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_income_tax_form" model="ir.ui.view">
+            <field name="name">hr.income.tax.form</field>
+            <field name="model">hr.income.tax</field>
+            <field eval="25" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Income Tax">
+                <header>
+                    <button name="confirm" states="draft" string="Confirmar" type="object" class="oe_highlight"/>
+                    <!--<button name="draft" states="confirm,cancelled" string="Set to Draft" type="workflow" groups="base.group_hr_user" />-->
+                    <button name="cancel" string="Cancelar" type="object"/>
+                    <field name="state" widget="statusbar" statusbar_visible="confirm,draft,cancel" statusbar_colors='{"confirm":"blue","cancelled":"red"}'/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="fiscalyear_id"/>                            
+                        </group>
+                        <group>
+<!--                             <field name="company_id"/> -->
+                            <field name="currency_id"/>                            
+                        </group>                        
+                    </group>
+                    <div>
+                      	<field name="tax_lines" nolabel="1" string="Unit Of Currency Definition">
+                              <tree string="Tax Lines" editable="bottom">
+                                  <field name="basic_fraction" />
+                                  <field name="excess_up" />
+                                  <field name="tax_basic_fraction" />
+                                  <field name="tax_surplus_fraction" />
+                                  <field name="currency_id" />
+                              </tree>
+                          </field>
+                     </div>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_hr_income_tax_filter" model="ir.ui.view">
+            <field name="name">hr.income.tax.filter</field>
+            <field name="model">hr.income.tax</field>
+            <field name="arch" type="xml">
+                <search string="Income Taxes">
+                    <field name="name" string="Income Tax"/>
+                    <field name="fiscalyear_id"/>
+                    <filter icon="terp-document-new" domain="[('state','=','draft')]" string="New" help="New Expense"/>
+                    <filter icon="terp-camera_test" domain="[('state','=','confirm')]" string="To Approve" help="Confirmed Expenses"/>
+                    <separator/>                    
+                    <group expand="0" string="Group By">
+                        <filter string="Fiscal Year" icon="terp-personal" domain="[]" context="{'group_by':'fiscalyear_id'}"/>                        
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="hr_income_tax_action" model="ir.actions.act_window">
+            <field name="name">Income Tax</field>
+            <field name="res_model">hr.income.tax</field>
+            <field name="view_type">form</field>
+            <field name="search_view_id" ref="view_hr_income_tax_filter"/>
+            <field name="view_id" ref="view_income_tax_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to configure income taxes. 
+              </p><p>
+                Odoo will ensure the whole process is followed; the expense
+                sheet is validated by manager(s), the employee is reimbursed
+                from his expenses, some expenses must be re-invoiced to the
+                customers.
+              </p>
+            </field>
+        </record>
+
+        <menuitem action="hr_income_tax_action" id="hr_income_tax_menu" name="Tabla de Impuestos" parent="hr.menu_hr_configuration"/>
+		
+		 <!-- Personal Expense -->
+
+        <record id="view_hr_personal_expense_catalog_tree" model="ir.ui.view">
+            <field name="name">hr.personal.expense.catalog.tree</field>
+            <field name="model">hr.personal.expense.catalog</field>
+            <field name="arch" type="xml">
+                <tree string="Personal Expense Catalog">
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_hr_personal_expense_catalog_form" model="ir.ui.view">
+            <field name="name">hr.personal.expense.catalog.form</field>
+            <field name="model">hr.personal.expense.catalog</field>
+            <field eval="25" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Personal Expense Catalog">   
+            		<group>
+                        <field name="name"/>
+                        <field name="description"/>                            
+                    </group>                    
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_hr_personal_expense_catalog_filter" model="ir.ui.view">
+            <field name="name">hr.personal.expense.catalog</field>
+            <field name="model">hr.personal.expense.catalog</field>
+            <field name="arch" type="xml">
+                <search string="Personal Expense Catalog">
+                    <field name="name" />
+                    <field name="description"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="hr_personal_expense_catalog_action" model="ir.actions.act_window">
+            <field name="name">Personal Expense Catalog</field>
+            <field name="res_model">hr.personal.expense.catalog</field>
+            <field name="view_type">form</field>
+            <field name="search_view_id" ref="view_hr_personal_expense_catalog_filter"/>
+            <field name="view_id" ref="view_hr_personal_expense_catalog_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to configure the personal expense catalog. 
+              </p><p>
+                Todo
+              </p>
+            </field>
+        </record>
+
+        <menuitem action="hr_personal_expense_catalog_action" id="hr_personal_expense_catalog_menu" name="Personal Expense Catalog" parent="hr.menu_hr_configuration"/>
+		
+		<record id="view_hr_personal_expense_form" model="ir.ui.view">
+            <field name="name">hr.personal.expense.form</field>
+            <field name="model">hr.personal.expense</field>
+            <field eval="25" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Personal Expense">   
+            		<group>
+                        <field name="personal_expense_catalog_id"/>
+                        <field name="total_annual_cost"/>                            
+                    </group>  
+                    <group>
+                        <field name="fiscalyear_id"/>                          
+                    </group>                   
+                </form>
+            </field>
+        </record>
+		
+		<record id="hr_employee_view_expenses_form" model="ir.ui.view">
+            <field name="name">hr.employee.view.expenses.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//page[@string='HR Settings']" position="after">
+                        <page string="Gastos personales">
+                        	<group>
+                        		<h1>
+		                            <field name="total_annual_personal_expense" />
+		                        </h1>
+                        	</group>
+                            <group col="4">
+                                <field colspan="4" name="personal_expense_ids" nolabel="1" select="1" context="{'group_by':'fiscalyear_id'}" widget="one2many_list" >
+									<tree editable="bottom">
+										<field name="personal_expense_catalog_id"/>
+										<field name="total_annual_cost"/>
+										<field name="monthly_expenditure_broken_down"/>
+										<field name="fiscalyear_id" string="Año Fiscal"/>
+									</tree>
+								</field>
+                            </group>
+                        </page>
+                        <page string="Ingresos Personales">
+                        	<group>
+	                            <field name="salary_rule_income_id" />
+	                            <field name="current_total_income" />		                            
+	                            <field name="last_slip_date" />		                                                        
+		                    </group>
+                            <group col="4">
+                                <field colspan="4" name="payslip_line_ids" nolabel="1" select="1" widget="one2many_list" >
+									<tree>
+										<field name="slip_id"/>
+										<field name="salary_rule_id"/>										
+										<field name="amount"/>
+										<field name="quantity"/>
+										<field name="total"/>
+									</tree>
+								</field>
+                            </group>
+                        </page>
+                        <page string="Income Tax">
+                        	<!--<group>-->
+	                            <!--<field name="salary_rule_income_tax_id" />-->
+	                            <!--<field name="income_tax" />-->
+	                            <!--<field name="total_proyected_income" />	-->
+	                            <!--<field name="current_income_tax_id" />		                                                        -->
+		                    <!--</group>-->
+                            <group col="4">
+                                <field colspan="4" name="payslip_tax_line_ids" nolabel="1" select="1" widget="one2many_list" >
+									<tree>
+										<field name="slip_id"/>
+										<field name="salary_rule_id"/>										
+										<field name="amount"/>
+										<field name="quantity"/>
+										<field name="total"/>
+									</tree>
+								</field>
+                            </group>
+                        </page>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+        
+	  <record id="view_employee_add_imp_rent_form" model="ir.ui.view">
+	      <field name="name">employee.add.imp.rent</field>
+	      <field name="model">hr.employee</field>
+	      <field name="inherit_id" ref="bit_hr_ec.view_employee_add_nomina_form"/>
+	      <field name="arch" type="xml">
+	      <field name="emp_fondo_reserva" position="after">
+	      		<field name="genera_imp_r"/>
+	      </field>
+	      </field>
+	  </record>	
+        
+<!--         <record id="view_employee_form1" model="ir.ui.view"> -->
+<!--             <field name="name">hr.employee.form1</field> -->
+<!--             <field name="model">hr.employee</field> -->
+<!--             <field name="inherit_id" ref="hr.view_employee_form"/> -->
+<!--             <field name="arch" type="xml"> -->
+<!--                 <data> -->
+<!--                     <xpath expr="//page[@string='HR Settings']" position="after"> -->
+                                                
+<!--                         <page string="Slips"> -->
+<!--                             <group col="4"> -->
+<!--                                 <field colspan="4" name="payslip_ids" widget="one2many_list" > -->
+<!-- 									<tree> -->
+<!-- 										<field name="name"/> -->
+<!-- 										<field name="date_from"/> -->
+<!-- 										<field name="date_to"/>										 -->
+<!-- 									</tree> -->
+<!-- 								</field> -->
+<!--                             </group> -->
+<!--                         </page> -->
+<!--                     </xpath> -->
+<!--                 </data> -->
+<!--             </field> -->
+<!--         </record> -->
+		
+		
+    </data>
+</openerp>

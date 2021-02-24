@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_order_form_productions" model="ir.ui.view">
+            <field name="name">order.form.productions</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/h1[1]" position="before">
+                    <div class="oe_button_box oe_right">
+                        <button name="action_open_productions"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-list"
+                                attrs="{'invisible':[('production_count','=',0)]}">
+                            <field name="production_count" widget="statinfo" string="Manufacturas"/>
+                        </button>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

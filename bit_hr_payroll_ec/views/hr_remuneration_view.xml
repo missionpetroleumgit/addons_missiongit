@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+		<record id="remunaration_tree_view" model="ir.ui.view">
+			<field name="name">remunaration.tree.view</field>
+			<field name="model">hr.remuneration.employee</field>
+			<field name="arch" type="xml">
+				<tree string="Remuneraciones" create="false">
+                    <field name="identification_id"/>
+					<field name="employee_id"/>
+			<!--		<field name="contract_date"/>
+                    <field name="decimo_type"/>-->
+					<!--<field name="periodo_inicio"/>-->
+					<!--<field name="periodo_final"/>-->
+                    <field name="gender" string="Género"/>
+                    <field name="otherid"/>
+                    <field name="worked_time"/>
+                    <field name="discount_amount"/>
+                    <field name="pay_amount"/>
+                    <field name="pay_amountbackup"/>
+                    <field name="forma_pago"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="remunaration_view_form" model="ir.ui.view">
+			<field name="name">remunaration.view.form</field>
+			<field name="model">hr.remuneration.employee</field>
+			<field name="arch" type="xml">
+                <form string="Remuneraciones">
+                    <sheet>
+                        <header>
+                            <field name="state" widget="statusbar"/>
+                        </header>
+                        <group col="4">
+                            <field name="employee_id" attrs="{'readonly': [('state', '!=', 'new')]}"/>
+                            <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                        </group>
+                        <group col="4">
+                            <field name="decimo_type" attrs="{'readonly': [('state', '!=', 'new')]}"/>
+                            <group></group>
+                        </group>
+                        <label for="periodo_inicio" string="Rango de Fechas"/>
+                        <div>
+                            <field name="periodo_inicio" attrs="{'readonly': [('state', '!=', 'new')]}"
+                                   class="oe_inline"/>-
+                            <field name="periodo_final" attrs="{'readonly': [('state', '!=', 'new')]}"
+                                   class="oe_inline"/>
+                        </div>
+                        <notebook>
+                            <page string="Información de Décimo">
+                                <separator string="Datos para el período"/>
+                                <group>
+                                    <field name="worked_time" attrs="{'readonly': [('state', '!=', 'new')]}"/>
+                                    <field name="discount_amount" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                    <field name="pay_amount" attrs="{'readonly': [('state', '!=', 'new')]}"/>
+                                    <field name="pay_amountbackup" readonly="1"/>
+                                    <field name="unbalance" states="draft,done" attrs="{'readonly': [('state', '=', 'done')]}"/>
+                                    <field name="unbalance_time" attrs="{'readonly': [('state', '=', 'done')], 'invisible': [('unbalance', '=', False)]}"/>
+                                    <field name="unbalance_amount" attrs="{'readonly': [('state', '=', 'done')], 'invisible': [('unbalance', '=', False)]}"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+       <record id="view_hr_remuneration_search" model="ir.ui.view">
+            <field name="name">view_hr_remuneration_search</field>
+            <field name="model">hr.remuneration.employee</field>
+            <field name="arch" type="xml">
+                <search string="Buscar Decimos">
+                    <field name="periodo_inicio"/>
+                    <field name="periodo_final"/>
+                    <field name="employee_id"/>
+                    <field name="decimo_type"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Fecha Inicial" icon="terp-personal" domain="[]" context="{'group_by':'periodo_inicio'}"/>
+                        <filter string="Fecha Final" icon="terp-stock_align_left_24" domain="[]" context="{'group_by':'periodo_final'}"/>
+                        <filter string="Tipo de Decimo" name="decimo_type" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'decimo_type'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+
+		<record id="action_remuneration" model="ir.actions.act_window">
+			<field name="name">Remuneraciones</field>
+			<field name="res_model">hr.remuneration.employee</field>
+			<field name="view_mode">tree,form</field>
+            <field name="context">{'readonly_by_pass': ['worked_time', 'pay_amount']}</field>
+            <field name="search_view_id" ref="view_hr_remuneration_search"/>
+		</record>
+
+        <menuitem action="action_remuneration"
+                  name="Décimos"
+                  id="menu_remuneration"
+                  parent="hr_payroll.menu_hr_root_payroll"/>
+
+        <record id="view_hr_res_company" model="ir.ui.view">
+            <field name="name">view.hr.res.company</field>
+            <field name="model">res.company</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <field name="company_registry" position="after">
+                    <field name="base_amount"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="res_users_authorized_order_cancel_view" model="ir.ui.view">
+            <field name="name">res.users.authorized.order.cancel.view</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='signature']" position="after">
+                    <field name="sale_order_cancel"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

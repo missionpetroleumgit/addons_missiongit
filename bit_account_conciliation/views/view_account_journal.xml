@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <!--
+      CSV:02-04-2016:Accounts Journal Aumento Cuentas Conciliacion Tarjetas
+    -->
+
+     <record id="view_account_journal_form_add_acc_fp_id" model="ir.ui.view">
+        <field name="name">Account Journal - Add accounts on form</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="account.view_account_journal_form"/>
+        <field name="arch" type="xml">
+           	   <field name="default_credit_account_id" position="after">
+               	<field name="is_fo_pa" />
+               </field>
+               <notebook>
+               	<page string="Cuentas Conciliacion" attrs="{'invisible':[('is_fo_pa','!=',True)]}">
+                           <group string="Cuentas Conciliacion" col="4" colspan="4">
+                            <field colspan="2" name="comision" attrs="{'required':[('is_fo_pa','=',True)]}"/>
+                            <field colspan="2" name="default_comision_account_id" />
+                            <field colspan="2" name="iva_ret" attrs="{'required':[('is_fo_pa','=',True)]}"/>
+                            <field colspan="2" name="default_iva_ret_account_id" attrs="{'required':[('is_fo_pa','=',True)]}"/>
+                            <field colspan="2" name="irf_ret" attrs="{'required':[('is_fo_pa','=',True)]}"/>
+                            <field colspan="2" name="default_irf_ret_account_id" attrs="{'required':[('is_fo_pa','=',True)]}"/>
+                            <field colspan="2" name="default_bancocon_account_id" />
+                           </group>
+               </page>
+               </notebook>
+        </field>
+    </record>
+
+        <!--<record model="ir.ui.view" id="view_vendor_payment_form2">-->
+            <!--<field name="name">account.voucher.payment.form2</field>-->
+            <!--<field name="model">account.voucher</field>-->
+            <!--<field name="inherit_id" ref="account_voucher.view_vendor_payment_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<field name="journal_id" position="replace">-->
+                    <!--<field name="journal_id"-->
+                           <!--domain="[('is_fo_pa', '=', False)]"-->
+                           <!--invisible="context.get('line_type', False)"-->
+                           <!--widget="selection"-->
+                           <!--on_change="onchange_journal(journal_id, line_dr_ids, False, partner_id, date, amount, type, company_id, context)"-->
+                           <!--string="Payment Method"/>-->
+                <!--</field>-->
+            <!--</field>-->
+        <!--</record>-->
+
+
+</data>
+</openerp>

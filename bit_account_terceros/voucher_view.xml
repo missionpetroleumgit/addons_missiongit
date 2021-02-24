@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record model="ir.ui.view" id="view_voucher_terceros_tree">
+			<field name="name">account.voucher.tree</field>
+			<field name="model">account.voucher</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Vouchers">
+					<field name="name"/>
+					<field name="journal_id"/>
+					<field name="account_id" />
+					<field name="amount" sum='Importe'/>
+					<field name="date"/>
+					<field name="period_id"/>
+				</tree>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="view_voucher_terceros_form">
+			<field name="name">account.voucher.form</field>
+			<field name="model">account.voucher</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Voucher">
+				    <group col="6" colspan="4">
+				        <field name="name" select="1" colspan="4"/>
+				        <field name="journal_id" />
+					    <field name="account_id" />
+					    <field name="type" />
+					    <field name="number"/>
+					    <field name="sequence" select="1" invisible="1"/>
+					</group>
+					<group col="6" colspan="4">
+ 					    <field name="generador_id"/>
+					    <field name="terceros_desde_date"/>
+					    <field name="terceros_hasta_date"/>
+                        <button name="button_reset_line" string="Agregar Terceros" states="draft" type="object" icon="gtk-go-forward"/>
+                    </group>					
+					<notebook colspan="4">
+						<page string="Entry Lines">
+							<field name="line_cr_ids"  default_get="{'lines': line_cr_ids }" colspan="4" nolabel="1" height="275">
+								<tree string="Voucher Lines" editable="top">
+							        <!--<field name="account_analytic_id"/>
+							        <field name="ref"/>
+							        <field name="type"/>-->
+							        <field name="terceros_id" on_change="onchange_terceros_id(terceros_id)" domain="[('type','=','in_invoice'),('is_thrid','=',1)]"/>						        
+							        <field name="employee_id"/>
+							        <field name="account_id"/>
+							        <field name="expense_id"/>							        
+							        <field name="amount" sum='Importe'/>							        
+								</tree>
+							</field>
+							<separator string="Narration" colspan="4"/>
+							<field name="narration" colspan="4" nolabel="1"/>
+							<group col="6" colspan="6">
+								<field name="state"/>
+								<!--button name="open_voucher" string="Pro-forma" states="draft" type="object" icon="gtk-open"/-->
+								<button name="move_line_get_voucher" string="Cerrar Terceros" states="draft" type="object"  icon="gtk-go-forward"/>
+								<button name="cancel_voucher" string="Cancel" states="draft,proforma,posted" type="object" icon="gtk-cancel"/>
+								<button name="action_cancel_draft" states="cancel" type="object" string="Set to Draft" icon="gtk-convert"/>
+							</group>
+						</page>
+						<page string="Detalle Facturas1" attrs="{'invisible':[('state','in',['draft','proforma'])]}">
+							<field name="company_id" select="1"/>
+							<field name="currency_id" select="1" />
+							<field name="period_id"/>
+							<field name="date" select="1"/>
+							<separator string="Detalle Facturas1" colspan="4"/>
+							<field name="move_ids" colspan="4" nolabel="1" readonly="1"/>
+						</page>
+						<page string="Detalle Facturas" attrs="{'invisible':[('state','=','draft')]}">
+							<field name="company_id" select="1"/>
+							<field name="currency_id" select="1" />
+							<field name="period_id"/>
+							<field name="date" select="1"/>
+							<separator string="Detalle Facturas" colspan="4"/>
+							<field name="voucher_ids" colspan="4" nolabel="1" readonly="1"/>
+						</page>
+					</notebook>
+				</form>
+			</field>
+		</record>
+
+		
+		<!-- Payment Vouchers -->
+		<record model="ir.actions.act_window" id="action_terceros_list">
+			<field name="name">Comprobantes de terceros</field>
+			<field name="res_model">account.voucher</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state','in',['draft','cancel']),('type','like','receipt'),('is_thrid','=',1)]</field>
+		<!--	<field name="context">{'type':'receipt','is_thrid':True}</field> -->
+		</record>
+        <record id="action_terceros_form_view_t" model="ir.actions.act_window.view">
+            <field eval="10" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_voucher_terceros_tree"/>
+            <field name="act_window_id" ref="action_terceros_list"/>
+        </record>
+        <record id="action_terceros_form_view_f" model="ir.actions.act_window.view">
+            <field eval="20" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_voucher_terceros_form"/>
+            <field name="act_window_id" ref="action_terceros_list"/>
+        </record>		
+		<menuitem id="menu_action_terceros_list" action="action_terceros_list" parent="account.menu_finance_payables" sequence="12"/>
+		
+		
+		<record model="ir.actions.act_window" id="action_terceros_cash_list">
+			<field name="name">Comprobantes Terceros Cerrados</field>
+			<field name="res_model">account.voucher</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="domain">[('state','=','proforma'),('type','=','receipt'),('is_thrid','=',1)]</field>
+			<field name="context">{'type':'receipt','is_thrid':True}</field>
+		</record>
+        <record id="action_terceros_form_view_t" model="ir.actions.act_window.view">
+            <field eval="10" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_voucher_terceros_tree"/>
+            <field name="act_window_id" ref="action_terceros_cash_list"/>
+        </record>
+        <record id="action_terceros_form_view_f" model="ir.actions.act_window.view">
+            <field eval="20" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_voucher_terceros_form"/>
+            <field name="act_window_id" ref="action_terceros_cash_list"/>
+        </record>		
+		<menuitem id="menu_action_terceros_cash_list" action="action_terceros_cash_list" parent="menu_action_terceros_list"/>
+		
+		<record model="ir.actions.act_window" id="action_terceros_cash_form">
+			<field name="name">Nuevo Cobro Terceros</field>
+			<field name="res_model">account.voucher</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form,tree</field>
+			<field name="view_id" eval="view_voucher_terceros_form"/>
+			<!--field name="domain">[('type','=','receipt'),('is_thrid','=',1)]</field-->
+			<field name="context">{'type':'receipt','is_thrid':True}</field>
+		</record>
+		<menuitem id="menu_action_terceros_cash_form" action="action_terceros_cash_form" parent="menu_action_terceros_cash_list"/>
+
+		</data>
+</openerp>

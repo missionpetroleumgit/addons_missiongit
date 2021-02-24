@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="wizard_employee_liquidation_view" model="ir.ui.view">
+            <field name="name">wizard.employee.liquidation.view</field>
+            <field name="model">wizard.employee.liquidation</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Liquidacion de empleados" version="7.0">
+                    <separator string="Liquidacion"/>
+                    <button icon="gtk-ok" string="Procesar" name="process_liquidation" type="object" class="oe_highlight"/>
+                    <button icon="gtk-cancel" special="cancel" string="Cancelar"/>
+                    <group colspan="5" col="2" >
+                        <separator string="Liquidacion de empleados" colspan="5"/>
+                        <field name="employee_id" required="1" domain="[('state_emp','=','active')]" on_change="onchange_employee(employee_id)"/>
+                        <field name="type" required="1"/>
+                        <field name="date" required="1"/>
+                        <field name="availables_days"/>
+                        <!--<field name="start_period" class="oe_inline" attrs="{'invisible': [('availables_days', '=', 0.00)],-->
+                        <!--'required': [('availables_days', '>', 0.00)]}"/>-->
+                        <!--<field name="end_period" class="oe_inline" attrs="{'invisible': [('availables_days', '=', 0.00)],-->
+                        <!--'required': [('availables_days', '>', 0.00)]}"/>-->
+                        <field name="pagar_rol"/>
+                        <field name="observation"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_employee_liquidation" model="ir.actions.act_window">
+            <field name="name">Liquidar Empleado</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.employee.liquidation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="wizard_employee_liquidation_view"/>
+        </record>
+        
+        <record id="view_employee_liquidation_tree" model="ir.ui.view">
+            <field name="name">hr.employee.liquidation.tree</field>
+            <field name="model">hr.employee.liquidation</field>
+            <field name="arch" type="xml">
+                <tree string="Employee Liquidation">
+                    <field name="employee_id"/>
+                    <field name="contract_id"/>
+                    <field name="type"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_employee_liquidation_form" model="ir.ui.view">
+            <field name="name">hr.employee.liquidation.form</field>
+            <field name="model">hr.employee.liquidation</field>
+            <field eval="25" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Employee Liquidation">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id" />
+                            <field name="contract_id" readonly="1" />
+                            <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                        </group>
+                        <group>
+                            <field name="type"/>
+                            <field name="date"/>
+                            <field name="pagar_rol"/>                            
+                        </group>                        
+                    </group>
+                    <group>
+                       <field name="observation"/>                                              
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_employee_liquidation_filter" model="ir.ui.view">
+            <field name="name">hr.employee.liquidation.filter</field>
+            <field name="model">hr.employee.liquidation</field>
+            <field name="arch" type="xml">
+                <search string="Employee Liquidation">
+                    <field name="employee_id" />
+                    <field name="contract_id"/>
+                    <field name="type"/>
+                    <field name="date"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="hr_employee_liquidation_action" model="ir.actions.act_window">
+            <field name="name">Liquidaciones Realizadas</field>
+            <field name="res_model">hr.employee.liquidation</field>
+            <field name="view_type">form</field>
+            <field name="search_view_id" ref="view_employee_liquidation_filter"/>
+            <field name="view_id" ref="view_employee_liquidation_tree"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to configure income taxes. 
+              </p><p>
+                Odoo will ensure the whole process is followed; the expense
+                sheet is validated by manager(s), the employee is reimbursed
+                from his expenses, some expenses must be re-invoiced to the
+                customers.
+              </p>
+            </field>
+        </record>
+
+    </data>
+</openerp>

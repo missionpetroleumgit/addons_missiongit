@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="sequence_inherit_form_bit_account" model="ir.ui.view">
+            <field name="name">ir.sequence.form.bit.account</field>
+            <field name="model">ir.sequence</field>
+            <field name="inherit_id" ref="base.sequence_view"/>
+            <field name="arch" type="xml">
+                <field name="code" position="after">
+                    <field name="partner_id"/>
+                    <field name="sequence_retention"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

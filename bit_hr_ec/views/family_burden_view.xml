@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+
+        <record model="ir.ui.view" id="hr_family_burden_tree_view">
+            <field name="name">hr.family.burden.tree</field>
+            <field name="model">hr.family.burden</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Family Burden">
+                    <field name="name"/>
+                    <field name="last_name"/>
+                    <field name="birth_date"/>
+                    <field name="relationship"/>
+                    <field name="age"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="hr_family_burden_form_view">
+            <field name="name">hr.family.burden.form</field>
+            <field name="model">hr.family.burden</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Family Burden">
+                    <sheet>
+                        <label for="name"/>
+                        <field name="name"/>
+                        <label for="last_name"/>
+                        <field name="last_name"/>
+                        <label for="birth_date"/>
+                        <field name="birth_date"/>
+                        <label for="age"/>
+                        <field name="age"/>
+                        <label for="relationship" string="Relación"/>
+                        <field name="relationship"/>
+                        <label for="level" string="Nivel de educación"/>
+                        <field name="level"/>
+                        <label for="courses"/>
+                        <field name="courses"/>
+                        <newline />
+                        <group colspan="4" col="6">
+                            <field name="courses_ids" attrs="{'invisible':[('courses','=',False)]}">
+                                <tree editable="top">
+                                    <!--<field name="course_id"/>-->
+                                    <field name="course_family_id" required="1"/>
+                                    <field name="institution"/>
+                                    <field name="hours" widget="float_time"/>
+                                    <field name="start_date"/>
+                                    <field name="end_date"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <label for="status"/>
+                        <field name="status"/>
+                        <separator string="Discapacidad"/>
+                        <label for="has_disability"/>
+                        <field name="has_disability"/>
+                        <group colspan="4">
+                            <field name="emp_tipo_disc" attrs="{'required':[('has_disability','=',True)], 'invisible':[('has_disability','=',False)]}"/>
+                            <field name="emp_porcentaje_disc" attrs="{'required':[('has_disability','=',True)], 'invisible':['|', ('has_disability','=',False), ('disc_percentage','=',True)]}"/>
+                            <field name="disc_percentage" widget="percentpie" nolabel="1" attrs="{'invisible':[('has_disability','=',False)]}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</openerp>

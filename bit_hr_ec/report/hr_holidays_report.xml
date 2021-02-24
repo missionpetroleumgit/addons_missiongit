@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+	<!--   Longport    -->
+
+         <report
+            id="action_holiday_employee"
+            model="hr.employee"
+            string="Reporte Vacaciones"
+            report_type="qweb-pdf"
+            name="bit_hr_ec.holiday_report_view"
+            file="bit_hr_ec.holiday_report_view"
+        />
+    </data>
+</openerp>

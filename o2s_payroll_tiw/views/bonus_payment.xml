@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="tree_bonus_distribution" model="ir.ui.view">
+            <field name="name">bonus.distribution.tree</field>
+			<field name="model">bonus.distribution</field>
+			<field name="arch" type="xml">
+                <tree string="Pago de bonos" colors="blue:state == 'draft';black:state == 'done'">
+                    <field name="name"/>
+                    <field name="period_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="form_bonus_distribution" model="ir.ui.view">
+            <field name="name">bonus.distribution.form</field>
+			<field name="model">bonus.distribution</field>
+			<field name="arch" type="xml">
+                <form string="Pago de bonos">
+                    <header>
+                        <button name="action_confirm" type="object" string="Confirmar" states="draft" class="oe_highlight"/>
+                        <button name="action_draft" type="object" string="Cambiar a nuevo" states="done" class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group col="4" colspan="2">
+                            <field name="name"/>
+                            <field name="period_id" attrs="{'readonly':[('state','in',['done'])]}" options="{'no_create':True}"/>
+                            <field name="business_unit_id"/>
+                        </group>
+                        <notebook>
+                            <page string="Horas a pagar por empleado">
+                                <field name="bonus_ids" attrs="{'readonly':[('state','in',['done'])]}">
+                                    <tree editable="top" create="false">
+                                        <field name="employee_id" options="{'no_create':True}"
+                                               domain="[('business_unit_id','=',parent.business_unit_id)]"/>
+                                        <field name="hours_workshop"/>
+                                        <field name="hours_well"/>
+                                        <field name="hours_international"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_bonus_distribution" model="ir.actions.act_window">
+            <field name="name">Bonos por lote</field>
+            <field name="res_model">bonus.distribution</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <menuitem
+			parent="bit_hr_payroll_ec.menu_hr_Ingresos"
+			id="menu_bonus_distributiont"
+		    action="action_bonus_distribution"/>
+
+    </data>
+</openerp>

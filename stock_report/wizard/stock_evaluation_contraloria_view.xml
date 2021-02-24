@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_hr_payroll_export" model="ir.ui.view">
+            <field name="name">hr.payroll.export.form</field>
+            <field name="model">hr.payroll.export</field>
+            <field name="arch" type="xml">
+            <form string="Rol Resumido">
+                <group>
+                    <field name="date_from" />
+                    <field name="date_to"/>
+                </group>
+                <footer>
+                    <button name="print_report" string="Imprimir" type="object" class="oe_highlight"/> or
+                    <button string="Cancel" special="cancel" class="oe_link"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+
+        <record id="action_hr_payroll_export" model="ir.actions.act_window">
+            <field name="name">Rol Resumido</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.payroll.export</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+            name="Rol Resumido"
+            parent="hr.menu_hr_reporting"
+            action="action_hr_payroll_export"
+            id="menu_account_central_journal"
+            icon="STOCK_PRINT"/>
+
+    </data>
+</openerp>

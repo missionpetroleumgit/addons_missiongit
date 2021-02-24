@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <record id="view_account_journal_form_inherited" model="ir.ui.view">
+            <field name="name">account.journal.form.inherited</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <field name="internal_account_id" position="after">
+                    <field name="cost_account_id" domain="[('type','!=','view')]"/>
+                    <field name="isd_cc_account_id" domain="[('type','!=','view')]"/>
+                    <field name="isd_cp_account_id" domain="[('type','!=','view')]"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

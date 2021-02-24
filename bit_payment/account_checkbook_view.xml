@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_account_checkbook_search" model="ir.ui.view">
+            <field name="name">account.checkbook.search</field>
+            <field name="model">account.checkbook</field>
+            <field name="arch" type="xml">
+                <search string="Checkbooks">
+                    <field name="name"/>
+                	<field name="account_bank_id"/>
+                    <field name="journal_id"/>
+                    <field name="state"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_account_checkbook_tree" model="ir.ui.view">
+            <field name="name">account.checkbook.tree</field>
+            <field name="model">account.checkbook</field>
+            <field name="arch" type="xml">
+                <tree string="Checkbooks">
+                    <field name="name"/>
+                    <field name="range_desde"/>
+                    <field name="range_hasta"/>
+                    <field name="actual_number"/>
+               		<field name="account_bank_id"/>
+                    <field name="journal_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_account_checkbook_form" model="ir.ui.view">
+            <field name="name">account.checkbook.form</field>
+            <field name="model">account.checkbook</field>
+            <field name="arch" type="xml">
+                <form string="Checkbooks" version="7.0"> 
+                <header string="Checkbooks">
+                        <button name="wkf_active" string="In Use"  states="draft"/>
+                        <button name="wkf_used" string="Used"  states="active"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,active,used" statusbar_colors='{"active":"blue"}'/>
+                </header>
+                <sheet string="Checkbooks">
+                    <group col="4">          
+                        <field name="name"/>  
+                       	<field name="account_bank_id" domain="[('employee_id', '=', 1)]"/>
+                        <field name="journal_id"/>
+                        <!--<field name="company_id"/>-->
+                    </group>
+                    <group string="Ranges" colspan="2" >
+                        <field name="filling" required="1"/>
+                        <field name="range_desde" />
+                        <field name="range_hasta" on_change="onchange_hasta(range_desde,range_hasta)"/>
+                    </group>
+                    <group  colspan="4" col="2" >   
+                        <field name="actual_number" />
+                    </group>
+                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_account_checkbooks_form" model="ir.actions.act_window">
+            <field name="name">Checkbooks</field>
+            <field name="res_model">account.checkbook</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_account_checkbook_search"/>
+        </record>
+        
+       <menuitem action="action_account_checkbooks_form" id="menu_action_account_checkbooks_form" parent="account.menu_configuration_misc" sequence="101"/>
+
+	<!-- DETALLE CHEQUES -->
+<!-- 
+        <record id="view_account_check_search" model="ir.ui.view">
+            <field name="name">account.check.search</field>
+            <field name="model">account.check</field>
+            <field name="arch" type="xml">
+                <search string="Checks">
+                    <field name="number" />
+                    <field name="partner_id" />
+                    <field name="amount" />
+                    <field name="date" />
+                </search>
+            </field>
+        </record>
+        <record id="view_account_check_tree" model="ir.ui.view">
+            <field name="name">account.check.tree</field>
+            <field name="model">account.check</field>
+            <field name="arch" type="xml">
+                <tree string="checks" create='false' delete='false' edit='false'>
+                 <tree string="checks" >
+					<field name="number" />
+                    <field name="partner_id" />
+                    <field name="date" />
+                    <field name="statement_id" />
+                    <field name="amount" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_account_check_form" model="ir.ui.view">
+            <field name="name">account.check.form</field>
+            <field name="model">account.check</field>
+            <field name="arch" type="xml">
+                <form string="Check" >
+	                <sheet string="Check">
+	                    <group col="10">
+	                    	<group col="6" >         
+			                    <field name="number" colspan='6' readonly="context.get('is_supplier',False)"/>
+			                    <field name="partner_id" colspan='6' readonly="context.get('is_supplier',False)"/>
+			                    <field name="statement_id" colspan='6' readonly="context.get('is_supplier',False)"
+			                    		required='1'/>
+			                </group>
+	                    	<group col="4">   
+			                    <field name="date" readonly="context.get('is_supplier',False)" colspan='4'/>
+			                    <field name="checkbook_id" readonly="context.get('is_supplier',False)" colspan='4'
+			                    			invisible="not context.get('is_supplier',False)"/>
+			                    <field name="amount" readonly="context.get('is_supplier',False)"/>
+			                    <field name="currency_id" readonly="context.get('is_supplier',False)" nolabel='1'/>
+                    		</group>
+	                    </group>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_account_check_supplier" model="ir.actions.act_window">
+            <field name="name">Supplier checks</field>
+            <field name="res_model">account.check</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'is_supplier' : True}</field>
+            <field name="domain">[('is_supplier','=',True)]</field>
+        </record>
+        <record id="action_account_check_customer" model="ir.actions.act_window">
+            <field name="name">Customer checks</field>
+            <field name="res_model">account.check</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'is_supplier' : False}</field>
+            <field name="domain">[('is_supplier','=',False)]</field>
+        </record>
+        action="action_account_check_supplier" 
+        action="action_account_check_customer" 
+        <menuitem id="menu_account_check_supplier" 
+        		name="Supplier checks" parent="account.menu_finance_payables" sequence="11" />
+        <menuitem id="menu_account_check_customer" 
+        		name="Customer checks" parent="account.menu_finance_receivables" sequence="14" />
+ -->        
+<!-- Bank statement -->
+        <record id="view_bit_bank_statement_tree" model="ir.ui.view">
+            <field name="name">account.bank.statement.form.inherit.bit.voucher</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_tree"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                	<field name="concept" />
+                </field>
+            </field>
+        </record>
+<!--	ADD CHECK to BANK STATEMENT	-->
+        <record id="view_check_to_bank_statement_form" model="ir.ui.view">
+            <field name="name">account.bank.statement.form</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form"/>
+            <field name="arch" type="xml">
+                <div name="import_buttons">
+                    <button class="oe_inline oe_stat_button" string="Import Vouchers" type="action"
+                    		name="%(action_statement_load_voucher)d"
+                    		attrs="{'invisible':[('state','=','confirm')]}"
+                    		widget="statinfo" icon="fa-pencil-square-o"/>
+                </div>
+				<field name="balance_end_real" position='after'>
+					<field name="partner_id" string="Beneficiario"/>
+                    <field name="to_partner"/>
+                    <field name="check_book_id" domain="[('company_id','=',company_id)]"
+                           attrs="{'invisible':[('is_check','=',False)],'required':[('is_check','=',True)]}"/>
+                    <field name="no_cheque"/>
+				</field>
+                <xpath expr="//field[@name='bank_account_id']" position="before">
+                    <field name="voucher_id" context="{'voucher_id': voucher_id}"/>
+                </xpath>
+                <field name="partner_id" position="attributes">
+                    <attribute name="attrs">{'required':[('to_partner','=',True)]}</attribute>
+                </field>
+                <button name="button_cancel" position="after">
+                     <button name="action_cancel_draft" states="cancel" type="object" string="Cambiar a borrador"/>
+                </button>
+                <!--<field name="partner_id" position="after">-->
+                    <!--<field name="bank_account" domain="[('partner_id','=',partner_id)]" options="{'no_create':True}"-->
+                           <!--attrs="{'required':[('to_partner','=',True)]}"/>-->
+                <!--</field>-->
+				<field name="company_id" position='after'>
+					<field name="is_check"/>
+                    <field name="bank_account"/>
+					<!--<field name="check_ids" invisible='1' />-->
+					<!--<field name="some_pay" invisible='1' />-->
+				</field>
+				<field name="name" position='after'>
+					<h2>
+						<field name="concept" placeholder="Ingrese concepto en caso de ser necesario ... "/>
+					</h2>
+				</field>
+            </field>
+        </record>
+
+         <record id="view_check_to_bank_statement_form2" model="ir.ui.view">
+            <field name="name">account.bank.statement.form2</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form2"/>
+            <field name="arch" type="xml">
+
+
+
+			        <field name="date" position='after'>
+					<field name="is_check"  />
+					<!--field name="check_ids" attrs="{'invisible':[('is_check','=',False)]}" />
+					<field name="some_pay" attrs="{'invisible':[('is_check','=',False)]}" /-->
+
+                        					<field name="partner_id" string="Beneficiario"/>
+                    <field name="to_partner"/>
+                    <field name="check_book_id" domain="[('company_id','=',company_id)]"
+                           attrs="{'invisible':[('is_check','=',False)],'required':[('is_check','=',True)]}"/>
+                    <field name="no_cheque"/>
+
+				    </field>
+				<field name="name" position='after'>
+					<h2>
+						<field name="concept" placeholder="Ingrese concepto en caso de ser necesario ... "/>
+					</h2>
+				</field>
+				<field name="balance_end_real" position='after'>
+					<field name="partner_id" />
+				</field>
+                <!--#CSV:29-11-2017: AUMENTO PARA QUE VERIFIQUEN EL VALOR TOTAL DEL DEPOSITO EFECTIVO + CHEQUE-->
+				<field name="company_id" position='after'>
+                    <field name="valor_cheque" />
+                    <field name="tot_dep" />
+				</field>
+
+            </field>
+        </record>
+        
+<!--	ADD ALLOW CHECK to JOURNAL	-->
+        <record id="view_check_to_account_journal_form" model="ir.ui.view">
+            <field name="name">account.journal.form</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+				<field name="allow_date" position='after'>
+					<field name="is_allow_check" />
+				</field>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="action_bank_statement_ll">
+			<field name="name">Cheques</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">account.bank.statement</field>
+			<field name="view_type">form</field>
+            <!--field name="view_id" ref="view_users_tree"/-->
+            <field name="domain">[('is_check','=',True)]</field>
+            <field name="context">{'is_check':True}</field>
+            <!--field name="search_view_id" ref="view_users_search"/-->
+            <field name="form_view_id" ref="account.view_bank_statement_form"/>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+        <menuitem id="menu_action_bank_statement_ll" name="Cheques" sequence="61"
+                  parent="account.menu_finance_bank_and_cash"  action="action_bank_statement_ll"
+          />
+
+
+
+    </data>
+</openerp>        

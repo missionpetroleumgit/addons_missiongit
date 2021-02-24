@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+		 
+         <report
+            id="action_report_payslip_resumen"
+            model="hr.payslip"
+            string="Rol de Pagos Mes"
+            report_type="qweb-pdf"
+            name="bit_hr_payroll_ec.report_payslip_resumen"
+            file="bit_hr_payroll_ec.report_payslip_resumen"
+        />
+        
+         <report
+            id="action_report_payslip_resumen_slogo"
+            model="hr.payslip"
+            string="Rol de Pagos Sin Logo"
+            report_type="qweb-pdf"
+            name="bit_hr_payroll_ec.report_payslip_resumen_slogo"
+            file="bit_hr_payroll_ec.report_payslip_resumen_slogo"
+        />
+        
+        <report
+            id="action_report_payslip_liquidation"
+            model="hr.payslip"
+            string="Imprimir Liquidación"
+            report_type="qweb-pdf"
+            name="bit_hr_payroll_ec.report_payslip_liquidation"
+            file="bit_hr_payroll_ec.report_payslip_liquidation"
+        />
+
+        <report
+            id="action_report_sancion"
+            model="hr.expense"
+            string="Imprimir Sanción"
+            report_type="qweb-pdf"
+            name="bit_hr_payroll_ec.sancion_report"
+            file="bit_hr_payroll_ec.hr_expense_sancion_template"
+            menu="False"
+        />
+
+        <report
+            id="action_report_decimo"
+            model="hr.remuneration.employee"
+            string="Imprimir Decimos"
+            report_type="qweb-pdf"
+            name="bit_hr_payroll_ec.decimo_report"
+            file="bit_hr_payroll_ec.decimo_report_template"
+            menu="False"
+        />
+    </data>
+</openerp>

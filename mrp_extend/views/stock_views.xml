@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="stock_location_route_form_view_mrp_extend" model="ir.ui.view">
+            <field name="name">stock.location.route.form.mrp.extend</field>
+            <field name="model">stock.location.route</field>
+            <field name="inherit_id" ref="stock.stock_location_route_form_view"/>
+            <field name="arch" type="xml">
+                <field name="sequence" position="after">
+                    <field name="location_code"/>
+                </field>
+            </field>
+        </record>
+
+<!--        <record id="view_add_create_production_order_button_form" model="ir.ui.view">-->
+<!--            <field name="name">view.add.create.production.order.button.form</field>-->
+<!--            <field name="model">mrp.production</field>-->
+<!--            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>-->
+<!--            <field name="priority">2</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//form/sheet/notebook/page[@string='Consumed Products']/group/group[@string='Products to Consume']/field/tree/button[@string='Scrap Products']" position="after">-->
+<!--                    <button name="action_create_children_productions" type="object"-->
+<!--                            icon="terp-stock_effects-object-colorize"-->
+<!--                            attrs="{'invisible': [('mrp_created', '=', True)]}"/>-->
+<!--                    <field name="mrp_created" invisible="1"/>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+    </data>
+</openerp>

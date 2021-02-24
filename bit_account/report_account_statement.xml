@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_account_statement">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <!-- This report is (obviously) a work in progress -->
+            <div class="page">
+
+				<div class="row mt32 mb32">
+					<div class="col-xs-8">
+						<address t-field="o.company_id.partner_id"
+			                    t-field-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": true, "no_tag_br": true}' />
+					</div>
+					<div class="col-xs-4">
+						<strong>RUC: </strong><span t-esc="o.company_id.partner_id.part_number"/>
+					</div>
+					<div >
+						<div t-if="o.type == 'in_invoice'" class="col-xs-8">
+							<strong>Nro. de Factura de proveedor: </strong><span t-esc="o.number"/>
+						</div>
+						<div t-if="o.type == 'out_invoice'" class="col-xs-8">
+							<strong>Nro. de Factura a cliente: </strong><span t-esc="o.number"/>
+						</div>
+		        		<div class="col-xs-4">
+			                Quito, <span t-esc="formatLang(o.date_invoice , date=True)"/><br/>
+		        		</div>
+					</div>
+				</div>
+				
+				<div class="row mt32 mb32">
+					<div class="col-xs-7">
+						<strong>Cliente: </strong><span t-field="o.partner_id.name" /><br/>
+						<strong>Diario: </strong><span t-esc="o.journal_id.name"/><br/>
+						<!-- 
+						<strong>Concepto: </strong><span t-esc="o.concept"/><br/>
+						<strong>Referencia: </strong><span t-esc="o.name"/><br/>
+						 -->
+					</div>
+					<div class="col-xs-5">
+						<strong>Nro de asiento: </strong><span t-esc="o.move_id.name"/><br/>
+						<strong>Fecha impresión: </strong><span t-esc="date_now"/><br/>
+					</div>
+				</div>
+				<div class="row mt32 mb32">
+	                <table class="table table-condensed">
+	                    <thead>
+	                        <tr>
+	                            <th>CUENTA</th>
+	                            <th>Descripción</th>
+	                            <th>Ref.</th>
+	                            <th>Concepto</th>
+	                            <th>Débito</th>
+	                            <th>Crédito</th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                        <tr t-foreach="get_lines(o.move_id.line_id)" t-as="l">
+		                        <td><span t-esc="l['account_id']"/></td>
+		                        <td><span t-esc="l['description']"/></td>
+		                        <td><span t-esc="l['ref']"/></td>
+		                        <td><span t-esc="l['name']"/></td>
+		                        <td><span t-esc="l['debit']"/></td>
+		                        <td><span t-esc="l['credit']"/></td>
+	                        </tr>
+	                    </tbody>
+	                </table>
+					<table class="table table-condensed">
+						<tr>
+							<td class="col-xs-7">
+								<strong>En letras: </strong><span t-esc="get_amount_in_letters(o.amount_total)" />
+							</td>
+							<th class="col-xs-2">
+								<strong>Total asiento: </strong>
+							</th>
+							<div class="col-xs-3">
+								<th >
+									<span t-esc="get_debit(o.move_id.line_id)" />
+								</th>
+								<th >
+									<span t-esc="get_credit(o.move_id.line_id)" />
+								</th>
+							</div>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="row mt32 mb32">
+					<div class="col-xs-3">
+						<strong>Preparado por: </strong><br/>
+					</div>
+					<div class="col-xs-3">
+						<strong>Aprobado por: </strong><br/>
+					</div>
+					<div class="col-xs-3">
+						<strong>Contabilizado: </strong><br/>
+					</div>
+					<div class="col-xs-3">
+						<strong>Recibí conforme: </strong><br/>
+					</div>
+				</div>
+				
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

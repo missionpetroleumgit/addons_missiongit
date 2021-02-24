@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <record id="view_hr_payslip_department_analysis_graph" model="ir.ui.view">
+         <field name="name">hr.payslip.department.analysis.graph</field>
+         <field name="model">hr.payslip.department.analysis</field>
+         <field name="arch" type="xml">
+             <graph string="Department Pay Slip" type="pivot">
+<!--            		 <field name="acc_number" type="row"/>                                -->
+                 <field name="department" type="row"/>                 
+            	 <field name="date_to" type="col"/>            	             	 
+                 <field name="amount" type="measure"/>                 
+                 <field name="order" type="col"/>
+                 <field name="salary_rule" type="col"/>
+             </graph>
+         </field>
+    </record>
+
+    <record id="view_hr_payslip_department_analysis_search" model="ir.ui.view">
+        <field name="name">hr.payslip.department.analysis.search</field>
+        <field name="model">hr.payslip.department.analysis</field>
+        <field name="arch" type="xml">
+            <search string="Department Pay Slip analysis">
+            	 <field name="department" type="row"/>
+                 <field name="amount" type="measure"/>
+                 <field name="order" type="col"/>
+                 <field name="salary_rule" type="col"/>
+                 <field name="date_from" type="col"/>
+                 <field name="date_to" type="col"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hr_payslip_department_analysis_all" model="ir.actions.act_window">
+        <field name="name">Por Departamentos</field>
+        <field name="res_model">hr.payslip.department.analysis</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">graph</field>
+        <field name="context">{'group_by':[]}</field>
+        <field name="search_view_id" ref="view_hr_payslip_department_analysis_search"/>
+    </record>
+
+</data>
+</openerp>

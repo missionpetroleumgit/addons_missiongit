@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!--<delete model="ir.ui.menu" id="bit_hr_payroll_ec.menu_wizard_import_bonos"/>-->
+        <!--<delete model="ir.ui.menu" id="bit_hr_payroll_ec.menu_hr_Bono"/>-->
+        <!--<delete model="ir.ui.menu" id="bit_hr_payroll_ec.menu_view_service_percent_action"/>-->
+        <!--<delete model="ir.ui.menu" id="bit_hr_payroll_ec.menu_hr_pro_pago10"/>-->
+        <!--<delete model="ir.ui.menu" id="bit_hr_payroll_ec.menu_hr_slip_pago10"/>-->
+        <!--<delete model="ir.ui.menu" id="bit_hr_payroll_ec.menu_hr_root_pago10"/>-->
+
+    </data>
+</openerp>

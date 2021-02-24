@@ -1,0 +1,1 @@
+import mp_rrhh_report

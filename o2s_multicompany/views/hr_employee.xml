@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+  <data>
+  	
+	  <record id="hr_kanban_view_employees_inherit" model="ir.ui.view">
+	      <field name="name">hr.kanban.view.employees.inherit</field>
+	      <field name="model">hr.employee</field>
+	      <field name="inherit_id" ref="hr.hr_kanban_view_employees"/>
+	      <field name="arch" type="xml">
+	      <field name="job_id" position="before">
+	      	<field name="company_id" />
+	      </field>
+	      </field>
+	  </record>
+
+	  <record id="view_employee_add_company_form" model="ir.ui.view">
+	      <field name="name">employee.add.company.form</field>
+	      <field name="model">hr.employee</field>
+	      <field name="inherit_id" ref="hr.view_employee_form"/>
+	      <field name="arch" type="xml">
+	      <field name="company_id" position="replace">
+	      </field>
+
+          <field name="name" position="before">
+              <field name="company_id" groups="base.group_multi_company" on_change="onchange_company(company_id)" readonly="1"/>
+	      </field>
+
+	      </field>
+	  </record>
+  </data>
+</openerp>

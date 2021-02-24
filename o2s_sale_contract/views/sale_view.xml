@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_bit_order_form_inherit_tiw" model="ir.ui.view">
+            <field name="name">sale.order.o2s.inherit.tiw</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                    <field name="custom_identificator"/>
+                    <field name="item_price_list" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_order_form_inherit_add_invoices" model="ir.ui.view">
+            <field name="name">sale.order.add.invoices</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="istate" widget="statusbar" statusbar_visible="draft,open,paid"
+                           attrs="{'invisible':[('istate','not in', ('draft', 'open', 'paid', 'invalidate'))]}"/>
+                </field>
+                <xpath expr="//form/sheet/notebook/page[@string='Other Information']" position="after">
+                    <page string="Facturas"
+                          attrs="{'invisible':[('istate','not in', ('draft', 'open', 'paid', 'invalidate'))]}">
+                        <field name="invoice_ids"/>
+                        <group>
+                            <field name="inv_state" invisible="1"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_order_tree_inherit_add_state" model="ir.ui.view">
+            <field name="name">sale.order.add.state</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="istate" string="Estado Factura"/>
+                    <field name="invoice_number"/>
+                    <field name="date_invoice"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_order_search_inherit_add_search_fields" model="ir.ui.view">
+            <field name="name">sale.order.add.search.fields</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/filter[@string='Done']" position="after">
+                    <filter string="Doc Enviados" domain="[('doc_sent','>', '2018-01-01 00:00:00')]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_order_line_add_required_analytic_inherit">
+            <field name="name">sale.order.line.field.required.analytic.inherit</field>
+            <field name="model">sale.order.line</field>
+            <field name="inherit_id" ref="sale_analytic_plans.view_order_line_form2_inherit"/>
+            <field name="arch" type="xml">
+                <field name="analytics_id" position="replace">
+                    <field name="analytics_id" domain="[('plan_id','&lt;&gt;',False)]"
+                           required="1" groups="analytic.group_analytic_accounting"/>
+                </field>
+            </field>
+        </record>
+
+        <!--<record model="ir.ui.view" id="view_order_line_add_attribute_analytic_field">-->
+            <!--<field name="name">sale.order.line.field.attribute.inherit</field>-->
+            <!--<field name="model">sale.order.line</field>-->
+            <!--<field name="inherit_id" ref="sale_analytic_plans.view_order_form_inherit2"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<field name="analytics_id" position="replace">-->
+                    <!--<field name="analytics_id" domain="[('plan_id','&lt;&gt;',False)]"-->
+                           <!--required="1" groups="analytic.group_analytic_accounting"/>-->
+                <!--</field>-->
+            <!--</field>-->
+        <!--</record>-->
+    </data>
+</openerp>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_add_f4_information_page_inherit_form" model="ir.ui.view">
+            <field name="name">view.f4.information.report.inherit.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="account.view_partner_property_form"/>
+            <field name="arch" type="xml">
+                <page name="accounting" position="after">
+                    <page string="Info Adicional" col="4">
+                        <separator string="Informacion F4"/>
+                        <group>
+                            <field name="service_type"/>
+                            <field name="service_categ"/>
+                            <field name="region"/>
+                            <field name="canton_id"/>
+                            <field name="parish_id"/>
+                        </group>
+                        <separator string="Criticidad"/>
+                        <group>
+                            <field name="criticy" nolabel="1"/>
+                        </group>
+                    </page>
+                </page>
+            </field>
+        </record>
+
+
+        <record id="partner_criticy_search_view_inherit" model="ir.ui.view">
+            <field name="name">Search</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <group string="Group By" position="inside">
+                    <filter string="Criticidad" context="{'group_by':'criticy'}"/>
+                </group>
+            </field>
+        </record>
+
+    </data>
+</openerp>

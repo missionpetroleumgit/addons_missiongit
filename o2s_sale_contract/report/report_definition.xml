@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+        <report
+            id="report_service_ticket_action"
+            model="service.ticket"
+            string="Imprimir Orden"
+            report_type="qweb-pdf"
+            name="o2s_sale_contract.report_service_ticket"
+            file="o2s_sale_contract.report_service_ticket"
+        />
+
+    <report
+            id="report_service_ticket_action_non_grouping"
+            model="service.ticket"
+            string="Service Ticket Desagregado"
+            report_type="qweb-pdf"
+            name="o2s_sale_contract.service_ticket_non_grouping_report"
+            file="o2s_sale_contract.service_ticket_non_grouping_report"
+        />
+
+    <report
+            id="work_report_action_report"
+            model="work.product.rel"
+            string="Herramientas de Trabajo"
+            report_type="qweb-pdf"
+            name="o2s_sale_contract.work_report"
+            file="o2s_sale_contract.work_report"
+        />
+
+</data>
+</openerp>

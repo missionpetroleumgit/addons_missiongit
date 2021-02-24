@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <record id="view_account_conciliation_tarjet_form" model="ir.ui.view">
+    	<field name="name">Generacion Conciliacion Individual</field>
+        <field name="model">account.conciliation.tarjet</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <sheet>
+	        <form string="Generacion Conciliacion Tarjetas" version="7.0">
+	        <separator string="Seleccione Tipo Generar(Vacio todas)" colspan="4" />
+		        <group colspan="4" col="2">
+		             <field name="type_pv"/>
+	            </group >
+	        <separator string="Seleccione Tienda Responsable(Vacio todas)" colspan="4" />
+		        <group colspan="4" col="2">
+		             <field name="type_user" required="1"/>
+	            </group >
+	        <separator string="Indique lote a procesar" colspan="4" />
+		        <group colspan="4" col="2">
+		             <field name="lote" required="1"/>
+	            </group >	            
+	        <separator string="Seleccione Fechas Generacion Conciliacion" colspan="4" />
+		        <group colspan="4" col="4">
+		             <field name="date_from" required="1"/>
+	                 <field name="date_to" required="1"/>
+	            </group >
+	        <separator string="Acciones" colspan="4" />	            
+	                 <button name="action_conciliation" type="object" string="Generar Registros"/>
+            		<separator string="Generacion" colspan="4" />
+                    <field name="name" readonly="1"/>
+                    <!--<field name="data" readonly="1"/>-->
+            </form>
+            </sheet>
+        </field>  
+    </record>
+
+ 
+    <record id="action_account_conciliation_tarjet" model="ir.actions.act_window">
+       <field name="name">Generacion Recaps</field>
+       <field name="type">ir.actions.act_window</field>
+       <field name="res_model">account.conciliation.tarjet</field>
+       <field name="view_type">form</field>
+       <field name="view_mode">form</field>
+       <field name="target">current</field>
+       <field name="view_id" ref="view_account_conciliation_tarjet_form"/>
+   </record>
+        
+   <menuitem id="menu_action_account_conciliation_tarjet" action="action_account_conciliation_tarjet" parent="menu_conciliation_tarjet" sequence="2"/>
+        
+</data>
+</openerp>

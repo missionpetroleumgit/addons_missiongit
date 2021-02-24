@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <delete model="ir.actions.act_window" id="purchase.purchase_form_action"/>
+		<delete model="ir.actions.act_window" id="purchase.purchase_rfq"/>
+
+		<record id="purchase_order_inherited_form" model="ir.ui.view">
+			<field name="name">purchase.order.form</field>
+			<field name="model">purchase.order</field>
+			<field name="inherit_id" ref="purchase.purchase_order_form"/>
+			<field name="arch" type="xml">
+				<field name="pricelist_id" position="after">
+					<!--<field name="id" invisible="1"/>-->
+					<field name="is_importation" invisible="1"/>
+				</field>
+                <!--<button name="action_cancel" position="after">-->
+                    <!--<button name="over_confirm" type="object" string="Autorizar" attrs="{'invisible': [('state_approval', '!=', 'draft')]}"-->
+                            <!--groups="o2s_purchase_expense_distribution.group_erp_purchase_authorization"/>-->
+                <!--</button>-->
+				<field name="amount_untaxed" position="before">
+					<field name="total_discount"/>
+				</field>
+                <!--<field name="state" position="after">-->
+                    <!--<field name="state_approval" widget="statusbar" statusbar_visible="draft,done" attrs="{'invisible':['|',('amount_total', '&lt;', 100000),('state','not in',('bid','approved'))]}"/>-->
+                <!--</field>-->
+				<!--<field name="amount_untaxed" position="before">-->
+					<!--&lt;!&ndash;<field name="id" invisible="1"/>&ndash;&gt;-->
+					<!--<field name="product_qty_total"/>-->
+				<!--</field>-->
+                <button name="purchase_confirm" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </button>
+                <button name="wkf_send_rfq" position="attributes">
+                    <attribute name="string">Aprobar Requisicion</attribute>
+                </button>
+                <button string="Re-Send RFQ by Email" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </button>
+                <button name="bid_received" position="attributes">
+                    <attribute name="string">Aprobar Presupuesto</attribute>
+                </button>
+				<field name="order_line" position="replace">
+					<field name="order_line">
+						<tree string="Purchase Order Lines" editable="bottom">
+							<field name="product_id" on_change="onchange_product_id(parent.pricelist_id,product_id,product_qty,False,parent.partner_id, parent.date_order,parent.fiscal_position,date_planned,False,False,parent.state,parent.is_importation,context)"/>
+							<field name="name"/>
+							<field name="date_planned"/>
+							<field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+							<field name="account_analytic_id" domain="[('type','not in',('view','template'))]"/>
+							<field name="product_qty" on_change="onchange_product_id(parent.pricelist_id,product_id,product_qty,False,parent.partner_id, parent.date_order,parent.fiscal_position,date_planned,False,False,parent.state,parent.is_importation,context)"/>
+							<field name="product_uom" groups="product.group_uom" on_change="onchange_product_uom(parent.pricelist_id,product_id,product_qty,product_uom,parent.partner_id, parent.date_order,parent.fiscal_position,date_planned,name,False,parent.state,parent.is_importation,context)"/>
+							<field name="price_unit"/>
+							<field name="taxes_id" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','!=','sale')]"/>
+							<field name="price_subtotal"/>
+							<field name="discount" on_change="onchange_discount(discount, price_subtotal)"/>
+							<field name="percent" invisible="1"/>
+							<field name="state" invisible="1"/>
+						</tree>
+					</field>
+				</field>
+			</field>
+		</record>
+
+		<record id="purchase_form_action_new" model="ir.actions.act_window">
+            <field name="name">Ordenes de Compra</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="context">{
+				'readonly_by_pass': True,
+				'is_importation': False
+				}</field>
+            <field name="domain">[('state','not in',('draft','sent', 'confirmed')),('is_importation','=',False), ('is_procura', '=', False)]</field>
+            <field name="search_view_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a quotation that will be converted into a purchase order.
+              </p><p>
+                Use this menu to search within your purchase orders by
+                references, supplier, products, etc. For each purchase order,
+                you can track the related discussion with the supplier, control
+                the products received and control the supplier invoices.
+              </p>
+            </field>
+        </record>
+		<menuitem id="menu_purchase"
+				  action="purchase_form_action_new"
+				  parent="purchase.menu_procurement_management" sequence="6"/>
+
+        <record id="purchase_rfq_new" model="ir.actions.act_window">
+            <field name="name">Requisiciones de Compra</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="context">{
+				'readonly_by_pass': True,
+				'is_importation': False
+				}</field>
+            <field name="domain">[('state','in',('draft','cancel','confirmed')),('is_importation','=',False), ('is_procura', '=', False)]</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="search_view_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a request for quotation.
+              </p><p>
+                The quotation contains the history of the discussion/negotiation
+                you had with your supplier. Once confirmed, a request for
+                quotation is converted into a purchase order.
+              </p><p>
+                Most propositions of purchase orders are created automatically
+                by Odoo based on inventory needs.
+              </p>
+            </field>
+        </record>
+
+		<record id="purchase_form_action3" model="ir.actions.act_window">
+            <field name="name">Peticiones de Importación</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="context">{
+				'is_importation': True
+				}
+			</field>
+            <field name="domain">
+				[('state','in',('draft','sent','bid','cancel', 'confirmed')),('is_importation','=',True)]
+			</field>
+            <!--<field name="search_view_id" ref="purchase.purchase_order_line_search"/>-->
+            <field name="help" type="html">
+              <p>
+                Here you can track all the lines of purchase orders where the
+                invoicing is "Based on Purchase Order Lines", and for which you
+                have not received a supplier invoice yet. You can generate a
+                draft supplier invoice based on the lines from this list.
+              </p>
+            </field>
+        </record>
+
+		<record id="purchase_form_action4" model="ir.actions.act_window">
+            <field name="name">Importaciones</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="context">{'is_importation': True}</field>
+            <field name="domain">
+				[('state','not in',('draft','sent','bid', 'confirmed')),('is_importation','=',True)]
+			</field>
+            <!--<field name="search_view_id" ref="purchase.view_purchase_order_filter"/>-->
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a quotation that will be converted into a purchase order.
+              </p><p>
+                Use this menu to search within your purchase orders by
+                references, supplier, products, etc. For each purchase order,
+                you can track the related discussion with the supplier, control
+                the products received and control the supplier invoices.
+              </p>
+            </field>
+        </record>
+
+        <!--orion-->
+
+        <record id="purchase_rfq_new_presp" model="ir.actions.act_window">
+            <field name="name">Peticiones de Presupuesto</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="context">{
+				'readonly_by_pass': True,
+				'is_importation': False
+				}</field>
+            <field name="domain">[('state','=','sent'),('is_importation','=',False)]</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="search_view_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a request for quotation.
+              </p><p>
+                The quotation contains the history of the discussion/negotiation
+                you had with your supplier. Once confirmed, a request for
+                quotation is converted into a purchase order.
+              </p><p>
+                Most propositions of purchase orders are created automatically
+                by Odoo based on inventory needs.
+              </p>
+            </field>
+        </record>
+        <!-- -->
+
+		<menuitem id="menu_purchase_importation1" action="purchase_form_action3"
+			parent="menu_purchase_cost_control" sequence="10"/>
+
+		<menuitem id="menu_purchase_importation2" action="purchase_form_action4"
+			parent="menu_purchase_cost_control" sequence="10" />
+
+        <!--orion-->
+
+        <menuitem id="menu_purchase_presupuesto" action="purchase_rfq_new_presp"
+			parent="purchase.menu_procurement_management" sequence="5"/>
+        <!-- -->
+
+        <menuitem action="purchase_rfq_new" id="menu_purchase_rfq_new"
+                  parent="purchase.menu_procurement_management"
+                  sequence="1"/>
+	</data>
+</openerp>

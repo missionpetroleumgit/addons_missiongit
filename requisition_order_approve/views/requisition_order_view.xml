@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_purchase_add_material_type_view" model="ir.ui.view">
+            <field name="name">view.purchase.order.add.material.type</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase_tiw.purchase_order_inherited_form_5"/>
+            <field name="arch" type="xml">
+                <field name="type_purchase" position="after">
+                    <field name="material_type" attrs="{'invisible': [('type_purchase', '=', 'service')]}"
+                    groups="requisition_order_approve.requisitions_type_material_approve_group"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

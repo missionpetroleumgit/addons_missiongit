@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_asientos_contables_view">
+    <t t-call="report.html_container">
+    <t t-foreach="docs" t-as="o">
+        <div class="page">
+	        <table class="table table-condensed table-bordered">
+                <tr >
+                    <td align="center"><img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="max-height:80px"/></td>
+                    <td align="center"><h4><strong><span t-field="o.company_id.partner_id" t-field-options='{"widget": "contact", "fields": ["name"], "no_marker": true, "no_tag_br": true}'/></strong></h4><span t-field="o.company_id.partner_id" t-field-options='{"widget": "contact", "fields": ["address"], "no_marker": true, "no_tag_br": true}'/></td>
+                </tr>
+                <tr >
+                   	<td align="center"><h9><strong>RUC: </strong><span t-esc="o.company_id.partner_id.part_number"/></h9></td>
+                    <td align="center"><h5><strong>ASIENTO CONTABLE No: <span t-field="o.name"/></strong></h5></td>
+                    <td align="center"><h9><strong>FACTURA: </strong><span t-esc="get_invoice(o)"/></h9></td>
+                </tr>
+		    </table>
+            <table class="table table-condensed table-bordered">
+	                    <tr>
+	                    	<td><strong>Referencia: </strong><span t-field="o.ref"/></td>
+		                    <td><strong>Fecha: </strong><span t-field="o.date" t-field-options='{"format": "d MMMM y"}'/></td>
+	                    </tr>
+	                    <tr >
+	                    	<td><strong>Diario: </strong><span t-field="o.journal_id"/></td>
+	                    	<td><strong>Periodo: </strong><span t-field="o.period_id"/></td>
+	                    </tr>
+	                    <tr>
+	                    	<td><strong>Creado por: </strong><span t-field="o.create_uid"/></td>
+		                    <td><strong>Ultima actualización de: </strong><span t-field="o.write_date" t-field-options='{"format": "d MMMM y"}'/></td>
+	                    </tr>
+	                    <tr >
+	                    	<td><strong>Creado en: </strong><span t-field="o.create_date"/></td>
+	                    	<td><strong>Ultima actualización de: </strong><span t-field="o.write_uid"/></td>
+	                    </tr>
+   			</table>
+            <table class="table table-condensed">
+                <thead>
+                    <t t-if="not o.group_report_by_account">
+                        <tr>
+                            <th class="text-left">Nombre</th>
+                            <th class="text-left">Empresa</th>
+                            <th class="text-left">Cuenta</th>
+                            <th class="text-left">Cuenta de Costo</th>
+                            <th class="text-right">Débito</th>
+                            <th class="text-right">Crédito</th>
+                        </tr>
+                    </t>
+                    <t t-if="o.group_report_by_account">
+                        <tr>
+                            <th class="text-left">Empresa</th>
+                            <th class="text-left">Cuenta</th>
+                            <th class="text-right" colspan="2">Débito</th>
+                            <th class="text-right" colspan="2">Crédito</th>
+                        </tr>
+                    </t>
+                </thead>
+                <tbody class="invoice_tbody">
+
+                    <t t-if="not o.group_report_by_account">
+                        <tr t-foreach="o.line_id" t-as="l">
+                            <t t-if="l.debit &gt; 0 or l.credit &gt; 0">
+                               <td class="text-left"><span t-field="l.name"/></td>
+                               <td class="text-left"><span t-field="l.partner_id"/></td>
+                               <td class="text-left"><span t-field="l.account_id"/></td>
+                               <td class="text-left"><span t-field="l.analytic_account_id"/></td>
+                               <td class="text-right"><span t-esc="round(l.debit,2)"/></td>
+                               <td class="text-right"><span t-esc="round(l.credit,2)"/></td>
+                            </t>
+                        </tr>
+                    </t>
+                    <t t-if="o.group_report_by_account">
+                        <tr t-foreach="o.group_accounts(o.line_id)" t-as="l">
+                            <t t-if="l['debit'] &gt; 0 or l['credit'] &gt; 0">
+                               <td class="text-left"><span t-esc="l['partner_id']"/></td>
+                               <td class="text-left"><span t-esc="l['account_id']"/></td>
+                               <td class="text-right" colspan="2"><span t-esc="round(l['debit'],2)"/></td>
+                               <td class="text-right" colspan="2"><span t-esc="round(l['credit'],2)"/></td>
+                            </t>
+                        </tr>
+                    </t>
+	                <tr >
+	                	<t t-set="sum_debit" t-value="0.00"/>
+	                    <t t-set="sum_credit" t-value="0.00"/>
+	                
+	                        <td colspan="4"><strong class="title">Totales</strong></td>
+	                        
+	                        <t t-foreach="o.line_id" t-as="l" class="text-right">
+	                            <strong class="title"><span t-set="sum_debit" t-value="sum_debit+l.debit"/></strong>
+	                        </t>
+	                        <t t-foreach="o.line_id" t-as="l" class="text-right">
+	                            <strong class="title"><span t-set="sum_credit" t-value="sum_credit+l.credit"/></strong>
+	                        </t>
+	                        <td class="text-right"><strong><span t-esc="sum_debit" /></strong></td>
+	                        <td class="text-right"><strong><span t-esc="sum_credit"/></strong></td>                               
+	                </tr>
+                </tbody>
+            </table>
+            <table class="table table-condensed" >
+                        <tr>
+                            <td align="center">____________________</td>
+                            <td align="center">____________________</td>
+                            <td align="center">____________________</td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="col-xs-3">
+								<strong>Elaborado por: </strong><br/>
+							</td>
+							<td align="center" class="col-xs-3">
+								<strong>Revisado por: </strong><br/>
+							</td>
+							<td align="center" class="col-xs-3">
+								<strong>Aprobado por: </strong><br/>
+							</td>
+                        </tr>
+        			</table>
+      </div>   
+    </t>
+</t>
+</template>
+</data>
+</openerp>

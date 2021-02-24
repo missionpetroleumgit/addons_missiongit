@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_exel_utilities_file">
+            <field name="name">exel.utilities</field>
+            <field name="model">exel.utilities</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <form string="Generar Archivo">
+                    <separator string="Seleccione Año"/>
+                    <group col="4" colspan="4">
+                        <field name="year" nolabel="1" required="1"/>
+                        <field name="name" invisible="1"/>
+                        <group></group>
+                    </group>
+                    <field name="txt_binary" filename="name"/>
+                    <label string="Para generar el archivo clic en el botón: 'Generar Archivo'"/>
+                  	<footer>
+						<button name="generate_file" string="Generar archivo" class="oe_highlight" type="object"/>
+					</footer>
+                </form>
+            </field>
+        </record>
+
+		<act_window name="Archivo Utilidades"
+            context="{'search_default_draft': 1}"
+            res_model="exel.utilities"
+            src_model="hr.employee"
+            view_mode="form"
+            view_id="view_exel_utilities_file"
+            target="new"
+            multi="True"
+            key2="client_action_multi"
+            id="action_view_exel_utilities_file"/>
+
+    </data>
+</openerp>

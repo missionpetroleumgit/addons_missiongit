@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <report
+            string="Purchase Importation Order"
+            id="action_report_purchase_importation"
+            model="importation.order"
+            report_type="qweb-pdf"
+            name="o2s_purchase_importation.report_importation"
+            file="o2s_purchase_importation.report_importation"
+         />
+
+    </data>
+</openerp>

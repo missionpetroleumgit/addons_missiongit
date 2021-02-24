@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!--DHA 26-11-2018 Wizard para crear una sola factura desde importaciones y borro las creadas -->
+        <record model="ir.ui.view" id="view_generate_bundling_invoices_importation">
+            <field name="name">bundling.invoices.imp</field>
+            <field name="model">bundling.invoices.imp</field>
+            <field name="priority">3</field>
+            <field name="arch" type="xml">
+                <form string="Agrupar Facturas" version="7.0">
+                    <label string="Está seguro de crear una sola factura de las ordenes seleccionadas ?, tenga en cuenta que si desea agrupar las facturas deben"/>
+                    <group>
+                        <field name="date"/>
+                    </group>
+                  	<footer>
+						<button name="button_gruping_invoices" string="Generar Factura" class="oe_highlight" type="object"/>
+					</footer>
+                </form>
+            </field>
+        </record>
+
+		<act_window name="Agrupar Facturas"
+            context="{'search_default_draft': 1}"
+            res_model="bundling.invoices.imp"
+            src_model="purchase.importation"
+            view_mode="form"
+            view_id="view_generate_bundling_invoices_importation"
+            target="new"
+            multi="True"
+            key2="client_action_multi"
+            id="action_account_generate_bundling_invoices_importation"/>
+
+    </data>
+</openerp>

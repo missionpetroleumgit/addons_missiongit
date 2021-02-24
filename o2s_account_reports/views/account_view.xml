@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <record id="account_account_inherited_form_tiw" model="ir.ui.view">
+			<field name="name">account.account.inherited.form.tiw</field>
+			<field name="model">account.account</field>
+			<field name="inherit_id" ref="account.view_account_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//h1" position="after">
+                    <h1>
+                        <field name="code_tiw" class="oe_inline" placeholder="Codigo Houston" style="width: 6em"/>-
+                        <field name="name_tiw" class="oe_inline" placeholder="Nombre Houston"/>
+                    </h1>
+                </xpath>
+            </field>
+        </record>
+	</data>
+</openerp>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_hr_payslip_rol_resumido_form" model="ir.ui.view">
+            <field name="name">Exportar</field>
+            <field name="model">hr.payslip.rol.resumido</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <sheet>
+                    <form string="Ingresos">
+                        <group colspan="2" col="4">
+                            <field name="company_id" groups="base.group_multi_company" widget="selection"
+                                   string="Compañía"/>
+                            <field name="type_hr" required="1"/>
+                            <field name="type_ing"
+                                   attrs="{'invisible':[('type_hr','!=','rol')],'required':[('type_hr','=','rol')]}"/>
+                            <field name="payment_type"/>
+                            <field name="fiscalyear" options="{'no_open':True,'no_create':True}"/>
+                            <field name="period" options="{'no_open':True,'no_create':True}"/>
+                            <!-- JJM Agrego campo para opcion de agrupar reporte-->
+                            <separator string="Agrupar por:" colspan="4"/>
+                            <field name="opt_group_by" widget="radio" string=""/>
+
+                        </group>
+                        <field name="id" invisible="1"/>
+                        <!--<group>-->
+                        <!--&lt;!&ndash;<field name="path" required="1" placeholder="ej. /home/nombre_usuario/reportes/" nolabel="1"/>-->
+                        <!--<field name="data" />-->
+                        <!--&ndash;&gt;-->
+                        <!--<group></group>-->
+                        <separator string="Generación" colspan="2"/>
+                        <button name="action_excel" type="object" string="Generar archivo"
+                                attrs="{'invisible':[('id','==',False)]}"/>
+                    </form>
+                </sheet>
+            </field>
+        </record>
+
+
+        <record id="action_hr_payslip_rol" model="ir.actions.act_window">
+            <field name="name">Importar</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.payslip.rol.resumido</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+            <field name="view_id" ref="view_hr_payslip_rol_resumido_form"/>
+        </record>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+                
+        <report
+				auto="False"
+				id="report_contract_v7"
+				model="hr.contract"
+				name="hr.contractt"
+				rml="bit_hr_contract_ec/report/report_contract.rml"
+				string="Imprimir contrato" />
+
+    </data>
+</openerp>

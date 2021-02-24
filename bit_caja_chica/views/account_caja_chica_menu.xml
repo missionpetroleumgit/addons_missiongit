@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Top menu item -->
+        <menuitem id="menu_caja_chica" name="Cajas Chicas" parent="account.menu_finance" sequence="7"/>
+            
+        <record id="view_account_caja_chica_filter" model="ir.ui.view">
+            <field name="name">account.caja.chica.select</field>
+            <field name="model">account.caja.chica</field>
+            <field name="arch" type="xml">
+                <search string="Search Caja Chica">
+                    <field name="name" string="Caja Chica"/>
+                    <field name="date"/>
+                    <filter string="Draft" name="state_draft" domain="[('state','=','draft')]" icon="terp-document-new"/>
+                    <filter string="Open" name="state_open" domain="[('state','=','open')]" icon="terp-check"/>
+                    <filter string="Confirmed" name="state_confirmed" domain="[('state','=','confirm')]" icon="terp-camera_test"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Responsable" context="{'group_by': 'user_id'}" icon="terp-folder-orange"/>
+                        <filter string="Status" context="{'group_by': 'state'}" icon="terp-stock_effects-object-colorize"/>
+                        <filter string="Fecha" context="{'group_by': 'date'}" icon="terp-go-month"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_account_caja_chica_tree" model="ir.ui.view">
+            <field name="name">account.caja.chica.tree</field>
+            <field name="model">account.caja.chica</field>
+            <field name="arch" type="xml">
+                <tree colors="blue:state=='draft';black:state=='open';orange:state=='pending';gray:state=='confirm'" string="Caja Chica">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="date_cierre"/>
+                    <field name="user_id" />
+                    <field name="saldo_ini"/>
+                    <field name="saldo_pend"/>
+                    <field name="company_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_account_caja_chica_search" model="ir.ui.view">
+            <field name="name">account.caja.chica.search</field>
+            <field name="model">account.caja.chica</field>
+            <field name="arch" type="xml">
+                <search string="Search Caja Chica">
+                    <field name="name" string="Caja Chica"/>
+                    <field name="date"/>
+                    <filter string="Draft" domain="[('state','=','draft')]" icon="terp-document-new"/>
+                    <filter string="Confirmed" domain="[('state','=','confirm')]" icon="terp-camera_test"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Status" context="{'group_by': 'state'}" icon="terp-stock_effects-object-colorize"/>
+                        <filter string="Responsable" context="{'group_by': 'user_id'}" icon="terp-go-month"/>
+                        <filter string="Fecha" context="{'group_by': 'date'}" icon="terp-go-month"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="view_account_caja_chica_form" model="ir.ui.view">
+            <field name="name">account.caja.chica.form</field>
+            <field name="model">account.caja.chica</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <form string="Caja Chica">
+                <header>
+					<span attrs="{'invisible' : [('state', 'in', ['pending', 'confirm'])] }">
+                        <button name="cerrar_caja" states="open" string="Cerrar Caja" type="object" class="oe_highlight"/>
+                    </span>
+					<span attrs="{'invisible' : [('state', '!=', 'pending')] }">
+                        <button name="validar_caja" states="pending" string="Validar Caja" type="object" class="oe_highlight"/>
+                    </span>
+					<span attrs="{'invisible' : [('state', 'in', ['pending', 'confirm'])] }">
+                        <button name="new_ingreso" states="open" string="Crear Ingreso Bodega" type="object" class="oe_highlight"/>
+                    </span>
+                     <span attrs="{'invisible' : [('state', '!=', 'draft')] }">
+                        <button name="abrir_caja" states="draft" string="Abrir Caja" type="object" class="oe_highlight"/>
+                    </span>
+                    <span attrs="{'invisible' : [('state', '!=', 'confirm')] }">
+                        <button name="button_cancel" states="confirm" string="Cancel Caja Chica" type="object"/>
+                    </span>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,open,pending,confirm"/>
+                </header>
+                <sheet>
+<!--                    <div class="oe_right oe_button_box" name="import_buttons">
+                        <button class="oe_inline oe_stat_button" name="butt_inv"
+                            string="Import Invoice" type="action"
+                            attrs="{'invisible':[('state','=','confirm')]}" widget="statinfo" icon="fa-pencil-square-o"/>
+                        <button class="oe_inline oe_stat_button" name="button_journal_entries"
+                                string="Journal Items" type="object"
+                                attrs="{'invisible':[('move_line_ids','=',[])]}" icon="fa-bars"/>
+                        <field name="move_line_ids" invisible="1"/>
+                    </div>-->
+                    <label for="name" class="oe_edit_only"/>
+                    <h1><field name="name" attrs="{'readonly':[('state','!=','draft')]}"/></h1>
+                    <group>
+                        <group>
+                            <field name="user_id" widget="selection" attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <label for="date" string="Fecha" />
+                            <div>
+                                <field name="date"  class="oe_inline" readonly="0"/>
+                                <field name="state" invisible="1" class="oe_inline"/>
+                            </div>
+                            <field name='company_id' widget="selection" attrs="{'readonly':[('state','!=','draft')]}" groups="base.group_multi_company" />
+                        </group>
+                        <group>
+                            <field name="saldo_ini" widget="monetary" options='{"currency_field" : "currency"}' />
+                            <field name="saldo_pend" widget="monetary" options='{"currency_field" : "currency"}' attrs="{'readonly':[('state','!=','draft')]}"/>
+                            <field name="date_cierre" attrs="{'invisible':[('state','!=','confirm')]}"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Transacciones" name="caja_chica_line_ids">
+                            <field name="line_ids" context="{'date':date}" attrs="{'readonly':[('state','in',['draft'])]}">
+                                <tree editable="bottom" string="Caja Chica lines" >
+                                    <field name="sequence" readonly="1" invisible="1"/>
+                                    <!-- field name="is_conci" on_change="onchange_valor_procesar(is_conci, amount)"/ -->
+                                    <field name="user_id" invisible="1"/>
+                                    <field name="state" invisible="1"/>
+                                    <field name="is_inven" attrs="{'readonly':[('state','in',['confirm'])]}"/>
+                                    <field name="tipo_comp" on_change="onchange_is_factura(tipo_comp)"/>
+                                    <field name="is_iva" on_change="onchange_is_iva(tipo_comp, is_iva, amount_neto, por_iva)"/>
+                                    <field name="por_iva" on_change="onchange_is_iva(tipo_comp, is_iva, amount_neto, por_iva)" attrs="{'required':[('is_iva','=',True)]}"/>
+                                    <field name="number_fact" attrs="{'required':[('tipo_comp','in',['factura'])]}"/>
+                                    <field name="date" />
+                                    <field name="name" />
+                                    <field name="partner_id" domain="[('supplier','=',True)]"
+                                         context="{'default_supplier': 1}"/>
+                                    <field name="cantidad" />
+                                    <field name="product_id" domain="[('is_pcchica','=',True)]"/>
+                                    <field name="amount_neto" sum="Total Neto" on_change="onchange_valor_iva(tipo_comp, is_iva, amount_neto, por_iva)"/>
+                                    <field name="amount_iva_retenido" sum="Total Iva"/>
+                                    <field name="amount" sum="Total Bruto" />
+                                    <field name="iva_fact" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <group class="oe_subtotal_footer oe_right" col="8" colspan="8" name="sale_total">
+                        <div class="oe_subtotal_footer_separator oe_inline">
+                            <label for="valor_neto" />
+                            <button name="button_dummy" states="draft,pending,open" string="(Calcular)" type="object" class="oe_edit_only oe_link"/>
+                        </div>
+                        <field name="valor_neto" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency'}"/>
+                        <field name="valor_iva" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency'}"/>
+                        <field name="valor_bruto" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency'}"/>
+                    </group>
+                    <group class="oe_subtotal_footer oe_right" col="8" colspan="8" name="sale_total">
+                        <div class="oe_subtotal_footer_separator oe_inline">
+                            <span>T. Factura:</span>
+                        </div>
+                        <field name="valor_neto_f" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency'}"/>
+                        <field name="valor_iva_f" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency'}"/>
+                        <field name="valor_bruto_f" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency'}"/>
+                    </group>
+                    <div class="oe_clear"/>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_account_caja_chica_tree" model="ir.actions.act_window">
+            <field name="name">Caja Chica (Nueva)</field>
+            <field name="res_model">account.caja.chica</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="domain">[('state','=','draft')]</field>
+            <!-- field name="context">{'journal_type':'bank'}</field -->
+            <field name="search_view_id" ref="view_account_caja_chica_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para registrar una nueva Caja Chica.
+              </p><p>
+                En este registro de caja chica podra registrar los gastos de los
+                locales ya sean facturas o recibos, puede manejar una caja chica
+                diaria, semanal, quincenal, mensual y le ayudara a llevar los
+                saldos automaticamente con cada cierre.
+              </p><p>
+                Además le creara los comprobantes correspondientes, en el caso de
+                facturas/nota de venta una a una y en el caso de recibos le creara
+                agrupado una liquidación de compra.
+              </p>
+            </field>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_account_caja_chica_tree_cc">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_account_caja_chica_tree"/>
+            <field name="act_window_id" ref="action_account_caja_chica_tree"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_account_caja_chica_form_cc">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_account_caja_chica_form"/>
+            <field name="act_window_id" ref="action_account_caja_chica_tree"/>
+        </record>
+
+        <menuitem string="Caja Chica Nueva" action="action_account_caja_chica_tree" id="menu_account_caja_chica_tree" parent="menu_caja_chica" sequence="1"/>
+
+        <record id="action_account_caja_chica_draft_tree" model="ir.actions.act_window">
+            <field name="name">Cajas Chicas Proceso</field>
+            <field name="res_model">account.caja.chica</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','open')]</field>
+            <field name="filter" eval="True"/>
+        </record>
+
+        <menuitem string="Caja Chica Proceso" action="action_account_caja_chica_draft_tree" id="menu_account_caja_chica_draft_tree" parent="menu_caja_chica" sequence="2"/>
+
+        <record id="action_account_caja_chica_pending_tree" model="ir.actions.act_window">
+            <field name="name">Cajas Chicas Validar</field>
+            <field name="res_model">account.caja.chica</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','pending')]</field>
+            <field name="filter" eval="True"/>
+        </record>
+        <menuitem string="Cajas Chicas Validar" action="action_account_caja_chica_pending_tree" id="menu_account_caja_chica_pending_tree" parent="menu_caja_chica" sequence="3"/>
+
+        <record id="action_account_caja_chica_confirm_tree" model="ir.actions.act_window">
+            <field name="name">Cajas Chicas Cerradas</field>
+            <field name="res_model">account.caja.chica</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','confirm')]</field>
+            <field name="filter" eval="True"/>
+        </record>
+        <menuitem string="Cajas Chicas Cerradas" action="action_account_caja_chica_confirm_tree" id="menu_account_caja_chica_confirm_tree" parent="menu_caja_chica" sequence="4"/>
+
+        <!--<menuitem id="menu_caja_chicapv" name="Cajas Chicas" parent="point_of_sale.menu_point_root" sequence="16"/>
+        <menuitem string="Caja Chica Nueva" action="action_account_caja_chica_tree" id="menu_account_caja_chica_treepv" parent="menu_caja_chicapv" sequence="1"/>
+        <menuitem string="Caja Chica Proceso" action="action_account_caja_chica_draft_tree" id="menu_account_caja_chica_draft_treepv" parent="menu_caja_chicapv" sequence="2"/>
+        <menuitem string="Cajas Chicas Cerradas" action="action_account_caja_chica_confirm_tree" id="menu_account_caja_chica_confirm_treepv" parent="menu_caja_chicapv" sequence="3"/>-->
+
+    </data>
+</openerp>
+

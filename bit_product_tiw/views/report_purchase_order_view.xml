@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report
+            string="Orden de Compra"
+            id="action_report_purchase_order"
+            model="purchase.order"
+            report_type="qweb-pdf"
+            name="bit_product_tiw.report_purchase_order"
+            file="bit_product_tiw.report_purchase_order"
+         />
+    </data>
+</openerp>

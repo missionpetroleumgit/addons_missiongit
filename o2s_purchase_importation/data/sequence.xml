@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data noupdate="1">
+		<!--
+			Sequence Type
+		-->
+
+		<record id="ir_seq_type_importation" model="ir.sequence.type">
+			<field name="name">Purchase Importation</field>
+			<field name="code">purchase.importation</field>
+		</record>
+
+		<!--
+			Sequence
+		-->
+
+		<record id="ir_seq_importation" model="ir.sequence">
+			<field name="name">Purchase Importation</field>
+			<field name="code">purchase.importation</field>
+			<field name="prefix">MP-PO-</field>
+			<field name="padding">7</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+
+		<record id="ir_seq_type_importation_order" model="ir.sequence.type">
+			<field name="name">Importation Order</field>
+			<field name="code">importation.order</field>
+		</record>
+
+		<!--
+			Sequence
+		-->
+
+		<record id="ir_seq_importation_order" model="ir.sequence">
+			<field name="name">Importation Order</field>
+			<field name="code">importation.order</field>
+			<field name="prefix">MP-PO-</field>
+			<field name="padding">7</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+
+		<!-- Procura -->
+
+		<record id="ir_procura_importation_orders" model="ir.sequence.type">
+			<field name="name">Importation Order Procura</field>
+			<field name="code">importation.order.procura</field>
+		</record>
+
+		<!--
+			Sequence
+		-->
+
+		<record id="ir_procura_importation_order_type" model="ir.sequence">
+			<field name="name">Importation Order</field>
+			<field name="code">importation.order.procura</field>
+			<field name="prefix">MP-PO-PROC-</field>
+			<field name="padding">7</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+
+		<record id="ir_seq_type_importation_requisition" model="ir.sequence.type">
+			<field name="name">Importation Requisition</field>
+			<field name="code">importation.requisition</field>
+		</record>
+
+		<!--
+			Sequence
+		-->
+
+		<record id="ir_seq_importation_requisition" model="ir.sequence">
+			<field name="name">Importation Requisition</field>
+			<field name="code">importation.requisition</field>
+			<field name="prefix">MP-REQ-IMP-</field>
+			<field name="padding">7</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+
+		<record id="ir_seq_type_importation_procura" model="ir.sequence.type">
+			<field name="name">Importation Requisition Procura</field>
+			<field name="code">importation.requisition.procura</field>
+		</record>
+
+		<!--
+			Sequence
+		-->
+
+		<record id="ir_seq_importation_procura" model="ir.sequence">
+			<field name="name">Importation Requisition Procura</field>
+			<field name="code">importation.requisition.procura</field>
+			<field name="prefix">MP-REQ-IMP-PROC-</field>
+			<field name="padding">7</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+
+	</data>
+</openerp>

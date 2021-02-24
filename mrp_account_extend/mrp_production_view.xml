@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<!--        <record id="mrp_production_form_view_extended_v2" model="ir.ui.view">-->
+<!--            <field name="name">mrp.production.form.extended.v2</field>-->
+<!--            <field name="model">mrp.production</field>-->
+<!--            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <xpath expr="//div[contains(@class,'oe_title')]" position="after">-->
+<!--                    <div class="oe_right oe_button_box">-->
+<!--                        <button name="action_view_account_moves"-->
+<!--                                type="object"-->
+<!--                                class="oe_stat_button oe_inline"-->
+<!--                                icon="fa-list"-->
+<!--                                attrs="{'invisible':[('move_count', '=', 0)]}">>-->
+<!--                            <field name="move_count" widget="statinfo" string="Asientos"/>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+    </data>
+</openerp>

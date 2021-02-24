@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_sale_invoice_control_form" model="ir.ui.view">
+            <field name="name">view.sale.control.form</field>
+            <field name="model">invoice.control</field>
+            <field name="arch" type="xml">
+                <form string="Control de Ordenes de Venta" version="7.0">
+                <sheet>
+                    <group col="1" colspan="2">
+                        <separator string="Reporte Control de las Órdenes de Ventas"/>
+                        <br>
+                            <strong>
+                                <span style="color:darkred !important;font-size:15px">
+                                    IMPORTANTE:
+                                </span>
+                            </strong>
+                        </br>
+                        <br>
+                            <strong>
+                                <span style="color:gray !important;font-size:14px">
+                            En este reporte podrá sacar la información referente a las ventas, solo saldrán las órdenes
+                            que por lo menos tengan registrada la fecha de envío de documentos, si selecciona cliente,
+                            saldrán las órdenes con ese cliente, si no selecciona un cliente, saldrán de todos, al
+                            igual que el estado y la fecha, puede crear un reporte dinámico, de acuerdo a su necesidad.
+                                </span>
+                            </strong>
+                        </br>
+                        <separator string="Seleccione rango de fechas"/>
+                        <div>
+						<div>
+							<field name="date_from" style="width: 30%" required="1"/>
+							<field name="date_to" style="width: 30%" required="1"/>
+						</div>
+					</div>
+                        <separator string="Cliente"/>
+                       	<field name="partner_id" nolabel="1" options="{'no_create': True, 'no_open':True}"/>
+                        <separator string="Estado"/>
+                        <field name="state" nolabel="1" options="{'no_create': True, 'no_open':True}"/>
+                        <field name="id" invisible="1"/>
+                        <field name="type_export"/>
+                    </group>
+                    <button name="excel_action" type="object" string="Imprimir" attrs="{'invisible': [('id','=',False)]}"/>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_sale_order_invoice_control_form" model="ir.actions.act_window">
+            <field name="name">Control de Ordenes de Venta</field>
+            <field name="res_model">invoice.control</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="context">{}</field>
+            <field name="target">current</field>
+        </record>
+
+       <menuitem action="action_sale_order_invoice_control_form" id="menu_sale_order_invoice_control_form" parent="base.next_id_64"
+                 string="Control Facturas"/>
+    </data>
+</openerp>

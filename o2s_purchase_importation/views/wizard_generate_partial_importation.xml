@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_generate_partials_importations">
+            <field name="name">generate.partials.importations</field>
+            <field name="model">generate.partials.importations</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <form string="Generar Importación" version="7.0">
+                    <label string="Está seguro de generar la importación de las ordenes seleccionadas?"/>
+                    <group>
+                        <field name="date_start"/>
+                        <field name="importation_line_ids">
+                            <tree editable="top">
+                                <field name="to_generate"/>
+                                <field name="importation_id" readonly="1"/>
+                                <field name="product_id" readonly="1"/>
+                                <field name="product_qty" readonly="1"/>
+                                <field name="product_uom" readonly="1"/>
+                                <field name="price_unit" readonly="1"/>
+                                <field name="subtotal_importation" readonly="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="button_generate" string="Generar Importación" class="oe_highlight" type="object"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Generar Importación (De Paciales)"
+                    context="{'search_default_draft': 1}"
+                    res_model="generate.partials.importations"
+                    src_model="importation.order"
+                    view_mode="form"
+                    view_id="view_generate_partials_importations"
+                    target="new"
+                    multi="True"
+                    key2="client_action_multi"
+                    id="action_generate_partials_importations"/>
+
+    </data>
+</openerp>

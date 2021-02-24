@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="account_voucher_tree_view_advances" model="ir.ui.view">
+            <field name="name">account.voucher.tree.view.advances</field>
+            <field name="model">account.voucher</field>
+            <field name="arch" type="xml">
+                <tree colors="blue:state == 'draft';gray:state == 'cancel'" string="Anticipos">
+                    <field name="company_id"/>
+                    <field name="date"/>
+                    <field name="number"/>
+                    <field name="partner_id"/>
+                    <field name="journal_id" groups="account.group_account_user"/>
+                    <field name="period_id" invisible="context.get('visible', True)"/>
+                    <field name="type" invisible="context.get('visible', True)"/>
+                    <field name="amount" sum="Total Amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="account_voucher_form_view_advances" model="ir.ui.view">
+            <field name="name">account.voucher.form.view.advances</field>
+            <field name="model">account.voucher</field>
+            <field name="arch" type="xml">
+                <form string="Anticipo">
+                    <header>
+                        <button name="validate_advance" string="Validar" type="object" states="draft" class="oe_highlight"/>
+                        <button name="cancel_advance" string="Cancel Voucher" type="object" states="posted" confirm="Are you sure you want to unreconcile this record?"/>
+                        <button name="action_advance_draft" type="object" states="cancel" string="Set to Draft"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,posted" statusbar_colors='{"proforma":"blue"}'/>
+                    </header>
+                    <sheet string="Accounting Voucher">
+                        <div class="oe_right oe_button_box" name="import_buttons">
+                            <button name="print_pay" class="oe_inline oe_stat_button" widget="statinfo" string="Imprimir" icon="fa-check-square-o" type="object"/>
+                        </div>
+                        <group col="4" colspan="4">
+                            <field name="grouped_report"/>
+                            <field name="number"/>
+                            <field name="partner_id" required="1" on_change="onchange_journal_voucher(False, False, False, partner_id, journal_id, type)"/>
+                            <field name="check"/>
+                            <field name="purchase_id"/>
+                            <field name="benef" attrs="{'invisible':[('check','!=',True)]}"/>
+                            <field name="advance_account_id" required="True"
+                                   domain="[('type', '!=', 'view'), ('type', '!=', 'consolidation'), ('company_id', '=', company_id)]"/>
+                            <field name="date" on_change="onchange_date(date, currency_id, payment_rate_currency_id, False, company_id)"/>
+                            <field name="journal_id" options="{'no_create': True, 'no_open': True}" domain="[('company_id','=',company_id)]"
+                                   on_change="onchange_journal_voucher(False, False, False, partner_id, journal_id, type)"/>
+                            <field name="type" readonly="1" required="1"/>
+                            <field name="company_id" widget="selection" on_change="onchange_company(partner_id, journal_id, currency_id, company_id)" groups="base.group_multi_company"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                            <field name="account_id" widget="selection" invisible="True"/>
+                            <field name="period_id"/>
+                            <field name="amount"/>
+                            <field name="payment_rate_currency_id" invisible="1"/>
+
+                            <!-- O2SGH: 19Jul2017, Modificacion para que en los anticipos aparezca el numero de cheque-->
+                            <field name="is_check" attrs="{'readonly':[('state','=','posted')]}"/>
+                            <group col="2" colspan="2">
+                                <field name="check_book_id" domain="[('company_id','=',company_id)]"
+                                       attrs="{'invisible':[('is_check','=',False)],'required':[('is_check','=', True)],'readonly':[('state','=','posted')]}"/>
+                                <field name="no_cheque" attrs="{'invisible':[('is_check','=', False)]}"/>
+                            </group>
+                            <field name="is_etransfer"/>
+                            <group col="2" colspan="2">
+                                <field name="bank_account_id" domain="[('partner_id', '=', partner_id)]" attrs="{'invisible': [('is_etransfer', '=', False)]}"/>
+                                <field name="electronic_transfer_ref" attrs="{'required':[('is_etransfer','=', True)], 'invisible':[('is_etransfer','=', False)]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Informacion Adicional">
+                                <field name="reference" required="1" placeholder="Ref. pago"/>
+                            </page>
+                            <page string="Items de Diario">
+                                <field name="move_id" invisible="1"/>
+                                <field name="move_ids" readonly="True"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_voucher_filter_advances" model="ir.ui.view">
+            <field name="name">account.voucher.select.advances</field>
+            <field name="model">account.voucher</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <search string="Search Vouchers">
+                    <field name="number" string="Voucher"/>
+                    <field name="date"/>
+                    <filter icon="terp-document-new" string="Draft" domain="[('state','=','draft')]" help="Draft Vouchers"/>
+                    <filter icon="terp-camera_test" string="Posted" domain="[('state','=','posted')]" help="Posted Vouchers"/>
+                    <separator/>
+                    <filter icon="terp-gtk-jump-to-ltr" string="To Review" domain="[('state','=','posted'), ('audit','=',False)]" help="To Review"/>
+                    <field name="partner_id" filter_domain="[('partner_id', 'child_of', self)]"/>
+                    <field name="journal_id" widget="selection" context="{'journal_id': self, 'set_visible':False}" /> <!-- Keep widget=selection on this field to pass numeric `self` value, which is not the case for regular m2o widgets! -->
+                    <field name="period_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Partner" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Journal" icon="terp-folder-orange" domain="[]" context="{'group_by':'journal_id'}"/>
+                        <filter string="Period" icon="terp-go-month" domain="[]" context="{'group_by':'period_id','visible':True}"/>
+                        <filter string="Status" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Compañía" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'company_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_voucher_list_advances">
+            <field name="name">Anticipos</field>
+            <field name="res_model">account.voucher</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="context">{'type':'advance'}</field>
+            <field name="domain">[('type','=','advance')]</field>
+            <field name="view_id" eval="account_voucher_tree_view_advances"/>
+            <field name="search_view_id" ref="view_voucher_filter_advances"/>
+        </record>
+
+        <record id="action_journal_voucher_tree_advances" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="account_voucher_tree_view_advances"/>
+            <field name="act_window_id" ref="action_voucher_list_advances"/>
+        </record>
+        <record id="action_journal_voucher_form_advances" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_voucher_form_view_advances"/>
+            <field name="act_window_id" ref="action_voucher_list_advances"/>
+        </record>
+
+        <menuitem action="action_voucher_list_advances"
+                  id="menu_action_voucher_list_advances"
+                  parent="account.menu_finance_bank_and_cash"
+                  sequence="3"
+                  groups="base.group_no_one"/>
+        <!--CSV:24-04-2018: AUMENTO PARA PAGOS VARIAS CUENTAS-->
+        <record id="account_voucher_tree_view_somepays" model="ir.ui.view">
+            <field name="name">account.voucher.tree.view.somepays</field>
+            <field name="model">account.voucher</field>
+            <field name="arch" type="xml">
+                <tree colors="blue:state == 'draft';gray:state == 'cancel'" string="Pagos">
+                    <field name="company_id"/>
+                    <field name="date"/>
+                    <field name="number"/>
+                    <field name="benef" string="Beneficiario"/>
+                    <field name="journal_id" groups="account.group_account_user"/>
+                    <field name="period_id" invisible="context.get('visible', True)"/>
+                    <field name="type" invisible="context.get('visible', True)"/>
+                    <field name="amount" sum="Total Amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="account_voucher_form_view_somepays" model="ir.ui.view">
+            <field name="name">account.voucher.form.view.somepays</field>
+            <field name="model">account.voucher</field>
+            <field name="arch" type="xml">
+                <form string="Pagos">
+                    <header>
+                        <button name="validate_advance_some" string="Validar" type="object" states="draft" class="oe_highlight"/>
+                        <button name="cancel_advance" string="Cancel Voucher" type="object" states="posted" confirm="Are you sure you want to unreconcile this record?"/>
+                        <button name="action_advance_draft" type="object" states="cancel" string="Set to Draft"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,posted" statusbar_colors='{"proforma":"blue"}'/>
+                    </header>
+                    <sheet string="Accounting Voucher">
+                        <div class="oe_right oe_button_box" name="import_buttons">
+                            <button name="print_pay" class="oe_inline oe_stat_button" widget="statinfo" string="Imprimir" icon="fa-check-square-o" type="object"/>
+                        </div>
+                        <group col="4" colspan="4">
+                            <field name="grouped_report"/>
+                            <field name="number"/>
+                            <field name="benef" required="1" string="Beneficiario"/>
+                            <field name="partner_id" readonly="1" invisible="1" on_change="onchange_journal_voucher(False, False, False, partner_id, journal_id, type)"/>
+                            <!--<field name="check"/>-->
+                            <!--<field name="advance_account_id" required="True"-->
+                            <!--domain="[('type', '!=', 'view'), ('type', '!=', 'consolidation'), ('company_id', '=', company_id)]"/>-->
+                            <field name="date" on_change="onchange_date(date, currency_id, payment_rate_currency_id, False, company_id)"/>
+                            <field name="period_id"/>
+                            <field name="journal_id" options="{'no_create': True, 'no_open': True}" domain="[('company_id','=',company_id)]"
+                                   on_change="onchange_journal_voucher(False, False, False, partner_id, journal_id, type)"/>
+                            <field name="account_id" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="type" required="1" invisible="1" readonly="1"/>
+                            <field name="company_id" widget="selection" readonly="1" on_change="onchange_company(partner_id, journal_id, currency_id, company_id)" groups="base.group_multi_company"/>
+                            <field name="currency_id" groups="base.group_multi_currency"/>
+                            <field name="amount" attrs="{'invisible':[('state','!=','posted')], 'readonly':[('state','=','posted')]}"/>
+                            <field name="payment_rate_currency_id" invisible="1"/>
+
+                            <!-- O2SGH: 19Jul2017, Modificacion para que en los anticipos aparezca el numero de cheque-->
+                            <field name="is_check" attrs="{'readonly':[('state','=','posted')]}"/>
+                            <group col="2" colspan="2">
+                                <field name="check_book_id" domain="[('company_id','=',company_id)]"
+                                       attrs="{'invisible':[('is_check','=',False)],'required':[('is_check','=', True)],'readonly':[('state','=','posted')]}"/>
+                                <field name="no_cheque" attrs="{'invisible':[('is_check','=', False)]}"/>
+                            </group>
+                            <field name="is_etransfer"/>
+                            <group col="2" colspan="2">
+                                <field name="bank_account_id" domain="[('partner_id', '=', partner_id)]" attrs="{'invisible': [('is_etransfer', '=', False)]}"/>
+                                <field name="electronic_transfer_ref" attrs="{'required':[('is_etransfer','=', True)], 'invisible':[('is_etransfer','=', False)]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Informacion Adicional">
+                                <field name="reference" required="1" placeholder="Ref. Pago"/>
+                            </page>
+                            <page string="Detalle Pagos">
+                                <field name="account_pays">
+                                    <tree string="Detalle Pagos" editable="button">
+                                        <field name="account_id"/>
+                                        <field name="amount" sum="Total Pago"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Items de Diario">
+                                <field name="move_id" invisible="1"/>
+                                <field name="move_ids" readonly="True"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_voucher_filter_somepays" model="ir.ui.view">
+            <field name="name">account.voucher.select.somepays</field>
+            <field name="model">account.voucher</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <search string="Search Vouchers">
+                    <field name="number" string="Voucher"/>
+                    <field name="date"/>
+                    <filter icon="terp-document-new" string="Draft" domain="[('state','=','draft')]" help="Draft Vouchers"/>
+                    <filter icon="terp-camera_test" string="Posted" domain="[('state','=','posted')]" help="Posted Vouchers"/>
+                    <separator/>
+                    <filter icon="terp-gtk-jump-to-ltr" string="To Review" domain="[('state','=','posted'), ('audit','=',False)]" help="To Review"/>
+                    <field name="benef" string="Beneficiario"/>
+                    <field name="journal_id" widget="selection" context="{'journal_id': self, 'set_visible':False}" /> <!-- Keep widget=selection on this field to pass numeric `self` value, which is not the case for regular m2o widgets! -->
+                    <field name="period_id"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Partner" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Journal" icon="terp-folder-orange" domain="[]" context="{'group_by':'journal_id'}"/>
+                        <filter string="Period" icon="terp-go-month" domain="[]" context="{'group_by':'period_id','visible':True}"/>
+                        <filter string="Status" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Compañía" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'company_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_voucher_list_somepays">
+            <field name="name">Pagos Varios</field>
+            <field name="res_model">account.voucher</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="context">{'default_type': 'some_pays', 'form_view_ref':'o2s_account_advance.action_journal_voucher_form_somepays'}</field>
+            <!--<field name="context">{'type':'payment'}</field>-->
+            <field name="domain">[('type','=','some_pays')]</field>
+            <field name="view_id" eval="account_voucher_tree_view_somepays"/>
+            <field name="search_view_id" ref="view_voucher_filter_somepays"/>
+        </record>
+
+        <record id="action_journal_voucher_tree_somepays" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="account_voucher_tree_view_somepays"/>
+            <field name="act_window_id" ref="action_voucher_list_somepays"/>
+        </record>
+        <record id="action_journal_voucher_form_somepays" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account_voucher_form_view_somepays"/>
+            <field name="act_window_id" ref="action_voucher_list_somepays"/>
+        </record>
+
+        <menuitem action="action_voucher_list_somepays"
+                  id="menu_action_voucher_list_somepays"
+                  parent="account.menu_finance_bank_and_cash"
+                  sequence="4"
+                  groups="base.group_no_one"/>
+
+        <record id="view_vendor_payment_form_inherit_button_print" model="ir.ui.view">
+            <field name="name">account.voucher.form.button.print</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/field[@name='pre_line']" position="after">
+                    <group>
+                        <field name="grouped_report"/>
+                    </group>
+                </xpath>
+                <xpath expr="//form/sheet/field[@name='pre_line']" position="before">
+                    <div class="oe_right oe_button_box" name="import_buttons">
+                        <button name="print_pay" class="oe_inline oe_stat_button" widget="statinfo" string="Imprimir" icon="fa-check-square-o" type="object"/>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_vendor_receipt_form_inherit_button_print" model="ir.ui.view">
+            <field name="name">account.voucher.receipt.form.button.print</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_form"/>
+            <field name="arch" type="xml">
+                <field name="number" position="before">
+                    <div class="oe_right oe_button_box" name="import_buttons">
+                        <button name="print_pay" class="oe_inline oe_stat_button" widget="statinfo" string="Imprimir" icon="fa-check-square-o" type="object"/>
+                    </div>
+                </field>
+            </field>
+        </record>
+
+        <!-- Payment - Account voucher -->
+        <record model="ir.ui.view" id="view_voucher_payment_add_invoice_field_form">
+            <field name="name">view.voucher.payment.add.invoice.field.form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_cr_ids']/tree/field[@name='move_line_id']" position="after">
+                    <field name="invoice"/>
+                </xpath>
+                <xpath expr="//field[@name='line_dr_ids']/tree/field[@name='move_line_id']" position="after">
+                    <field name="invoice"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_receipt_voucher_add_invoice_field_form">
+            <field name="name">account.voucher.form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='line_cr_ids']/tree/field[@name='move_line_id']" position="after">
+                    <field name="invoice"/>
+                </xpath>
+                <xpath expr="//field[@name='line_dr_ids']/tree/field[@name='move_line_id']" position="after">
+                    <field name="invoice"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

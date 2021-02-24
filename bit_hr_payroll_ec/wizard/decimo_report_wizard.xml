@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_hr_decimos" model="ir.ui.view">
+            <field name="name">Decimos</field>
+            <field name="model">decimos.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Decimos">
+                   <group>
+                       <label for="date_from" string="Desde-Hasta" />
+                       <div>
+                           <field name="date_from" nolabel="1" class="oe_inline" />
+                           - <field name="date_to" nolabel="1" class="oe_inline"/>
+                       </div>
+                   </group>
+                   <group col="6" colspan="6">
+                       <field name="type"/>
+                       <group></group>
+                       <group></group>
+                   </group>
+                   <footer>
+                        <button name="print_report" string="Print" colspan="1" type="object" class="oe_highlight"/> or
+                        <button special="cancel" string="Cancel" class="oe_link"/>
+                   </footer>
+               </form>
+            </field>
+        </record>
+
+        <record id="action_view_hr_decimos" model="ir.actions.act_window">
+            <field name="name">Imprimir Decimos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">decimos.report.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+           <menuitem action="action_view_hr_decimos"
+            id="menu_hr_decimos"
+            parent="hr.menu_hr_reporting_timesheet" sequence="4" icon="STOCK_PRINT"/>
+
+    </data>
+</openerp>

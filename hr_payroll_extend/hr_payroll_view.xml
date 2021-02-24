@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        
+        <record model='ir.ui.view' id='view_employee_form'>
+			<field name='name'>hr.employee.form.inherit.payroll.extend</field>
+			<field name='model'>hr.employee</field>
+			<field name='inherit_id' ref='hr.view_employee_form'/>
+			<field name='arch' type='xml'>
+				<xpath expr="//notebook" position="inside">
+					<page string="Contribution Rules">
+						<field name="contribution_rule_ids">
+							<tree string="Contribution Rules" editable="botton">
+								<field name="rule_id" context="{'default_register_employee':True}"/>
+								<field name="register_id" context="{'default_register_employee':True}"/>
+							</tree>
+						</field>
+					</page>
+				</xpath>
+			</field>
+		</record>
+        
+        <record model='ir.ui.view' id='hr_contribution_register_form'>
+			<field name='name'>hr.contribution.register.form.inherit.payroll.extend</field>
+			<field name='model'>hr.contribution.register</field>
+			<field name='inherit_id' ref='hr_payroll.hr_contribution_register_form'/>
+			<field name='arch' type='xml'>
+				<field name="name" position="after">
+					<field name="code"/>
+				</field>
+				<xpath expr="//group[2]" position="after">
+					<group>
+						<field name="register_employee"/>
+					</group>
+					<separator string="Employee Rules" attrs="{'invisible':[('register_employee','=',False)]}"/>
+					<field name="employee_rule_ids" attrs="{'invisible':[('register_employee','=',False)]}">
+						<tree string="Contribution Rules" editable="botton">
+							<field name="employee_id"/>
+							<field name="rule_id" context="{'default_register_employee':True}"/>
+						</tree>
+					</field>
+				</xpath>
+			</field>
+		</record>
+		
+		<record model='ir.ui.view' id='hr_salary_rule_form'>
+			<field name='name'>hr.salary.rule.form.inherit.payroll.extend</field>
+			<field name='model'>hr.salary.rule</field>
+			<field name='inherit_id' ref='hr_payroll.hr_salary_rule_form'/>
+			<field name='arch' type='xml'>
+				<xpath expr="//field[@name='register_id']" position="replace">
+					<field name="register_employee"/><newline/>
+					<field name="register_id" domain="[('register_employee','=',False)]" attrs="{'invisible':[('register_employee','=',True)]}"/>
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</openerp>

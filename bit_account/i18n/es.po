@@ -1,0 +1,779 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* bit_account
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20150823\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-31 07:39+0000\n"
+"PO-Revision-Date: 2015-08-31 07:39+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: bit_account
+#: model:ir.actions.act_window,help:bit_account.action_bit_account_tax_support
+#: model:ir.actions.act_window,help:bit_account.action_bit_invoice_document
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to define a new invoice document.\n"
+"              </p><p>\n"
+"                This document are use in the invoice creation.\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to define a new invoice document.\n"
+"              </p><p>\n"
+"                This document are use in the invoice creation.\n"
+"              </p>\n"
+"            "
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_50
+msgid "A Inst. Estado y Empr. Públicas que percibe ingreso exento de Imp. Renta"
+msgstr "A Inst. Estado y Empr. Públicas que percibe ingreso exento de Imp. Renta"
+
+#. module: bit_account
+#: view:account.invoice.document:bit_account.view_bit_invoice_document_form
+msgid "Account Tax Code"
+msgstr "Código de impuestos"
+
+#. module: bit_account
+#: model:ir.model,name:bit_account.model_account_authorization
+msgid "Account authorization"
+msgstr "Autorización de factura"
+
+#. module: bit_account
+#: model:ir.model,name:bit_account.model_account_deduction
+msgid "Account deduction"
+msgstr "Retenciones"
+
+#. module: bit_account
+#: field:account.deduction,invoice_id:0
+msgid "Account invoice"
+msgstr "Factura"
+
+#. module: bit_account
+#: model:account.tax.support,type:bit_account.support_04
+msgid "Activo Fijo - Costo o Gasto para declaración de IR"
+msgstr "Activo Fijo - Costo o Gasto para declaración de IR"
+
+#. module: bit_account
+#: model:account.tax.support,type:bit_account.support_03
+msgid "Activo Fijo - Crédito Tributario para declaración de IVA"
+msgstr "Activo Fijo - Crédito Tributario para declaración de IVA"
+
+#. module: bit_account
+#: view:account.invoice:bit_account.invoice_form_customer_inherit
+#: view:account.invoice:bit_account.view_bit_invoice_supplier_form
+msgid "Authorization"
+msgstr "Autorización"
+
+#. module: bit_account
+#: view:account.authorization:bit_account.view_account_authorization_form
+#: view:account.authorization:bit_account.view_account_authorization_search
+#: view:account.authorization:bit_account.view_account_authorization_tree
+#: field:account.authorization,name:0
+#: field:account.invoice,authorization_id:0
+#: model:ir.ui.menu,name:bit_account.menu_account_authorization
+msgid "Authorization number"
+msgstr "Número de autorización"
+
+#. module: bit_account
+#: model:ir.actions.act_window,name:bit_account.action_account_authorization_c
+msgid "Authorization number from customer"
+msgstr "Número de autorización en facturas a clientes"
+
+#. module: bit_account
+#: model:ir.actions.act_window,name:bit_account.action_account_authorization_s
+msgid "Authorization number from supplier"
+msgstr "Número de autorización en faturas de proveedor"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_08
+msgid "Boletos o entradas a espectáculos públicos"
+msgstr "Boletos o entradas a espectáculos públicos"
+
+#. module: bit_account
+#: view:account.deduction:bit_account.view_account_deduction_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: bit_account
+#: selection:account.deduction,state:0
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_21
+msgid "Carta de Porte Aéreo"
+msgstr "Carta de Porte Aéreo"
+
+#. module: bit_account
+#: model:account.tax.support,type:bit_account.support_00
+msgid "Casos especiales cuyo sustento no aplica en las opciones anteriores"
+msgstr "Casos especiales cuyo sustento no aplica en las opciones anteriores"
+
+#. module: bit_account
+#: field:account.invoice.document,code:0
+#: field:account.tax.support,code:0
+msgid "Code"
+msgstr "Código"
+
+#. module: bit_account
+#: field:account.authorization,company_id:0
+msgid "Company"
+msgstr "Compañía"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_44
+msgid "Comprobante de Contribuciones y Aportes"
+msgstr "Comprobante de Contribuciones y Aportes"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_07
+msgid "Comprobante de Retención"
+msgstr "Comprobante de Retención"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_15
+msgid "Comprobante de venta emitido en el Exterior"
+msgstr "Comprobante de venta emitido en el Exterior"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_41
+msgid "Comprobante de venta emitido por reembolso"
+msgstr "Comprobante de venta emitido por reembolso"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_19
+msgid "Comprobantes de Pago de Cuotas o Aportes"
+msgstr "Comprobantes de Pago de Cuotas o Aportes"
+
+#. module: bit_account
+#: model:account.tax.support,type:bit_account.support_02
+msgid "Costo o Gasto para declaración de IR (servicios y bienes distintos de inventarios y activos fijos)"
+msgstr "Costo o Gasto para declaración de IR (servicios y bienes distintos de inventarios y activos fijos)"
+
+#. module: bit_account
+#: field:account.authorization,create_uid:0
+#: field:account.deduction,create_uid:0
+#: field:account.invoice.document,create_uid:0
+#: field:account.tax.support,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: bit_account
+#: field:account.authorization,create_date:0
+#: field:account.deduction,create_date:0
+#: field:account.invoice.document,create_date:0
+#: field:account.tax.support,create_date:0
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: bit_account
+#: model:account.tax.support,type:bit_account.support_01
+msgid "Crédito Tributario para declaración de IVA (servicios y bienes distintos de inventarios y activos fijos)"
+msgstr "Crédito Tributario para declaración de IVA (servicios y bienes distintos de inventarios y activos fijos)"
+
+#. module: bit_account
+#: view:account.authorization:bit_account.view_account_authorization_form
+#: field:account.authorization,partner_id_c:0
+msgid "Customer"
+msgstr "Cliente"
+
+#. module: bit_account
+#: selection:account.deduction,type:0
+msgid "Customer retention"
+msgstr "Retention de clientes"
+
+#. module: bit_account
+#: help:account.tax.code,form:0
+msgid "DIMM Form"
+msgstr "DIMM Formulario"
+
+#. module: bit_account
+#: code:addons/bit_account/account_invoice.py:186
+#, python-format
+msgid "Debe asociar una autorización a esta factura."
+msgstr "Debe asociar una autorización a esta factura."
+
+#. module: bit_account
+#: code:addons/bit_account/account_invoice.py:117
+#: code:addons/bit_account/account_invoice.py:204
+#, python-format
+msgid "Debe registrar una nueva autorización para este tipo de documento <%s> asociada a \"%s\"."
+msgstr "Debe registrar una nueva autorización para este tipo de documento <%s> asociada a \"%s\"."
+
+#. module: bit_account
+#: code:addons/bit_account/account_invoice.py:122
+#, python-format
+msgid "Debe registrar una nueva autorización para este tipo de documento <%s> asociada a compañía."
+msgstr "Debe registrar una nueva autorización para este tipo de documento <%s> asociada a compañía."
+
+#. module: bit_account
+#: view:account.deduction:bit_account.view_account_deduction_form
+#: field:account.invoice.tax,deduction_id:0
+msgid "Deduction"
+msgstr "Retención"
+
+#. module: bit_account
+#: view:account.deduction:bit_account.view_account_deduction_search
+#: view:account.deduction:bit_account.view_account_deduction_tree
+#: model:ir.actions.act_window,name:bit_account.action_account_deduction_payable
+#: model:ir.actions.act_window,name:bit_account.action_account_deduction_receivable
+msgid "Deductions"
+msgstr "Retenciones"
+
+#. module: bit_account
+#: model:ir.ui.menu,name:bit_account.menu_account_deduction_pay
+msgid "Deductions payable"
+msgstr "Retenciones por pagar"
+
+#. module: bit_account
+#: model:ir.ui.menu,name:bit_account.menu_account_deduction_rec
+msgid "Deductions receivable"
+msgstr "Retenciones por cobrar"
+
+#. module: bit_account
+#: model:account.tax.support,type:bit_account.support_10
+msgid "Distribución de Dividendos, Beneficios o Utilidades"
+msgstr "Distribución de Dividendos, Beneficios o Utilidades"
+
+#. module: bit_account
+#: help:account.invoice.document,code:0
+msgid "Document code"
+msgstr "Código de documento"
+
+#. module: bit_account
+#: field:account.authorization,type_id:0
+msgid "Document types"
+msgstr "Tipos de documentos"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_42
+msgid "Documento agente de retención Presuntiva"
+msgstr "Documento agente de retención Presuntiva"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_18
+msgid "Documentos autorizados utilizados en ventas excepto N/C N/D"
+msgstr "Documentos autorizados utilizados en ventas excepto N/C N/D"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_12
+msgid "Documentos emitidos por instituciones financieras"
+msgstr "Documentos emitidos por instituciones financieras"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_20
+msgid "Documentos por Servicios Administrativos emitidos por Inst. del Estado"
+msgstr "Documentos por Servicios Administrativos emitidos por Inst. del Estado"
+
+#. module: bit_account
+#: model:ir.actions.act_window,name:bit_account.action_bit_invoice_document
+#: model:ir.ui.menu,name:bit_account.menu_bit_invoice_document
+msgid "Documents type"
+msgstr "Tipos de documentos"
+
+#. module: bit_account
+#: field:account.invoice,auth_due_date:0
+msgid "Due date"
+msgstr "Fecha de vencimiento"
+
+#. module: bit_account
+#: code:addons/bit_account/account_invoice.py:228
+#, python-format
+msgid "El número de la autorización para las retenciones está fuera del rango permisible o se ha agotado. Debe registrar una nueva autorización."
+msgstr "El número de la autorización para las retenciones está fuera del rango permisible o se ha agotado. Debe registrar una nueva autorización."
+
+#. module: bit_account
+#: code:addons/bit_account/account_invoice.py:223
+#, python-format
+msgid "El número de la autorización para las retenciones está fuera del rango permisible ó la autorización para las retenciones se ha agotado. Debe registrar una nueva autorización para este tipo de documento ."
+msgstr "El número de la autorización para las retenciones está fuera del rango permisible ó la autorización para las retenciones se ha agotado. Debe registrar una nueva autorización para este tipo de documento ."
+
+#. module: bit_account
+#: field:account.deduction,emission_date:0
+msgid "Emission date"
+msgstr "Fecha de emisión"
+
+#. module: bit_account
+#: field:account.authorization,expiration_date:0
+msgid "Expiration date"
+msgstr "Fecha de expiración"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_01
+msgid "Factura"
+msgstr "Factura"
+
+#. module: bit_account
+#: field:account.tax.code,form:0
+msgid "Form"
+msgstr "Formulario"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_16
+msgid "Formulario Único de Exportación (FUE) o Declaración Aduanera Única (DAU) o Declaración Andina de Valor (DAV)"
+msgstr "Formulario Único de Exportación (FUE) o Declaración Aduanera Única (DAU) o Declaración Andina de Valor (DAV)"
+
+#. module: bit_account
+#: model:ir.ui.menu,name:bit_account.menu_account_authorization_s
+msgid "From supplier"
+msgstr "De proveedor"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_06
+msgid "Guias de Remisión"
+msgstr "Guías de Remisión"
+
+#. module: bit_account
+#: field:account.authorization,id:0
+#: field:account.deduction,id:0
+#: field:account.invoice.document,id:0
+#: field:account.tax.support,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: bit_account
+#: model:account.tax.support,type:bit_account.support_07
+msgid "Inventario - Costo o Gasto para declaración de IR"
+msgstr "Inventario - Costo o Gasto para declaración de IR"
+
+#. module: bit_account
+#: model:account.tax.support,type:bit_account.support_06
+msgid "Inventario - Crédito Tributario para declaración de IVA"
+msgstr "Inventario - Crédito Tributario para declaración de IVA"
+
+#. module: bit_account
+#: model:ir.model,name:bit_account.model_account_invoice
+msgid "Invoice"
+msgstr "Factura"
+
+#. module: bit_account
+#: model:ir.model,name:bit_account.model_account_invoice_line
+msgid "Invoice Line"
+msgstr "Línea de factura"
+
+#. module: bit_account
+#: model:ir.model,name:bit_account.model_account_invoice_tax
+msgid "Invoice Tax"
+msgstr "Impuesto de factura"
+
+#. module: bit_account
+#: field:account.invoice,document_type:0
+#: view:account.invoice.document:bit_account.view_bit_invoice_document_search
+#: view:account.invoice.document:bit_account.view_bit_invoice_document_tree
+#: field:account.tax.support,document_ids:0
+#: model:ir.model,name:bit_account.model_account_invoice_document
+#: field:res.partner,document_type:0
+msgid "Invoice document"
+msgstr "Tipo de documento"
+
+#. module: bit_account
+#: field:account.authorization,active:0
+msgid "Is active ?"
+msgstr "¿ Está vigente ?"
+
+#. module: bit_account
+#: field:account.authorization,to_customer:0
+msgid "Is customer authorization ?"
+msgstr "¿ Es autorización a clientes ?"
+
+#. module: bit_account
+#: field:account.invoice.document,is_retention:0
+msgid "Is retention ?"
+msgstr "¿ Es documento de retención ?"
+
+#. module: bit_account
+#: field:account.authorization,is_retention:0
+msgid "Is retention authorization ?"
+msgstr "¿ Es autorización a una retención ?"
+
+#. module: bit_account
+#: field:account.tax,is_iva:0
+msgid "Is the IVA tax ?"
+msgstr "¿ Es el IVA ?"
+
+#. module: bit_account
+#: code:addons/bit_account/account_invoice.py:212
+#, python-format
+msgid "La fecha de la autorización ha expirado. Debe registrar una nueva autorización para este tipo de documento ."
+msgstr "La fecha de la autorización ha expirado. Debe registrar una nueva autorización para este tipo de documento ."
+
+#. module: bit_account
+#: field:account.authorization,write_uid:0
+#: field:account.deduction,write_uid:0
+#: field:account.invoice.document,write_uid:0
+#: field:account.tax.support,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: bit_account
+#: field:account.authorization,write_date:0
+#: field:account.deduction,write_date:0
+#: field:account.invoice.document,write_date:0
+#: field:account.tax.support,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_43
+msgid "Liquidacion para Explotacion y Exploracion de Hidrocarburos"
+msgstr "Liquidación para Explotación y Exploración de Hidrocarburos"
+
+#. module: bit_account
+#: model:account.tax.support,type:bit_account.support_05
+msgid "Liquidación Gastos de Viaje, hospedaje y alimentación Gastos IR (a nombre de empleados y no de la empresa)"
+msgstr "Liquidación Gastos de Viaje, hospedaje y alimentación Gastos IR (a nombre de empleados y no de la empresa)"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_294
+msgid "Liquidación de compra de Bienes Muebles Usados"
+msgstr "Liquidación de compra de Bienes Muebles Usados"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_03
+msgid "Liquidación de compra de Bienes o Prestación de servicios"
+msgstr "Liquidación de compra de Bienes o Prestación de servicios"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_45
+msgid "Liquidación por reclamos de aseguradoras"
+msgstr "Liquidación por reclamos de aseguradoras"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_51
+msgid "N/C A Inst. Estado y Empr. Públicas que percibe ingreso exento de Imp. Renta"
+msgstr "N/C A Inst. Estado y Empr. Públicas que percibe ingreso exento de Imp. Renta"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_52
+msgid "N/D A Inst. Estado y Empr. Públicas que percibe ingreso exento de Imp. Renta"
+msgstr "N/D A Inst. Estado y Empr. Públicas que percibe ingreso exento de Imp. Renta"
+
+#. module: bit_account
+#: field:account.invoice.document,name:0
+msgid "Name"
+msgstr "Nombre"
+
+#. module: bit_account
+#: code:addons/bit_account/account_invoice.py:502
+#, python-format
+msgid "No puede registrar una nueva autorización con este tipo de documento para su compañía, debido a que tiene una autorización vigente."
+msgstr "No puede registrar una nueva autorización con este tipo de documento para su compañía, debido a que tiene una autorización vigente."
+
+#. module: bit_account
+#: code:addons/bit_account/account_invoice.py:486
+#, python-format
+msgid "No puede registrar una nueva autorización para este Cliente/Proveedor con tipo de documento, debido a que tiene una autorización vigente."
+msgstr "No puede registrar una nueva autorización para este Cliente/Proveedor con tipo de documento, debido a que tiene una autorización vigente."
+
+#. module: bit_account
+#: code:addons/bit_account/account_invoice.py:385
+#: code:addons/bit_account/account_invoice.py:509
+#, python-format
+msgid "No se ha definido correctamente el \"número desde\" o el \"número hasta\". Ambos deben ser mayor que cero y \"número desde\" menor que \"número hasta\""
+msgstr "No se ha definido correctamente el \"número desde\" o el \"número hasta\". Ambos deben ser mayor que cero y \"número desde\" menor que \"número hasta\""
+
+#. module: bit_account
+#: code:addons/bit_account/account_invoice.py:247
+#, python-format
+msgid "No se ha definido todavía una autorización para las retenciones."
+msgstr "No se ha definido todavía una autorización para las retenciones."
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_23
+msgid "Nota de Crédito TC"
+msgstr "Nota de Crédito TC"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_47
+msgid "Nota de Crédito por Reembolso Emitida por Intermediario"
+msgstr "Nota de Crédito por Reembolso Emitida por Intermediario"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_24
+msgid "Nota de Débito TC"
+msgstr "Nota de Débito TC"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_48
+msgid "Nota de Débito por Reembolso Emitida por Intermediario"
+msgstr "Nota de Débito por Reembolso Emitida por Intermediario"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_04
+msgid "Nota de crédito"
+msgstr "Nota de crédito"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_05
+msgid "Nota de débito"
+msgstr "Nota de débito"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_02
+msgid "Nota o boleta de venta"
+msgstr "Nota o boleta de venta"
+
+#. module: bit_account
+#: field:account.invoice,number_seq:0
+msgid "Number sequence"
+msgstr "Nro. Factura"
+
+#. module: bit_account
+#: field:account.authorization,num_start:0
+msgid "Number since"
+msgstr "Número desde"
+
+#. module: bit_account
+#: field:account.authorization,num_end:0
+msgid "Number until"
+msgstr "Número hasta"
+
+#. module: bit_account
+#: help:account.tax,is_iva:0
+msgid "Only will be used when be the IVA tax."
+msgstr "Sólo se utilizará cuando sea el impuesto IVA."
+
+#. module: bit_account
+#: selection:account.deduction,state:0
+msgid "Open"
+msgstr "Abierto"
+
+#. module: bit_account
+#: selection:account.deduction,state:0
+msgid "Paid"
+msgstr "Pagado"
+
+#. module: bit_account
+#: field:account.authorization,partner_id:0
+#: field:account.deduction,partner_id:0
+#: model:ir.model,name:bit_account.model_res_partner
+msgid "Partner"
+msgstr "Empresa"
+
+#. module: bit_account
+#: field:ir.sequence,partner_id:0
+msgid "Partner sequence"
+msgstr "Secuencia de socios"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_11
+msgid "Pasajes expedidos por empresas de aviación"
+msgstr "Pasajes expedidos por empresas de aviación"
+
+#. module: bit_account
+#: view:account.invoice:bit_account.invoice_form_customer_inherit
+#: view:account.invoice:bit_account.view_bit_invoice_supplier_form
+msgid "Payments"
+msgstr "Pagos"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_49
+msgid "Proveedor Directo de Exportador Bajo Régimen Especial"
+msgstr "Proveedor Directo de Exportador Bajo Régimen Especial"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_22
+msgid "RECAP"
+msgstr "RECAP"
+
+#. module: bit_account
+#: model:account.tax.support,type:bit_account.support_09
+msgid "Reembolso por Siniestros"
+msgstr "Reembolso por Siniestros"
+
+#. module: bit_account
+#: field:account.authorization,num_resolution:0
+msgid "Resolution number"
+msgstr "Número de resolución"
+
+#. module: bit_account
+#: field:account.deduction,name:0
+msgid "Retention"
+msgstr "Retención"
+
+#. module: bit_account
+#: field:account.deduction,number:0
+msgid "Retention number"
+msgstr "Número de retención"
+
+#. module: bit_account
+#: field:account.deduction,authorization_id:0
+msgid "Retentions authorization"
+msgstr "Autorización de retenciones"
+
+#. module: bit_account
+#: field:account.authorization,sequence_id:0
+msgid "Secuencia"
+msgstr "Secuencia"
+
+#. module: bit_account
+#: field:account.authorization,serie_emission:0
+msgid "Serie emission"
+msgstr "Serie de emisión"
+
+#. module: bit_account
+#: field:account.authorization,serie_entity:0
+msgid "Serie entity"
+msgstr "Serie de la entidad"
+
+#. module: bit_account
+#: view:account.deduction:bit_account.view_account_deduction_form
+msgid "State deduction"
+msgstr "Estado de la retención"
+
+#. module: bit_account
+#: field:account.deduction,state:0
+msgid "Status"
+msgstr "Estado"
+
+#. module: bit_account
+#: field:account.invoice,amount_total_iva:0
+msgid "Subtotal + IVA"
+msgstr "Subtotal + IVA"
+
+#. module: bit_account
+#: view:account.authorization:bit_account.view_account_authorization_form
+#: field:account.authorization,partner_id_s:0
+msgid "Supplier"
+msgstr "Proveedor"
+
+#. module: bit_account
+#: selection:account.deduction,type:0
+msgid "Supplier retention"
+msgstr "Retención a proveedores"
+
+#. module: bit_account
+#: model:ir.model,name:bit_account.model_account_tax
+msgid "Tax"
+msgstr "Impuesto"
+
+#. module: bit_account
+#: model:ir.model,name:bit_account.model_account_tax_code
+msgid "Tax Code"
+msgstr "Código impuesto"
+
+#. module: bit_account
+#: field:account.invoice,amount_iva:0
+msgid "Tax IVA"
+msgstr "Impuesto del IVA"
+
+#. module: bit_account
+#: view:account.fiscal.position:bit_account.view_bit_account_position_form
+msgid "Tax Mapping"
+msgstr "Mapeo impuestos"
+
+#. module: bit_account
+#: field:account.invoice,amount_other:0
+msgid "Tax Others"
+msgstr "Impuestos de retenciones"
+
+#. module: bit_account
+#: view:account.deduction:bit_account.view_account_deduction_form
+msgid "Tax retentions"
+msgstr "Impuestos de retenciones"
+
+#. module: bit_account
+#: field:account.invoice.line,tax_support:0
+#: view:account.tax.support:bit_account.view_bit_account_tax_support_form
+#: view:account.tax.support:bit_account.view_bit_account_tax_support_search
+#: view:account.tax.support:bit_account.view_bit_account_tax_support_tree
+#: model:ir.actions.act_window,name:bit_account.action_bit_account_tax_support
+#: model:ir.model,name:bit_account.model_account_tax_support
+#: model:ir.ui.menu,name:bit_account.menu_bit_account_tax_support
+#: field:res.partner,tax_support:0
+msgid "Tax support"
+msgstr "Sustento tributario"
+
+#. module: bit_account
+#: help:account.tax.support,code:0
+msgid "Tax support code"
+msgstr "Código del sustento tributario"
+
+#. module: bit_account
+#: field:account.invoice.document,support_ids:0
+msgid "Tax supports"
+msgstr "Sustento tributario"
+
+#. module: bit_account
+#: field:account.deduction,tax_ids:0
+msgid "Taxes"
+msgstr "Impuestos"
+
+#. module: bit_account
+#: model:account.invoice.document,name:bit_account.document_type_09
+msgid "Tiquetes o vales emitidos por máquinas registradoras"
+msgstr "Tiquetes o vales emitidos por máquinas registradoras"
+
+#. module: bit_account
+#: model:ir.ui.menu,name:bit_account.menu_account_authorization_c
+msgid "To customer"
+msgstr "A clientes"
+
+#. module: bit_account
+#: field:account.deduction,type:0
+#: field:account.tax.support,type:0
+msgid "Type"
+msgstr "Tipo de documento"
+
+#. module: bit_account
+#: model:account.tax.support,type:bit_account.support_08
+msgid "Valor pagado para solicitar Reembolso de Gasto (intermediario)"
+msgstr "Valor pagado para solicitar Reembolso de Gasto (intermediario)"
+
+#. module: bit_account
+#: view:account.invoice:bit_account.invoice_form_customer_inherit
+#: view:account.invoice:bit_account.view_bit_invoice_supplier_form
+msgid "{'load_auth': True}"
+msgstr "{'load_auth': True}"
+
+#. module: bit_account
+#: view:account.invoice:bit_account.view_bit_invoice_supplier_form
+msgid "{'partner_id': partner_id, 'price_type': context.get('price_type') or False, 'type': type, 'company_id' : company_id}"
+msgstr "{'partner_id': partner_id, 'price_type': context.get('price_type') or False, 'type': type, 'company_id' : company_id}"
+
+#. module: bit_account
+#: view:res.partner:bit_account.view_bit_partner_property_form
+msgid "{'required': [('customer', '=', True)]}"
+msgstr "{'required': [('customer', '=', True)]}"
+
+#. module: bit_account
+#: view:res.partner:bit_account.view_bit_partner_property_form
+msgid "{'required': [('supplier', '=', True)]}"
+msgstr "{'required': [('supplier', '=', True)]}"
+
+#. module: bit_account
+#: code:addons/bit_account/account_invoice.py:186
+#: code:addons/bit_account/account_invoice.py:204
+#: code:addons/bit_account/account_invoice.py:212
+#: code:addons/bit_account/account_invoice.py:223
+#: code:addons/bit_account/account_invoice.py:247
+#, python-format
+msgid "¡¡ Alerta !!"
+msgstr "¡¡ Alerta !!"
+
+#. module: bit_account
+#: code:addons/bit_account/account_invoice.py:506
+#: code:addons/bit_account/account_invoice.py:509
+#, python-format
+msgid "¡¡ Error !!"
+msgstr "¡¡ Error !!"
+
+#. module: account
+#: field:account.invoice,reference_type:0
+msgid "Payment Reference"
+msgstr "Referencia del pago"
+
+#. module: account
+#: code:addons/account/account_invoice.py:105
+#, python-format
+msgid "Free Reference"
+msgstr "Referencia libre"
+

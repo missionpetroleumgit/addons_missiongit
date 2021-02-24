@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="tree_purchase_importation" model="ir.ui.view">
+            <field name="name">tree.purchase.importation</field>
+            <field name="model">purchase.importation</field>
+            <field name="arch" type="xml">
+                <tree string="Ordenes de Importacion" create="false">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="amount_total"/>
+                    <field name="company_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="form_purchase_importation" model="ir.ui.view">
+            <field name="name">form.purchase.importation</field>
+            <field name="model">purchase.importation</field>
+            <field name="arch" type="xml">
+                <form string="Importación">
+                    <header>
+                        <button name="imp_start" string="Iniciar Importacióm" type="object" class="oe_highlight" states="draft"/>
+                        <button name="purchase_confirm" type="object" string="Confirmar Importación" class="oe_highlight" states="confirmed"/>
+                        <button name="action_prorated" type="object" string="Liquidar Importación" class="oe_highlight" id="imp_generate" states="transit"/>
+                        <button name="imp_set_transit" string="Cambiar a transito" type="object" states="done"/>
+                        <button name="imp_cancel" string="Cancelar" type="object" states="confirmed,transit"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,transit,done"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_right oe_button_box" name="buttons">
+                            <button type="object"
+                                    name="view_picking"
+                                    class="oe_stat_button"
+                                    icon="fa-truck"
+                                    attrs="{'invisible': [('shipment_count', '=', 0)]}">
+                                <field name="shipment_count" widget="statinfo" string="In Shipments" help="Incoming Shipments"/>
+                            </button>
+                            <button type="object"  name="invoice_open"
+                                    class="oe_stat_button"
+                                    icon="fa-pencil-square-o"
+                                    attrs="{'invisible': [('invoice_count', '=', 0)]}"
+				    groups="o2s_purchase_importation.group_importatios_access">
+                                <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                            </button>
+                        </div>
+                        <group col="4" colspan="2">
+                            <field name="name" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}"/>
+                            <field name="partner_id" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}"/>
+                            <field name="company_id" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}"/>
+                            <field name="date_order" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}"/>
+                            <field name="picking_type_id" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}"/>
+                            <field name="origin"/>
+                            <field name="currency_id" groups="base.group_multi_currency" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}"/>
+                            <field name="journal_id" invisible="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Líneas de Pedido"
+				groups="o2s_purchase_importation.group_importatios_access">
+                                <field name="order_lines"  attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}">
+                                    <tree string="Purchase Order Lines" editable="bottom">
+                                        <field name="order"/>
+                                        <field name="product_id"/>
+                                        <field name="number"/>
+                                        <field name="name"/>
+                                        <field name="date_planned"/>
+                                        <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                        <!--<field name="account_analytic_id" domain="[('type','not in',('view','template'))]"/>-->
+                                        <field name="product_qty"/>
+                                        <field name="product_uom" groups="product.group_uom"/>
+                                        <field name="price_unit"/>
+                                        <field name="taxes_id" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','!=','sale')]"/>
+                                        <field name="subtotal_importation"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Costos de Importación" 
+				attrs="{'invisible':[('state','not in', ['transit','done','cancel'])]}"
+				groups="o2s_purchase_importation.group_importatios_access">
+                                <field name="expenses_ids"  attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}">
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="partner_id"/>
+                                        <field name="amount"/>
+                                        <field name="invoiced" readonly="1"/>
+                                        <!--<field name="invoiced"/>-->
+                                        <button name="action_invoice" type="object" icon="gtk-ok" attrs="{'invisible':[('invoiced','=',True)]}"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="amount_importation"/>
+                                </group>
+                            </page>
+                            <page string="Facturas" 
+				attrs="{'invisible':[('state','not in', ['transit','done','cancel'])]}"
+				groups="o2s_purchase_importation.group_importatios_access">
+                                <field name="invoice_ids" readonly="0"/>
+                                <separator string="Actualizar Facturas Directas" colspan="4"/>
+                                <button name="button_reset_line" string="Agregar Facturas" type="object" class="oe_highlight" states="transit"/>
+                            </page>
+                            <page string="Entrada de Productos" 
+				attrs="{'invisible':[('state','not in', ['transit','done','cancel'])]}"
+				groups="o2s_purchase_importation.group_importatios_access">
+                                <field name="picking_ids" readonly="1"/>
+                            </page>
+                            <page string="Información General">
+                                <group col="4" colspan="2">
+                                    <field name="location_id" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}"/>
+                                </group>
+                            </page>
+			    <page string="Documentación">
+                                    <group>
+                                        <field name="att_ids" widget="many2many_binary"/>
+                                    </group>
+                            </page>
+                        </notebook>
+                        <group class="oe_subtotal_footer oe_right"
+			    groups="o2s_purchase_importation.group_importatios_access">
+                            <field name="amount_total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            <field name="amount_ct" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>
+                            <field name="amount_nct" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1"/>
+                        </group>
+                        <div class="oe_clear">
+                            <label for="comment"/>
+                        </div>
+                        <field name="comment"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_purchase_importation" model="ir.actions.act_window">
+            <field name="name">Importaciones</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.importation</field>
+            <field name="context">{
+				'readonly_by_pass': True,
+				}</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_purchase_importation" id="menu_action_purchase_importation"
+                  parent="o2s_purchase_expense_distribution.menu_purchase_cost_control" sequence="2"/>
+
+
+        <record id="purchase_order_inherited_form_add_destination" model="ir.ui.view">
+            <field name="name">purchase.order.form.add.destination</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <div class="oe_right oe_button_box" name="buttons">
+                        <button type="object"
+                                name="view_importations"
+                                class="oe_stat_button"
+                                icon="fa-plane"
+                                attrs="{'invisible': ['|', ('imp_count', '=', 0), ('destination', '=', 'internal')]}">
+                            <field name="imp_count" widget="statinfo" string="Importacion" help="Importations Generated"/>
+                        </button>
+                    </div>
+                </field>
+                <field name="company_id" position="after">
+                    <field name="destination" groups="purchase_tiw.group_confirm_order"/>
+                </field>
+                <xpath expr="//form/sheet/notebook/page[@string='Deliveries &amp; Invoices']" position="after">
+                    <page string="Importaciones" attrs="{'invisible': [('destination','=', 'internal')]}">
+                        <group>
+                            <field name="imp_ids"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

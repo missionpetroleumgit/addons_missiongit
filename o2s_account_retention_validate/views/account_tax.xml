@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+		<record id="view_tax_form_add_is_auxiliar_ret" model="ir.ui.view">
+            <field name="name">account.tax.is_auxiliar_ret.form</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form"/>
+            <field name="arch" type="xml">
+                <field name="active" position="after">
+                	<field name="is_auxiliar_ret" groups="base.group_system"/>
+                </field>
+            </field>
+        </record>
+
+		<record id="view_invoice_tax_form_add_tax_id" model="ir.ui.view">
+            <field name="name">account.invoice.tax.add_tax</field>
+            <field name="model">account.invoice.tax</field>
+            <field name="inherit_id" ref="account.view_invoice_tax_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                	<field name="tax_id"/>
+                </field>
+            </field>
+        </record>
+        <!--CSV:20-04-2018: AUMENTO PARA ORDENAR Y CALCULAR AUTOMATICA LA RETENCION-->
+		<record id="view_invoice_tax_form_order_amount" model="ir.ui.view">
+            <field name="name">account.invoice.tax.order_amount</field>
+            <field name="model">account.invoice.tax</field>
+            <field name="inherit_id" ref="account.view_invoice_tax_form"/>
+            <field name="arch" type="xml">
+                <field name="base" position="replace">
+                	<field name="amount" invisible="0"/>
+                </field>
+                <field name="amount" position="replace">
+                	<field name="base" invisible="0"/>
+                </field>
+                <!--<field name="account_id" position="after">-->
+                	<!--<field name="base"/>-->
+                    <!--<field name="amount"/>-->
+                <!--</field>-->
+            </field>
+        </record>
+        <!--CSV:20-04-2018: AUMENTO PARA ORDENAR Y CALCULAR AUTOMATICA LA RETENCION-->
+		<!--<record id="view_invoice_tax_form_order_amount1" model="ir.ui.view">-->
+            <!--<field name="name">account.invoice.tax.order_amount1</field>-->
+            <!--<field name="model">account.invoice.tax</field>-->
+            <!--<field name="inherit_id" ref="account.view_invoice_tax_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<field name="account_id" position="after">-->
+                	<!--<field name="base"/>-->
+                    <!--<field name="amount"/>-->
+                <!--</field>-->
+            <!--</field>-->
+        <!--</record>-->
+    </data>
+</openerp>

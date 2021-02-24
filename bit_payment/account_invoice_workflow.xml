@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    
+    <!-- Activities -->
+    	<record id="act_pay_partially" model="workflow.activity">
+            <field name="wkf_id" ref="account.wkf"/>
+            <field name="name">partially</field>
+            <field name="action">action_partially()</field>
+            <field name="kind">function</field>
+        </record>
+    
+    <!-- Transitions -->
+		<!-- Desde Open -->
+        <record id="t_Open_to_Partially" model="workflow.transition">
+            <field name="act_from" ref="account.act_open"/>
+            <field name="act_to" ref="act_pay_partially"/>
+            <field name="signal">action_partially</field>
+            <field name="condition">not test_paid()</field>
+        </record>
+        <record id="t_Partially_to_paid" model="workflow.transition">
+            <field name="act_from" ref="act_pay_partially"/>
+            <field name="act_to" ref="account.act_paid"/>
+            <field name="trigger_model">account.move.line</field>
+            <field name="trigger_expr_id">move_line_id_payment_get()</field>
+            <field name="condition">test_paid()</field>
+        </record>
+
+    </data>
+</openerp>

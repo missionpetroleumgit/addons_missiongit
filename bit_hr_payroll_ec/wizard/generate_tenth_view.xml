@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--<record id="period_view" model="ir.ui.view">-->
+            <!--<field name="name">period.view</field>-->
+            <!--<field name="model">hr.period</field>-->
+            <!--<field name="type">form</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<form string="Período">-->
+                    <!--<sheet>-->
+                    <!--<field name="name"/>-->
+                    <!--<group colspan="4" col="4" >-->
+                        <!--<field name="init_date" required="1"/>-->
+                        <!--<field name="end_date" required="1"/>-->
+                    <!--</group>-->
+                    <!--</sheet>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record model="ir.ui.view" id="view_period_tree">-->
+            <!--<field name="name">hr.period.tree</field>-->
+            <!--<field name="model">hr.period</field>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<tree string="Periodos">-->
+                    <!--<field name="name"/>-->
+                    <!--<field name="init_date" required="1"/>-->
+                    <!--<field name="end_date" required="1"/>-->
+                <!--</tree>-->
+            <!--</field>-->
+        <!--</record>-->
+
+		<!--<record id="action_period" model="ir.actions.act_window">-->
+			<!--<field name="name">Periodos</field>-->
+			<!--<field name="res_model">hr.period</field>-->
+			<!--<field name="view_mode">tree, form</field>-->
+		<!--</record>-->
+
+        <!--<menuitem id="period_config" parent="hr.menu_hr_configuration" action="action_period" name="Periodos"/>-->
+
+        <record id="wizard_tenth_view" model="ir.ui.view">
+            <field name="name">wizard.tenth.view</field>
+            <field name="model">tenth.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Pago de Décimos">
+                    <group colspan="4" col="4" >
+                        <field name="decimo_type" required="1"/>
+                        <field name="period_id" attrs="{'required':[('decimo_type','=','dc3')],
+                         'readonly':[('decimo_type','=','dc4')]}" options="{'no_create': True}"/>
+                        <field name="company_id" invisible="1"/>
+                        <field name="period_code" invisible="1"/>
+                    </group>
+                    <field name="employee_ids" required="1" nolabel="1">
+                        <tree>
+                            <field name="name"/>
+                            <field name="identification_id"/>
+                            <field name="job_id"/>
+                        </tree>
+                    </field>
+                    <button icon="gtk-ok" string="Generar" name="generate_tenth" type="object" class="oe_highlight"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_tenth_view_action" model="ir.actions.act_window">
+            <field name="name">Generar</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">tenth.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="wizard_tenth_view"/>
+        </record>
+
+        <menuitem action="wizard_tenth_view_action"
+                  name="Generar Décimos"
+                  id="menu_wizard_tenth"
+                  parent="hr_payroll.menu_hr_root_payroll"/>
+
+    </data>
+</openerp>

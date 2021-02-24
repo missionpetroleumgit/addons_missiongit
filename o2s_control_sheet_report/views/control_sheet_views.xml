@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="view_control_sheet_report_filter" model="ir.ui.view">
+            <field name="name">control_sheet_report_select</field>
+            <field name="model">control.sheet.report</field>
+            <field name="arch" type="xml">
+                <search string="Buscar">
+                    <field name="name"/>
+                    <field name="report"/>
+                    <field name="code"/>
+                    <field name="review"/>
+                    <field name="issue"/>
+                    <field name="model_id"/>
+                    <separator/>
+                </search>
+            </field>
+        </record>
+
+        <record id="tree_control_sheet_report" model="ir.ui.view">
+            <field name="name">control_sheet_report_tree</field>
+            <field name="model">control.sheet.report</field>
+            <field name="arch" type="xml">
+                <tree string="Control de hoja de Reporte">
+                    <field name="name"/>
+                    <field name="report"/>
+                    <field name="code"/>
+                    <field name="review"/>
+                    <field name="issue"/>
+                    <field name="model_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="form_control_sheet_report" model="ir.ui.view">
+            <field name="name">control_sheet_report_form</field>
+            <field name="model">control.sheet.report</field>
+            <field name="arch" type="xml">
+                <form string="Gestión de Calidad">
+                    <sheet>
+
+                        <group col="4" colspan="2">
+                            <field name="name" required="True"/>
+                            <field name="report" required="True"/>
+                            <field name="code" required="True"  widget="place_autocomplete" class="oe_inline"/>
+                            <field name="review" required="True"/>
+                            <field name="issue" required="True"/>
+                            <field name="model_id" required="True"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_control_sheet_report" model="ir.actions.act_window">
+            <field name="name">Gestión de Calidad</field>
+            <field name="res_model">control.sheet.report</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_control_sheet_report_filter"/>
+        </record>
+
+        <menuitem
+                parent="base.menu_config"
+                id="menu_service_ticket"
+                action="action_control_sheet_report"/>
+    </data>
+</openerp>

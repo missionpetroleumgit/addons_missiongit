@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_o2s_add_typereception_serviceticket_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.serviceticket.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="type_reception"/>
+                    <field name="electronic_guide"/>
+                    <field name="picking_ty" invisible="True"/>
+                </xpath>
+                <xpath expr="//field[@name='origin']"  position="attributes">
+                    <attribute name="string">Orden</attribute>
+                    <attribute name="required">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_stock_picking_inh_form" model="ir.ui.view">
+            <field name="name">view.stock.picking.inh.form</field>
+            <field name="type">form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="o2s_felectronica.view_stock_picking_electronica_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@string='Informacion Transportista-Destinatario']" position="after">
+                    <page string="Guía de Recepción" attrs="{'invisible':[('picking_ty','not in',('incoming'))]}">
+                        <group col="4">
+                            <field name="reception_guide" width="50" attrs="{'invisible':[('picking_ty','not in',('incoming'))]}"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+
+        <!--        <record id="view_stock_return_picking_form_inherit_o2s" model="ir.ui.view">
+                    <field name="name">Return lines</field>
+                    <field name="model">stock.return.picking</field>
+                    <field name="inherit_id" ref="stock.view_stock_return_picking_form"/>
+                    <field name="arch" type="xml">
+                        <field name="quantity" position="after">
+                            <field name="serial_item_id"/>
+                        </field>
+                        <field name="lot_id" position="replace">
+                            <field name="lot_id" invisible="1"/>
+                        </field>
+                    </field>
+                </record>
+
+                <record id="view_stock_enter_transfer_details_form_inherit_o2s" model="ir.ui.view">
+                    <field name="name">Transfer lines</field>
+                    <field name="model">stock.transfer_details</field>
+                    <field name="inherit_id" ref="stock.view_stock_enter_transfer_details"/>
+                    <field name="arch" type="xml">
+                        <field name="destinationloc_id" position="after">
+                            <field name="serial_item_id"/>
+                        </field>
+                        <field name="lot_id" position="replace">
+                            <field name="lot_id" invisible="1"/>
+                        </field>
+                    </field>
+                </record>-->
+
+        <record id="view_o2s_add_button_inherit_form_view" model="ir.ui.view">
+            <field name="name">stock.picking.add.button.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="///form/header/button[@name='action_cancel']" position="after">
+                    <button name="picking_to_draft" attrs="{'invisible':['|', ('returns','=', False), ('state', 'not in', ('cancel', 'done'))]}"
+                            string="Cambiar a Borrador" groups="base.group_user" type="object"/>
+                </xpath>
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="returns" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_add_date_field_inherit_form_view" model="ir.ui.view">
+            <field name="name">stock.picking.add.field.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/group/group/field[@name='min_date']" position="after">
+                    <field name="reception_date"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_add_motive_stock_picking_inherit_form_view" model="ir.ui.view">
+            <field name="name">stock.move.add.motive.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page[@string='Operations']/field/tree/field[@name='result_package_id']" position="after">
+                    <field name="motive" invisible="1"/>
+                    <field name="name" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

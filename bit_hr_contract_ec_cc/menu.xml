@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+		<menuitem action="wizard_import_horas" sequence="13" id="menu_wizard_import_horas"
+		 parent="bit_hr_payroll_ec.menu_hr_Ingresos"/>
+
+		<menuitem name="Por Centro de Costos" action="action_hr_payslip_cc_analysis_all" id="menu_hr_payslip_cc_analysis_all" parent="bit_hr_payroll_ec.menu_hr_payslip" sequence="4"/>
+    </data>
+</openerp>

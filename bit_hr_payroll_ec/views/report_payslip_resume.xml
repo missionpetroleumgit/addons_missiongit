@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_payroll_resume">
+   <t t-call="report.html_container">
+        <t t-call="report.internal_layout">
+            <div class="page">
+                <h2>Rol de Pagos</h2>
+
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                         	<th>Empleado</th>                        	
+                            <th t-foreach="salary_rules" t-as="rule"><span t-esc="rule['name']"/></th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                    		<tr t-foreach="lines" t-as="line">
+                    			<td><span t-esc="line['employee_name']"/></td>
+                    			<td t-foreach="salary_rules" t-as="rule"><t t-if="line[rule['name']] != None"><span t-esc="line[rule['name']]"/></t></td>
+                    		</tr>    
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

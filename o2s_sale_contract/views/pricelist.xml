@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="product_pricelist_item_form_view_inherited" model="ir.ui.view">
+            <field name="name">product.pricelist.item.form.inherited</field>
+            <field name="model">product.pricelist.item</field>
+            <field name="inherit_id" ref="product.product_pricelist_item_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[3]" position="attributes">
+                    <attribute name="attrs">{'invisible':[('base','in',[-3])]}</attribute>
+                </xpath>
+                <field name="base" position="after">
+                    <field name="fixed_price" attrs="{'invisible':[('base','not in',[-3])],'required':[('base','in',[-3])]}"/>
+                </field>
+                <field name="product_id" position="after">
+                    <field name="product_partner_ident"/>
+                    <field name="partner_desc"/>
+                </field>
+                <field name="product_tmpl_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="product_id" position="attributes">
+                    <attribute name="required">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="product_pricelist_form_view_inherited_state" model="ir.ui.view">
+            <field name="name">product.pricelist.form.inherited.state</field>
+            <field name="model">product.pricelist</field>
+            <field name="inherit_id" ref="product.product_pricelist_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form[@string='Products Price List']/label" position="before">
+                    <header>
+                        <button name="pricelist_confirm" type="object" class="oe_highlight" string="Confirmar"
+                                attrs="{'invisible': [('pricelist_state','=', 'confirm')]}"
+                                group="o2s_sale_contract.group_pricelist_button"/>
+                        <button name="pricelist_to_draft" string="Cambiar a borrador" type="object"
+                                attrs="{'invisible': [('pricelist_state','=', 'draft')]}"
+                                group="o2s_sale_contract.group_pricelist_button"/>
+                        <field name="pricelist_state" widget="statusbar" nolabel="1"
+                               statusbar_visible="draft,confirm"
+                               statusbar_colors="{&quot;draft&quot;:&quot;blue&quot;,&quot;confirm&quot;:&quot;blue&quot;}"/>
+                    </header>
+                </xpath>
+                <xpath expr="//form/h1/field[@name='name']" position="replace">
+                        <field name="name" attrs="{'readonly': [('pricelist_state','=', 'confirm')]}"/>
+                </xpath>
+                <xpath expr="//form/group/field[@name='active']" position="replace">
+                        <field name="active" attrs="{'readonly': [('pricelist_state','=', 'confirm')]}"/>
+                </xpath>
+                <xpath expr="//form/group/field[@name='type']" position="replace">
+                        <field name="type" attrs="{'readonly': [('pricelist_state','=', 'confirm')]}"/>
+                </xpath>
+                <xpath expr="//form/field[@name='version_id']" position="replace">
+                    <field name="version_id" context="{'type':type}" attrs="{'readonly': [('pricelist_state','=', 'confirm')]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_pricelist_version_form_view_heh" model="ir.ui.view">
+            <field name="name">product.pricelist.version.form.view.heh</field>
+            <field name="model">product.pricelist.version</field>
+            <field name="inherit_id" ref="product.product_pricelist_version_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                   <attribute name="string">Nombre de Contrato</attribute>
+                </xpath>
+                <xpath expr="//field[@name='name']" position="before">
+                    <field name="code"/>
+                </xpath>
+            </field>
+        </record>
+
+
+
+    </data>
+</openerp>

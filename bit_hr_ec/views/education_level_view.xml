@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+
+		<record model="ir.ui.view" id="education_level_tree_view">
+			<field name="name">hr.education.level.tree</field>
+			<field name="model">hr.education.level</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Nivel de Educación">
+					<field name="title" />
+					<field name="institution" />
+					<field name="start_date" />
+					<field name="end_date" />
+					<field name="level" />
+					<field name="status" />
+				</tree>
+			</field>
+		</record>
+
+		<record model="ir.ui.view" id="education_level_form_view">
+			<field name="name">hr.education.level.form</field>
+			<field name="model">hr.education.level</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Nivel de Educación">
+					<group colspan="4" col="6">
+						<group colspan="4" col="6">
+							<field name="title" string="Título" colspan="4"/>
+						</group>
+						<newline />
+						<group colspan="4" col="4">
+							<separator string="Ubicación" colspan="4"/>
+							<field name="institution" string="Institución" colspan="2"/>
+							<field name="country_id" string="Región" widget="selection" colspan="2"/>
+						</group>
+						<newline />
+						<group colspan="4" col="6">
+							<separator string="Periodo" colspan="6"/>
+							<field name="start_date" colspan="2"/>
+							<field name="end_date" colspan="2"/>
+							<field name="at_present" colspan="2"/>
+						</group>
+						<newline />
+						<group colspan="4" col="6">						<separator string="Información" colspan="6"/>
+							<field name="level" string="Nivel de educación" colspan="2"/>
+							<field name="status" colspan="2"/>
+							<field name="education_area_id" string="Área de educación" widget="selection" colspan="2"/>
+						</group>
+					</group>
+					<newline />
+					<group colspan="4" col="6">
+						<field name="education_levels_ids" attrs="{'invisible':['|', ('status','in',['graduated', 'abandoned']), ('status', '=', False)]}">
+							<tree editable="top">
+								<field name="name" required="1"/>
+								<field name="date"/>
+								<field name="ref"/>
+							</tree>
+						</field>
+					</group>
+				</form>
+			</field>
+		</record>
+
+
+	</data>
+</openerp>

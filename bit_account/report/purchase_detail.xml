@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- vim:fdn=3:
+-->
+<openerp>
+    <data>
+
+        <record model="ir.actions.act_window" id="action_pruchase_detail">
+			<field name="name">Detalle Compras</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">purchase.detail</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
+<!-- Payment Tree View -->
+		<record model="ir.ui.view" id="tree_view_purchase_detail">
+			<field name="name">tree_view_purchase_detail</field>
+			<field name="model">purchase.detail</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="company_id" />
+                    <field name="datefrom" />
+                    <field name="dateto"/>
+				</tree>
+			</field>
+		</record>
+
+
+		<record model="ir.ui.view" id="purchase_detail_form_view">
+			<field name="name">purchase_detail_form_view</field>
+			<field name="model">purchase.detail</field>
+			<field name="arch" type="xml">
+                <form string="Detalles Compras">
+                    <sheet>
+                        <header>
+                            <button name="generar" type="object" class="object" string="Generar">Generar</button>
+                        </header>
+                        <group>
+                        <field name="company_id"/>
+                        <field name="datefrom"/>
+                        <field name="dateto"/>
+                        </group>
+                        <field name="partner_ids"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <menuitem id="menu_action_reporte_purchase_detail" name="Detalle Compras"
+          parent="account.next_id_22"  sequence="66" action="action_pruchase_detail"
+          />
+    </data>
+</openerp>

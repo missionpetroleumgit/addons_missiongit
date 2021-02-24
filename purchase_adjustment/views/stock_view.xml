@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_picking_add_group_button_make_form">
+            <field name="name">stock.picking.add.group.button.make.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/header/button[@name='action_confirm']" position="replace">
+                    <button name="action_confirm" states="draft" string="Mark as Todo" type="object" class="oe_highlight"
+                            groups="purchase_adjustment.group_only_warehouse_access"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_stock_picking_add_button_print_view" model="ir.ui.view">
+            <field name="name">stock.picking.form.button.print</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/h1/field[@name='name']" position="before">
+                    <div class="oe_right oe_button_box" name="import_buttons">
+                        <button name="print_out"
+                                class="oe_inline oe_stat_button"
+                                widget="statinfo"
+                                string="Imprimir"
+                                icon="fa-check-square-o" type="object"
+                                attrs="{'invisible': [('state', '!=', 'done')]}"/>
+                    </div>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page/field[@name='note']" position="replace">
+                    <group>
+                        <field name="delivered_to" attrs="{'required':[('picking_type_id', '=', 3)],
+                        'invisible':[('picking_type_id', '!=', 3)]}"
+                               options="{'no_create': True, 'no_open': True}"/>
+                        <field name="note" class="oe_inline"
+                               attrs="{'required':[('picking_type_id', '=', 3)]}"
+                               placeholder="Add an internal note..."/>
+                    </group>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_stock_picking_add_attributes_view" model="ir.ui.view">
+            <field name="name">stock.picking.add.attributes.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="o2s_sale_contract.view_o2s_add_typereception_serviceticket_inherit"/>
+            <field name="arch" type="xml">
+                <field name="electronic_guide" position="replace">
+                    <field name="electronic_guide"
+                           attrs="{'invisible': [('picking_type_id', 'in', (1, 3))]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_stock_picking_search_inh" model="ir.ui.view">
+            <field name="name">stock.picking.search.inherit</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/group/filter[@string='Procurement Group']" position='after'>
+                    <filter icon="terp-gtk-jump-to-ltr" string="Entregado a"
+                            help="Nos da los albaranes internos agrupados por la persona que recibió los materiales"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

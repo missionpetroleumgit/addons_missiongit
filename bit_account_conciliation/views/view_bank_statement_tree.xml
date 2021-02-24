@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <!--
+      CSV:02-04-2016:Bank Accounts Aumento Responsable
+    -->
+
+     <record id="view_bank_statement_tree_add_user_id" model="ir.ui.view">
+        <field name="name">Account Bank Statement - Add user_id on tree</field>
+        <field name="model">account.bank.statement</field>
+        <field name="inherit_id" ref="account.view_bank_statement_tree"/>
+        <field name="arch" type="xml">
+            <field name="journal_id" position="after">
+                <field name="user_id" string="Responsable"/>
+            </field>
+        </field>
+    </record>
+
+
+</data>
+</openerp>

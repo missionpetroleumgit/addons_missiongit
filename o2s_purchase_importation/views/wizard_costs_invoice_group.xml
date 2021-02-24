@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!--DHA 26-11-2018 Wizard para crear una sola factura desde importaciones y borro las creadas -->
+        <record model="ir.ui.view" id="view_generate_expenses_grouping_invoice">
+            <field name="name">generate.expenses.grouping.invoice</field>
+            <field name="model">generate.expenses.grouping.invoice</field>
+            <field name="priority">3</field>
+            <field name="arch" type="xml">
+                <form string="Generar Gastos y agrupar factura" version="7.0">
+                    <label string="Se va a ingresar costos de importación en el siguiente cuadro, en donde podrá añadir dichos gastos los cuales se añadirán en las importaciones seleccionadas y se agrupará una sola factura de estos valores por proveedor"/>
+                    <group>
+                        <field name="date"/>
+                        <field name="cost_ids">
+                            <tree editable="bottom">
+                                <field name="product_id"/>
+                                <field name="partner_id"/>
+                                <field name="invoice_number" placeholder="ejm:000000001"/>
+                                <field name="importation_id" required="1"/>
+                                <field name="amount" required="1"/>
+                                <field name="invoiced" readonly="1"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="button_generate_expenses_grouping_invoice" class="oe_highlight" string="Generar" type="object"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!--<record id="action_generate_expenses_grouping_invoice_form" model="ir.actions.act_window">-->
+            <!--<field name="name">Generacion Gastos</field>-->
+            <!--<field name="res_model">generate.expenses.grouping.invoice</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">form</field>-->
+            <!--<field name="domain">{'new_cost': True}</field>-->
+            <!--<field name="target">current</field>-->
+        <!--</record>-->
+
+        <act_window name="Generar Costos y agrupar Facturas"
+                    context="{'search_default_draft': 1}"
+                    domain ="{'new_cost': True}"
+                    res_model="generate.expenses.grouping.invoice"
+                    src_model="purchase.importation"
+                    view_mode="form"
+                    view_id="view_generate_expenses_grouping_invoice"
+                    target="new"
+                    multi="True"
+                    key2="client_action_multi"
+                    id="action_generate_expenses_grouping_invoice"/>
+
+    </data>
+</openerp>

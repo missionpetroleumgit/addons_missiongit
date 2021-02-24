@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_payslip_resumen_slogo">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+                <div class="page">
+                  <div style="position:absolute;top:0px;width:98%;">
+                    <table class="table table-condensed table-bordered">
+                        <tr>
+                            <td align="center"><strong><h3><span t-field="o.company_id.name"/></h3></strong>
+                            <p><span t-field="o.company_id.partner_id.part_number"/></p>
+                            <p><span t-field="o.company_id.partner_id.street"/> - <span t-field="company.partner_id.phone"/>/ <span t-field="company.partner_id.fax"/></p>
+                            <p><span t-field="o.company_id.partner_id.website"/> - <span t-field="company.partner_id.email"/> </p>
+                            </td>
+                            <td align="center" style="vertical-align:middle; text-transform:uppercase"> <h4><span t-field="o.struct_id.name"/>
+                            <p><span t-field="o.date_from" t-field-options='{"format": "MMMM y"}'/></p></h4></td>
+                        </tr>
+        			</table>
+                </div>
+
+                <div style="position:absolute;top:180px;width:98%;">
+                    <table class="table table-condensed table-bordered">
+                        <tr>
+                            <td><strong>Nombre</strong></td>
+                            <td><span t-field="o.employee_id"/></td>
+                            <td><strong>Cédula</strong></td>
+                            <td><span t-field="o.employee_id.identification_id"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cargo</strong></td>
+                            <td><span t-field="o.employee_id.job_id"/></td>
+                            <td><strong>Fech. Ing.</strong></td>
+                            <td><span t-field="o.contract_id.date_start"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sueldo Referencia</strong></td>
+                            <td><span t-field="o.contract_id.wage"/></td>
+                            <td><strong>Número de cuenta</strong></td>
+                            <td><span t-field="o.employee_id.bank_account_id.acc_number"/></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div style="position:absolute;top:290px;width:98%;">                   
+                    <table class="table table-condensed">
+                        <tbody>
+                           <tr>
+                                   <td align="center"><strong>Ingresos</strong></td>
+                                   <td align="center"><strong>Egresos</strong></td>
+                           </tr>
+                           <tr>
+                                <td>
+                                        <table class="table table-condensed">
+                                        <tbody>
+                                            <tr t-foreach="o.details_by_salary_rule_category" t-as="d">                                              
+                                                <td t-if="d.sequence &lt; 100 and d.sequence &gt; 0"><span t-field="d.name"/></td>                                               
+                                                <td class="text-right" t-if="d.sequence &lt; 100 and d.sequence &gt;= 0"><span t-field="d.total"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                        <table class="table table-condensed">
+                                        <tbody>
+                                            <tr t-foreach="o.details_by_salary_rule_category" t-as="d">                                               
+                                                <td t-if="d.sequence &lt; 200 and d.sequence &gt;= 100"><span t-field="d.name"/></td>                                               
+                                                <td class="text-right" t-if="d.sequence &lt; 200 and d.sequence &gt;= 100"><span t-field="d.total"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>                               
+                           </tr>  
+                           <tr>
+                                   <td>
+                                        <table class="table table-condensed">
+                                        <tbody>
+                                            <tr t-foreach="o.details_by_salary_rule_category" t-as="d">                                              
+                                                <td t-if="d.code == 'SUBTING'"><strong class="title">TOTAL</strong></td>
+                                                <td class="text-right" t-if="d.code == 'SUBTING'"><strong class="title"><span t-field="d.total"/></strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                   </td>
+                                <td>
+                                        <table class="table table-condensed">
+                                        <tbody>
+                                            <tr t-foreach="o.details_by_salary_rule_category" t-as="d">                                               
+                                                <td t-if="d.code == 'SUBTEGR'"><strong class="title">TOTAL</strong></td>
+                                                <td class="text-right" t-if="d.code == 'SUBTEGR'"><strong class="title"><span t-field="d.total"/></strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                           </tr>                        
+                        </tbody>
+                         <tfoot>
+                             <tr t-foreach="o.details_by_salary_rule_category" t-as="d">
+                                <td t-if="d.code == 'NR'"><strong class="title">TOTAL A RECIBIR</strong></td>
+                                <td class="text-right" t-if="d.code == 'NR'"><strong class="title"><span t-field="d.total"/></strong></td>                               
+                            </tr>
+                         </tfoot>
+                    </table>
+                </div>
+
+                <div style="position:absolute;top:650px;width:98%;">
+                    <table class="table table-condensed table-bordered">
+                        <tr>
+                            <td align="center">____________________________</td>
+                        </tr>
+
+                        <tr>
+                            <td align="center">Recibí conforme</td>
+                        </tr>
+        			</table>
+                </div>
+
+                </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

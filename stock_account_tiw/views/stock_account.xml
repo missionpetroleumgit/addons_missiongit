@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <record id="view_picking_inherit_form2_2" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit2.2</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock_account.view_picking_inherit_form2"/>
+            <field name="arch" type="xml">
+                <button name="%(stock_account.action_stock_invoice_onshipping)d" position="attributes">
+                    <attribute name="groups">stock_account_tiw.group_create_invoice_from_picking</attribute>
+                </button>
+            </field>
+        </record>
+    </data>
+</openerp>

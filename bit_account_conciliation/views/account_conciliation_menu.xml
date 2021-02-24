@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- Top menu item -->
+        <menuitem id="menu_conciliation_tarjet" name="Conciliacion Tarjetas" parent="account.menu_finance" sequence="4"/>
+            
+        <record id="view_account_conciliation_statement_filter" model="ir.ui.view">
+            <field name="name">account.conciliation.statement.select</field>
+            <field name="model">account.conciliation.statement</field>
+            <field name="arch" type="xml">
+                <search string="Search Conciliation Statements">
+                    <field name="name" string="Conciliation Statement"/>
+                    <field name="date"/>
+                    <filter string="Draft" name="state_draft" domain="[('state','=','draft')]" icon="terp-document-new"/>
+                    <filter string="Open" name="state_open" domain="[('state','=','open')]" icon="terp-check"/>
+                    <filter string="Confirmed" name="state_confirmed" domain="[('state','=','confirm')]" icon="terp-camera_test"/>
+                    <field name="journal_id" domain="[('type', '=', 'cash')]" />
+                    <group expand="0" string="Group By">
+                        <filter string="Tarjeta" context="{'group_by': 'journal_id'}" icon="terp-folder-orange"/>
+                        <filter string="Tienda" context="{'group_by': 'user_id'}" icon="terp-folder-orange"/>
+                        <filter string="Status" context="{'group_by': 'state'}" icon="terp-stock_effects-object-colorize"/>
+                        <filter string="Period" context="{'group_by': 'period_id'}" icon="terp-go-month"/>
+                        <filter string="Lote" context="{'group_by': 'lote'}" icon="terp-go-month"/>
+                        <filter string="Fecha" context="{'group_by': 'date'}" icon="terp-go-month"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_conciliation_statement_tree" model="ir.ui.view">
+            <field name="name">account.conciliation.statement.tree</field>
+            <field name="model">account.conciliation.statement</field>
+            <field name="arch" type="xml">
+                <tree colors="red:state=='draft';blue:state=='open';black:state=='confirm'" string="Conciliacion">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="date_cierre"/>
+                    <field name="lote" attrs="{'invisible' : [('type', '=', 'grupal')] }"/>
+                    <field name="period_id"/>
+                    <field name="journal_id" attrs="{'invisible' : [('type', '=', 'grupal')] }"/>
+                    <field name="comision" attrs="{'invisible' : [('type', '=', 'grupal')] }"/>
+                    <field name="iva_retenido" attrs="{'invisible' : [('type', '=', 'grupal')] }"/>
+                    <field name="irf_retenido" attrs="{'invisible' : [('type', '=', 'grupal')] }"/>
+                    <field name="state"/>
+                    <field name="type" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="view_conciliation_statement_search" model="ir.ui.view">
+            <field name="name">account.conciliation.statement.search</field>
+            <field name="model">account.conciliation.statement</field>
+            <field name="arch" type="xml">
+                <search string="Search Conciliation Statements">
+                    <field name="name" string="Conciliation Statement"/>
+                    <field name="date"/>
+                    <filter string="Draft" domain="[('state','=','draft')]" icon="terp-document-new"/>
+                    <filter string="Confirmed" domain="[('state','=','confirm')]" icon="terp-camera_test"/>
+                    <field name="period_id"/>
+                    <field name="journal_id" domain="[('type', '=', 'bank')]" />
+                    <group expand="0" string="Group By">
+                        <filter string="Tarjeta" context="{'group_by': 'journal_id'}" icon="terp-folder-orange"/>
+                        <filter string="Status" context="{'group_by': 'state'}" icon="terp-stock_effects-object-colorize"/>
+                        <filter string="Period" context="{'group_by': 'period_id'}" icon="terp-go-month"/>
+                        <filter string="Lote" context="{'group_by': 'lote'}" icon="terp-go-month"/>
+                        <filter string="Fecha" context="{'group_by': 'date'}" icon="terp-go-month"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record id="view_conciliation_statement_form" model="ir.ui.view">
+            <field name="name">account.conciliation.statement.form</field>
+            <field name="model">account.conciliation.statement</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <form string="Conciliation Statement">
+                <header>
+					<span attrs="{'invisible' : [('state', 'in', ['draft', 'confirm'])] }">
+                        <button name="button_conci_tarj" states="open" string="Conciliar Asiento" type="object" class="oe_highlight"/>
+                    </span>
+<!--                     <span attrs="{'invisible' : [('state', '!=', 'draft')] }">
+                        <button name="button_confirm_bank" states="draft" string="Close" type="object" class="oe_highlight"/>
+                    </span> -->
+                    <span attrs="{'invisible' : [('type', '=', 'individual')] }">
+                        <button name="button_cancel" states="confirm" string="Cancel Conciliation G" type="object"/>
+                    </span>
+                    <span attrs="{'invisible' : [('type', '=', 'grupal')] }">
+                        <button name="button_cancel" states="confirm" string="Cancel Conciliation" type="object"/>
+                    </span>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,pending,open,confirm"/>
+                </header>
+                <sheet>
+                    <div class="oe_right oe_button_box" name="import_buttons">
+                        <button class="oe_inline oe_stat_button" name="butt_inv"
+                            string="Import Invoice" type="action"
+                            attrs="{'invisible':[('state','=','confirm')]}" widget="statinfo" icon="fa-pencil-square-o"/>
+                        <button class="oe_inline oe_stat_button" name="button_journal_entries"
+                                string="Journal Items" type="object"
+                                attrs="{'invisible':[('move_line_ids','=',[])]}" icon="fa-bars"/>
+                        <field name="move_line_ids" invisible="1"/>
+                    </div>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1><field name="name"/></h1>
+                    <group>
+                        <group>
+                            <field name="journal_id" domain="[('type', '=', 'bank')]"  attrs="{'readonly': [('move_line_ids', '!=', [])],'invisible' : [('type', '=', 'grupal')]}" widget="selection"/>
+                            <label for="date" string="Date / Period" />
+                            <div>
+                                <field name="date"  class="oe_inline"/>
+                                <field name="period_id" class="oe_inline"/>
+                                <field name="state" invisible="1" class="oe_inline"/>
+                            </div>
+                            <field name='company_id' widget="selection" groups="base.group_multi_company" />
+                            <field name="comision" attrs="{'invisible' : [('type', '=', 'grupal')] }"/>
+                            <field name="user_id"  class="oe_inline" attrs="{'invisible' : [('type', '=', 'individual')] }"/>
+                        </group>
+                        <group>
+                            <field name="iva_retenido" widget="monetary" options='{"currency_field" : "currency"}' attrs="{'invisible' : [('type', '=', 'grupal')] }"/>
+                            <field name="irf_retenido" widget="monetary" options='{"currency_field" : "currency"}' attrs="{'invisible' : [('type', '=', 'grupal')] }"/>
+                            <field name="lote" attrs="{'invisible' : [('type', '=', 'grupal')] }"/>
+                            <field name="is_con_dif" invisible="1"/>
+                            <field name="type" invisible="1"/>
+                            <field name="default_comision_account_id" attrs="{'required':[('is_con_dif','=',True)], 'invisible' : [('type', '=', 'individual')]}" readonly="1"/>
+                            <field name="default_bancocon_account_id" attrs="{'required':[('is_con_dif','=',True)], 'invisible' : [('type', '=', 'individual')]}"/>
+<!--                             <field name="date_cierre"/> -->
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Transactions" name="conciliation_line_ids">
+                            <field name="line_ids" context="{'date':date}">
+                                <tree editable="bottom" string="Conciliation lines" colors="grey:journal_entry_id!=False">
+                                    <field name="sequence" readonly="1" invisible="1"/>
+                                    <field name="journal_entry_id" invisible="1"/>
+                                    <field name="is_conci" on_change="onchange_valor_conciliar(is_conci, amount_conc, amount, journal_id)"/>
+                                    <field name="user_id" />
+                                    <field name="journal_id" />
+                                    <field name="lote" />
+                                    <field name="date" attrs="{'readonly' : [('journal_entry_id', '!=', False)] }"/>
+                                    <field name="name" attrs="{'readonly' : [('journal_entry_id', '!=', False)] }"/>
+                                    <field name="ref" attrs="{'readonly' : [('journal_entry_id', '!=', False)] }"/>
+                                    <field name="partner_id" domain="['|',('parent_id','=',False),('is_company','=',True)]"
+                                         context="{'default_supplier': 1}"
+                                         attrs="{'readonly' : [('journal_entry_id', '!=', False)] }"/>
+                                    <field name="amount" sum="Total Bruto" attrs="{'readonly' : [('journal_entry_id', '!=', False)] }"/>
+                                    <field name="amount_conc" sum="Valor Concil" attrs="{'readonly' : [('journal_entry_id', '!=', False)] }" on_change="onchange_valor_pendiente(amount_conc, amount, journal_id)"/>
+                                    <field name="amount_comision" sum="Total Comision" groups="base.group_no_one" attrs="{'readonly' : [('journal_entry_id', '!=', False)] }"/>
+                                    <field name="amount_iva_retenido" sum="Total Iva" groups="base.group_no_one" attrs="{'readonly' : [('journal_entry_id', '!=', False)] }"/>
+                                    <field name="amount_irf_retenido" sum="Total Irf" groups="base.group_no_one" attrs="{'readonly' : [('journal_entry_id', '!=', False)] }"/>
+                                    <field name="amount_neto" sum="Total Neto" groups="base.group_no_one" attrs="{'readonly' : [('journal_entry_id', '!=', False)] }"/>
+                                    <field name="amount_pendiente" groups="base.group_no_one" attrs="{'readonly' : [('journal_entry_id', '!=', False)] }"/>
+                                    <field name="currency_id" groups="base.group_multi_currency" attrs="{'readonly' : [('journal_entry_id', '!=', False)] }"/>
+                                    <field name="bank_account_id" groups="base.group_multi_currency" attrs="{'readonly' : [('journal_entry_id', '!=', False)] }"
+                                        domain="['|', ('partner_id', '=', partner_id), ('partner_id', '=', False)]"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <!-- page string="Cuentas Conciliacion" attrs="{'invisible':[('is_con_dif','!=',True)]}">
+                            <group string="Cuentas Conciliacion" col="4" colspan="4">
+                                <field colspan="2" name="default_comision_account_id" attrs="{'required':[('is_con_dif','=',True)]}"/>
+                                <field colspan="2" name="default_bancocon_account_id" attrs="{'required':[('is_con_dif','=',True)]}"/>
+                            </group>
+                        </page -->
+                    </notebook>
+                    <group class="oe_subtotal_footer oe_right" col="8" colspan="8" name="sale_total">
+                        <div class="oe_subtotal_footer_separator oe_inline">
+                            <label for="valor_neto" />
+                            <button name="button_dummy" states="draft,pending,open" string="(Calcular)" type="object" class="oe_edit_only oe_link"/>
+                        </div>
+                        <field name="valor_bruto" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency'}"/>
+                        <field name="valor_conciliar" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency'}"/>
+                        <field name="valor_comision" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency'}"/>
+                        <field name="valor_iva" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency'}"/>
+                        <field name="valor_irf" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency'}"/>
+                        <field name="valor_neto" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency'}"/>
+                    </group>
+                    <div class="oe_clear"/>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_conciliation_statement_tree" model="ir.actions.act_window">
+            <field name="name">Conciliacion Nueva(Manual)</field>
+            <field name="res_model">account.conciliation.statement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="domain">[('journal_id.type', '=', 'bank'),('state','=','draft')]</field>
+            <field name="context">{'journal_type':'bank'}</field>
+            <field name="search_view_id" ref="view_conciliation_statement_search"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to register a Conciliacion Tarjet.
+              </p><p>
+                A bank statement is a summary of all financial transactions
+                occurring over a given period of time on a bank account. You
+                should receive this periodicaly from your bank.
+              </p><p>
+                Odoo allows you to reconcile a statement line directly with
+                the related sale or puchase invoices.
+              </p>
+            </field>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_conciliation_statement_tree_bank">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_conciliation_statement_tree"/>
+            <field name="act_window_id" ref="action_conciliation_statement_tree"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_conciliation_statement_form_bank">
+            <field name="sequence" eval="2"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_conciliation_statement_form"/>
+            <field name="act_window_id" ref="action_conciliation_statement_tree"/>
+        </record>
+
+        <menuitem string="Nueva Conciliacion Manual" action="action_conciliation_statement_tree" id="menu_conciliation_statement_tree" parent="menu_conciliation_tarjet" sequence="1"/>
+
+        <record id="action_conciliation_statement_draft_tree" model="ir.actions.act_window">
+            <field name="name">Conciliacion Individual Proceso</field>
+            <field name="res_model">account.conciliation.statement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','open'),('type','=','individual')]</field>
+            <field name="filter" eval="True"/>
+        </record>
+
+        <menuitem string="Conciliacion Individual" action="action_conciliation_statement_draft_tree" id="menu_conciliation_statement_draft_tree" parent="menu_conciliation_tarjet" sequence="4"/>
+
+        <record id="action_conciliation_statement_grup_tree" model="ir.actions.act_window">
+            <field name="name">Conciliacion Grupal Proceso</field>
+            <field name="res_model">account.conciliation.statement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','open'),('type','=','grupal')]</field>
+            <field name="filter" eval="True"/>
+        </record>
+
+        <menuitem string="Conciliacion Grupal" action="action_conciliation_statement_grup_tree" id="menu_conciliation_statement_grup_tree" parent="menu_conciliation_tarjet" sequence="5"/>
+
+        <!--<record id="action_conciliation_statement_pending_tree" model="ir.actions.act_window">-->
+            <!--<field name="name">Conciliacion Individual Pendiente</field>-->
+            <!--<field name="res_model">account.conciliation.statement</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="domain">[('state','=','pending'),('type','=','individual')]</field>-->
+            <!--<field name="filter" eval="True"/>-->
+        <!--</record>-->
+
+        <!--<menuitem string="Conciliacion Individual Pendiente" action="action_conciliation_statement_pending_tree" id="menu_conciliation_statement_pending_tree" parent="menu_conciliation_tarjet" sequence="6"/>-->
+
+        <!--<record id="action_conciliation_statement_pending_grup_tree" model="ir.actions.act_window">-->
+            <!--<field name="name">Conciliacion Grupal Pendiente</field>-->
+            <!--<field name="res_model">account.conciliation.statement</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">tree,form</field>-->
+            <!--<field name="domain">[('state','=','pending'),('type','=','grupal')]</field>-->
+            <!--<field name="filter" eval="True"/>-->
+        <!--</record>-->
+
+        <!--<menuitem string="Conciliacion Grupal Pendiente" action="action_conciliation_statement_pending_grup_tree" id="menu_conciliation_statement_pending_grup_tree" parent="menu_conciliation_tarjet" sequence="7"/>-->
+
+        <record id="action_conciliation_statement_confirm_tree" model="ir.actions.act_window">
+            <field name="name">Conciliacion Individual Cerradas</field>
+            <field name="res_model">account.conciliation.statement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','confirm'),('type','=','individual')]</field>
+            <field name="filter" eval="True"/>
+        </record>
+        <menuitem string="Conciliacion Individual Cerradas" action="action_conciliation_statement_confirm_tree" id="menu_conciliation_statement_confirm_tree" parent="menu_conciliation_tarjet" sequence="8"/>
+
+        <record id="action_conciliation_statement_confirm_grup_tree" model="ir.actions.act_window">
+            <field name="name">Conciliacion Grupal Cerradas</field>
+            <field name="res_model">account.conciliation.statement</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','confirm'),('type','=','grupal')]</field>
+            <field name="filter" eval="True"/>
+        </record>
+        <menuitem string="Conciliacion Grupal Cerradas" action="action_conciliation_statement_confirm_grup_tree" id="menu_conciliation_statement_confirm_grup_tree" parent="menu_conciliation_tarjet" sequence="9"/>
+    </data>
+</openerp>
+

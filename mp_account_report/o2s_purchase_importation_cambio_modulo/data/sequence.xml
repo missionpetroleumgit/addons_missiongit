@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data noupdate="0">
+		<!--
+			Sequence Type
+		-->
+
+		<record id="ir_seq_type_importation" model="ir.sequence.type">
+			<field name="name">Purchase Importation</field>
+			<field name="code">purchase.importation</field>
+		</record>
+
+		<!--
+			Sequence
+		-->
+
+		<record id="ir_seq_importation" model="ir.sequence">
+			<field name="name">Purchase Importation</field>
+			<field name="code">purchase.importation</field>
+			<field name="prefix">IMP</field>
+			<field name="padding">7</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+
+		<record id="ir_seq_type_importation_order" model="ir.sequence.type">
+			<field name="name">Importation Order</field>
+			<field name="code">importation.order</field>
+		</record>
+
+		<!--
+			Sequence
+		-->
+
+		<record id="ir_seq_importation_order" model="ir.sequence">
+			<field name="name">Importation Order</field>
+			<field name="code">importation.order</field>
+			<field name="prefix">POE</field>
+			<field name="padding">7</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+
+
+    </data>
+</openerp>

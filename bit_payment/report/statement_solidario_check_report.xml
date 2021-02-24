@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="statement_solidario_check_report">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <!-- This report is (obviously) a work in progress -->
+                    <div class="page">
+                        <div t-if="True">
+                            <div class="row mt32 mb32">
+                                <div t-if="o.line_ids.partner_id">
+                                    <div class="col-xs-9" style="position:absolute;left:60;top:8px;font-size: 16px">
+                                        <t t-if="o.check">
+                                            <address t-field="o.line_ids.partner_id.name"/>
+                                        </t>
+                                    </div>
+                                </div>
+                                <div class="col-xs-3" style="position:absolute;left:575;top:-1px;font-size: 19px">
+                                    ***<span t-esc="round(o.balance_start, 2)"/><br/>
+                                </div>
+                            </div>
+                            <div class="row mt32 mb32">
+                                <div class="col-xs-12" style="position:absolute;left:60;top:40px;font-size: 16px">
+                                    <span t-esc="o.get_amount_in_letters(o.balance_start)"/>
+                                </div>
+                            </div>
+                            <div class="row mt32 mb32">
+                                <div class="col-xs-12" style="position:absolute;left:5;top:95px;font-size: 16px">
+                                    Quito, <span t-esc="o.get_format(o.date)"/><br/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>
+

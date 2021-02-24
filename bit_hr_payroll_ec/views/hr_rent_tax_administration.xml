@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+  <data>
+    
+	 <record id="hr_base_retention_search_view" model="ir.ui.view">
+            <field name="name">hr.base.retention.search</field>
+            <field name="model">hr.base.retention</field>
+            <field name="arch" type="xml">
+                <search string="Retention Table">
+                    <field name="year"/>
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+        
+        <record id="hr_base_retention_form_view" model="ir.ui.view">
+            <field name="name">hr.base.retention.form</field>
+            <field name="model">hr.base.retention</field>
+            <field name="arch" type="xml">
+            <form string="Retention Table">
+            <sheet>
+            	<group>
+	            	<field name="year"/>
+                    <field name="name"/>
+                    <field name="retention_line"/>
+            	</group>
+            </sheet>
+            </form>
+            </field>
+        </record>
+        
+        <record id="hr_base_retention_tree_view" model="ir.ui.view">
+            <field name="name">hr.base.retention.tree</field>
+            <field name="model">hr.base.retention</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <tree string="Retention Table" >
+                    <field name="year"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_hr_base_retention" model="ir.actions.act_window">
+            <field name="name">Retention Table</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.base.retention</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="hr_base_retention_search_view"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to register a new retention table.
+              </p>
+            </field>
+        </record>
+        
+        
+
+  </data>
+</openerp>
+
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+ 	 <data>
+		  <record id="view_res_company_inherited_form" model="ir.ui.view">
+			  <field name="name">res.company.inherited</field>
+			  <field name="model">res.company</field>
+			  <field name="inherit_id" ref="base.view_company_form"/>
+			  <field name="arch" type="xml">
+					<xpath expr="//notebook" position="inside">
+                        <page string="Configuración Recursos Humanos">
+                            <group col="6" colspan="2">
+                                <field name="vacation_entry"/>
+                                <field name="region"/>
+                                <group></group>
+                            </group>
+                            <group col="4" colspan="4" string="Configuración Décimo 4">
+                                <group string="Sierra" attrs="{'invisible':['|', ('region', '=', 'costa'), ('region', '=', False)]}">
+                                <field name="fecha_init_sierra"/>
+                                <field name="fecha_fin_sierra"/>
+                                </group>
+                                <group string="Costa" attrs="{'invisible':['|', ('region', '=', 'sierra'), ('region', '=', False)]}">
+                                <field name="fecha_init_costa"/>
+                                <field name="fecha_fin_costa"/>
+                                </group>
+                            </group>
+                            <group col="4" colspan="4" string="Configuración Décimo 3">
+                                <field name="period_decimo3_pay" required="1"/>
+                                <group></group>
+                            </group>
+                            <separator string="Diarios de Décimos"/>
+                            <group col="4" colspan="4">
+                                <field name="decimo3_journal_id"/>
+                                <field name="decimo4_journal_id"/>
+                            </group>
+                            <group col="4" colspan="4">
+                                <field name="start_counting"/>
+                                <field name="limit"/>
+                                <field name="increase"/>
+                                <field name="base"/>
+                            </group>
+                        </page>
+					</xpath>
+			  </field>
+		  </record>
+	 </data>
+</openerp>

@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_financial">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <table  style="width:100%;">
+                            <tr>
+                                <td>
+                                    <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="max-height:120px"/>
+                                </td>
+                            </tr>
+                            <table>
+                                <div class="row zero_min_height" style="width: 100%;">
+                                    <div class="col-xs-12">
+                                        <div style="border-bottom: 9px solid white;"/>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div style="border-bottom: 9px solid white;"/>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div style="border-bottom: 5px solid black;"/>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div style="border-bottom: 14px solid black;"/>
+                                    </div>
+                                    <tr>
+                                        <td>
+                                            <div style="border-bottom: 1px solid white;"/>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </table>
+                            <tr>
+                                <strong><h4 style="text-align: center;">
+                                    <span style="color:white !important">--</span>
+                                </h4></strong>
+                            </tr>
+                            <div style="position:absolute;left:17;top:139px;font-size: 12">
+                                <span style="color:white !important"><strong>www.mission-petroleum.com </strong></span>
+                            </div>
+                            <tr>
+                                <strong><h4 style="text-align: center;" t-esc="data['form']['account_report_id'][1]"/><br/>
+                                </strong>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p>
+                                        <span t-if="data['form']['filter'] == 'filter_period'">Filtrado por periodo</span>
+                                        <span t-if="data['form']['filter'] == 'filter_date'">Filtrado por fecha</span>
+                                        <p t-if="data['form']['filter'] == 'filter_period'">
+                                            Desde : <span t-esc="get_start_period(data)"/>
+                                            Hasta : <span t-esc="get_end_period(data)"/>
+                                        </p>
+                                        <p t-if="data['form']['filter'] == 'filter_date'">
+                                            Desde : <span t-esc="formatLang(get_start_date(data), date=True)"/><br/>
+                                            Hasta : <span t-esc="formatLang(get_end_date(data), date=True)"/>
+                                        </p>
+                                    </p>
+                                </td>
+                                <th style="color:white !important" width="100">.</th>
+                                <th style="color:white !important" width="100">.</th>
+                                <th style="color:white !important" width="100">.</th>
+                                <th style="color:white !important" width="100">.</th>
+                                <th style="color:white !important" width="100">.</th>
+                                <p t-if="data['form']['level_report'] =='one'">
+                                    Desde : <span t-esc="formatLang(get_start_date(data), date=True)"/><br/>
+                                    Hasta : <span t-esc="formatLang(get_end_date(data), date=True)"/>
+                                </p>
+                            </tr>
+                        </table>
+                        <table class="table table-condensed">
+                            <tbody>
+                                <tr t-foreach="get_lines(data)" t-as="a">
+
+                                    <t t-if="a.get('level') &gt; 3"><t t-set="style" t-value="'font-weight: normal;'"/></t>
+                                    <t t-if="not a.get('level') &gt; 3"><t t-set="style" t-value="'font-weight: bold;'"/></t>
+
+                                    <!-- Nivel 1 -->
+
+                                    <t t-if="data['form']['level_report'] == 'one'">
+                                        <t t-if="a.get('level') &lt; 3">
+                                            <td>
+                                                <span t-att-style="style" t-esc="a.get('code')"/>
+                                            </td>
+                                            <td>
+                                                <span style="color: white;" t-esc="'.' * a.get('level', 0)"/>
+                                                <span t-att-style="style" t-esc="a.get('name')"/>
+                                            </td>
+                                            <!--<td class="text-right" style="white-space: nowrap;">
+                                                <span t-att-style="style" t-esc="formatLang(a.get('debit'), currency_obj=res_company.currency_id)"/>
+                                            </td>
+                                            <td class="text-right" style="white-space: nowrap;">
+                                                <span t-att-style="style" t-esc="formatLang(a.get('credit'), currency_obj=res_company.currency_id)"/>
+                                            </td>-->
+                                            <td class="text-right" style="white-space: nowrap;">
+                                                <span t-att-style="style" t-esc="a.get('balance')"/>
+                                                <span style="color: white;" t-esc="'........' * a.get('level', 0)"/>
+                                            </td>
+                                        </t>
+                                    </t>
+
+                                    <!-- Nivel 2 -->
+                                    <t t-if="data['form']['level_report'] == 'two'">
+                                        <t t-if="a.get('level') &lt; 4">
+                                            <td>
+                                                <span t-att-style="style" t-esc="a.get('code')"/>
+                                            </td>
+                                            <td>
+                                                <span style="color: white;" t-esc="'.' * a.get('level', 0)"/>
+                                                <span t-att-style="style" t-esc="a.get('name')"/>
+                                            </td>
+                                            <!--<td class="text-right" style="white-space: nowrap;">
+                                                <span t-att-style="style" t-esc="formatLang(a.get('debit'), currency_obj=res_company.currency_id)"/>
+                                            </td>
+                                            <td class="text-right" style="white-space: nowrap;">
+                                                <span t-att-style="style" t-esc="formatLang(a.get('credit'), currency_obj=res_company.currency_id)"/>
+                                            </td>-->
+                                            <td class="text-right" style="white-space: nowrap;">
+                                                <span t-att-style="style" t-esc="a.get('balance')"/>
+                                                <span style="color: white;" t-esc="'........' * a.get('level', 0)"/>
+                                            </td>
+                                        </t>
+                                    </t>
+
+                                    <!-- Nivel 3 -->
+                                    <t t-if="data['form']['level_report'] == 'three'">
+                                        <t t-if="a.get('level') &lt; 5">
+                                            <td>
+                                                <span t-att-style="style" t-esc="a.get('code')"/>
+                                            </td>
+                                            <td>
+                                                <span style="color: white;" t-esc="'.' * a.get('level', 0)"/>
+                                                <span t-att-style="style" t-esc="a.get('name')"/>
+                                            </td>
+                                            <!--<td class="text-right" style="white-space: nowrap;">
+                                                <span t-att-style="style" t-esc="formatLang(a.get('debit'), currency_obj=res_company.currency_id)"/>
+                                            </td>
+                                            <td class="text-right" style="white-space: nowrap;">
+                                                <span t-att-style="style" t-esc="formatLang(a.get('credit'), currency_obj=res_company.currency_id)"/>
+                                            </td>-->
+                                            <td class="text-right" style="white-space: nowrap;">
+                                                <span t-att-style="style" t-esc="a.get('balance')"/>
+                                                <span style="color: white;" t-esc="'........' * a.get('level', 0)"/>
+                                            </td>
+                                        </t>
+                                    </t>
+
+                                    <!-- Nivel 4 -->
+                                    <t t-if="data['form']['level_report'] == 'four'">
+                                        <t t-if="a.get('level') &lt; 6">
+                                            <td>
+                                                <span t-att-style="style" t-esc="a.get('code')"/>
+                                            </td>
+                                            <td>
+                                                <span style="color: white;" t-esc="'.' * a.get('level', 0)"/>
+                                                <span t-att-style="style" t-esc="a.get('name')"/>
+                                            </td>
+                                            <!--<td class="text-right" style="white-space: nowrap;">
+                                                <span t-att-style="style" t-esc="formatLang(a.get('debit'), currency_obj=res_company.currency_id)"/>
+                                            </td>
+                                            <td class="text-right" style="white-space: nowrap;">
+                                                <span t-att-style="style" t-esc="formatLang(a.get('credit'), currency_obj=res_company.currency_id)"/>
+                                            </td>-->
+                                            <td class="text-right" style="white-space: nowrap;">
+                                                <span t-att-style="style" t-esc="a.get('balance')"/>
+                                                <span style="color: white;" t-esc="'........' * a.get('level', 0)"/>
+                                            </td>
+                                        </t>
+                                    </t>
+
+                                    <!-- Nivel 5 -->
+                                    <t t-if="data['form']['level_report'] == 'five'">
+                                        <t t-if="a.get('level') &lt; 7">
+                                            <td>
+                                                <span t-att-style="style" t-esc="a.get('code')"/>
+                                            </td>
+                                            <td>
+                                                <span style="color: white;" t-esc="'.' * a.get('level', 0)"/>
+                                                <span t-att-style="style" t-esc="a.get('name')"/>
+                                            </td>
+                                            <!--<td class="text-right" style="white-space: nowrap;">
+                                                <span t-att-style="style" t-esc="formatLang(a.get('debit'), currency_obj=res_company.currency_id)"/>
+                                            </td>
+                                            <td class="text-right" style="white-space: nowrap;">
+                                                <span t-att-style="style" t-esc="formatLang(a.get('credit'), currency_obj=res_company.currency_id)"/>
+                                            </td>-->
+                                            <td class="text-right" style="white-space: nowrap;">
+                                                <span t-att-style="style" t-esc="a.get('balance')"/>
+                                                <span style="color: white;" t-esc="'........' * a.get('level', 0)"/>
+                                            </td>
+                                        </t>
+                                    </t>
+
+                                    <!-- Nivel 6 -->
+                                    <t t-if="data['form']['level_report'] == 'six'">
+                                        <t t-if="a.get('level') &lt; 8">
+                                            <td>
+                                                <span t-att-style="style" t-esc="a.get('code')"/>
+                                            </td>
+                                            <td>
+                                                <span style="color: white;" t-esc="'.' * a.get('level', 0)"/>
+                                                <span t-att-style="style" t-esc="a.get('name')"/>
+                                            </td>
+                                            <!--<td class="text-right" style="white-space: nowrap;">
+                                                <span t-att-style="style" t-esc="formatLang(a.get('debit'), currency_obj=res_company.currency_id)"/>
+                                            </td>
+                                            <td class="text-right" style="white-space: nowrap;">
+                                                <span t-att-style="style" t-esc="formatLang(a.get('credit'), currency_obj=res_company.currency_id)"/>
+                                            </td>-->
+                                            <td class="text-right" style="white-space: nowrap;">
+                                                <span t-att-style="style" t-esc="a.get('balance')"/>
+                                                <span style="color: white;" t-esc="'........' * a.get('level', 0)"/>
+                                            </td>
+                                        </t>
+                                    </t>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table>
+                            <tr t-foreach="get_lines(data)" t-as="a">
+                                <td>
+                                    <t t-if="a.get('code')=='1'">
+                                        <strong><span style="color:black !important">TOTAL ACTIVO: </span></strong>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="a.get('code')=='1'">
+                                        <span style="color: white;" t-esc="'..........................................................' * a.get('level', 0)"/>
+                                        <span t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr t-foreach="get_lines(data)" t-as="a">
+                                <td>
+                                    <t t-if="a.get('code')=='2'">
+                                        <strong><span style="color:black !important">TOTAL PASIVO: </span></strong>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="a.get('code')=='2'">
+                                        <span style="color: white;" t-esc="'...........................................................' * a.get('level', 0)"/>
+                                        <span t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr t-foreach="get_lines(data)" t-as="a">
+                                <td>
+                                    <t t-if="a.get('code')=='3'">
+                                        <strong><span style="color:black !important">TOTAL PATRIMONIO: </span></strong>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="a.get('code')=='3'">
+                                        <span style="color: white;" t-esc="'...........................................................' * a.get('level', 0)"/>
+                                        <span t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr t-foreach="get_lines(data)" t-as="a">
+                                <td>
+                                    <t t-if="a.get('code')=='3'">
+                                        <strong><span style="color:black !important">TOTAL PASIVO PATRIMONIO: </span></strong>
+                                    </t>
+                                    <t t-if="a.get('code')=='2'">
+                                        <t t-set="PS" t-value="a.get('balance')"/>
+                                        <t t-set="PS" t-value="PS"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="a.get('code')=='3'">
+                                        <span style="color: white;" t-esc="'..........................................................' * a.get('level', 0)"/>
+                                        <t t-set="PT" t-value="a.get('balance')"/>
+                                        <t t-set="PT" t-value="PT+PS"/>
+                                        <span t-esc="abs(PT)"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr t-foreach="get_lines(data)" t-as="a">
+                                <td>
+                                    <t t-if="a.get('code')=='4'">
+                                        <strong><span style="color:black !important">INGRESOS: </span></strong>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="a.get('code')=='4'">
+                                        <span style="color: white;" t-esc="'..........................................................' * a.get('level', 0)"/>
+                                        <span t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr t-foreach="get_lines(data)" t-as="a">
+                                <td>
+                                    <t t-if="a.get('code')=='5'">
+                                        <strong><span style="color:black !important">COSTOS: </span></strong>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="a.get('code')=='5'">
+                                        <span style="color: white;" t-esc="'...........................................................' * a.get('level', 0)"/>
+                                        <span t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr t-foreach="get_lines(data)" t-as="a">
+                                <td>
+                                    <t t-if="a.get('code')=='5'">
+                                        <strong><span style="color:black !important">UTILIDAD BRUTA: </span></strong>
+                                    </t>
+                                    <t t-if="a.get('code')=='4'">
+                                        <t t-set="IN" t-value="a.get('balance')"/>
+                                        <t t-set="IN" t-value="IN+0"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="a.get('code')=='5'">
+                                        <span style="color: white;" t-esc="'..........................................................' * a.get('level', 0)"/>
+                                        <t t-set="CT" t-value="a.get('balance')"/>
+                                        <t t-set="CT" t-value="CT+IN"/>
+                                        <span t-esc="CT"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr t-foreach="get_lines(data)" t-as="a">
+                                <td>
+                                    <t t-if="a.get('code')=='6'">
+                                        <strong><span style="color:black !important">GASTOS: </span></strong>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="a.get('code')=='6'">
+                                        <span style="color: white;" t-esc="'...........................................................' * a.get('level', 0)"/>
+                                        <span t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr t-foreach="get_lines(data)" t-as="a">
+                                <td>
+                                    <t t-if="a.get('code')=='62'">
+                                        <strong><span style="color:black !important">ADMINISTRATIVO: </span></strong>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="a.get('code')=='62'">
+                                        <span style="color: white;" t-esc="'...................' * a.get('level', 0)"/>
+                                        <span t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr t-foreach="get_lines(data)" t-as="a">
+                                <td>
+                                    <t t-if="a.get('code')=='61'">
+                                        <strong><span style="color:black !important">VENTAS: </span></strong>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="a.get('code')=='61'">
+                                        <span style="color: white;" t-esc="'...................' * a.get('level', 0)"/>
+                                        <span t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr t-foreach="get_lines(data)" t-as="a">
+                                <td>
+                                    <t t-if="a.get('code')=='6216 '">
+                                        <strong><span style="color:black !important">FINANCIEROS: </span></strong>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="a.get('code')=='6216 '">
+                                        <span style="color: white;" t-esc="'..............................' * a.get('level', 0)"/>
+                                        <span t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"/>
+                                    </t>
+                                </td>
+                            </tr>
+                            <tr t-foreach="get_lines(data)" t-as="a">
+                                <td>
+                                    <t t-if="a.get('code')=='6'">
+                                        <strong><span style="color:black !important">RESULTADO DEL EJERCICIO: </span></strong>
+                                    </t>
+                                    <t t-if="a.get('code')=='4'">
+                                        <t t-set="IN" t-value="a.get('balance')"/>
+                                        <t t-set="IN" t-value="IN+0"/>
+                                    </t>
+                                    <t t-if="a.get('code')=='5'">
+                                        <t t-set="CT" t-value="a.get('balance')"/>
+                                        <t t-set="CT" t-value="CT+IN"/>
+                                    </t>
+                                </td>
+                                <td>
+                                    <t t-if="a.get('code')=='6'">
+                                        <span style="color: white;" t-esc="'..........................................................' * a.get('level', 0)"/>
+                                        <t t-set="GT" t-value="a.get('balance')"/>
+                                        <t t-set="GT" t-value="CT+GT"/>
+                                        <strong><span t-esc="GT"/></strong>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                        <!--<table class="table table-condensed" t-if="not data['form']['enable_filter'] and not data['form']['debit_credit']">
+                            <tbody>
+                                <tr t-foreach="get_lines(data)" t-as="a">
+                                    <t t-if="a['level'] != 0">
+                                        <t t-if="a.get('level') &gt; 3"><t t-set="style" t-value="'font-weight: normal;'"/></t>
+                                        <t t-if="not a.get('level') &gt; 3"><t t-set="style" t-value="'font-weight: bold;'"/></t>
+
+                                        <td>
+                                            <span t-att-style="style" t-esc="a.get('code')"/>
+                                        </td>
+                                        <td>
+                                            <span t-att-style="style" t-esc="a.get('name')"/>
+                                        </td>
+                                        <td><h2/></td>
+                                        <td class="text-right"><span t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"/></td>
+                                    </t>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <table class="table table-condensed" t-if="data['form']['enable_filter'] == 1 and not data['form']['debit_credit']">
+                            <tbody>
+                                <tr t-foreach="get_lines(data)" t-as="a">
+                                    <t t-if="a['level'] != 0">
+                                        <t t-if="a.get('level') &gt; 3"><t t-set="style" t-value="'font-weight: normal;'"/></t>
+                                        <t t-if="not a.get('level') &gt; 3"><t t-set="style" t-value="'font-weight: bold;'"/></t>
+
+                                        <td>
+                                            <span t-att-style="style" t-esc="a.get('code')"/>
+                                        </td>
+                                        <td>
+                                            <span t-att-style="style" t-esc="a.get('name')"/>
+                                        </td>
+                                        <td class="text-right"><span t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"/></td>
+                                        <td><h2/></td>
+                                        <td class="text-right"><span t-att-style="style" t-esc="formatLang(a.get('balance_cmp'), currency_obj=res_company.currency_id)"/></td>
+                                    </t>
+                                </tr>
+                            </tbody>
+                        </table>-->
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>
+

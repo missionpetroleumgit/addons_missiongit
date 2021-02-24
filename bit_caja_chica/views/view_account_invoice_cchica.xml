@@ -1,0 +1,59 @@
+<openerp>
+    <data>
+
+    <!--
+      CSV:03-04-2017:Aumento menu Cajas Chicas
+    -->
+        <!-- Top menu item -->
+        <menuitem id="menu_invoice_tarjeta" name="Facturas Tarjeta" parent="account.menu_finance" sequence="4"/>
+        <menuitem id="menu_invoice_caja_chica" name="Facturas C.Chica/Tarjeta" parent="account.menu_finance" sequence="3"/>
+<!-- Supplier Account Invoice -->
+	<!-- Form -->
+        <record id="view_bit_invoice_caja_chica_form" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.cchica.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <field name="journal_id" position='after'>
+                        <field name="is_cchica" attrs="{'invisible':[('is_tarjet','=',True)]}"/>
+                        <field name="is_tarjet" attrs="{'invisible':[('is_cchica','=',True)]}"/>
+                </field>
+				<notebook position="inside" >
+					<page string="R. Asumida" attrs="{'invisible':[('is_cchica','=', False),('is_tarjet','=', False)]}">
+						<group>
+							<field name="is_asum"/>
+							<field name="account_retiva" attrs="{'required': [('is_asum', '=', True)]}"/>
+							<!--<field name="account_retrenta" attrs="{'required': [('is_asum', '=', True)]}"/>-->
+						</group>
+					</page>
+				</notebook>
+            </field>
+        </record>
+
+        <record id="action_account_invoice_cchica_confirm" model="ir.actions.act_window">
+            <field name="name">Facturas Caja Chicas</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_cchica','=',True)]</field>
+            <!--<field name="context">{'is_cchica':True,'is_asum':True}</field>-->
+            <field name="filter" eval="True"/>
+        </record>
+        <menuitem string="Facturas Caja Chicas" action="action_account_invoice_cchica_confirm" id="menu_account_invoice_cchica_confirm" parent="menu_invoice_caja_chica" sequence="1"/>
+
+        <record id="action_account_invoice_tarjeta_confirm" model="ir.actions.act_window">
+            <field name="name">Otras Facturas Asumidas</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_tarjet','=',True)]</field>
+            <!--<field name="context">{'is_tarjet':True,'is_asum':True}</field>-->
+            <field name="filter" eval="True"/>
+        </record>
+        <menuitem string="Otras Facturas Asumidas" action="action_account_invoice_tarjeta_confirm" id="menu_account_invoice_tarjeta_confirm" parent="menu_invoice_caja_chica" sequence="1"/>
+
+
+
+    </data>
+</openerp>

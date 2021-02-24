@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_stock_picking_quality_revision_form" model="ir.ui.view">
+            <field name="name">stock.picking.quality.revision.form</field>
+            <field name="type">form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form" />
+            <field name="priority">3</field>
+            <field name="arch" type="xml">
+                <notebook position="inside" >
+                    <page string="Revisión Bodega Calidad"
+                          attrs="{'invisible':['|', ('state','not in', ('done', 'assigned', 'partially_available')),
+                          ('picking_type_id','=', 2)],
+                          'readonly':[('state', '=', 'done')]}">
+                        <group col="4" colspan="4">
+                            <separator colspan="4" string="Bodega"/>
+                            <field name="wh_revision" />
+                            <field name="wh_sig_user_id"
+                                   attrs="{'invisible':['|', ('wh_revision','=', False), ('picking_type_id','=', 2)],
+                                   'required':[('wh_revision', '=', True)]}"
+                                   domain="[('wh_user', '=', True)]"/>
+                        </group>
+                        <group col="4" colspan="4">
+                            <field name="revision_required"
+                                   attrs="{'invisible':['|', ('wh_revision','=', False), ('picking_type_id','=', 2)],}"/>
+                            <field name="wh_date"
+                                   attrs="{'invisible':['|', ('wh_revision','=', False), ('picking_type_id','=', 2)],
+                                   'required':[('wh_revision', '=', True)]}"/>
+                        </group>
+                        <group col="4" colspan="4">
+                            <field name="wh_obs"
+                                   attrs="{'invisible':['|', ('wh_revision','=', False), ('picking_type_id','=', 2)],
+                                   'required':[('wh_revision', '=', True)]}"/>
+                        </group>
+                        <group col="4" colspan="4">
+                            <separator colspan="4" string="Calidad"
+                                       attrs="{'invisible':['|', ('revision_required','=', False), ('picking_type_id','=', 2)]}"/>
+                            <field name="quality_revision"
+                                   attrs="{'invisible':['|', ('revision_required','=', False), ('picking_type_id','=', 2)]}"/>
+                        </group>
+                        <group col="4" colspan="4">
+                            <field name="quality_sig_user_id"
+                                   attrs="{'invisible':['|', ('quality_revision','=', False), ('picking_type_id','=', 2)],
+                                   'required':[('quality_revision', '=', True)]}"
+                                   domain="[('quality_user', '=', True)]"/>
+                            <field name="quality_date"
+                                   attrs="{'invisible':['|', ('quality_revision','=', False), ('picking_type_id','=', 2)],
+                                   'required':[('quality_revision', '=', True)]}"/>
+                        </group>
+                        <group col="4" colspan="4">
+                            <field name="quality_obs"
+                                   attrs="{'invisible':['|', ('quality_revision','=', False), ('picking_type_id','=', 2)],
+                                   'required':[('quality_revision', '=', True)]}"/>
+                        </group>
+                        <newline/>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <record id="view_res_users_quality_form" model="ir.ui.view">
+            <field name="name">res.users.quality.revision.form</field>
+            <field name="type">form</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <field name="signature" position="after">
+                    <field name="wh_user"/>
+                    <field name="quality_user"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_stock_picking_ticket_inherit_form" model="ir.ui.view">
+            <field name="name">stock.stock.picking.ticket.inherit.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <field name="origin" position="after">
+                    <field name="pick_selection" groups="mp_sale_order.group_picking_type_get"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

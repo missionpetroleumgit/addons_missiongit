@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_order_form_draft" model="ir.ui.view">
+            <field name="name">sale.order.form.draft</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='print_quotation']" position="before">
+                    <button name="button_draft" states="cancel" string="Back to draft" type="object"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

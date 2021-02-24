@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+  <data>
+
+	<record id="view_contract_add_nda_form" model="ir.ui.view">
+			<field name="name">contract.add.nda.form</field>
+			<field name="model">hr.contract</field>
+			<field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+			<field name="arch" type="xml">
+				<field name="working_hours" position="after">
+					<field name="number_of_year"/>
+					<field name="company_id"/>
+				</field>
+				<field name="date_end" position="after">
+					<field name="type_dismissal" attrs="{'invisible':[('state','!=','close')]}"/>
+				</field>
+			</field>
+		</record>
+
+		<record id="resource_calendar_form_inherit" model="ir.ui.view">
+			<field name="name">resource.calendar.form.inherit</field>
+			<field name="model">resource.calendar</field>
+			<field name="type">form</field>
+			<field name="inherit_id" ref="resource.resource_calendar_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='manager']" position="after">
+					<field name="hours_work_per_week" />
+				</xpath>
+			</field>
+		</record>    
+
+  </data>
+</openerp>

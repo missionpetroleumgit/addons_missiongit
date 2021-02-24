@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+  <data>
+  
+	  <record id="view_contract_type_add_tipo_form" model="ir.ui.view">
+	      <field name="name">contract.type.add.tipo.form</field>
+	      <field name="model">hr.contract.type</field>
+	      <field name="inherit_id" ref="hr_contract.hr_contract_type_view_form"/>
+	      <field name="arch" type="xml">
+	      <field name="name" position="after">
+		 <group col="4" colspan="4">
+	      	<notebook>
+	      		<page string="Administrativos">
+	      			<field name="report_adm" nolabel="1" colspan="2"/>
+	      		</page>
+	      		<page string="Operativos">
+	      			<field name="report_oper" nolabel="1" colspan="2"/>
+	      		</page>
+	      	</notebook>
+	     </group>
+	      </field>
+	      </field>
+	  </record>
+	  
+  </data>
+</openerp>

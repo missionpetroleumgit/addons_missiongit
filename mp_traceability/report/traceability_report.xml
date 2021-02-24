@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="product_traceability_view" model="ir.ui.view">
+            <field name="name">Trazabilidad de Materiales</field>
+            <field name="model">traceability.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Select Period">
+                    <group col="4">
+                        <!--on_change="onchange_importation_lines(purchase_importation_id, context)"-->
+                        <field name="purchase_importation_id" class="oe_inline" required="1" colspan="4"/>
+                        <field name="product_ids"
+                               domain="[('importation_id', '=', purchase_importation_id), ('state', '=', 'done')]"
+                               class="oe_inline" colspan="4"/>
+                    </group>
+                    <footer>
+                        <button name="get_traceability_report" string="Imprimir" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancelar" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_product_traceability" model="ir.actions.act_window">
+            <field name="name">Traceability Report</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">traceability.report.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="product_traceability_view"/>
+            <field name="target">new</field>
+        </record>
+
+        <!--<record model="ir.values" id="product_traceability_values">
+            <field name="model_id" ref="mp_traceability.model_account_analytic_journal" />
+            <field name="name">Account Analytic Journal</field>
+            <field name="key2">client_print_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' + str(ref('action_account_analytic_journal'))" />
+            <field name="key">action</field>
+            <field name="model">account.analytic.journal</field>
+        </record>-->
+
+        <!--<menuitem groups="analytic.group_analytic_accounting" id="next_id_40"
+            name="Analytic" parent="account.menu_finance_generic_reporting"
+            sequence="4"/>-->
+        <menuitem action="action_product_traceability"
+                  id="action_product_traceability_print" parent="stock.next_id_61"
+                  icon="STOCK_PRINT"/>
+
+    </data>
+</openerp>

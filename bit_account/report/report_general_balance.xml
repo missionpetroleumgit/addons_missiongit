@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_general_balance">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+            <t t-call="report.internal_layout">
+                <div class="page">
+                	<table class="table table-condensed">
+		                <tr >
+		                    <td align="center"><h4><strong><span t-field="o.company_id.partner_id" t-field-options='{"widget": "contact", "fields": ["name"], "no_marker": true, "no_tag_br": true}'/></strong></h4><span t-field="o.company_id.partner_id" t-field-options='{"widget": "contact", "fields": ["address"], "no_marker": true, "no_tag_br": true}'/></td>
+							<td align="center"><h9><strong>RUC: </strong><span t-esc="o.company_id.partner_id.part_number"/></h9></td>                
+		                    <td align="center"><h5><strong>BALANCE GENERAL</strong></h5></td>
+		                </tr>
+		                <tr >
+		                	<td align="left"><h9><strong><span t-esc="time.strftime('%Y-%m-%d %H:%M:%S')"/></strong></h9></td>
+		                </tr>
+		                <tr >
+		                	<span t-if="data['form']['filter'] == 'filter_no'">
+		                	<td align="right"><h9><strong>Sin filtro</strong></h9></td>
+		                	</span>
+		                </tr>
+		                <tr >
+		                	<span t-if="data['form']['filter'] == 'filter_period'">
+		                	<td align="right"><h9><strong>Mes de <span t-field="period_from"></span></strong><strong>hasta mes de <span t-field="period_to"></span></strong></h9></td>
+		                	</span>
+		                </tr>
+		                <tr >
+		                	<span t-if="data['form']['filter'] == 'filter_date'">
+		                	<td align="right"><h9><strong>Mes de <span t-field="date_from"></span></strong><strong>hasta mes de <span t-field="date_to"></span></strong></h9></td>
+		                	</span>
+		                </tr>
+				    </table>
+                    <!-- <h2 t-esc="data['form']['account_report_id'][1]"/>
+
+                    <div class="row mt32 mb32">
+                        <div class="col-xs-3">
+                            <strong>Chart of Accounts:</strong>
+                            <p t-esc="get_account(data)"/>
+                        </div>
+                        <div class="col-xs-3">
+                            <strong>Ejercicio Fiscal:</strong>
+                            <p t-esc="get_fiscalyear(data)"/>
+                        </div>
+                        <div class="col-xs-3">
+                            <strong>Filter By:</strong>
+                            <p>
+                                <span t-if="data['form']['filter'] == 'filter_no'">Not filtered</span>
+                                <span t-if="data['form']['filter'] == 'filter_period'">Filtered by period</span>
+                                <span t-if="data['form']['filter'] == 'filter_date'">Filtered by date</span>
+                                <p t-if="data['form']['filter'] == 'filter_period'">
+                                    Start Period: <span t-esc="get_start_period(data)"/>
+                                    End Period: <span t-esc="get_end_period(data)"/>
+                                </p>
+                                <p t-if="data['form']['filter'] == 'filter_date'">
+                                    Date from : <span t-esc="formatLang(get_start_date(data), date=True)"/><br />
+                                    Date to : <span t-esc="formatLang(get_end_date(data), date=True)"/>
+                                </p>
+                            </p>
+                        </div>
+                        <div class="col-xs-3">
+                            <strong>Target Moves:</strong>
+                            <p t-esc="get_target_move(data)"/>
+                        </div>
+                    </div> -->
+
+                    <table class="table table-condensed table-bordered" t-if="data['form']['debit_credit'] == 1">
+                        <thead>
+                            <tr>
+                            	<th>Código</th>
+                                <th>Nombre</th>
+                                <th class="text-right">Débito</th>
+                                <th class="text-right">Crédito</th>
+                                <th class="text-right">Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="get_lines(data)" t-as="a">
+                                <t t-if="a['level'] != 0">
+                                    <t t-if="a.get('level') &gt; 3"><t t-set="style" t-value="'font-weight: normal;'"/></t>
+                                    <t t-if="not a.get('level') &gt; 3"><t t-set="style" t-value="'font-weight: bold;'"/></t>
+
+                                    <td>
+                                        <span style="color: white;" t-esc="'..' * a.get('level', 0)"/>
+                                        <span t-att-style="style" t-esc="o.code"/>
+                                    </td>
+                                    <td>
+                                        <span style="color: white;" t-esc="'..' * a.get('level', 0)"/>
+                                        <span t-att-style="style" t-esc="o.name"/>
+                                    </td>
+                                    <td class="text-right" style="white-space: nowrap;">
+                                        <span t-att-style="style" t-esc="formatLang(a.get('debit'), currency_obj=res_company.currency_id)"/>
+                                    </td>
+                                    <td class="text-right" style="white-space: nowrap;">
+                                        <span t-att-style="style" t-esc="formatLang(a.get('credit'), currency_obj=res_company.currency_id)"/>
+                                    </td>
+                                    <td class="text-right" style="white-space: nowrap;">
+                                        <span t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"/>
+                                    </td>
+                                </t>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-condensed" t-if="not data['form']['enable_filter'] and not data['form']['debit_credit']">
+                        <thead>
+                            <tr>
+                            	<th>Código</th>
+                                <th>Nombre</th>
+                                <th class="text-center">Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="get_lines(data)" t-as="a">
+                                <t t-if="a['level'] != 0">
+                                    <t t-if="a.get('level') &gt; 3"><t t-set="style" t-value="'font-weight: normal;'"/></t>
+                                    <t t-if="not a.get('level') &gt; 3"><t t-set="style" t-value="'font-weight: bold;'"/></t>
+
+                                    <td>
+                                        <span style="color: white;" t-esc="'..' * a.get('level', 0)"/>
+                                        <span t-att-style="style" t-esc="o.code"/>
+                                    </td>
+                                    <td>
+                                        <span style="color: white;" t-esc="'..' * a.get('level', 0)"/>
+                                        <span t-att-style="style" t-esc="o.name"/>
+                                    </td>
+                                    <td class="text-right"><span t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"/></td>
+                                </t>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table table-condensed" t-if="data['form']['enable_filter'] == 1 and not data['form']['debit_credit']">
+                        <thead>
+                            <tr>
+                            	<th>Código</th>
+                                <th>Nombre</th>
+                                <th class="text-center">Total</th>
+                                <th class="text-right"><span t-esc="data['form']['label_filter']"/></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="get_lines(data)" t-as="a">
+                                <t t-if="a['level'] != 0">
+                                    <t t-if="a.get('level') &gt; 3"><t t-set="style" t-value="'font-weight: normal;'"/></t>
+                                    <t t-if="not a.get('level') &gt; 3"><t t-set="style" t-value="'font-weight: bold;'"/></t>
+
+                                    <td>
+                                        <span style="color: white;" t-esc="'..' * a.get('level', 0)"/>
+                                        <span t-att-style="style" t-esc="o.code"/>
+                                    </td>
+                                    <td>
+                                        <span style="color: white;" t-esc="'..' * a.get('level', 0)"/>
+                                        <span t-att-style="style" t-esc="o.name"/>
+                                    </td>
+                                    <td class="text-right"><span t-att-style="style" t-esc="formatLang(a.get('balance'), currency_obj=res_company.currency_id)"/></td>
+                                    <td class="text-right"><span t-att-style="style" t-esc="formatLang(a.get('balance_cmp'), currency_obj=res_company.currency_id)"/></td>
+                                </t>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="mrp_manufacturing_orders_inherit_view" model="ir.ui.view">
+            <field name="name">mrp.manufacturing.orders.inherit.view</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <field name="move_lines" position="before">
+                    <field name="type" invisible="1"/>
+                </field>
+                <field name="origin" position="attributes">
+                    <attribute name="string">Referencia / Descripción</attribute>
+                </field>
+                <field name="origin" position="after">
+                    <field name="sale_order_id" domain="[('state', 'not in', ('cancel', 'done'))]"
+                           options="{'no_create':True,'no_open':True }"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="mrp_manufacturing_orders_picking_view" model="ir.ui.view">
+            <field name="name">mrp.manufacturing.orders.picking.view</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page[@string='Extra Information']" position="after">
+<!--                    <page string="Movimientos de Inventario">-->
+<!--                        <field name="picking_ids"/>-->
+<!--                    </page>-->
+                    <page string="Ingreso Cliente">
+                        <field name="customer_pick_ids"/>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_assembly_orders_view" model="ir.actions.act_window">
+            <field name="name">Ensamble</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.production</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="mrp.mrp_production_tree_view"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{'search_default_my_mrp_orders_filter': 1, 'default_type': 'assy'}</field>
+            <field name="domain">[('type', '=', 'assy')]</field>
+            <field name="search_view_id" ref="mrp.view_mrp_production_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a assembly order, the first step.
+                </p><p>
+                Odoo will help you handle efficiently the complete mrp flow:
+                from the manofacturing orders, the
+                process, the final product entrance.
+            </p>
+            </field>
+        </record>
+
+        <menuitem
+                parent="mrp.menu_mrp_manufacturing"
+                id="mission_assembly_orders_menu"
+                action="action_assembly_orders_view"
+                string="Ensamble"
+                sequence="2"/>
+
+        <record id="action_manufacturing_services_orders_view" model="ir.actions.act_window">
+            <field name="name">Manofacturación de Servicios</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.production</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="mrp.mrp_production_tree_view"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{'search_default_my_mrp_orders_filter': 1, 'default_type': 'service'}</field>
+            <field name="domain">[('type', '=', 'service')]</field>
+            <field name="search_view_id" ref="mrp.view_mrp_production_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a assembly order, the first step.
+                </p><p>
+                Odoo will help you handle efficiently the complete mrp flow:
+                from the manofacturing orders, the
+                process, the final product entrance.
+            </p>
+            </field>
+        </record>
+
+        <menuitem
+                parent="mrp.menu_mrp_manufacturing"
+                id="mission_manufacturing_services_orders_menu"
+                action="action_manufacturing_services_orders_view"
+                string="Manofacturación de Servicios"
+                sequence="3"/>
+
+        <record id="action_manufacturing_orders_view" model="ir.actions.act_window">
+            <field name="name">Manofacturación</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">mrp.production</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="mrp.mrp_production_tree_view"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{'search_default_my_mrp_orders_filter': 1, 'default_type': 'mrp'}</field>
+            <field name="domain">[('type', '=', 'mrp')]</field>
+            <field name="search_view_id" ref="mrp.view_mrp_production_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a assembly order, the first step.
+                </p><p>
+                Odoo will help you handle efficiently the complete mrp flow:
+                from the manofacturing orders, the
+                process, the final product entrance.
+            </p>
+            </field>
+        </record>
+
+        <menuitem
+                parent="mrp.menu_mrp_manufacturing"
+                id="mission_manufacturing_orders_menu"
+                action="action_manufacturing_orders_view"
+                string="Manofacturación"
+                sequence="1"/>
+
+
+    </data>
+</openerp>

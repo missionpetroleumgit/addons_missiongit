@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <!-- Receipt - Account voucher -->
+        <record model="ir.ui.view" id="view_bit_voucher_receipt_form">
+            <field name="name">account.voucher.form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_form"/>
+            <field name="arch" type="xml">
+                <field name="state" position='attributes'>
+                    <attribute name="statusbar_visible">draft,posted,reconcile</attribute>
+                </field>
+                <!--Los muevo a o2s_account_advance -->
+                <!--<xpath expr="//field[@name='line_cr_ids']/tree/field[@name='move_line_id']" position="after">-->
+                    <!--<field name="invoice"/>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='line_dr_ids']/tree/field[@name='move_line_id']" position="after">-->
+                    <!--<field name="invoice"/>-->
+                <!--</xpath>-->
+            </field>
+        </record>
+
+        <!-- Payment - Account voucher -->
+        <record model="ir.ui.view" id="view_bit_voucher_payment_form">
+            <field name="name">account.voucher.form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_payment_form"/>
+            <field name="arch" type="xml">
+                <button string="Validate" position='attributes'>
+                    <attribute name="context">{'type': 'payment'}</attribute>
+                </button>
+                <field name="state" position='attributes'>
+                    <attribute name="statusbar_visible">draft,posted,reconcile</attribute>
+                </field>
+                <button name="action_cancel_draft" position='attributes'>
+                    <attribute name="groups">account.group_account_manager</attribute>
+                </button>
+                <field name="journal_id" position="replace">
+                    <field name="journal_id"
+                                domain="[('type','in',['bank', 'cash'])]"
+                                invisible="context.get('line_type', False)"
+                                options="{'no_open': True, 'no_create':True}"
+                                on_change="onchange_journal(journal_id, line_dr_ids, False, partner_id, date, amount, type, company_id, context)"
+                                string="Payment Method"/>
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="check"/>
+                    <field name="benef" attrs="{'invisible':[('check','=',False)]}"/>
+                </field>
+                <field name="journal_id" position="before">
+                        <field name="account_bank_id"
+			   invisible="1"
+                           string="Cuenta Bancaria"/>
+                </field>
+                <field name="journal_id" position="after">
+                    <group col="2" colspan="2">
+                        <field name="is_etransfer"/>
+                        <field name="is_check"/>
+<!--<field name="bank_account_id" domain="[('partner_id', '=', partner_id)]" attrs="{'invisible': [('is_etransfer', '=', False)]}"/>-->
+                        <field name="electronic_transfer_ref" attrs="{'required': [('is_etransfer', '=', True)],'invisible': [('is_etransfer', '=', False)]}"/>
+                        <xpath expr="//form/sheet/field[@name='account_id']" position="replace">
+                            <group attrs="{'invisible':[('journal_id','!=', 5)]}" col="1" colspan="2">
+				<field name="account_id"
+                                       options="{'no_create':True, 'no_open': True}" string="Cuenta"/>
+                            </group>
+                        </xpath>
+                    </group>
+                </field>
+                <field name="name" position='attributes'>
+                    <attribute name="invisible">True</attribute>
+                </field>
+                <!--Los muevo a o2s_account_advance -->
+                <!--<xpath expr="//field[@name='line_cr_ids']/tree/field[@name='move_line_id']" position="after">-->
+                    <!--<field name="invoice"/>-->
+                <!--</xpath>-->
+                <!--<xpath expr="//field[@name='line_dr_ids']/tree/field[@name='move_line_id']" position="after">-->
+                    <!--<field name="invoice"/>-->
+                <!--</xpath>-->
+                <field name="journal_id" position="attributes">
+                    <attribute name="domain">[('company_id','=',company_id)]</attribute>
+                </field>
+                <field name="name" position="before">
+                    <field name="check_book_id" attrs="{'required':[('is_etransfer','=',False),('is_check','=',True)],'invisible':[('is_check','=',False)]}"/>
+                </field>
+
+            </field>
+        </record>
+
+
+        <!-- Inherit - Register Payment Form (old Pay Invoice wizard) -->
+        <record model="ir.ui.view" id="view_bit_vendor_receipt_dialog_form">
+            <field name="name">account.voucher.form</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_dialog_form"/>
+            <field name="arch" type="xml">
+                <field name="journal_id" position="before">
+                    <field name="account_bank_id" required='1' domain="[('employee_id', '=', 1)]"/>
+                </field>
+                <field name="name" position="before">
+                    <field name="check_book_id" domain="[('company_id', '=', company_id)]"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_bit_rec_voucher_filter" model="ir.ui.view">
+            <field name="name">account.voucher.select</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_voucher_filter_customer_pay"/>
+            <field name="arch" type="xml">
+                <filter string="Posted" position='replace' >
+                    <filter icon="terp-camera_test" string="Posted" name="posted"
+                            domain="[('state','=','posted')]" help="Posted Vouchers"/>
+                    <filter icon="terp-camera_test" string="Reconcile" name="reconcile"
+                            domain="[('state','=','reconcile')]" help="Posted Vouchers"/>
+                </filter>
+            </field>
+        </record>
+
+        <record id="view_bit_pay_voucher_filter" model="ir.ui.view">
+            <field name="name">account.voucher.select</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_voucher_filter_vendor_pay"/>
+            <field name="arch" type="xml">
+                <filter string="Posted" position='replace' >
+                    <filter icon="terp-camera_test" string="Posted" name="posted"
+                            domain="[('state','=','posted')]" help="Posted Vouchers"/>
+                    <filter icon="terp-camera_test" string="Reconcile" name="reconcile"
+                            domain="[('state','=','reconcile')]" help="Posted Vouchers"/>
+                </filter>
+            </field>
+        </record>
+
+        <record id="account_voucher.action_vendor_payment" model="ir.actions.act_window">
+            <field name="name">Supplier Payments</field>
+            <field name="res_model">account.voucher</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('journal_id.type', 'in', ['bank', 'cash']), ('type','=','payment')]</field>
+            <field name="context">{'type':'payment', 'search_default_posted':1}</field>
+            <field name="view_id" eval="False"/>
+            <field name="search_view_id" ref="account_voucher.view_voucher_filter_vendor_pay"/>
+            <field name="target">current</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a new supplier payment.
+                </p><p>
+                Odoo helps you easily track payments you make and the remaining balances you need to pay your suppliers.
+            </p>
+            </field>
+        </record>
+
+        <record id="account_voucher.action_vendor_receipt" model="ir.actions.act_window">
+            <field name="name">Customer Payments</field>
+            <field name="res_model">account.voucher</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('journal_id.type', 'in', ['bank', 'cash']), ('type','=','receipt')]</field>
+            <field name="context">{'type':'receipt', 'search_default_posted':1}</field>
+            <field name="search_view_id" ref="account_voucher.view_voucher_filter_customer_pay"/>
+            <field name="view_id" eval="False"/>
+            <field name="target">current</field>
+        </record>
+
+        <!-- Analytic account -->
+        <!--<record id="view_account_analytic_extra_inherit" model="ir.ui.view">-->
+        <!--<field name="name">account.analytic.analytic.inherit</field>-->
+        <!--<field name="model">account.analytic.account</field>-->
+        <!--<field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>-->
+        <!--<field name="arch" type="xml">-->
+        <!--<data>-->
+        <!--<xpath expr="//field[@name='manager_id']" position="after">                        -->
+        <!--<field name="type_account"/>                                    -->
+        <!--</xpath>-->
+        <!--</data>-->
+        <!--</field>-->
+        <!--</record>-->
+
+        <record id="view_voucher_filter_vendor_pay2" model="ir.ui.view">
+            <field name="name">account.voucher.purchase.pay2.select</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_voucher_filter_vendor_pay"/>
+            <field name="arch" type="xml">
+                <filter string="Status" position="after">
+                    <filter string="Trans. Elect." icon="terp-stock_effects-object-colorize" domain="[('is_etransfer','=',True)]" context="{'group_by':'is_etransfer'}"/>
+                    <filter string="Fecha" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'date'}"/>
+                </filter>
+            </field>
+        </record>
+
+        <!--
+  CSV:10-10-2016:Accounts Voucher Aumento Check para reporte agrupado
+-->
+        <!--<record id="view_account_voucher_form_add_acheck_report" model="ir.ui.view">-->
+        <!--<field name="name">Account Voucher - Add check report on form</field>-->
+        <!--<field name="model">account.voucher</field>-->
+        <!--<field name="inherit_id" ref="account_voucher.view_vendor_receipt_form"/>-->
+        <!--<field name="arch" type="xml">-->
+        <!--<field name="name" position="after">-->
+        <!--<field name="is_group" />-->
+        <!--</field>-->
+        <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="view_account_voucher_form_add_sup_check_report" model="ir.ui.view">-->
+        <!--<field name="name">Account Voucher - Add check report suplier on form</field>-->
+        <!--<field name="model">account.voucher</field>-->
+        <!--<field name="inherit_id" ref="account_voucher.view_vendor_payment_form"/>-->
+        <!--<field name="arch" type="xml">-->
+        <!--<field name="name" position="after">-->
+        <!--<field name="is_group" />-->
+        <!--</field>-->
+        <!--</field>-->
+        <!--</record>-->
+    </data>
+</openerp>

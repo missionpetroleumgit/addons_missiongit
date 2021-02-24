@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_importation">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <table style="width:100%;">
+                            <tr>
+                                <td>
+                                    <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="max-height:120px"/>
+                                </td>
+                            </tr>
+                            <table>
+                                <div class="row zero_min_height" style="width: 100%;">
+                                    <div class="col-xs-12">
+                                        <div style="border-bottom: 9px solid white;"/>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div style="border-bottom: 9px solid white;"/>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div style="border-bottom: 5px solid black;"/>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div style="border-bottom: 14px solid black;"/>
+                                    </div>
+                                    <tr>
+                                        <td>
+                                            <div style="border-bottom: 1px solid white;"/>
+                                        </td>
+                                    </tr>
+                                </div>
+                                <t t-if="o.state in ('done')">
+                                    <div style="position:absolute;left:700;top:65px;font-size: 14">
+                                        <strong>Código:  </strong><span>F05-INT/002-03</span>
+                                    </div>
+                                    <div style="position:absolute;left:700;top:85px;font-size: 14">
+                                        <strong>Revisión:  </strong><span>03</span>
+                                    </div>
+                                    <div style="position:absolute;left:700;top:105px;font-size: 14">
+                                        <strong>Emisión:  </strong><span>01/09/2018</span>
+                                    </div>
+                                </t>
+                            </table>
+                            <tr>
+                                <strong><h4 style="text-align: center;">
+                                    <span style="color:white !important">--</span>
+                                </h4></strong>
+                            </tr>
+                            <div style="position:absolute;left:17;top:139px;font-size: 12">
+                                <span style="color:white !important"><strong>www.mission-petroleum.com </strong></span>
+                            </div>
+                            <div style="position:absolute;left:10;top:160px;font-size: 13">
+                                TAX ID: <span t-field="res_company.partner_id.part_number"/>
+                            </div>
+                            <div style="position:absolute;left:10;top:180px;font-size: 13">
+                                ADDRESS: <span t-field="res_company.street"/> <span t-field="res_company.street2"/>
+                            </div>
+                            <div style="position:absolute;left:10;top:200px;font-size: 13">
+                                PHONE: <span t-field="res_company.phone"/>
+                            </div>
+                            <div style="position:absolute;left:10;top:220px;font-size: 13">
+                                COUNTRY: <span t-field="res_company.country_id.name"/>
+                            </div>
+                            <div class="col-xs-12">
+                                <p style="color:white !important">_____</p>
+                            </div>
+                            <div class="col-xs-12">
+                                <p style="color:white !important">_____</p>
+                            </div>
+                        </table>
+                        <div class="table">
+                            <tr>
+                                <strong><h3 style="text-align: center;">PURCHASE ORDER N°:<br/>
+                                </h3></strong>
+                            </tr>
+                        </div>
+                        <tr>
+                            <strong><h3 style="text-align: center;">
+                                <strong><span style="color:darkred !important" t-field="o.name"/></strong>
+                            </h3></strong>
+                        </tr>
+                        <table class="table table-condensed table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td><strong><span style="font-size: 14px">SUPPLIER: </span></strong><span style="font-size: 11px" t-field="o.partner_id.name"/></td>
+                                    <td><strong><span style="font-size: 14px">DATE: </span></strong><span style="font-size: 11px" t-field="o.date_order"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong><span style="font-size: 14px">ATT'N: </span></strong><span style="font-size: 11px" t-field="o.attn"/></td>
+                                    <td><strong><span style="font-size: 14px">FROM: </span></strong><span style="font-size: 11px" t-field="o.register_id.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong><span style="font-size: 14px">REQUIRED DATE: </span></strong><span style="font-size: 11px" t-field="o.date_order"/></td>
+                                    <td><strong><span style="font-size: 14px">REFERENCE: </span></strong><span style="font-size: 11px" t-field="o.name"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong><span style="font-size: 14px">CC:  </span></strong><span style="font-size: 11px" t-field="o.with_copy"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-condensed table-bordered">
+                            <thead>
+                                <tr>
+                                    <th><span style="font-size: 11px">ITEM</span></th>
+                                    <th><span style="font-size: 11px">CODE</span></th>
+                                    <th><span style="font-size: 11px">PART No.</span></th>
+                                    <th><span style="font-size: 11px">DESCRIPTION</span></th>
+                                    <th><span style="font-size: 11px">UNIT PRICE</span></th>
+                                    <th><span style="font-size: 11px">SUBTOTAL</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="o.order_lines" t-as="l">
+                                    <td align="left"><span/></td>
+                                    <td align="center"><span style="font-size: 11px" t-esc="l['product_qty']"/></td>
+                                    <td align="left"><span style="font-size: 11px" t-esc="l.product_id.default_code"/></td>
+                                    <td align="left"><span style="font-size: 11px" t-esc="l.product_id.name"/></td>
+                                    <td align="center"><span style="font-size: 11px" t-esc="l['price_unit']"/></td>
+                                    <td align="center"><span style="font-size: 11px" t-esc="l['subtotal_importation']"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-condensed">
+                            <tbody>
+                                <tr>
+                                    <th class="col-xs-2">
+                                        <span style="position:absolute;left:550;"><strong>TOTAL : </strong></span><span style="position:absolute;left:845;" t-esc="round(o.amount_total,2)"/>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-condensed table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td><strong>REMARKS: </strong><span style="font-size: 11px" t-field="o.comment"/></td>
+                                </tr>
+
+                                <br/>
+                                <br/>
+                                <br/>
+                            </tbody>
+
+                        </table>
+                        <div class="row mt32 mb32">
+                            <div style="width: 30%;margin: 1%;float: left;text-align: center;white-space:nowrap;overflow: hidden;font-size: 12">
+                                <t t-if="o.state in ('done')">
+                                    <img t-if="res_company.importation_sig" t-att-src="'data:image/png;base64,%s' % res_company.importation_sig" style="max-height:120px"/>
+                                </t>
+                                <p>________________________</p>
+                                <p>SUPPLY CHAIN MANAGER</p>
+                                <p>CARLOS CACERES</p>
+                            </div>
+                            <div style="width: 30%;margin: 1%;float: left;text-align: center;white-space:nowrap;overflow: hidden;font-size: 12">
+                                <t t-if="o.state in ('done')">
+                                    <img t-if="res_company.manager_sig" t-att-src="'data:image/png;base64,%s' % res_company.manager_sig" style="max-height:120px"/>
+                                </t>
+                                <p>________________________</p>
+                                <p>COMERCIAL MANAGER</p>
+                                <p>ALEJANDRO AÑAZCO</p>
+
+                            </div>
+                            <div style="width: 30%;margin: 1%;float: left;text-align: center;white-space:nowrap;overflow: hidden;font-size: 12">
+                                <t t-if="o.state in ('done')">
+                                    <t t-if="o.user_id.login=='marcelo_carvajal'">
+                                        <img t-if="res_company.op_manager_sig" t-att-src="'data:image/png;base64,%s' % res_company.op_manager_sig" style="max-height:120px"/>
+                                    </t>
+                                    <t t-if="o.user_id.login=='alejandro_anazco'">
+                                        <img t-if="res_company.manager_sig" t-att-src="'data:image/png;base64,%s' % res_company.manager_sig" style="max-height:120px"/>
+                                    </t>
+                                </t>
+                                <p>________________________</p>
+                                <p>CONTROLER</p>
+                                <p>MARCELO CARVAJAL</p>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>
+

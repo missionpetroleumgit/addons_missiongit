@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_payslip_liquidation">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div style="position:absolute;top:0px;width:98%;">
+                            <table class="table table-condensed table-bordered">
+                                <tr >
+                                    <td colspan="2" align="center"><strong><h3>DETALLE DE LA LIQUIDACION</h3></strong></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="position:absolute;top:50px;width:98%;">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <td><strong>EMPLEADO</strong></td>
+                                        <td><span t-field="o.employee_id"/></td>
+                                        <td><strong>CEDULA</strong></td>
+                                        <td><span t-field="o.employee_id.identification_id"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>CARGO</strong></td>
+                                        <td><span t-field="o.employee_id.job_id"/></td>
+                                        <td><strong>INICIO CONTRATO</strong></td>
+                                        <td><span t-field="o.contract_id.date_start"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>PROYECTO(S)</strong></td>
+                                        <td><span t-esc="get_proy(o)"/></td>
+                                        <td><strong>SUCURSAL</strong></td>
+                                        <td><span t-field="o.employee_id.region"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>CAUSA TERMINACION</strong></td>
+                                        <td><span t-field="o.employee_id.job_id"/></td>
+                                        <td><strong>FECHA SALIDA</strong></td>
+                                        <td><span t-field="o.contract_id.date_end"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>SUELDO MENSUAL</strong></td>
+                                        <td><span t-field="o.contract_id.wage"/></td>
+                                        <td><strong>ULTIMO SUELDO (IMPONIBLE)</strong></td>
+                                        <td><span t-field="o.employee_id.bank_account_id.acc_number"/></td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><strong>ULTIMA REMUNERACION COMPLETA</strong></td>
+                                        <td><span t-field="o.contract_id.wage"/></td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div style="position:absolute;top:380px;width:98%;">
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td></td>
+                                    <td class="text-justify"><h3>
+                                        Se procede a liquidar en forma pormenorizada los valores a los cuales tiene
+                                        derecho el Ex-Trabajador y cuyo resultado es el que a continuación se detalla:
+                                        </h3>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div style="position:absolute;top:480px;width:98%;">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th align="center"><strong><h4>Concepto</h4></strong></th>
+                                        <th align="center"><strong><h4>Código</h4></strong></th>
+                                        <th align="right"><strong><h4>Valor</h4></strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="o.details_by_salary_rule_category" t-as="d">
+                                        <td><h4><span t-field="d.name"/></h4></td>
+                                        <td><h4><span t-field="d.category_id.code"/></h4></td>
+                                        <td align="right"><h4><span t-field="d.total"/></h4></td>
+                                    </tr>
+                                    <t t-if="o.details_by_salary_rule_category">
+                                        <tr>
+                                            <td colspan="2"><h3>TOTAL</h3></td>
+                                            <td><h3><span t-esc="get_total(o)"/></h3></td>
+                                        </tr>
+                                    </t>
+
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div style="position:absolute;top:1100px;width:98%;">
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td></td>
+                                    <td class="text-justify">
+                                        <td colspan="2" align="center"><strong><h3>DETALLE DÉCIMO TERCERO</h3></strong></td>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="position:absolute;top:1150px;width:98%;">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th align="center"><strong>Inicio</strong></th>
+                                        <!--<th align="center"><strong>Fin</strong></th>-->
+                                        <th align="center"><strong>Valor</strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="get_third_detail(o)" t-as="line">
+                                        <td class="text-right"><span t-esc="line['date_from']"/></td>
+                                        <!--<td class="text-right"><span t-esc="line['date_to']"/></td>-->
+                                        <td align="right"><span t-esc="line['amount']"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total</strong></td>
+                                        <td align="right"><span t-esc="return_totals()[0]"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div style="position:absolute;top:1680px;width:98%;">
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td></td>
+                                    <td class="text-justify">
+                                        <td colspan="2" align="center"><strong><h3>DETALLE DÉCIMO CUARTO</h3></strong></td>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div style="position:absolute;top:1720px;width:98%;">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th align="center"><strong>Inicio</strong></th>
+                                        <!--<th align="center"><strong>Fin</strong></th>-->
+                                        <th align="center"><strong>Valor</strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="get_four_detail(o)" t-as="line">
+                                        <td class="text-right"><span t-esc="line['date_from']"/></td>
+                                        <!--<td class="text-right"><span t-esc="line['date_to']"/></td>-->
+                                        <td align="right"><span t-esc="line['amount']"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total</strong></td>
+                                        <td align="right"><span t-esc="return_totals()[1]"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="position:absolute;top:2211px;width:98%;">
+                            <table class="table table-condensed">
+                                <tr>
+                                    <td></td>
+                                    <td class="text-justify">
+                                        <td colspan="2" align="center"><strong><h3>DETALLE VACACIONES</h3></strong></td>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+
+                        <div style="position:absolute;top:2251;width:98%;">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th align="center"><strong>Inicio</strong></th>
+                                        <!--<th align="center"><strong>Fin</strong></th>-->
+                                        <th align="center"><strong>Valor</strong></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="get_vacation_detail(o)" t-as="line">
+                                        <td class="text-right"><span t-esc="line['date_from']"/></td>
+                                        <!--<td class="text-right"><span t-esc="line['date_to']"/></td>-->
+                                        <td align="right"><span t-esc="line['amount']"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total</strong></td>
+                                        <td align="right"><span t-esc="return_totals()[2]"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

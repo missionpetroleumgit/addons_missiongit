@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+  <data>
+  
+	  <record id="view_contract_add_cc_form" model="ir.ui.view">
+	      <field name="name">hr.contract.add.cc</field>
+	      <field name="model">hr.contract</field>
+	      <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+	      <field name="arch" type="xml">
+	      <notebook position="inside">
+			<page string="Centro de Costos">
+					<field name="contract_analytic_ids" nolabel="1" colspan="4">
+						<tree editable="bottom">
+							<field name="account_analytic_id"/>
+							<field name="rate" sum="Total"/>
+						</tree>
+					</field>
+			</page>
+	      </notebook>
+	      </field>
+	  </record>	  
+	   
+  </data>
+</openerp>

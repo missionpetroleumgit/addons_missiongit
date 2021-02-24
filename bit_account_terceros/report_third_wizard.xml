@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="third_wizard" model="ir.ui.view">
+			<field name="name">Reporte de Terceros</field>
+			<field name="model">third.report</field>
+			<field name="arch" type="xml">
+				<form string="Reporte de Terceros">
+                    <group col="4" colspan="4">
+                        <field name="account_id"/>
+                        <field name="fiscalyear_id" onchange="onchange_fiscalyear(fiscalyear_id)"/>
+                        <field name="period_from" attrs="{'readonly': [('fiscalyear_id','=',False)]}"/>
+                        <field name="period_to" attrs="{'readonly': [('fiscalyear_id','=',False)]}"/>
+                        <field name="target_move" invisible="1"/>
+                        <field name="display_account" invisible="1"/>
+                        <field name="chart_account_id" invisible="1"/>
+                    </group>
+                    <group>
+                        <field name="partner_ids" nolabel="1">
+                            <tree create="0" delete="0">
+                                <field name="name"/>
+                                <field name="part_type"/>
+                                <field name="part_number"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="check_report" type="object" string="Generar"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_third_wizard" model="ir.actions.act_window">
+            <field name="name">Reporte de Terceros</field>
+            <field name="res_model">third.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+
+        <menuitem action="action_third_wizard" id="menu_action_third_wizard" parent="account.final_accounting_reports"/>
+
+	</data>
+</openerp>

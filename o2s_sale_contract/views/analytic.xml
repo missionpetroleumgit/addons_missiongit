@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="account_analytic_account_contract_form" model="ir.ui.view">
+			<field name="name">account.analytic.account.contract.form</field>
+			<field name="model">account.analytic.account</field>
+			<field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+			<field name="arch" type="xml">
+                <!--<field name="use_tasks" position="attributes">-->
+                    <!--<attribute name="invisible">1</attribute>-->
+                <!--</field>-->
+                <field name="template_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="manager_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="partner_id" position="attributes">
+                    <attribute name="attrs">{'required':[('type','=','contract')]}</attribute>
+                </field>
+
+                <field name="parent_id" position="attributes">
+                    <attribute name="attrs">{'invisible':[('type','=','contract')]}</attribute>
+                    <attribute name="domain">[('type','=','contract')]</attribute>
+                    <attribute name="string">Contrato</attribute>
+                </field>
+                <field name="partner_id" position="after">
+                    <field name="pricelist_id" attrs="{'required':[('type','=','contract')]}"/>
+                </field>
+                <notebook position="inside">
+                    <page string="Proyectos" attrs="{'invisible':[('type','!=','contract')]}">
+                        <field name="child_ids" context="{'type':'view'}">
+                            <tree string="Proyectos" editable="top">
+                                <field name="name" string="Nombre del Proyecto"/>
+                                <field name="type"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </field>
+		</record>
+
+        <!--<record id="account_analytic_account_contract_form2" model="ir.ui.view">-->
+			<!--<field name="name">account.analytic.account.contract.form</field>-->
+			<!--<field name="model">account.analytic.account</field>-->
+			<!--<field name="inherit_id" ref="project.analytic_account_inherited_form"/>-->
+			<!--<field name="arch" type="xml">-->
+                <!--<field name="use_tasks" position="attributes">-->
+                    <!--<attribute name="invisible">1</attribute>-->
+                <!--</field>-->
+            <!--</field>-->
+		<!--</record>-->
+
+        <record id="action_account_analytic_account_contract_form" model="ir.actions.act_window">
+            <field name="name">Contratos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.analytic.account</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('type','=','contract')]</field>
+            <field name="context">{'type': 'contract','readonly_by_pass': True}</field>
+            <!--<field name="search_view_id" ref="view_res_partner_filter"/>-->
+        </record>
+
+        <menuitem id="menu_action_account_analytic_account_contract_form" parent="base.menu_base_config" action="action_account_analytic_account_contract_form" sequence="1"/>
+
+
+        <record id="tree_service_project" model="ir.ui.view">
+            <field name="name">Proyecto</field>
+			<field name="model">account.analytic.account</field>
+			<field name="arch" type="xml">
+                <tree string="Proyectos">
+                    <field name="name" string="Proyecto"/>
+                    <field name="parent_id" string="Contrato"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_account_analytic_account_project_form" model="ir.actions.act_window">
+            <field name="name">Proyectos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.analytic.account</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="tree_service_project"/>
+            <field name="domain">[('type','=','view')]</field>
+            <field name="context">{'type': 'view','readonly_by_pass': True}</field>
+        </record>
+
+        <menuitem id="project_menu" parent="base.menu_base_config"
+            sequence="2" action="action_account_analytic_account_project_form"/>
+    </data>
+</openerp>

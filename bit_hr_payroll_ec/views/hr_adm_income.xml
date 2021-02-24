@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        <!-- 
+        ===================================================================
+       Administracion de Ingresos
+        ===================================================================
+         -->
+        <record id="hr_adm_income_search_view" model="ir.ui.view">
+            <field name="name">hr.adm.incomes.search</field>
+            <field name="model">hr.adm.incomes</field>
+            <field name="arch" type="xml">
+                <search string=" Administracion de Ingresos">
+                    <field name="name"/>
+                    <field name="code"/>
+                </search>
+            </field>
+        </record>
+        
+        <record id="hr_adm_income_form_view" model="ir.ui.view">
+            <field name="name">hr.adm.incomes.form</field>
+            <field name="model">hr.adm.incomes</field>
+            <field name="arch" type="xml">
+            <form string=" Administracion de Ingresos" version="7.0">
+            <sheet>
+            <group string="Registro">
+            	<group>
+	            	<field name="name"/>
+                    <field name="code"/>
+                    <field name="payroll_label"/>
+                    <field name="default_value"/>
+                    <field name="orden"/>
+            	</group>
+			</group>
+            </sheet>
+            </form>
+            </field>
+        </record>
+        
+        <record id="hr_adm_income_tree_view" model="ir.ui.view">
+            <field name="name">hr.adm.incomes.tree</field>
+            <field name="model">hr.adm.incomes</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <tree string="Gestión de Documentos" >
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_hr_adm_income" model="ir.actions.act_window">
+            <field name="name">Administracion de Ingresos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.adm.incomes</field>
+            <field name="context">{}</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="hr_adm_income_search_view"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para registrar un nuevo Ingreso.
+              </p>
+            </field>
+        </record>
+        
+        <!-- 
+        ===================================================================
+       Registro de Ingresos
+        ===================================================================
+         -->
+			<record id="hr_income_view" model="ir.ui.view">
+			    <field name="name">hr.income.search</field>
+			    <field name="model">hr.income</field>
+			    <field name="arch" type="xml">
+			        <search string="Ingresos">
+			            <field name="adm_id"/>
+			            <field name="employee_id"/>
+			            <filter string="Enero" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-01-31')),('date','&gt;=',time.strftime('%%Y-01-01'))]"/>
+			            <filter string="Febrero" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-02-28')),('date','&gt;=',time.strftime('%%Y-02-01'))]"/>
+			            <filter string="Marzo" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-03-31')),('date','&gt;=',time.strftime('%%Y-03-01'))]"/>
+			            <filter string="Abril" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-04-30')),('date','&gt;=',time.strftime('%%Y-04-01'))]"/>
+			            <filter string="Mayo" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-05-31')),('date','&gt;=',time.strftime('%%Y-05-01'))]"/>
+			            <filter string="Junio" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-06-30')),('date','&gt;=',time.strftime('%%Y-06-01'))]"/>
+			            <filter string="Julio" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-07-31')),('date','&gt;=',time.strftime('%%Y-07-01'))]"/>
+			            <filter string="Agosto" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-08-31')),('date','&gt;=',time.strftime('%%Y-08-01'))]"/>
+			            <filter string="Septiembre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-09-30')),('date','&gt;=',time.strftime('%%Y-09-01'))]"/>
+			            <filter string="Octubre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-10-31')),('date','&gt;=',time.strftime('%%Y-10-01'))]"/>
+			            <filter string="Noviembre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-11-30')),('date','&gt;=',time.strftime('%%Y-11-01'))]"/>
+			            <filter string="Diciembre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-12-31')),('date','&gt;=',time.strftime('%%Y-12-01'))]"/>
+			            
+			            <separator/>
+			            
+			            <filter string="Ingresos Fijos" domain="[('fijo','=','True')]"/>
+                        <group expand="0" string="Agrupar por" groups="base.group_multi_company">
+                            <filter string="Compañia" context="{'group_by': 'company_id'}"/>
+                        </group>
+			            
+			        </search>
+			    </field>
+			</record>
+         
+        <record model="ir.ui.view" id="view_hr_income_form">
+            <field name="name">hr.income.view.form</field>
+            <field name="model">hr.income</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Ingresos de Empleado">
+                    <group string="Ingresos de Empleado">
+                        <field name="adm_id" required="1" select="1" attrs="{'readonly':[('state','=','procesado')]}" />
+                        <field name="company_id" groups="base.group_multi_company" widget="selection" string="Compañía"/>
+                        <field name="employee_id" required="1" select="1" attrs="{'readonly':[('state','=','procesado')]}"
+                               domain="[('state_emp', 'in', ('active', 'sold_out')), ('company_id','=',company_id)]"/>
+                        <field name="value" required="1" attrs="{'readonly':[('fijo','=',False),('state','=','procesado')]}"/>
+                        <field name="fijo" on_change="on_change_value(fijo)"/>
+                        <field name="comment" attrs="{'readonly':[('state','=','procesado')]}"/>
+                        <field name="date" attrs="{'readonly':[('state','=','procesado')]}" />
+                        <field name="state"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+          <record model="ir.ui.view" id="view_hr_income_tree">
+            <field name="name">hr.income.view.tree</field>
+            <field name="model">hr.income</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Ingresos de Empleado" >
+                    <field name="employee_id" select="1" />
+                    <field name="name" invisible="1" />
+                    <field name="adm_id" select="1" />
+                    <field name="value" sum="Total"/>
+                    <field name="date" />
+                    <field name="fijo" />
+                </tree>
+            </field>
+        </record>
+        <record id="action_hr_income" model="ir.actions.act_window">
+            <field name="name">Ingresos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.income</field>
+            <field name="context">{}</field>
+            <field name="domain">[('adm_id.name', 'not ilike', 'H.%')]</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="hr_income_view"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para registrar un nuevo Ingreso.
+              </p>
+               </field>
+        </record>
+        
+        <record id="action_hr_income_tree_view" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_hr_income_tree"/>
+            <field name="act_window_id" ref="action_hr_income"/>
+        </record>
+        
+        <record id="action_hr_income_form_view" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="context">{}</field>
+            <field name="view_id" ref="view_hr_income_form"/>
+            <field name="act_window_id" ref="action_hr_income"/>
+        </record>
+
+        <!-- 
+        ===================================================================
+       Registro de HORAS EXTRAS
+        ===================================================================
+         -->
+			<record id="hr_income_hen_view" model="ir.ui.view">
+			    <field name="name">hr.income.hen.search</field>
+			    <field name="model">hr.income</field>
+			    <field name="arch" type="xml">
+			        <search string="Horas">
+			            <field name="adm_id"/>
+			            <field name="employee_id"/>
+			            <field name="adm_id"/>
+			            <filter string="Enero" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-01-31')),('date','&gt;=',time.strftime('%%Y-01-01'))]"/>
+			            <filter string="Febrero" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-02-28')),('date','&gt;=',time.strftime('%%Y-02-01'))]"/>
+			            <filter string="Marzo" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-03-31')),('date','&gt;=',time.strftime('%%Y-03-01'))]"/>
+			            <filter string="Abril" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-04-30')),('date','&gt;=',time.strftime('%%Y-04-01'))]"/>
+			            <filter string="Mayo" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-05-31')),('date','&gt;=',time.strftime('%%Y-05-01'))]"/>
+			            <filter string="Junio" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-06-30')),('date','&gt;=',time.strftime('%%Y-06-01'))]"/>
+			            <filter string="Julio" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-07-31')),('date','&gt;=',time.strftime('%%Y-07-01'))]"/>
+			            <filter string="Agosto" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-08-31')),('date','&gt;=',time.strftime('%%Y-08-01'))]"/>
+			            <filter string="Septiembre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-09-30')),('date','&gt;=',time.strftime('%%Y-09-01'))]"/>
+			            <filter string="Octubre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-10-31')),('date','&gt;=',time.strftime('%%Y-10-01'))]"/>
+			            <filter string="Noviembre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-11-30')),('date','&gt;=',time.strftime('%%Y-11-01'))]"/>
+			            <filter string="Diciembre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-12-31')),('date','&gt;=',time.strftime('%%Y-12-01'))]"/>
+			            <separator/>
+			        </search>
+			    </field>
+			</record>
+         
+        <record model="ir.ui.view" id="view_hr_income_hen_form">
+            <field name="name">hr.income.hen.view.form</field>
+            <field name="model">hr.income</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Horas Extras">
+                    <group string="Horas Extras">
+                        <field name="adm_id" required="1" select="1" domain="[('name','ilike','H.%')]" attrs="{'readonly':[('state','=','procesado')]}" />
+                        <field name="employee_id" required="1" select="1" attrs="{'readonly':[('state','=','procesado')]}" domain="[('state_emp', '=', 'active')]"/>
+                        <field name="h_registro"/>
+                        <field name="horas" on_change="onchange_calcula_valor(adm_id,employee_id, horas)" attrs="{'invisible':[('h_registro','=',False)],'required':[('h_registro','=',True)]}"/>
+                        <field name="value" required="1" attrs="{'readonly':[('state','=','procesado')]}"/>
+                        <field name="comment" attrs="{'readonly':[('state','=','procesado')]}"/>
+                        <field name="date" attrs="{'readonly':[('state','=','procesado')]}" />
+                        <field name="state"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+          <record model="ir.ui.view" id="view_hr_income_hen_tree">
+            <field name="name">hr.income.view.hen.tree</field>
+            <field name="model">hr.income</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Horas Extras" >
+                    <field name="employee_id" select="1" />
+                    <field name="name" invisible="1" />
+                    <field name="adm_id" select="1" />
+                    <field name="value" sum="Total"/>
+                    <field name="date" />
+                </tree>
+            </field>
+        </record>
+        <record id="action_hr_income_hen" model="ir.actions.act_window">
+            <field name="name">Horas Extras</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.income</field>
+            <field name="context">{}</field>
+            <field name="domain">[('adm_id.name', 'ilike', 'H.%')]</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="hr_income_view"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para registrar un nuevo Ingreso.
+              </p>
+               </field>
+        </record>
+       
+	</data>
+</openerp>

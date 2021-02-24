@@ -1,0 +1,1217 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="search_product_detail_ticke" model="ir.ui.view">
+            <field name="name">search.product.detail.ticke</field>
+            <field name="model">product.detail.ticke</field>
+            <field name="arch" type="xml">
+                <search string="Buscar">
+                    <field name="name" string="Nombre"/>
+                    <field name="code" string="Código"/>
+                    <field name="observation" string="Observación"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter string="Nombre" context="{'group_by':'name'}"/>
+                        <filter string="Código" context="{'group_by':'code'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="search_service_block_view" model="ir.ui.view">
+            <field name="name">service.block.filter</field>
+            <field name="model">service.block</field>
+            <field name="arch" type="xml">
+                <search string="Buscar">
+                    <field name="name"/>
+                    <field name="block_field_id"/>
+                    <field name="block_operator"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter string="Nombre" context="{'group_by':'name'}"/>
+                        <filter string="Bloque" context="{'group_by':'block_field_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="tree_service_block_view" model="ir.ui.view">
+            <field name="name">Service Field Tree</field>
+            <field name="model">service.block</field>
+            <field name="arch" type="xml">
+                <tree string="Bloques">
+                    <field name="block_field_id"/>
+                    <field name="name"/>
+                    <field name="block_operator"/>
+                    <field name="field_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="form_service_block_form_view" model="ir.ui.view">
+            <field name="name">form.service.block.form.view</field>
+            <field name="model">service.block</field>
+            <field name="arch" type="xml">
+                <form string="Bloques">
+                    <group col="2" colspan="2">
+                        <field name="block_field_id" required="1"/>
+                        <field name="name"/>
+                        <field name="block_operator" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Campos">
+                            <field name="field_ids" context="{'default_block_field_id': block_field_id}">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="block_field_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <!--service block field-->
+
+        <record id="search_service_block_field_view" model="ir.ui.view">
+            <field name="name">service.block.field.filter</field>
+            <field name="model">service.block.field</field>
+            <field name="arch" type="xml">
+                <search string="Buscar">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="operator"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter string="Nombre" context="{'group_by':'name'}"/>
+                        <filter string="Bloque" context="{'group_by':'description'}"/>
+                        <filter string="Operadora" context="{'group_by':'operator'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="tree_service_block_field_view" model="ir.ui.view">
+            <field name="name">Service Field field Tree</field>
+            <field name="model">service.block.field</field>
+            <field name="arch" type="xml">
+                <tree string="Bloques">
+                    <field name="description"/>
+                    <field name="name"/>
+                    <field name="operator"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="form_service_block_field_form_view" model="ir.ui.view">
+            <field name="name">form.service.block.field.form.view</field>
+            <field name="model">service.block.field</field>
+            <field name="arch" type="xml">
+                <form string="Bloques">
+                    <group col="2" colspan="2">
+                        <field name="description"/>
+                        <field name="name"/>
+                        <field name="operator"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+
+
+
+        <record id="tree_service_well" model="ir.ui.view">
+            <field name="name">Service Well Tree</field>
+            <field name="model">service.well</field>
+            <field name="arch" type="xml">
+                <tree string="Campos / Pozos">
+                    <field name="field_id"/>
+                    <field name="well_line_ids"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="service_well_form_view" model="ir.ui.view">
+            <field name="name">service.well.form.view</field>
+            <field name="model">service.well</field>
+            <field name="arch" type="xml">
+                <form string="Campo">
+                    <group col="2" colspan="2">
+                        <field name="field_id" required="1" options="{'no_create':True}"/>
+                        <field name="name" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Pozos">
+                            <field name="well_line_ids" context="{'default_field_id': field_id}">
+                                <tree editable="bottom">
+                                    <field name="name" required="1"/>
+                                    <field name="well_type" string="Tipo"/>
+                                    <field name="field_id" invisible="1"/>
+                                    <field name="rig_ids" widget="many2many_tags"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="tree_service_rig" model="ir.ui.view">
+            <field name="name">Service Rig Tree</field>
+            <field name="model">service.rig</field>
+            <field name="arch" type="xml">
+                <tree string="Taladros" editable="top">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="service_well_line_form_view" model="ir.ui.view">
+            <field name="name">service.well.line.form.view</field>
+            <field name="model">service.well.line</field>
+            <field name="arch" type="xml">
+                <form string="Pozos">
+                    <group>
+                        <field name="name" required="1"/>
+                        <field name="well_type" string="Tipo"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="search_field_form_view" model="ir.ui.view">
+            <field name="name">service.field.filter</field>
+            <field name="model">service.field</field>
+            <field name="arch" type="xml">
+                <search string="Buscar">
+                    <field name="name"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter string="Nombre" context="{'group_by':'name'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="service_field_form_view" model="ir.ui.view">
+            <field name="name">service.field.form.view</field>
+            <field name="model">service.field</field>
+            <field name="arch" type="xml">
+                <form string="Campos">
+                    <group>
+                        <field name="name" required="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="service_field_tree_view" model="ir.ui.view">
+            <field name="name">service.field.form.view</field>
+            <field name="model">service.field</field>
+            <field name="arch" type="xml">
+                <tree string="Campos">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="service_rig_form_view" model="ir.ui.view">
+            <field name="name">service.rig.form.view</field>
+            <field name="model">service.rig</field>
+            <field name="arch" type="xml">
+                <form string="Taladros">
+                    <group>
+                        <field name="name" required="1"/>
+                        <field name="code"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="tree_service_line" model="ir.ui.view">
+            <field name="name">Service Line Tree</field>
+            <field name="model">service.line</field>
+            <field name="arch" type="xml">
+                <tree string="Lineas de Negocio" editable="top">
+                    <field name="name"/>
+                    <field name="location_id"/>
+                    <field name="sequence_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_service_ticket_filter" model="ir.ui.view">
+            <field name="name">service.ticket.select</field>
+            <field name="model">service.ticket</field>
+            <field name="arch" type="xml">
+                <search string="Buscar">
+                    <field name="name" string="Ticket"/>
+                    <field name="order_ids" string="Orden de Venta/Cotización"/>
+                    <field name="number_req" string="Cotizacion"/>
+                    <field name="partner_id" operator="child_of"/>
+                    <field name="line_id" string="Linea"/>
+                    <field name="contract_id" string="Contrato"/>
+                    <field name="date_start" string="Inicio"/>
+                    <field name="description"/>
+                    <separator/>
+                    <filter domain="[('user_id','=',uid)]" help="My Invoices"/>
+                    <group expand="0" string="Agrupar por">
+                        <filter string="Estado" context="{'group_by':'state'}"/>
+                        <filter string="Provisionado" context="{'group_by':'st_store'}"/>
+                        <filter string="Linea" context="{'group_by':'line_id'}"/>
+                        <filter string="Contrato" context="{'group_by':'contract_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="tree_service_ticket" model="ir.ui.view">
+            <field name="name">Service Ticket Tree</field>
+            <field name="model">service.ticket</field>
+            <field name="arch" type="xml">
+                <tree string="Orden de Venta" colors="blue:state == 'order';green:state == 'progress';gray:state == 'cancel';red:state == 'toinv';black:state == 'done'">
+                    <field name="name"/>
+                    <!--<field name="number_req" string="Cotizacion"/>-->
+                    <!--<field name="order_ids" string="Orden de Venta"/>-->
+                    <field name="partner_id"/>
+                    <!--<field name="service_well_id"/>-->
+                    <!--<field name="drill_id" string="RIG"/>-->
+                    <!--<field name="block_field_id"/>-->
+                    <!--<field name="field_id"/>-->
+                    <field name="contract_id"/>
+                    <field name="project_id"/>
+                    <field name="responsible_id"/>
+                    <!--<field name="date_start"/>-->
+                    <!--<field name="date_end"/>-->
+                    <field name="state"/>
+                    <field name="state_invoice" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_service_ticket_kanban">
+            <field name="name">view_service_ticket_kanban</field>
+            <field name="model">service.ticket</field>
+            <field name="arch" type="xml">
+                <kanban default_group_by="state" quick_create="false" >
+                    <field name="state"/>
+                    <field name="name"/>
+                    <field name="line_id"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="oe_dropdown_toggle oe_dropdown_kanban">
+                                    <span class="oe_e">í</span>
+                                    <ul class="oe_dropdown_menu">
+                                        <t t-if="widget.view.is_action_enabled('edit')">
+                                            <li>
+                                                <a type="edit">Editar</a>
+                                            </li>
+                                        </t>
+                                        <t t-if="widget.view.is_action_enabled('delete')">
+                                            <li>
+                                                <a type="delete">Eliminar</a>
+                                            </li>
+                                        </t>
+                                    </ul>
+                                </div>
+                                <div class="oe_kanban_content">
+                                    <div>
+                                        <b>
+                                            <field name="name"/>
+                                        </b>
+                                    </div>
+                                    <div>
+                                        <b>
+                                            <field name="order_ids"/>
+                                        </b>
+                                    </div>
+                                    <div>
+                                        <b>
+                                            <field name="number_req"/>
+                                        </b>
+                                    </div>
+
+                                    <div>
+                                        <field name="line_id"/>
+                                    </div>
+                                    <div>
+                                        <field name="partner_id"/>
+                                    </div>
+                                </div>
+                                <div class="oe_clear"></div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="form_service_ticket" model="ir.ui.view">
+            <field name="name">Service Ticket Form</field>
+            <field name="model">service.ticket</field>
+            <field name="arch" type="xml">
+                <form string="Orden de Reparacion">
+                    <header>
+                        <button name="action_confirm" type="object" string="Iniciar" states="order" class="oe_inline"/>
+                        <button name="action_closed" type="object" string="Confirmar" states="progress"/>
+                        <button name="action_invoiced" type="object" string="Facturar" states="toinv"  class="oe_inline"/>
+                        <button name="set_draft" type="object" string="Cambiar a Orden" states="progress,toinv"/><!--Este boton en un grupo que pueda editar-->
+                        <button name="action_cancel" type="object" string="Anular" states="progress,toinv"/>
+                        <field name="state" widget="statusbar" statusbar_visible="order,progress,toinv,done"/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <strong><field name="name"  style="color:green !important; font-size: 25px" readonly="1"/></strong>
+                        </h1>
+                        <h1>
+                            <strong> DATOS DEL CLIENTE</strong>
+                        </h1>
+                        <group>
+                            <field name="company_id" invisible="1"/>
+                            <field name="line_id" attrs="{'readonly':[('state','not in',['order'])]}" options="{'no_create':True,'no_open':True }"/>
+                            <field name="partner_id" domain="[('customer','=',True)]" attrs="{'readonly':[('state','not in',['order'])]}"
+                                   options="{'no_create':True,'no_open':True }"/>
+                        </group>
+                        <group col="4" colspan="2">
+                            <field name="contract_id" domain="[('type', '=', 'contract'), ('partner_id', '=', partner_id)]" attrs="{'readonly':[('state','not in',['order'])]}"
+                                   options="{'no_create':True,'no_open':True }"/>
+                            <field name="project_id" domain="[('type', '=', 'view'), ('parent_id', '=', contract_id)]" attrs="{'readonly':[('state','not in',['order'])]}"/>
+                            <field name="block_field_id" string="Bloque" attrs="{'readonly':[('state','not in',['order'])]}" />
+                            <field name="field_id" attrs="{'readonly':[('state','not in',['order'])]}" domain="[('block_field_id','=', block_field_id)]"/>
+                            <field name="service_well_id" attrs="{'readonly':[('state','not in',['order'])]}" domain="[('field_id','=',field_id)]"/>
+                            <field name="drill_id" attrs="{'readonly':[('state','not in',['order'])]}" string="RIG"/>
+                        </group>
+                        <group col="4" colspan="2">
+                            <field name="date_start" attrs="{'readonly':[('state','not in',['order'])]}"/>
+                            <field name="date_end" attrs="{'readonly':[('state','not in',['order'])]}"/>
+                            <field name="responsible_id" attrs="{'readonly':[('state','not in',['order'])]}" options="{'no_create':True}"/>
+                            <field name="event" attrs="{'readonly':[('state','not in',['order'])]}"/>
+                            <field name="number_req" invisible="1"/>
+                            <field name="order_ids" invisible="1"/>
+                            <field name="company_man" string="Representante del Cliente"/>
+                            <field name="work_id" attrs="{'readonly':[('state','not in',['order'])], 'required':[('is_rent','=',True)], 'invisible':[('is_rent','=', True)]}" options="{'no_create':True}"/>
+			    <field name="super_int"/>
+                            <field name="is_repair" invisible="1"/>
+                            <field name="is_rent" invisible="1"/>
+                            <field name="sale_type" invisible="1"/>
+                            <field name="company_jun" invisible="1" attrs="{'readonly':[('state','not in',['order'])]}"/>
+
+                        </group>
+                        <field name="description" placeholder="Trabajo por Realizar" attrs="{'readonly':[('state','not in',['order'])], 'invisible':[('is_rent','=',False), ('is_repair','=',False)]}"/>
+                        <notebook>
+                            <page string="Empleados" attrs="{'invisible':[('is_repair','=', False)]}">
+                                <field name="employee_ids" attrs="{'readonly':[('state','not in',['order','progress'])]}">
+                                    <tree string="Empleados" editable="bottom">
+                                        <field name="employee_id" options="{'no_create':True}"/>
+                                        <field name="date_start"/>
+                                        <field name="date_end"/>
+                                    </tree>
+                                </field>
+                                <field name="done_description" placeholder="Trabajo Realizado"
+                                       attrs="{'invisible': [('state','in',['order'])],'required': [('state','!=','order'), ('is_repair','=', True)]}"/>
+                            </page>
+                            <page string="Pedidos">
+                                <!--<field name="order_ids" attrs="{'readonly':[('state','not in',['order','progress'])], 'invisible':[('is_rent','=',False)]}"-->
+                                <!--context="{'form_view_ref':'o2s_sale_contract.view_order_form_renta','contract_id':contract_id,'partner_id':partner_id, 'default_is_rent':is_rent, 'default_is_repair':is_repair}"/>-->
+                                <field name="order_ids" attrs="{'readonly':[('state','not in',['order','progress'])]}"
+                                       context="{'contract_id':contract_id,'partner_id':partner_id, 'default_is_rent':is_rent, 'default_is_repair':is_repair, 'default_name':name}"/>
+                            </page>
+                            <page string="Movimientos de Inventario">
+                                <field name="picking_ids" attrs="{'readonly':[('state','not in',['order','progress'])]}" context="{'partner_id':partner_id, 'work':work_id}"/>
+                            </page>
+                            <page string="Elemento a Reparar" attrs="{'invisible':[('is_repair','=', False)]}">
+                                <field name="product_detail_ids">
+                                    <tree string="Producto" editable="bottom">
+                                        <field name="name"/>
+                                        <field name="code"/>
+                                        <field name="observation"/>
+                                        <field name="product_qty" required="1"/>
+                                        <field name="motive" required="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                            <page string="Gestión de Calidad">
+                                <group>
+                                    <field name="control_sheet_ids" nolabel="1" readonly="1">
+                                        <tree editable="top">
+                                            <field name="control_id"/>
+                                            <field name="report"/>
+                                            <field name="code"/>
+                                            <field name="review"/>
+                                            <field name="issue"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="form_service_ticket_renta" model="ir.ui.view">
+            <field name="name">Service Ticket Form</field>
+            <field name="model">service.ticket</field>
+            <field name="arch" type="xml">
+                <form string="Orden de Renta">
+                    <header>
+                        <button name="action_confirm" type="object" string="Iniciar" states="order" class="oe_inline"/>
+                        <button name="action_closed" type="object" string="Confirmar" states="progress"/>
+                        <button name="action_invoiced" type="object" string="Facturar" states="toinv"  class="oe_inline"/>
+                        <button name="set_draft" type="object" string="Cambiar a Orden" states="progress,toinv"/><!--Este boton en un grupo que pueda editar-->
+                        <button name="action_cancel" type="object" string="Anular" states="progress,toinv"/>
+                        <field name="state" widget="statusbar" statusbar_visible="order,progress,toinv,done"/>
+                    </header>
+                    <sheet>
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <strong><field name="name"  style="color:green !important; font-size: 25px" readonly="1"/></strong>
+                        </h1>
+                        <h1>
+                            <strong> DATOS DEL CLIENTE</strong>
+                        </h1>
+                        <group>
+                            <field name="company_id" invisible="1"/>
+                            <field name="line_id" attrs="{'readonly':[('state','not in',['order'])]}" options="{'no_create':True}"/>
+                            <field name="partner_id" domain="[('customer','=',True)]" attrs="{'readonly':[('state','not in',['order'])]}"
+                                   options="{'no_create':True}"/>
+                        </group>
+                        <group col="4" colspan="2">
+                            <field name="contract_id" domain="[('type', '=', 'contract'), ('partner_id', '=', partner_id)]" attrs="{'readonly':[('state','not in',['order'])]}"
+                                   options="{'no_create':True}"/>
+                            <field name="project_id" domain="[('type', '=', 'view'), ('parent_id', '=', contract_id)]" attrs="{'readonly':[('state','not in',['order'])]}"
+                            />
+                            <field name="block_field_id" string="Bloque" attrs="{'readonly':[('state','not in',['order'])]}" />
+                            <field name="field_id" attrs="{'readonly':[('state','not in',['order'])]}" domain="[('block_field_id','=', block_field_id)]"/>
+                            <field name="service_well_id" attrs="{'readonly':[('state','not in',['order'])]}" options="{'no_create':True}"
+                                   domain="[('field_id','=',field_id)]"/>
+                            <field name="drill_id" attrs="{'readonly':[('state','not in',['order'])]}" options="{'no_create':True}" string="RIG"/>
+
+                        </group>
+                        <group col="4" colspan="2">
+                            <field name="date_start" attrs="{'readonly':[('state','not in',['order'])]}"/>
+                            <field name="date_end" attrs="{'readonly':[('state','not in',['order'])]}"/>
+                            <field name="responsible_id" attrs="{'readonly':[('state','not in',['order'])]}" options="{'no_create':True}"/>
+                            <field name="event" attrs="{'readonly':[('state','not in',['order'])]}"/>
+                            <field name="order_ids" invisible="1"/>
+                            <field name="company_man" string="Representante del Cliente"/>
+                            <field name="work_id" attrs="{'readonly':[('state','not in',['order'])]}" invisible="1"/>
+                            <field name="is_repair" invisible="1"/>
+                            <field name="is_rent" invisible="1"/>
+                            <field name="sale_type" invisible="1"/>
+                            <field name="company_jun" string="Recibido por" attrs="{'readonly':[('state','not in',['order'])]}"/>
+                        </group>
+                        <field name="description" placeholder="Trabajo por Realizar" attrs="{'readonly':[('state','not in',['order'])]}"/>
+                        <notebook>
+                            <page string="Tecnicos">
+                                <field name="employee_ids" attrs="{'readonly':[('state','not in',['order','progress'])]}">
+                                    <tree string="Empleados" editable="bottom">
+                                        <field name="employee_id" options="{'no_create':True}"/>
+                                        <field name="date_start"/>
+                                        <field name="date_end"/>
+                                    </tree>
+                                </field>
+                                <!--                                <field name="done_description" placeholder="Notas"
+                                                                       attrs="{'invisible': [('state','in',['order'])]"/>-->
+                            </page>
+                            <page string="Pedidos">
+                                <field name="order_ids" attrs="{'readonly':[('state','not in',['order','progress'])], 'invisible':[('is_rent','=',False)]}"
+                                       context="{'form_view_ref':'o2s_sale_contract.view_order_form_renta','contract_id':contract_id,'partner_id':partner_id, 'default_is_rent':is_rent, 'default_is_repair':is_repair}"/>
+                            </page>
+                            <page string="Movimientos de Inventario">
+                                <field name="picking_ids" attrs="{'readonly':[('state','not in',['order','progress'])]}" context="{'partner_id':partner_id, 'work':work_id}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_order_form_renta" model="ir.ui.view">
+            <field name="name">sale.order.form</field>
+            <field name="model">sale.order</field>
+            <field name="arch" type="xml">
+                <form string="Sales Order" editable="botton" create="false">
+                    <header>
+                        <button name="invoice_recreate" states="invoice_except" string="Recreate Invoice" groups="base.group_user"/>
+                        <button name="invoice_corrected" states="invoice_except" string="Ignore Exception" groups="base.group_user"/>
+                        <button name="action_quotation_send" string="Send by Email" type="object" states="draft" class="oe_highlight" groups="base.group_user"/>
+                        <button name="action_quotation_send" string="Send by Email" type="object" states="sent,progress,manual" groups="base.group_user"/>
+                        <button name="print_quotation" string="Print" type="object" states="draft" class="oe_highlight" groups="base.group_user"/>
+                        <button name="print_quotation" string="Print" type="object" states="sent,progress,manual" groups="base.group_user"/>
+                        <button name="action_button_confirm" states="draft" string="Confirm Sale" type="object" groups="base.group_user"/>
+                        <button name="action_button_confirm" states="sent" string="Confirm Sale" class="oe_highlight" type="object" groups="base.group_user"/>
+                        <button name="action_view_invoice" string="View Invoice" type="object" class="oe_highlight"
+                                attrs="{'invisible': [('invoice_exists', '=', False)]}" groups="base.group_user"/>
+                        <button name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Invoice"
+                                type="action" states="manual" class="oe_highlight" groups="base.group_user"/>
+                        <button name="copy_quotation" states="cancel" string="New Copy of Quotation" type="object"/>
+                        <button name="cancel" states="draft,sent" string="Cancel Quotation" groups="base.group_user"/>
+                        <button name="action_cancel" states="manual,progress" string="Cancel Order" type="object" groups="base.group_user"/>
+                        <button name="invoice_cancel" states="invoice_except" string="Cancel Order" groups="base.group_user"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,sent,progress,done" statusbar_colors='{"invoice_except":"red","waiting_date":"blue"}'/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <label string="Orden de  Reparación" attrs="{'invisible': [('is_rent','!=',False)]}"/>
+                            <label string="Orden de Renta" attrs="{'invisible': [('is_repair','!=', False)]}"/>
+                            <field name="name" class="oe_inline" readonly="1"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="partner_id" on_change="onchange_partner_id(partner_id, context)" domain="[('customer','=',True)]" context="{'search_default_customer':1, 'show_address': 1}" options='{"always_reload": True}'/>
+                                <field name="partner_invoice_id" groups="sale.group_delivery_invoice_address" context="{'default_type':'invoice'}"/>
+                                <field name="partner_shipping_id" on_change="onchange_delivery_id(company_id, partner_id, partner_shipping_id, fiscal_position)" groups="sale.group_delivery_invoice_address" context="{'default_type':'delivery'}"/>
+                                <field name="project_id" context="{'partner_id':partner_invoice_id, 'manager_id': user_id, 'default_pricelist_id':pricelist_id, 'default_name':name, 'default_type': 'contract'}" groups="sale.group_analytic_accounting" domain="[('type','in',['view','normal','contract'])]"/>
+                            </group>
+                            <group>
+                                <field name="date_order"/>
+                                <field name="client_order_ref" required="1"/>
+                                <field name="warehouse_id" on_change="onchange_warehouse_id(warehouse_id)" options="{'no_create': True}" groups="stock.group_locations"/>
+                                <field domain="[('type','=','sale')]" name="pricelist_id"  on_change="onchange_pricelist_id(pricelist_id,order_line)"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="sale_type" invisible="1"/>
+                                <field name="is_rent" invisible="1"/>
+                                <field name="is_repair" invisible="1"/>
+                                <field name="ticket_id" readonly="1" invisible="1"/>
+                                <field name="number_req" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Order Lines">
+                                <field name="order_line">
+                                    <form string="Sales Order Lines">
+                                        <header groups="base.group_user">
+                                            <button name="%(sale.action_view_sale_order_line_make_invoice)d" states="confirmed" string="Invoice" type="action" icon="terp-document-new"/>
+                                            <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done" statusbar_colors='{"exception":"red","cancel":"red"}'/>
+                                        </header>
+                                        <group>
+                                            <group>
+                                                <field name="product_id"
+                                                       context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom}"
+                                                       groups="base.group_user"
+                                                       on_change="product_id_change(parent.pricelist_id, product_id, product_uom_qty, False, product_uos_qty, False, name, parent.partner_id, False, True, parent.date_order, False, parent.fiscal_position, False, context)"/>
+                                                <label for="product_uom_qty"/>
+                                                <div>
+                                                    <field
+                                                            context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'uom_qty_change':True}"
+                                                            name="product_uom_qty" class="oe_inline"
+                                                            on_change="product_id_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, False, parent.fiscal_position, True, context)"/>
+                                                    <field name="product_uom" groups="product.group_uom" class="oe_inline oe_no_button"
+
+                                                           on_change="product_uom_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, context)"/>
+                                                </div>
+                                                <label for="product_uos_qty" groups="product.group_uos"/>
+                                                <div groups="product.group_uos">
+                                                    <field name="product_uos_qty" class="oe_inline"/>
+                                                    <field name="product_uos" options='{"no_open": True}' class="oe_inline"/>
+                                                </div>
+                                                <field name="price_unit"/>
+                                                <field name="delivery_date"/>
+                                                <label for="discount" groups="sale.group_discount_per_so_line"/>
+                                                <div name="discount" groups="sale.group_discount_per_so_line">
+                                                    <field name="discount" class="oe_inline"/> %%
+                                                </div>
+                                            </group>
+                                            <group>
+                                                <field name="tax_id" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','&lt;&gt;','purchase')]"/>
+                                                <field name="th_weight"/>
+                                                <!-- we should put a config wizard for these two fields -->
+                                                <field name="address_allotment_id"/>
+                                            </group>
+                                        </group>
+                                        <label for="name"/>
+                                        <field name="name"/>
+                                        <div groups="base.group_no_one">
+                                            <label for="invoice_lines"/>
+                                            <field name="invoice_lines"/>
+                                        </div>
+                                    </form>
+                                    <tree string="Sales Order Lines" editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="state" invisible="1" required="0"/>
+                                        <field name="th_weight" invisible="1"/>
+                                        <field name="product_id"
+                                               context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom}"
+                                               groups="base.group_user"
+                                               on_change="product_id_change(parent.pricelist_id, product_id, product_uom_qty, False, product_uos_qty, False, name, parent.partner_id, False, True, parent.date_order, False, parent.fiscal_position, False, context)"/>
+                                        <field name="name"/>
+                                        <field name="product_uom_qty" readonly="1"
+                                               context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom}"
+                                               on_change="product_id_change(parent.pricelist_id, product_id, product_uom_qty, product_uom, product_uos_qty, product_uos, name, parent.partner_id, False, False, parent.date_order, False, parent.fiscal_position, True, context)"/>
+
+                                        <field name="date_rent_from" required="1"/>
+                                        <field name="date_rent_to" required="1"/>
+                                        <field name="rent_days" required="1"/>
+                                        <field name="product_uom"
+                                               on_change="product_uom_change(parent.pricelist_id, product_id, product_uom_qty, product_uom, product_uos_qty, product_uos, name, parent.partner_id, False, False, parent.date_order, context)"
+                                               groups="product.group_uom" options='{"no_open": True}'/>
+                                        <field name="product_uos_qty" groups="product.group_uos" invisible="1"/>
+                                        <field name="product_uos" string="UoS" groups="product.group_uos" invisible="1"/>
+                                        <field name="price_unit"/>
+                                        <field name="tax_id" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','&lt;&gt;','purchase')]"/>
+                                        <field name="discount" groups="sale.group_discount_per_so_line"/>
+                                        <field name="price_subtotal"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <field name="amount_untaxed" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                    <field name="amount_tax" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                    <div class="oe_subtotal_footer_separator oe_inline">
+                                        <label for="amount_total" />
+                                        <button name="button_dummy"
+                                                states="draft,sent" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                                    </div>
+                                    <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                                <div class="oe_clear"/>
+                                <field name="note" class="oe_inline" placeholder="Terms and conditions..."/>
+                            </page>
+                            <page string="Other Information" groups="base.group_user">
+                                <group>
+                                    <group name="sales_person" groups="base.group_user">
+                                        <field name="user_id" context="{'default_groups_ref': ['base.group_user', 'base.group_partner_manager', 'account.group_account_invoice', 'base.group_sale_salesman_all_leads']}"/>
+                                        <field name="section_id" options="{'no_create': True}" groups="base.group_multi_salesteams"/>
+                                        <field groups="base.group_no_one" name="origin"/>
+                                    </group>
+                                    <group name="sale_pay">
+                                        <field name="payment_term" options="{'no_create': True}"/>
+                                        <field name="fiscal_position" options="{'no_create': True}"
+                                               on_change="onchange_fiscal_position(fiscal_position, order_line, context)"/>
+                                        <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+                                    </group>
+                                    <group>
+                                        <field name="invoiced"/>
+                                        <field name="invoice_exists" invisible="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record id="tree_work_view" model="ir.ui.view">
+            <field name="name">tree.work</field>
+            <field name="model">work</field>
+            <field name="arch" type="xml">
+                <tree string="Etiqutas de Trabajo" editable="top">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="tree_work_rel_view" model="ir.ui.view">
+            <field name="name">tree.work.rek</field>
+            <field name="model">work.product.rel</field>
+            <field name="arch" type="xml">
+                <tree string="Trabajos">
+                    <field name="work_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="form_work_rel_view" model="ir.ui.view">
+            <field name="name">form.work.rek</field>
+            <field name="model">work.product.rel</field>
+            <field name="arch" type="xml">
+                <form string="Trabajo">
+                    <sheet>
+                        <group col="2" colspan="2">
+                            <field name="work_id" options="{'no_create':True}"/>
+                            <field name="lang" invisible="1"/>
+                        </group>
+                        <field name="items">
+                            <tree editable="bottom">
+                                <field name="product_id"/>
+                                <field name="qty"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_service_field" model="ir.actions.act_window">
+            <field name="name">service field</field>
+            <field name="res_model">service.field</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="action_work_rel" model="ir.actions.act_window">
+            <field name="name">Trabajos</field>
+            <field name="res_model">work.product.rel</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="context">{'readonly_by_pass': True}</field>-->
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="action_work" model="ir.actions.act_window">
+            <field name="name">Etiquetas de Trabajo</field>
+            <field name="res_model">work</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="context">{'readonly_by_pass': True}</field>-->
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="action_service_block" model="ir.actions.act_window">
+            <field name="name">Bloque / Campos</field>
+            <field name="res_model">service.block</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="context">{'readonly_by_pass': True}</field>-->
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="action_service_block_field" model="ir.actions.act_window">
+            <field name="name">Bloque</field>
+            <field name="res_model">service.block.field</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="action_product_clientes" model="ir.actions.act_window">
+            <field name="name">Elementos a Reparar</field>
+            <field name="res_model">product.detail.ticke</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="search_product_detail_ticke"/>
+            <field name="domain">[]</field>
+        </record>
+
+
+        <record id="action_service_well" model="ir.actions.act_window">
+            <field name="name">Campos / Pozos</field>
+            <field name="res_model">service.well</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="context">{'readonly_by_pass': True}</field>-->
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="action_service_rig" model="ir.actions.act_window">
+            <field name="name">Taladros</field>
+            <field name="res_model">service.rig</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="context">{'readonly_by_pass': True}</field>-->
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="action_service_line" model="ir.actions.act_window">
+            <field name="name">Lineas de Negocio</field>
+            <field name="res_model">service.line</field>
+            <field name="view_mode">tree,form</field>
+            <!--<field name="context">{'readonly_by_pass': True}</field>-->
+            <field name="domain">[]</field>
+        </record>
+
+        <record id="action_service_ticket" model="ir.actions.act_window">
+            <field name="name">Orden de Venta</field>
+            <field name="res_model">service.ticket</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="search_view_id" ref="view_service_ticket_filter"/>
+            <field name="domain">[('is_rent', '=', False), ('is_repair', '=', False)]</field>
+            <field name="context">{'form_view_ref':'o2s_sale_contract.form_service_ticket'}</field>
+            <!--<field name="context">{'readonly_by_pass': True}</field>-->
+        </record>
+
+        <menuitem
+                parent="base.menu_base_config"
+                id="menu_service_field"
+                action="action_service_field" name="service field" sequence="6"/>
+
+
+        <menuitem
+                parent="base.menu_base_config"
+                id="menu_service_field_bc"
+                action="action_service_block" name="Bloques / Campos" sequence="3"/>
+        <menuitem
+                parent="base.menu_base_config"
+                id="menu_service_field_bc_block"
+                action="action_service_block_field" name="Bloques" sequence="3"/>
+
+        <menuitem
+                parent="base.menu_base_config"
+                id="menu_service_well_cp"
+                action="action_service_well" name="Campos / Pozos" sequence="4"/>
+
+        <menuitem
+                parent="base.menu_base_config"
+                id="menu_service_product_cliente_bc"
+                action="action_product_clientes" name="Elementos a Reparar" sequence="5"/>
+
+        <menuitem
+                parent="base.menu_base_config"
+                id="menu_service_rig"
+                action="action_service_rig"/>
+
+        <menuitem
+                parent="base.menu_base_config"
+                id="menu_service_line"
+                action="action_service_line"/>
+
+        <menuitem
+                parent="base.menu_sales"
+                id="menu_service_ticket"
+                action="action_service_ticket"/>
+
+        <menuitem
+                parent="base.menu_base_config"
+                id="menu_work"
+                action="action_work"/>
+
+        <menuitem
+                parent="base.menu_base_config"
+                id="menu_work_rel"
+                action="action_work_rel"/>
+
+        <record id="view_category_property_form_accounting" model="ir.ui.view">
+            <field name="name">product.category.stock.property.form.inherit_accounting</field>
+            <field name="model">product.category</field>
+            <field name="inherit_id" ref="account.view_category_property_form"/>
+            <field name="arch" type="xml">
+                <field name="property_stock_journal" position="after">
+                    <field name="generate_accounting"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- Ordenes de Cot Renta-->
+        <!--Menu padre -->
+        <menuitem
+                id="rent_orders_menu"
+                parent="base.menu_base_partner"
+                name="Ordenes Facturadas de Renta"
+                sequence="2"/>
+
+        <!-- action para cot de renta -->
+
+        <record id="action_rent_sale_quotations_view" model="ir.actions.act_window">
+            <field name="name">Cotizaciones de Renta</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="sale.view_quotation_tree"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{'search_default_my_rents_orders_filter': 1, 'default_sale_type': 'rentOrder', 'default_is_rent': True}</field>
+            <field name="domain">[('state','in',['draft','sent','cancel']),
+                ('is_rent', '=', True)]</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a quotation, the first step of a new sale.
+                </p><p>
+                Odoo will help you handle efficiently the complete sale flow:
+                from the quotation to the sales order, the
+                delivery, the invoicing and the payment collection.
+            </p><p>
+                The social feature helps you organize discussions on each sales
+                order, and allow your customers to keep track of the evolution
+                of the sales order.
+            </p>
+            </field>
+        </record>
+
+        <!-- menu para cot de renta -->
+
+        <menuitem
+                parent="o2s_sale_contract.rent_orders_menu"
+                id="rent_orders_request_menu"
+                action="action_rent_sale_quotations_view"
+                string="Cotizaciones de Renta"
+                sequence="1"/>
+
+        <!-- action para or de renta -->
+
+        <record id="action_rent_orders_filter_view" model="ir.actions.act_window">
+            <field name="name">Ordenes Facturadas de Renta</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
+            <field name="context">{'search_default_my_sale_orders_filter': 1, 'default_sale_type': 'rentOrder','default_is_rent': True}
+            </field>
+            <field name="domain">[('state','not in',['draft','sent','cancel']),
+                ('is_rent', '=', True)]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a quotation that can be converted into a sales
+                    order.
+                </p><p>
+                Odoo will help you efficiently handle the complete sales flow:
+                quotation, sales order, delivery, invoicing and payment.
+            </p>
+            </field>
+        </record>
+
+        <!-- menu para or de renta -->
+
+        <menuitem
+                parent="o2s_sale_contract.rent_orders_menu"
+                string="Renta"
+                id="sale_rent_orders_menu"
+                action="action_rent_orders_filter_view"
+                sequence="1"/>
+
+        <!-- action para service ticket renta -->
+
+        <record id="action_rent_order_service_ticket" model="ir.actions.act_window">
+            <field name="name">Orden de Renta</field>
+            <field name="res_model">service.ticket</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="search_view_id" ref="view_service_ticket_filter"/>
+            <field name="context">{'default_sale_type': 'rentOrder', 'default_is_rent': True, 'form_view_ref':'o2s_sale_contract.form_service_ticket_renta'}</field>
+            <field name="domain">[('is_rent', '=', True), ('sale_type', '=', 'rentOrder')]</field>
+        </record>
+
+        <!-- menu para service ticket renta -->
+
+        <menuitem
+                parent="o2s_sale_contract.rent_orders_menu"
+                id="menu_rent_orders_service_ticket"
+                action="action_rent_order_service_ticket"/>
+
+        <!-- Ordenes de Cot Reparacion-->
+
+        <record id="action_repair_quotations_filter_view" model="ir.actions.act_window">
+            <field name="name">Cotizaciones de Reparacion</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="sale.view_quotation_tree"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{'search_default_my_sale_orders_filter': 1, 'default_sale_type': 'repairOrder', 'default_is_repair': True}</field>
+            <field name="domain">[('state','in',['draft','sent','cancel']),
+                ('is_repair', '=', True)]</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a quotation, the first step of a new sale.
+                </p><p>
+                Odoo will help you handle efficiently the complete sale flow:
+                from the quotation to the sales order, the
+                delivery, the invoicing and the payment collection.
+            </p><p>
+                The social feature helps you organize discussions on each sales
+                order, and allow your customers to keep track of the evolution
+                of the sales order.
+            </p>
+            </field>
+        </record>
+
+        <!-- menu padre para reparaciones -->
+
+        <menuitem
+                id="repair_orders_menu"
+                name="Reparacion"
+                parent="base.menu_base_partner"
+                sequence="3"/>
+
+        <!-- action para cot reparaciones -->
+
+        <menuitem
+                parent="o2s_sale_contract.repair_orders_menu"
+                id="repair_orders_request_menu"
+                action="action_repair_quotations_filter_view"
+                string="Cotizaciones de Reparacion"
+                sequence="1"/>
+
+        <!-- action para or de reparaciones -->
+
+        <record id="action_repair_order_filter_view" model="ir.actions.act_window">
+            <field name="name">Ordenes Facturadas de Reparación</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
+            <field name="context">{'search_default_my_sale_orders_filter': 1, 'default_sale_type': 'repairOrder', 'default_is_repair': True}
+            </field>
+            <field name="domain">[('state','not in',['draft','sent','cancel']),
+                ('is_repair', '=', True)]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a quotation that can be converted into a sales
+                    order.
+                </p><p>
+                Odoo will help you efficiently handle the complete sales flow:
+                quotation, sales order, delivery, invoicing and payment.
+            </p>
+            </field>
+        </record>
+
+        <!-- action para service ticket reparaciones -->
+
+        <record id="action_repair_service_ticket" model="ir.actions.act_window">
+            <field name="name">Orden de Reparación</field>
+            <field name="res_model">service.ticket</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="search_view_id" ref="view_service_ticket_filter"/>
+            <field name="context">{'default_sale_type': 'repairOrder', 'default_is_repair': True, 'form_view_ref':'o2s_sale_contract.form_service_ticket'}</field>
+            <field name="domain">[('is_repair', '=', True), ('sale_type', '=', 'repairOrder')]</field>
+        </record>
+
+        <!-- menu para or de reparaciones -->
+
+        <menuitem
+                parent="o2s_sale_contract.repair_orders_menu"
+                id="sale_repair_order_menu"
+                action="action_repair_order_filter_view"
+                string="Ordenes Facturadas de Reparación"
+                sequence="2"/>
+
+        <!-- menu para service ticket de reparaciones -->
+
+        <menuitem
+                parent="o2s_sale_contract.repair_orders_menu"
+                id="menu_repair_order_service_ticket"
+                action="action_repair_service_ticket"/>
+
+        <!-- vista para añadir los campos de de renta, reparacion y tipo
+             en la vista del core para poder hacer dominios en las vistas -->
+
+        <record id="view_add_types_sale_order_inherit_form" model="ir.ui.view">
+            <field name="name">view.add.types.sale.order.inherit.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='pricelist_id']" position="after">
+                    <field name="sale_type" invisible="1"/>
+                    <field name="is_rent" invisible="1"/>
+                    <field name="is_repair" invisible="1"/>
+                    <field name="sale_note"/>
+                </xpath>
+                <!--<xpath expr="//tree/field[@name='product_uom_qty']" position="before">
+                    <field name="es_renta" invisible="1"/>
+                    <field name="date_rent_from" attrs="{'readonly':[('es_renta','=',False)], 'required':[('es_renta','=',True)]}"/>
+                    <field name="date_rent_to" attrs="{'readonly':[('es_renta','=',False)], 'required':[('es_renta','=',True)]}"/>
+                </xpath>-->
+            </field>
+        </record>
+
+        <record id="tree_product_detail_ticke" model="ir.ui.view">
+            <field name="name">product.detail.ticke</field>
+            <field name="model">product.detail.ticke</field>
+            <field name="arch" type="xml">
+                <tree string="Producto">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="observation"/>
+                </tree>
+            </field>
+        </record>
+
+
+
+
+        <record id="form_product_detail_ticke" model="ir.ui.view">
+            <field name="name">form.product.detail.ticke</field>
+            <field name="model">product.detail.ticke</field>
+            <field name="arch" type="xml">
+                <form string="Producto">
+                    <group>
+                        <field name="code"/>
+                        <field name="name"/>
+                        <field name="observation"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+
+        <!--Cambio Atributios-->
+        <record id="form_sale_order_inh" model="ir.ui.view">
+            <field name="name">sale.order.form.inh</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@string='Quotation ']" position="replace">
+                    <label string="Cotización Renta" attrs="{'invisible': [('is_rent','!=',True)]}"/>
+                    <label string="Cotización Reparación" attrs="{'invisible': [('is_repair','!=',True)]}"/>
+                </xpath>
+                <xpath expr="//label[@string='Sales Order ']" position="replace">
+                    <label string="Orden de Venta" attrs="{'invisible': ['|',('is_rent','!=',True),('is_repair','!=',True)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!---->
+        <record id="view_stock_picking_control_form" model="ir.ui.view">
+            <field name="name">stock.picking.control.form</field>
+            <field name="type">form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="o2s_felectronica.view_stock_picking_electronica_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@string='Informacion Transportista-Destinatario']" position="after">
+                    <page string="Gestión de Calidad">
+                        <group>
+                            <field name="control_sheet_ids" nolabel="1" readonly="1">
+                                <tree editable="top">
+                                    <field name="control_id"/>
+                                    <field name="report"/>
+                                    <field name="code"/>
+                                    <field name="review"/>
+                                    <field name="issue"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_service_field_inherit_form" model="ir.ui.view">
+            <field name="name">service.field.form.inherit</field>
+            <field name="type">form</field>
+            <field name="model">service.field</field>
+            <field name="arch" type="xml">
+                <form string="Campo">
+                    <group>
+                        <field name="block_id" required="1"/>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_service_well_line_inherit_form" model="ir.ui.view">
+            <field name="name">service.well.line.form.inherit</field>
+            <field name="type">form</field>
+            <field name="model">service.well.line</field>
+            <field name="arch" type="xml">
+                <form string="Pozo">
+                    <group>
+                        <field name="field_id" required="1"/>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <!-- Añado descuento en el total de las ventas, fecha de entrega en lineas de venta / renta / reparación -->
+
+        <record id="view_sale_order_add_total_discount_form_inherit" model="ir.ui.view">
+            <field name="name">view.sale.order.add.total.discount.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/notebook/page/group/field[@name='amount_untaxed']" position="after">
+                    <field name="total_discount" widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page/field/form/group/group/field[@name='price_unit']" position="after">
+                    <field name="delivery_date"/>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page/field/tree/field[@name='price_unit']" position="after">
+                    <field name="delivery_date"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

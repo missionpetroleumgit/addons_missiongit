@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <record model="res.groups" id="group_select_only_services">
+            <field name="name">Requisiciones de Servicios</field>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+
+        <record model="res.groups" id="group_select_all_type_purchase">
+            <field name="name">Requisiciones de Bienes</field>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+
+        <record model="res.groups" id="group_only_stock_requisitions">
+            <field name="name">Todo tipo de requisiciones</field>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+
+        <record model="res.groups" id="group_only_warehouse_access">
+            <field name="name">Boton marcar por hacer bodega</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+
+        <record model="res.groups" id="group_only_warehouse_access_state_transfer">
+            <field name="name">Impresion despacho solo estado done</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+        </record>
+
+    </data>
+</openerp>

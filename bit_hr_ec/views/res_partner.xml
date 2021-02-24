@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+ 	 <data>
+		  <record id="view_res_bank_add_fields_form2" model="ir.ui.view">
+			  <field name="name">res.bank.add.fields2</field>
+			  <field name="model">res.partner</field>
+			  <field name="inherit_id" ref="base.view_partner_form"/>
+			  <field name="arch" type="xml">
+					<xpath expr="//field[@name='company_id']" position="after">
+						<field name="is_employee"/>
+						<field name="employee_id" attrs="{'invisible':[('is_employee', '=', False)]}"/>
+						<field name="tradename"/>
+					</xpath>
+			  </field>
+		  </record>
+	 </data>
+</openerp>

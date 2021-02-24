@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="wizard_import_egresos_view" model="ir.ui.view">
+            <field name="name">Importar</field>
+            <field name="model">wizard.import.egresos</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+            <form string="Ingresos" version="7.0">
+                    <separator string="EGRESOS DE EMPLEADOS" colspan="5"/>
+                    <group colspan="5" col="2" attrs="{'invisible':[('state','=','cerrado')]}">
+                    <field name="date"/>
+                    <field name="state" invisible="1"/>
+                    <field name="company_id" groups="base.group_multi_company" widget="selection" string="Compañía"/>
+                    <field name="expense_type_id" required="1"/>
+                    <field name="data" required="1"/>
+                    <separator string="Subir archivo .CSV" colspan="5"/>
+                    <button icon="gtk-cancel" special="cancel" string="Cancelar"/>
+                    <button icon="gtk-ok" string="Procesar Archivo" name="load_csv" type="object" class="oe_highlight"/>
+                    </group> 
+                    <group colspan="4" col="4" attrs="{'invisible':[('state','=','borrador')]}">
+                    <field name="num_registrosc" readonly="1" colspan="4"/>
+                    <field name="num_registrosb" readonly="1" colspan="4"/>
+                    </group>                    
+                </form>
+            </field>
+        </record>
+
+        <record id="wizard_import_egresos" model="ir.actions.act_window">
+            <field name="name">Importar</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">wizard.import.egresos</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+            <field name="view_id" ref="wizard_import_egresos_view"/>
+        </record>
+        
+      
+        
+    </data>
+</openerp>

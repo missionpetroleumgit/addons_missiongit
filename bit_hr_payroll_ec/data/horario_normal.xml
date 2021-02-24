@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <!-- 40 Horas de Trabajo -->
+
+        <record id="timesheet_group1" model="resource.calendar">
+            <field name="name">Horario Normal 240 H/M</field>
+        </record>
+
+        <record model="resource.calendar.attendance" id="calendar_attendance_mon1">
+            <field name="name">Lunes mañana</field>
+            <field name="dayofweek">0</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">12</field>
+            <field name="calendar_id" ref="timesheet_group1"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_mon2">
+            <field name="name">Lunes noche</field>
+            <field name="dayofweek">0</field>
+            <field name="hour_from">13</field>
+            <field name="hour_to">17</field>
+            <field name="calendar_id" ref="timesheet_group1"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_tue1">
+            <field name="name">Martes mañana</field>
+            <field name="dayofweek">1</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">12</field>
+            <field name="calendar_id" ref="timesheet_group1"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_tue2">
+            <field name="name">Martes noche</field>
+            <field name="dayofweek">1</field>
+            <field name="hour_from">13</field>
+            <field name="hour_to">17</field>
+            <field name="calendar_id" ref="timesheet_group1"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_wed1">
+            <field name="name">Miercoles mañana</field>
+            <field name="dayofweek">2</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">12</field>
+            <field name="calendar_id" ref="timesheet_group1"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_wed2">
+            <field name="name">Miercoles noche</field>
+            <field name="dayofweek">2</field>
+            <field name="hour_from">13</field>
+            <field name="hour_to">17</field>
+            <field name="calendar_id" ref="timesheet_group1"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_thu1">
+            <field name="name">Jueves mañana</field>
+            <field name="dayofweek">3</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">12</field>
+            <field name="calendar_id" ref="timesheet_group1"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_thu2">
+            <field name="name">Jueves noche</field>
+            <field name="hour_from">13</field>
+            <field name="hour_to">17</field>
+            <field name="dayofweek">3</field>
+            <field name="calendar_id" ref="timesheet_group1"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_fri1">
+            <field name="name">Viernes mañana</field>
+            <field name="dayofweek">4</field>
+            <field name="hour_from">08</field>
+            <field name="hour_to">12</field>
+            <field name="calendar_id" ref="timesheet_group1"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_fri2">
+            <field name="name">Viernes noche</field>
+            <field name="dayofweek">4</field>
+            <field name="hour_from">13</field>
+            <field name="hour_to">17</field>
+            <field name="calendar_id" ref="timesheet_group1"/>
+        </record>
+
+        <record model="resource.calendar.attendance" id="calendar_attendance_sat1">
+            <field name="name">Sabado mañana</field>
+            <field name="dayofweek">5</field>
+            <field name="hour_from">00</field>
+            <field name="hour_to">00</field>
+            <field name="calendar_id" ref="timesheet_group1"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_sat2">
+            <field name="name">Sabado noche</field>
+            <field name="dayofweek">5</field>
+            <field name="hour_from">00</field>
+            <field name="hour_to">00</field>
+            <field name="calendar_id" ref="timesheet_group1"/>
+        </record>
+        
+        <record model="resource.calendar.attendance" id="calendar_attendance_sun1">
+            <field name="name">Domingo mañana</field>
+            <field name="dayofweek">6</field>
+            <field name="hour_from">00</field>
+            <field name="hour_to">00</field>
+            <field name="calendar_id" ref="timesheet_group1"/>
+        </record>
+        <record model="resource.calendar.attendance" id="calendar_attendance_sun2">
+            <field name="name">Domingo noche</field>
+            <field name="dayofweek">6</field>
+            <field name="hour_from">00</field>
+            <field name="hour_to">00</field>
+            <field name="calendar_id" ref="timesheet_group1"/>
+        </record>
+    </data>
+</openerp>

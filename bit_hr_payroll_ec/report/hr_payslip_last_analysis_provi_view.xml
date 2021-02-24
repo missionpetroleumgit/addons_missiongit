@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <record id="view_hr_payslip_last_analysis_categ2_graph" model="ir.ui.view">
+         <field name="name">hr.payslip.last.analysis.categ2.graph</field>
+         <field name="model">hr.payslip.last.analysis.categ2</field>
+         <field name="arch" type="xml">
+             <graph string="Last Pay Slip Provitions" type="pivot">
+<!--            		 <field name="acc_number" type="row"/>                                -->
+                 <field name="employee_name" type="row"/>                 
+            	 <field name="date_to" type="col"/>            	             	 
+                 <field name="amount" type="measure"/>                 
+                 <field name="order" type="col"/>
+                 <field name="salary_rule" type="col"/>
+             </graph>
+         </field>
+    </record>
+    
+    <record id="filter_hr_payslip_last_analysis_categ2_employee" model="ir.filters">
+        <field name="name">By Employee Name</field>
+        <field name="model_id">hr.payslip.last.analysis.categ2</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'group_by': ['employee_name', 'order', 'identification_id'], 'col_group_by': ['paylist_name', 'order']}</field>
+    </record>
+
+    <record id="view_hr_payslip_last_analysis_categ2_search" model="ir.ui.view">
+        <field name="name">hr.payslip.last.analysis.categ2.search</field>
+        <field name="model">hr.payslip.last.analysis.categ2</field>
+        <field name="arch" type="xml">
+            <search string="Last Pay Slip Provitions">
+            	 <field name="employee_name" type="row"/>
+                 <field name="amount" type="measure"/>
+                 <field name="order" type="col"/>
+                 <field name="salary_rule" type="col"/>
+                 <field name="date_from" type="col"/>
+                 <field name="date_to" type="col"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_hr_payslip_last_analysis_categ2_all" model="ir.actions.act_window">
+        <field name="name">Provisiones</field>
+        <field name="res_model">hr.payslip.last.analysis.categ2</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">graph</field>
+        <field name="context">{'group_by':[]}</field>
+        <field name="search_view_id" ref="view_hr_payslip_last_analysis_categ2_search"/>
+    </record>
+
+</data>
+</openerp>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+  <data>
+  
+	  <record id="view_move_add_cc_form" model="ir.ui.view">
+	      <field name="name">move.add.cc</field>
+	      <field name="model">account.move</field>
+	      <field name="inherit_id" ref="account_analytic_plans.view_move_form_inherit"/>
+	      <field name="arch" type="xml">
+	      
+	      <xpath expr="/form/notebook/page/field[@name='line_id']/tree/field[@name='analytics_id']" position="replace">
+               <field name="analytic_account_id" context="{'journal_id':parent.journal_id}" groups="analytic.group_analytic_accounting"/>
+           </xpath>
+           
+	      </field>
+	  </record>
+
+	  <!-- Analytic account -->
+        <record id="view_account_analytic_extra_inherit" model="ir.ui.view">
+            <field name="name">account.analytic.analytic.inherit</field>
+            <field name="model">account.analytic.account</field>
+            <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <xpath expr="//field[@name='manager_id']" position="after">
+					   <field name="type_account"/>
+                    </xpath>
+                </data>
+            </field>
+        </record>
+	   
+  </data>
+</openerp>

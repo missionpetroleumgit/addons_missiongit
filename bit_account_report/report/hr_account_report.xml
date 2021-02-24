@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+	<!--   Longport    -->
+
+         <report
+            id="action_account"
+            model="account.invoice"
+            string="Factura/Cliente"
+            report_type="qweb-pdf"
+            name="bit_account_report.report_account_view"
+            file="bit_account_report.report_account_view"
+        />
+        
+        <report
+            id="action_account_retencion"
+            model="account.deduction"
+            string="Retención/Provedor"
+            report_type="qweb-pdf"
+            name="bit_account_report.report_retencion_view"
+            file="bit_account_report.report_retencion_view"
+        />
+
+        <report
+            id="action_asiento_retencion"
+            model="account.invoice"
+            string="Comprobante de Venta"
+            report_type="qweb-pdf"
+            name="bit_account_report.report_asiento_view"
+            file="bit_account_report.report_asiento_view"
+        />
+
+        <report
+            id="action_asiento_retencion_supplier"
+            model="account.invoice"
+            string="Comprobante de compra"
+            report_type="qweb-pdf"
+            name="bit_account_report.report_asiento_view_supplier"
+            file="bit_account_report.report_asiento_view_supplier"
+        />
+        
+        <!-- <report
+            id="action_retencion_supplier"
+            model="account.invoice"
+            string="Retención de proveedor"
+            report_type="qweb-pdf"
+            name="bit_account_report.report_retencion_inv_supplier"
+            file="bit_account_report.report_retencion_inv_supplier"
+        /> -->
+
+        <!--<report-->
+            <!--id="action_retencion_lpair"-->
+            <!--model="account.deduction"-->
+            <!--string="Retención/Provedor/Lpair"-->
+            <!--report_type="qweb-pdf"-->
+            <!--name="bit_account_report.report_retencion_view_lpair"-->
+            <!--file="bit_account_report.report_retencion_view_lpair"-->
+        <!--/>-->
+
+         <report
+            id="action_account_nota"
+            model="account.invoice"
+            string="Nota/Crédito"
+            report_type="qweb-pdf"
+            name="bit_account_report.report_account_nota"
+            file="bit_account_report.report_account_nota"
+        />
+        
+        <report
+            id="action_account_liquidacion"
+            model="account.invoice"
+            string="Liquidacion/Compra"
+            report_type="qweb-pdf"
+            name="bit_account_report.report_liquidacion_view"
+            file="bit_account_report.report_liquidacion_view"
+        />
+          <report
+            id="action_report_account_servicio" 
+            model="sale.order" 
+            string="Facturación/servicios"
+            report_type="qweb-pdf"
+            name="bit_account_report.report_account_servicio" 
+            file="bit_account_report.report_account_servicio" 
+        /> 
+        
+
+        <!-- Longpairport -->
+        
+
+        <!--<report-->
+            <!--id="action_retencion_lpair"-->
+            <!--model="account.deduction"-->
+            <!--string="Retención/Provedor/Lpair"-->
+            <!--report_type="qweb-pdf"-->
+            <!--name="bit_account_report.report_retencion_view_lpair"-->
+            <!--file="bit_account_report.report_retencion_view_lpair"-->
+        <!--/>-->
+	
+	<report
+            id="action_account_liquidacion_lpair"
+            model="account.invoice"
+            string="Liquidacion/Compra"
+            report_type="qweb-pdf"
+            name="bit_account_report.report_liquidacion_view_lpair"
+            file="bit_account_report.report_liquidacion_view_lpair"
+        />
+
+    <!--<report
+	<report
+            id="action_account_lpair"
+            model="account.invoice"
+            string="Factura/Cliente/Lpair"
+            report_type="qweb-pdf"
+            groups="group_report_lomport"
+            name="bit_account_report.report_account_view_lpair"
+            file="bit_account_report.report_account_view_lpair"
+        />
+
+            id="action_report_factura_lpair"
+            model="account.invoice" 
+            string="Factura/Cliente"
+            report_type="qweb-pdf"
+            groups="group_report_lpair"
+            name="bit_account_report.report_factura_lpair" 
+            file="bit_account_report.report_factura_lpair" 
+        /> -->
+        
+        
+         <report
+            id="action_report_retencion_lpair" 
+            model="account.deduction" 
+            string="Retención/Provedor"
+            report_type="qweb-pdf"
+            name="bit_account_report.report_retencion_view_lpair"
+            file="bit_account_report.report_retencion_view_lpair"
+        /> 
+        
+        
+         <report
+            id="action_report_account_nota_lpair" 
+            model="account.invoice" 
+            string="Nota/Crédito"
+            report_type="qweb-pdf"
+            name="bit_account_report.report_account_nota_lpair"
+            file="bit_account_report.report_account_nota_lpair" 
+        /> 
+        
+        
+        
+         <report
+            id="action_report_liquidacion_lpair" 
+            model="account.invoice" 
+            string="Liquidacion/Compra"
+            report_type="qweb-pdf"
+            name="bit_account_report.report_liquidacion_lpair"
+            file="bit_account_report.report_liquidacion_lpair" 
+        /> 
+        
+        
+          
+    </data>
+</openerp>

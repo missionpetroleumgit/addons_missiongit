@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="report_purchase_order">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="report.external_layout">
+                        <div class="page">
+                            <div style="position:absolute;left:60;top:8px;font-size: 16px">
+                                <table class="table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <td align="center"><img t-if="o.company_id.logo" t-att-src="'data:image/png;base64,%s' % o.company_id.logo" style="max-height:80px"/></td>
+                                            <td align="center"><h2><strong><span t-field="o.company_id.partner_id" t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;name&quot;], &quot;no_marker&quot;: true, &quot;no_tag_br&quot;: true}"/></strong></h2><span t-field-options="{&quot;widget&quot;: &quot;contact&quot;, &quot;fields&quot;: [&quot;address&quot;], &quot;no_marker&quot;: true, &quot;no_tag_br&quot;: true}"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="center"><h4><strong>RUC: </strong><span t-esc="o.company_id.partner_id.part_number"/></h4></td>
+                                            <td align="center"><h4>ORDEN DE COMPRA / ORDEN DE SERVICIO  <span style="color:red !important" t-field="o.name"/></h4></td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                                <table class="table table-condensed">
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Proveedor: </strong><span t-field="o.partner_id.name"/></td>
+                                            <td><strong>Dirección: </strong><span t-field="o.partner_id.street"/> <span t-field="o.partner_id.street2"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Correo: </strong><span t-field="o.partner_id.email"/></td>
+                                            <td><strong>Fecha: </strong><span t-field="o.date_order"/></td>
+                                        </tr>
+                                        <tr>
+                                            <!--<td><strong>Requisición No: </strong></td>-->
+                                            <!--<td><strong>Concepto: </strong><span t-field="o.concept"/></td>-->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table table-condensed table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>CANT.</th>
+                                            <th>PRODUCTO</th>
+                                            <t t-if="o.origin">
+                                                <th>DESCRIPCION</th>
+                                            </t>
+                                            <th>UND.</th>
+                                            <th>PRECIO U.</th>
+                                            <th>TOTAL</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="o.order_line" t-as="l">
+                                            <td align="center"><span t-esc="l['product_qty']"/></td>
+                                            <td align="left"><span t-esc="l.product_id.name"/></td>
+                                            <t t-if="o.origin">
+                                                <td align="left"><span t-esc="l['name']"/> [ <span t-esc="o.origin"/> ]</td>
+                                            </t>
+                                            <td align="center"><span t-field="l.product_uom.name"/></td>
+                                            <td align="center"><span t-esc="l['price_unit']"/></td>
+                                            <td align="center"><span t-esc="l['price_subtotal']"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="col-xs-9" style="position:absolute;left:300;top:1090px;font-size: 16px">
+                                    <table class="table table-condensed">
+                                        <tr>
+                                            <th class="col-xs-2">
+                                                <span style="position:absolute;left:350;"><strong>Subtotal: </strong></span>
+                                            </th>
+                                            <div class="col-xs-3">
+                                                <th/>
+                                                <th/>
+                                                <th/>
+                                                <th/>
+                                                <th/>
+                                                <th class="text-right">
+                                                    <span t-field="o.amount_untaxed" style="position:absolute;left:550;"/>
+                                                </th>
+                                            </div>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div style="position:absolute;left:750;top:1150px;font-size: 16px">
+                                <span style="color:red !important">NO Incluye el I.V.A.</span>
+                            </div>
+                            <div style="position:absolute;left:410;top:1240px">
+                                <tr>
+                                    <td align="center"><span>VALIDADO POR:</span><br/>
+                                    </td>
+                                </tr>
+                            </div>
+                            <!--<div style="position:absolute;left:330;top:1260px">-->
+                            <!--<tr>-->
+                            <!--<td align="left"><span style="font-size: 16px">-->
+                            <!--<span/><strong>DPTO. DE COMPRAS Y ADQUISICIONES</strong></span><br/>-->
+                            <!--</td>-->
+                            <!--</tr>-->
+                            <!--</div>-->
+                            <!--<div style="position:absolute;left:50;top:1300px;font-size: 11">-->
+                            <!--<span><h10><strong>Instrucciones</strong></h10></span>-->
+                            <!--</div>-->
+                            <!--<div style="position:absolute;left:10;top:1320px;font-size: 10px">-->
+                            <!--<span>- Como prueba de la aceptación de esta Order, devolver la copia debidamete firmada. Adjuntar a la factura la Nota de Crédito / Guía de Remisión / copia Orden de Compra.</span>-->
+                            <!--</div>-->
+                            <!--<div style="position:absolute;left:10;top:1340px;font-size: 10px">-->
+                            <!--<span>- TIW se reserva el derecho de cancelar esta O/C por deficiencia en la entrega de bienes y servicios por parte del proveedor. Se multará con el 1% diario del subtotalde la compra realizada por impuntualidad.</span>-->
+                            <!--</div>-->
+                            <!--<div style="position:absolute;left:10;top:1360;px;font-size: 10px">-->
+                            <!--<span>- Los pagos se realizarán en los términos pactados con TIWEI material deberá ser entregado de acuerdo a los terminos pactados con TIW</span>-->
+                            <!--</div>-->
+                            <!--<div style="position:absolute;left:50;top:1380px;font-size: 12px">-->
+                            <!--<span><strong>Av. República de El Salvador 836 y Portugal, Edificio Prisma Norte Oficina 53 Telfs. (593-2) 2273-973 / 2276-933 Fax: 2459-348</strong></span>-->
+                            <!--</div>-->
+                            <!--<div style="position:absolute;left:450;top:1400px;font-size: 12px">-->
+                            <!--<span><strong>Quito - Ecuador</strong></span>-->
+                            <!--</div>-->
+                            <!--<div style="position:absolute;left:50;top:1400px;font-size: 12px">-->
+                            <!--<span><strong>C.A-7.4.1FR-04</strong></span>-->
+                            <!--</div>-->
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

@@ -1,0 +1,97 @@
+# Translation of Server.
+# This file contains the translation of the following modules:
+# 	* hr_payroll_extend
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-05-20 18:08+0000\n"
+"PO-Revision-Date: 2015-05-20 13:13-0500\n"
+"Last-Translator: Cubic ERP S.A.C. <info@cubicerp.com>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.7\n"
+
+#. module: hr_payroll_extend
+#: field:hr.contribution.register,code:0
+msgid "Code"
+msgstr "Código"
+
+#. module: hr_payroll_extend
+#: field:hr.employee.contribution.rule,register_id:0
+#: model:ir.model,name:hr_payroll_extend.model_hr_contribution_register
+msgid "Contribution Register"
+msgstr "Registro de contribución"
+
+#. module: hr_payroll_extend
+#: field:hr.salary.rule,register_employee:0
+msgid "Contribution Register in Employee"
+msgstr "Registro de Contribución en el Empleado"
+
+#. module: hr_payroll_extend
+#: view:hr.contribution.register:hr_payroll_extend.hr_contribution_register_form
+#: view:hr.employee:hr_payroll_extend.view_employee_form
+#: field:hr.employee,contribution_rule_ids:0
+msgid "Contribution Rules"
+msgstr "Reglas del Registro de Contribución"
+
+#. module: hr_payroll_extend
+#: field:hr.contribution.register,register_employee:0
+msgid "Contribution Rules in Employee"
+msgstr "Registro de Contribución en el Empleado"
+
+#. module: hr_payroll_extend
+#: field:hr.employee.contribution.rule,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: hr_payroll_extend
+#: field:hr.employee.contribution.rule,create_date:0
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: hr_payroll_extend
+#: field:hr.employee.contribution.rule,employee_id:0
+#: model:ir.model,name:hr_payroll_extend.model_hr_employee
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: hr_payroll_extend
+#: view:hr.contribution.register:hr_payroll_extend.hr_contribution_register_form
+#: field:hr.contribution.register,employee_rule_ids:0
+msgid "Employee Rules"
+msgstr "Reglas del Empleado"
+
+#. module: hr_payroll_extend
+#: field:hr.employee.contribution.rule,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: hr_payroll_extend
+#: field:hr.employee.contribution.rule,write_uid:0
+msgid "Last Updated by"
+msgstr "Actualizado por"
+
+#. module: hr_payroll_extend
+#: field:hr.employee.contribution.rule,write_date:0
+msgid "Last Updated on"
+msgstr "Actualizado en"
+
+#. module: hr_payroll_extend
+#: model:ir.model,name:hr_payroll_extend.model_hr_payslip
+msgid "Pay Slip"
+msgstr "Nómina"
+
+#. module: hr_payroll_extend
+#: field:hr.employee.contribution.rule,rule_id:0
+msgid "Salary Rule"
+msgstr "Regla Salarial"
+
+#. module: hr_payroll_extend
+#: sql_constraint:hr.employee.contribution.rule:0
+msgid "The salary rule must be unique per employee!"
+msgstr "¡La regla salarial debe ser única por empleado!"

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+  <!-- Product Product -->
+		<record id="view_bit_product_product" model="ir.ui.view">
+		    <field name="name">bit.product.product.inherit</field>
+		    <field name="model">product.product</field>
+		    <field name="inherit_id" ref="sale.product_form_view_sale_order_button"/>
+		    <field name="arch" type="xml">
+		        <field name="lst_price" position="after">
+		            <field name="is_reemb"/>
+		        </field>
+		        <field name="property_account_expense" position="after">
+		            <field name="property_account_cost_id"/>
+		        </field>
+		    </field>
+		</record>	
+
+  <!-- Product Product -->
+		<record id="view_bit_product_template" model="ir.ui.view">
+		    <field name="name">bit.product.template.inherit</field>
+		    <field name="model">product.template</field>
+		    <field name="inherit_id" ref="product.product_template_only_form_view"/>
+		    <field name="arch" type="xml">
+		        <field name="list_price" position="after">
+		            <field name="is_reemb"/>
+		        </field>
+		        <field name="property_account_expense" position="after">
+		            <field name="property_account_cost_id"/>
+		        </field>
+		    </field>
+		</record>	
+
+        <record id="view_bit_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.bit.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
+            <field name="arch" type="xml">
+				<xpath expr="//field[@name='order_line']/tree/field[@name='route_id']" position="attributes">                
+                	<attribute name="invisible">1</attribute>
+                </xpath>
+				<!--Cambio domain producto en venta -->
+				<xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+                	<attribute name="context">{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':False, 'company_id': parent.company_id, 'tarifa': True}</attribute>
+                </xpath>
+               <!-- 
+                -->
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+					<field name="is_reemb" invisible='1'/>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='price_unit']" position="replace">
+                  <field name="price_unit"  attrs="{'readonly':[ ('is_reemb', '!=', True) ] }"  />
+                </xpath>
+        <!-- 
+         -->            
+            </field>
+        </record>
+
+  <!-- Product pricelist version -->
+		<!--<record id="bit_product_pricelist_item_tree_view" model="ir.ui.view">-->
+		    <!--<field name="name">product.pricelist.item.inherit</field>-->
+		    <!--<field name="model">product.pricelist.item</field>-->
+		    <!--<field name="inherit_id" ref="product.product_pricelist_item_tree_view"/>-->
+		    <!--<field name="arch" type="xml">-->
+		        <!--<field name="base" position="after">-->
+		            <!--<field name="price_surcharge"/>-->
+		        <!--</field>-->
+		    <!--</field>-->
+		<!--</record>-->
+        
+    </data>
+</openerp>

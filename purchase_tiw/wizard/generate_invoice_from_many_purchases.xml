@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <record id="generate_from_invoice_form_view" model="ir.ui.view">
+            <field name="name">generate.from.invoice.form.view</field>
+			<field name="model">generate.invoice</field>
+			<field name="arch" type="xml">
+                <form string="Unificación de compras en factura">
+                    <label string="Desea generar factura para estas compras?"/>
+                    <footer>
+                        <button string="Crear Factura" type="object" name="generate_invoice"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+		<act_window name="Generar Facturas"
+            context="{'search_default_draft': 1}"
+            res_model="generate.invoice"
+            src_model="purchase.order"
+            view_mode="form"
+            view_id="generate_from_invoice_form_view"
+            target="new"
+            multi="True"
+            key2="client_action_multi"
+            id="view_bit_generate_invoice"/>
+
+	</data>
+</openerp>

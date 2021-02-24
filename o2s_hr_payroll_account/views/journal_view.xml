@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_account_journal_add_attributes">
+            <field name="name">view.account.journal.add.attributes</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+                <field name="default_debit_account_id" position="attributes">
+                    <attribute name="domain">[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation'),('company_id','=',company_id)]</attribute>
+                </field>
+                <field name="default_credit_account_id" position="attributes">
+                    <attribute name="domain">[('type','&lt;&gt;','view'),('type','&lt;&gt;','consolidation'),('company_id','=',company_id)]</attribute>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

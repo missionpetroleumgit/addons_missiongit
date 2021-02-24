@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="hr_acumulados_view" model="ir.ui.view">
+			<field name="name">hr.acumulados.search</field>
+			<field name="model">hr.acumulados</field>
+			<field name="arch" type="xml">
+				<search string="Acumulados">
+					<field name="employee_id"/>
+				</search>
+			</field>
+		</record>
+	
+		<record model="ir.ui.view" id="view_hr_acumulados_form">
+			<field name="name">hr.acumulados.form</field>
+			<field name="model">hr.acumulados</field>
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<sheet>
+					<form string="Registro de Acumulados">
+						<header>
+							<field name="state" widget="statusbar"/>
+						</header>
+						<group string="Registro de Acumulados">
+							<field name="employee_id" attrs="{'readonly':[('state','=','confirm')]}"
+								   on_change="onchange_employee_id(employee_id)"/>
+							<field name="name"/>
+							<field name="fch_contrato" readonly="1" />
+							<field name="payslip_id" />
+							<button name="confirmar_acumulados" string="Confirmar" type="object" icon="gtk-execute"
+									states="ready"
+									confirm = "Despues de que usted Confirme, NO Podra Volver a Modificar la Informacion?"/>
+							<field name="acumulados_line" nolabel="1" colspan="4"
+								   attrs="{'readonly':[('state','=','draft')]}" context="{'employee_id': employee_id}">
+								<!--<tree>-->
+									<!--<field name="dias_t"/>-->
+									<!--<field name="imponible"/>-->
+									<!--<field name="decimo3"/>-->
+									<!--<field name="decimo4"/>-->
+									<!--<field name="vacaciones" invisible="1"/>-->
+								<!--</tree>-->
+								<tree editable="bottom">
+									<!--<group>-->
+										<field name="inicio_mes" required="1"/> <!-- on_change="onchange_inicio_mes(inicio_mes)" -->
+										<field name="dias_t" on_change="calcular(imponible, dias_t)"/>
+										<field name="imponible" on_change="calcular(imponible, dias_t)"/>
+										<field name="decimo3" readonly="1"/>
+										<field name="decimo4" readonly="1"/>
+										<field name="vacaciones" invisible="1"/>
+									<!--</group>-->
+								</tree>
+							</field>
+						</group>
+					</form>
+				</sheet>
+			</field>
+		</record>
+		
+		<record model="ir.ui.view" id="view_hr_acumulados_tree">
+			<field name="name">hr.acumulados.tree</field>
+			<field name="model">hr.acumulados</field>
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Registro de Acumulados">
+					<field name="name"/>
+					<field name="employee_id"/>
+					<field name="fch_contrato"/>
+					<field name="state"/>
+				</tree>
+			</field>
+		</record>
+
+		 <record id="action_hr_acumulados" model="ir.actions.act_window">
+            <field name="name">Acumulados</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.acumulados</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+			 <field name="context">{'readonly_by_pass':True}</field>
+            <field name="search_view_id" ref="hr_acumulados_view"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para registrar un nuevo acumulado.
+              </p>
+            </field>
+        </record>
+	</data>
+</openerp>

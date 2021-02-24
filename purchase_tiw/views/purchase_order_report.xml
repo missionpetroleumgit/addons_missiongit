@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="purchase_order_report_inherit" inherit_id="purchase.report_purchaseorder_document">
+            <xpath expr="//div[@class='page']" position="replace">
+                <div class="page">
+                    <t t-if="o.destination == 'importation'">
+                        <table style="width:100%;">
+                            <tr>
+                                <td>
+                                    <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="max-height:120px"/>
+                                </td>
+                            </tr>
+                            <table>
+                                <div class="row zero_min_height" style="width: 100%;">
+                                    <div class="col-xs-12">
+                                        <div style="border-bottom: 9px solid white;"/>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div style="border-bottom: 9px solid white;"/>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div style="border-bottom: 5px solid black;"/>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div style="border-bottom: 14px solid black;"/>
+                                    </div>
+                                    <tr>
+                                        <td>
+                                            <div style="border-bottom: 1px solid white;"/>
+                                        </td>
+                                    </tr>
+                                </div>
+                            </table>
+                            <tr>
+                                <strong><h4 style="text-align: center;">
+                                    <span style="color:white !important">--</span>
+                                </h4></strong>
+                            </tr>
+                            <div style="position:absolute;left:17;top:139px;font-size: 12">
+                                <span style="color:white !important"><strong>www.mission-petroleum.com </strong></span>
+                            </div>
+                            <div style="position:absolute;left:10;top:160px;font-size: 13">
+                                TAX ID: <span t-field="res_company.partner_id.part_number"/>
+                            </div>
+                            <div style="position:absolute;left:10;top:180px;font-size: 13">
+                                ADDRESS: <span t-field="res_company.street"/> <span t-field="res_company.street2"/>
+                            </div>
+                            <div style="position:absolute;left:10;top:200px;font-size: 13">
+                                PHONE: <span t-field="res_company.phone"/>
+                            </div>
+                            <div style="position:absolute;left:10;top:220px;font-size: 13">
+                                COUNTRY: <span t-field="res_company.country_id.name"/>
+                            </div>
+                            <div class="col-xs-12">
+                                <p style="color:white !important">_____</p>
+                            </div>
+                            <div class="col-xs-12">
+                                <p style="color:white !important">_____</p>
+                            </div>
+                        </table>
+                        <div class="table">
+                            <tr>
+                                <strong><h3 style="text-align: center;">PURCHASE ORDER N°:<br/>
+                                </h3></strong>
+                                <!--<strong><h3 style="text-align: center;" t-if="o.state in ('approved', 'done', 'bid') and o.type_purchase =='service'">ORDEN DE SERVICIO<br/>
+                                </h3></strong>
+                                <strong><h3 style="text-align: center;" t-if="o.state in ('draft', 'sent') and o.type_purchase =='service'">REQUISICION DE SERVICIO<br/>
+                                </h3></strong>
+                                <strong><h3 style="text-align: center;" t-if="o.state in ('approved', 'done', 'bid') and o.type_purchase =='product'">ORDEN DE COMPRA<br/>
+                                </h3></strong>-->
+                            </tr>
+                        </div>
+                        <tr>
+                            <strong><h3 style="text-align: center;">
+                                <strong><span style="color:darkred !important" t-field="o.name"/></strong>
+                            </h3></strong>
+                        </tr>
+                        <table class="table table-condensed table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td><strong><span style="font-size: 14px">SUPPLIER: </span></strong><span style="font-size: 11px" t-field="o.partner_id.name"/></td>
+                                    <td><strong><span style="font-size: 14px">DATE: </span></strong><span style="font-size: 11px" t-field="o.date_order"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong><span style="font-size: 14px">ATT'N: </span></strong></td>
+                                    <td><strong><span style="font-size: 14px">FROM: </span></strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong><span style="font-size: 14px">REQUIRED DATE: </span></strong><span style="font-size: 11px" t-field="o.date_order"/></td>
+                                    <td><strong><span style="font-size: 14px">REFERENCE: </span></strong><span style="font-size: 11px" t-field="o.origin"/></td>
+                                </tr>
+                                <tr>
+                                    <td><strong><span style="font-size: 14px">CC:  </span></strong><span style="font-size: 11px" t-field="o.place_delivery"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-condensed table-bordered">
+                            <thead>
+                                <tr>
+                                    <th><span style="font-size: 11px">ITEM</span></th>
+                                    <th><span style="font-size: 11px">QTY</span></th>
+                                    <th><span style="font-size: 11px">CODE</span></th>
+                                    <th><span style="font-size: 11px">DESCRIPTION</span></th>
+                                    <th><span style="font-size: 11px">UNIT PRICE</span></th>
+                                    <th><span style="font-size: 11px">SUBTOTAL</span></th>
+                                </tr>
+                            </thead>
+                            <tbody style="font-size: 11">
+                                <tr t-foreach="o.order_line" t-as="line">
+                                    <td class="text-left">
+                                        <span style="color:white !important">.</span>
+                                    </td>
+                                    <td class="text-left">
+                                        <span t-field="line.product_qty"/>
+                                    </td>
+                                    <td class="text-left">
+                                        <span t-field="line.product_id.default_code"/>
+                                    </td>
+                                    <td class="text-left">
+                                        <span t-field="line.product_id.name"/>
+                                    </td>
+                                    <td class="text-left">
+                                        <span t-field="line.price_unit"/>
+                                    </td>
+                                    <td class="text-left">
+                                        <span t-field="line.price_subtotal"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-condensed">
+                            <tbody>
+                                <tr>
+                                    <th class="col-xs-2">
+                                        <span style="position:absolute;left:550;"><strong>TOTAL : </strong></span><span style="position:absolute;left:845;" t-esc="round(o.amount_total,2)"/>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row">
+                            <div>
+                                <table>
+                                    <tbody>
+                                        <div class="col-xs-12">
+                                            <strong><span style="font-size: 12">Remarks: </span></strong>
+                                            <p style="font-size: 12" t-field="o.notes"/>
+                                        </div>
+
+                                        <tr>
+                                            <td>
+                                                <strong><span style="font-size: 12">Payment Terms:</span></strong>with_copy
+                                                <span style="font-size: 12" t-field="o.payment_term_id.name"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong><span style="font-size: 12">Shipment Terms:</span></strong>
+                                                <span style="font-size: 12" t-esc="o.place_delivery"/>
+
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong><span style="font-size: 12">Delivery:</span></strong>
+                                                <span style="font-size: 12" t-esc="o.minimum_planned_date"/>
+                                            </td>
+                                        </tr>
+                                        <tr t-foreach="o.quotes_ids" t-as="lines">
+                                            <t t-if="lines.state=='done'">
+                                                <td>
+                                                    <strong><span style="font-size: 12">Quotation:</span></strong>
+                                                    <span style="font-size: 12" t-esc="lines.name"/>
+                                                </td>
+                                            </t>
+                                        </tr>
+                                        <t t-if="o.state in ('approved','done')">
+                                            <tr>
+                                                <td>
+                                                    <strong><span style="font-size: 12">Requisition: </span></strong>
+                                                    <span style="font-size: 12" t-esc="o.number_req"/>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <div class="row mt32 mb32">
+                            <div style="width: 30%;margin: 1%;float: left;text-align: center;white-space:nowrap;overflow: hidden;font-size: 12">
+                                <t t-if="o.state in ('approved', 'done')">
+                                    <t t-if="o.validator.login=='carlos_caceres'">
+                                        <img t-if="res_company.importation_sig" t-att-src="'data:image/png;base64,%s' % res_company.importation_sig" style="max-height:120px"/>
+                                    </t>
+                                </t>
+                                <p>________________________</p>
+                                <p>SUPPLY CHAIN MANAGER</p>
+                                <p><span t-field="o.validator"/></p>
+
+                            </div>
+                            <div style="width: 30%;margin: 1%;float: left;text-align: center;white-space:nowrap;overflow: hidden;font-size: 12">
+                                <t t-if="o.state_manager in ('presupuesto', 'approved')">
+                                    <img t-if="res_company.manager_sig" t-att-src="'data:image/png;base64,%s' % res_company.manager_sig" style="max-height:120px"/>
+                                </t>
+                                <p>________________________</p>
+                                <p>COMERCIAL MANAGER</p>
+                                <p>ALEJANDRO AÑAZCO</p>
+
+                            </div>
+                            <div style="width: 30%;margin: 1%;float: left;text-align: center;white-space:nowrap;overflow: hidden;font-size: 12">
+                                <t t-if="o.state != 'draft'">
+                                    <t t-if="o.app_user_id.login=='marcelo_carvajal'">
+                                        <img t-if="res_company.op_manager_sig" t-att-src="'data:image/png;base64,%s' % res_company.op_manager_sig" style="max-height:120px"/>
+                                    </t>
+                                    <t t-if="o.app_user_id.login=='alejandro_anazco'">
+                                        <img t-if="res_company.manager_sig" t-att-src="'data:image/png;base64,%s' % res_company.manager_sig" style="max-height:120px"/>
+                                    </t>
+                                </t>
+                                <p>________________________</p>
+                                <p>CONTROLER</p>
+                                <p>MARCELO CARVAJAL</p>
+
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-if="o.destination != 'importation'">
+                        <table style="width:100%;">
+                            <tr>
+                                <td>
+                                    <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="max-height:120px"/>
+                                </td>
+                            </tr>
+                            <table>
+                                <div class="row zero_min_height" style="width: 100%;">
+                                    <div class="col-xs-12">
+                                        <div style="border-bottom: 9px solid white;"/>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div style="border-bottom: 9px solid white;"/>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div style="border-bottom: 5px solid black;"/>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div style="border-bottom: 14px solid black;"/>
+                                    </div>
+                                    <tr>
+                                        <td>
+                                            <div style="border-bottom: 1px solid white;"/>
+                                        </td>
+                                    </tr>
+                                </div>
+                                <t t-if="o.type_purchase == 'product'">
+                                    <t  t-if="o.state in ('draft', 'sent')">
+                                        <div style="position:absolute;left:700;top:65px;font-size: 14">
+                                            <strong>Código:  </strong><span>F05-INT/018-01</span>
+                                        </div>
+                                        <div style="position:absolute;left:700;top:85px;font-size: 14">
+                                            <strong>Revisión:  </strong><span>01</span>
+                                        </div>
+                                        <div style="position:absolute;left:700;top:105px;font-size: 14">
+                                            <strong>Emisión:  </strong><span>01/09/2018</span>
+                                        </div>
+                                    </t>
+                                </t>
+                                <t t-if="o.type_purchase == 'product'">
+                                    <t  t-if="o.state in ('approved', 'done', 'bid')">
+                                        <div style="position:absolute;left:700;top:65px;font-size: 14">
+                                            <strong>Código:  </strong><span>F05-INT/002-03</span>
+                                        </div>
+                                        <div style="position:absolute;left:700;top:85px;font-size: 14">
+                                            <strong>Revisión:  </strong><span>03</span>
+                                        </div>
+                                        <div style="position:absolute;left:700;top:105px;font-size: 14">
+                                            <strong>Emisión:  </strong><span>01/09/2018</span>
+                                        </div>
+                                    </t>
+                                </t>
+                                <t t-if="o.type_purchase == 'service'">
+                                    <t  t-if="o.state in ('draft', 'sent')">
+                                        <div style="position:absolute;left:700;top:65px;font-size: 14">
+                                            <strong>Código:  </strong><span>F05-INT/020-00</span>
+                                        </div>
+                                        <div style="position:absolute;left:700;top:85px;font-size: 14">
+                                            <strong>Revisión:  </strong><span>00</span>
+                                        </div>
+                                        <div style="position:absolute;left:700;top:105px;font-size: 14">
+                                            <strong>Emisión:  </strong><span>01/09/2018</span>
+                                        </div>
+                                    </t>
+                                </t>
+                                <t t-if="o.type_purchase == 'service'">
+                                    <t  t-if="o.state in ('approved', 'done', 'bid')">
+                                        <div style="position:absolute;left:700;top:65px;font-size: 14">
+                                            <strong>Código:  </strong><span>F05-INT/021-00</span>
+                                        </div>
+                                        <div style="position:absolute;left:700;top:85px;font-size: 14">
+                                            <strong>Revisión:  </strong><span>00</span>
+                                        </div>
+                                        <div style="position:absolute;left:700;top:105px;font-size: 14">
+                                            <strong>Emisión:  </strong><span>01/09/2018</span>
+                                        </div>
+                                    </t>
+                                </t>
+                            </table>
+                            <tr>
+                                <strong><h4 style="text-align: center;">
+                                    <span style="color:white !important">--</span>
+                                </h4></strong>
+                            </tr>
+                            <div style="position:absolute;left:17;top:139px;font-size: 12">
+                                <span style="color:white !important"><strong>www.mission-petroleum.com </strong></span>
+                            </div>
+                            <div style="position:absolute;left:10;top:160px;font-size: 13">
+                                DIRECCIÓN: <span t-field="res_company.street"/> <span t-field="res_company.street2"/>
+                            </div>
+                            <div style="position:absolute;left:10;top:180px;font-size: 13">
+                                FONOS: <span t-field="res_company.phone"/>
+                            </div>
+                            <div style="position:absolute;left:10;top:200px;font-size: 13">
+                                PAIS: <span t-field="res_company.country_id.name"/>
+                            </div>
+                        </table>
+
+                        <div class="table">
+                            <tr>
+                                <strong><h3 style="text-align: center;" t-if="o.state in ('draft', 'sent') and o.type_purchase =='product'">REQUISICION DE COMPRA<br/>
+                                </h3></strong>
+                                <strong><h3 style="text-align: center;" t-if="o.state in ('approved', 'done', 'bid') and o.type_purchase =='service'">ORDEN DE SERVICIO<br/>
+                                </h3></strong>
+                                <strong><h3 style="text-align: center;" t-if="o.state in ('draft', 'sent') and o.type_purchase =='service'">REQUISICION DE SERVICIO<br/>
+                                </h3></strong>
+                                <strong><h3 style="text-align: center;" t-if="o.state in ('approved', 'done', 'bid') and o.type_purchase =='product'">ORDEN DE COMPRA<br/>
+                                </h3></strong>
+                            </tr>
+                        </div>
+                        <tr>
+                            <strong><h4 style="text-align: center;">
+                                <span style="color:red !important" t-field="o.name"/>
+                            </h4></strong>
+                        </tr>
+                        <t t-if="o.state in ('approved','done')">
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <td><span style="font-size: 12">PARA: </span><span style="font-size: 13" t-field="o.partner_id.name"/></td>
+                                        <td><span style="font-size: 12">DE: </span><span style="font-size: 13" t-esc="o.req_user_id.name_related"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><span style="font-size: 12">ATENCION: </span><span t-field="o.validator"/></td>
+                                        <td><span style="font-size: 12">FECHA: </span><span style="font-size: 13" t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/></td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </t>
+                        <t t-if="o.state in ('draft', 'sent', 'bid')">
+                            <div class="row mt32 mb32">
+                                <div class="col-xs-3">
+                                    <strong><span style="font-size: 12">FECHA: </span></strong>
+                                    <span style="font-size: 12" t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/>
+                                </div>
+                            </div>
+                            <div class="row mt32 mb32">
+                                <div class="col-xs-9">
+                                    <strong><span style="font-size: 12">SOLICITADO POR: </span></strong>
+                                    <span style="font-size: 12" t-field="o.req_user_id.name_related"/>
+                                </div>
+                            </div>
+                            <div class="row mt32 mb32">
+                                <div class="col-xs-12">
+                                    <strong><span style="font-size: 12">REFERENCIA: </span></strong>
+                                    <span style="font-size: 12" t-field="o.origin"/>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-if="o.state in ('approved','done')">
+                            <div class="row mt32 mb32">
+                                <div class="col-xs-12">
+                                    <strong><span style="font-size: 12">ASUNTO: </span></strong>
+                                    <span style="font-size: 12" t-field="o.origin"/>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-if="o.state in ('approved','done')">
+                            <div class="row mt32 mb32">
+                                <div class="col-xs-6">
+                                    <strong><span style="font-size: 12">Requisicion: </span></strong>
+                                    <span style="font-size: 12" t-esc="o.number_req"/>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-if="o.state in ('draft', 'sent', 'bid')">
+                            <table class="table table-condensed table-bordered">
+                                <thead style="font-size: 11">
+                                    <tr>
+                                        <th>
+                                            <strong>CODIGO</strong>
+                                        </th>
+                                        <th class="text-center">
+                                            <strong>PRODUCTO</strong>
+                                        </th>
+                                        <th class="text-right">
+                                            <strong>DESCRIPCION DEL ARTICULO</strong>
+                                        </th>
+                                        <th class="text-right">
+                                            <strong>CANTIDAD STOCK</strong>
+                                        </th>
+                                        <th class="text-right">
+                                            <strong>CANTIDAD A PEDIR</strong>
+                                        </th>
+                                        <th>
+                                            <strong>UM</strong>
+                                        </th>
+                                        <th class="text-right">
+                                            <strong>TIEMPO NECESARIO</strong>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size: 11">
+                                    <tr t-foreach="o.request_products" t-as="line">
+                                        <td class="text-left">
+                                            <span t-field="line.product_id.default_code"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-field="line.product_id.name"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.description"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.qty_available"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.qty"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.product_uom"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-field="line.date_requested"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="col-xs-12">
+                                <strong><span style="font-size: 12">OBSERVACIONES GENERALES: </span></strong>
+                                <p style="font-size: 12" t-field="o.notes"/>
+                            </div>
+                            <div class="row mt32 mb32">
+                                <div class="col-xs-12">
+                                    <table class="table table-condensed table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <td class="text-center"><span style="font-size: 12">SOLICITADO POR: </span></td>
+                                                <td class="text-center"><span style="font-size: 12">APROBADO POR: </span></td>
+                                                <td class="text-center"><span style="font-size: 12">REVISADO POR: </span></td>
+                                                <td class="text-center"><span style="font-size: 12">APROBADO POR: </span></td>
+                                            </tr>
+                                            <tr>
+                                                <h6><td style="font-size:11" class="text-left">NOMBRE: <span/></td></h6>
+                                                <h6><td style="font-size:11" class="text-left">NOMBRE: <span/></td></h6>
+                                                <h6><td style="font-size:11" class="text-left">NOMBRE: <span/></td></h6>
+                                                <h6><td style="font-size:11" class="text-left">NOMBRE: <span/></td></h6>
+                                            </tr>
+                                            <tr>
+                                                <h6><td style="font-size:11" class="text-left">FIRMA: <span/></td></h6>
+                                                <h6><td style="font-size:11" class="text-left">FIRMA: <span/></td></h6>
+                                                <h6><td style="font-size:11" class="text-left">FIRMA: <span/></td></h6>
+                                                <h6><td style="font-size:11" class="text-left">FIRMA: <span/></td></h6>
+                                            </tr>
+                                            <tr>
+                                                <h6><td style="font-size:11" class="text-left">NOMBRE: <span/></td></h6>
+                                                <h6><td style="font-size:11" class="text-left">NOMBRE: <span/></td></h6>
+                                                <h6><td style="font-size:11" class="text-left">NOMBRE: <span/></td></h6>
+                                                <h6><td style="font-size:11" class="text-left">NOMBRE: <span/></td></h6>
+                                            </tr>
+                                            <tr>
+                                                <h6><td style="font-size:11" class="text-left">FIRMA: <span/></td></h6>
+                                                <h6><td style="font-size:11" class="text-left">FIRMA: <span/></td></h6>
+                                                <h6><td style="font-size:11" class="text-left">FIRMA: <span/></td></h6>
+                                                <h6><td style="font-size:11" class="text-left">FIRMA: <span/></td></h6>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </t>
+                        <t t-if="o.state in ('approved','done')">
+                            <table class="table table-condensed">
+                                <thead style="font-size: 11">
+                                    <tr>
+                                        <th>
+                                            <strong>CANT.</strong>
+                                        </th>
+                                        <th>
+                                            <strong>UM</strong>
+                                        </th>
+                                        <th class="text-center">
+                                            <strong>PRODUCTO</strong>
+                                        </th>
+                                        <th class="text-right">
+                                            <strong>DESCRIPCION</strong>
+                                        </th>
+                                        <th class="text-right">
+                                            <strong>C.ANALITICA</strong>
+                                        </th>
+                                        <th class="text-right">
+                                            <strong>CODIGO</strong>
+                                        </th>
+                                        <th class="text-right">
+                                            <strong>REFERENCIA</strong>
+                                        </th>
+                                        <th class="text-right">
+                                            <strong>PR. UNIT</strong>
+                                        </th>
+                                        <th class="text-right">
+                                            <strong>PR. TOTAL</strong>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody style="font-size: 11">
+                                    <tr t-foreach="o.order_line" t-as="line">
+                                        <td class="text-left">
+                                            <span t-field="line.product_qty"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-field="line.product_uom"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.product_id.name"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.name"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.analytics_id.name"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.product_id.default_code"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <!--<span t-field="line.price_unit"/>-->
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-field="line.price_unit"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-field="line.price_subtotal"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-xs-4 pull-right">
+                                    <table class="table table-condensed">
+                                        <tr class="border-black">
+                                            <td>
+                                                <strong>Total Without Taxes</strong>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="o.amount_untaxed" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Taxes</td>
+                                            <td class="text-right">
+                                                <span t-field="o.amount_tax" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                                            </td>
+                                        </tr>
+                                        <tr class="border-black">
+                                            <td>
+                                                <strong>Total</strong>
+                                            </td>
+                                            <td class="text-right">
+                                                <span t-field="o.amount_total" t-field-options="{&quot;widget&quot;: &quot;monetary&quot;, &quot;display_currency&quot;: &quot;o.currency_id&quot;}"/>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div>
+                                    <table>
+                                        <tbody>
+                                            <div class="col-xs-12">
+                                                <strong><span style="font-size: 12">Observaciones: </span></strong>
+                                                <p style="font-size: 12" t-field="o.notes"/>
+                                            </div>
+
+                                            <tr>
+                                                <td>
+                                                    <strong><span style="font-size: 12">Condición de Pago:</span></strong>
+                                                    <span style="font-size: 12" t-field="o.payment_term_id.name"/>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong><span style="font-size: 12">Lugar de Entrega:</span></strong>
+                                                    <span style="font-size: 12" t-esc="o.place_delivery"/>
+
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <strong><span style="font-size: 12">Tiempo de Entrega:</span></strong>
+                                                    <span style="font-size: 12" t-esc="o.minimum_planned_date"/>
+                                                </td>
+
+                                            </tr>
+                                            <tr t-foreach="o.quotes_ids" t-as="lines">
+                                                <t t-if="lines.state=='done'">
+                                                    <td>
+                                                        <strong><span style="font-size: 12">Cotizacion:</span></strong>
+                                                        <span style="font-size: 12" t-esc="lines.name"/>
+                                                    </td>
+                                                </t>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <div class="row mt32 mb32">
+                                <div style="width: 30%;margin: 1%;float: left;text-align: center;white-space:nowrap;overflow: hidden;font-size: 12">
+                                    <t t-if="o.state in ('approved', 'done')">
+                                        <t t-if="o.validator.login=='roger_intriago'">
+                                            <img t-if="res_company.purchase_sig" t-att-src="'data:image/png;base64,%s' % res_company.purchase_sig" style="max-height:120px"/>
+                                        </t>
+                                        <t t-if="o.validator.login=='alvaro_anchaluiza'">
+                                            <img t-if="res_company.purchase_sig2" t-att-src="'data:image/png;base64,%s' % res_company.purchase_sig2" style="max-height:120px"/>
+                                        </t>
+                                        <t t-if="o.validator.login!='alvaro_anchaluiza'">
+                                            <t t-if="o.validator.login!='roger_intriago'">
+                                                <img t-if="res_company.purchase_sig" t-att-src="'data:image/png;base64,%s' % res_company.purchase_sig" style="max-height:120px"/>
+                                            </t>
+                                        </t>
+                                    </t>
+                                    <p>________________________</p>
+                                    <p>COMPRADOR</p>
+                                    <p><span t-field="o.validator"/></p>
+
+                                </div>
+                                <div style="width: 30%;margin: 1%;float: left;text-align: center;white-space:nowrap;overflow: hidden;font-size: 12">
+                                    <t t-if="o.state_manager in ('presupuesto', 'approved')">
+                                        <img t-if="res_company.manager_sig" t-att-src="'data:image/png;base64,%s' % res_company.manager_sig" style="max-height:120px"/>
+                                    </t>
+                                    <p>________________________</p>
+                                    <p>GERENTE GENERAL</p>
+                                    <p>ALEJANDRO AÑAZCO</p>
+
+                                </div>
+                                <div style="width: 30%;margin: 1%;float: left;text-align: center;white-space:nowrap;overflow: hidden;font-size: 12">
+                                    <t t-if="o.state!='draft'">
+                                        <t t-if="o.app_user_id.login=='marcelo_carvajal'">
+                                            <img t-if="res_company.op_manager_sig" t-att-src="'data:image/png;base64,%s' % res_company.op_manager_sig" style="max-height:120px"/>
+                                        </t>
+                                        <t t-if="o.app_user_id.login=='alejandro_anazco'">
+                                            <img t-if="res_company.manager_sig" t-att-src="'data:image/png;base64,%s' % res_company.manager_sig" style="max-height:120px"/>
+                                        </t>
+                                    </t>
+                                    <p>________________________</p>
+                                    <p>CONTROLADOR</p>
+                                    <p>MARCELO CARVAJAL</p>
+
+                                </div>
+                            </div>
+                        </t>
+                        <div class="oe_structure"/>
+                    </t>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</openerp>

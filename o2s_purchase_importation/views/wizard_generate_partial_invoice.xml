@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!--CSV: 15-09-2017 Creo wizard para crear factura desde orden importación-->
+        <record model="ir.ui.view" id="view_generate_invoice_partial_invoice">
+            <field name="name">generate.invoice.partial.imp</field>
+            <field name="model">generate.partial.invoice.imp</field>
+            <field name="priority">3</field>
+            <field name="arch" type="xml">
+                <form string="Generar Facturas (Parcial)" version="7.0">
+                    <label string="Está seguro de generar la factura de la orden seleccionada?"/>
+                    <group>
+                        <field name="date_start"/>
+                        <field name="group_bills"/>
+                        <field name="invoice_line_ids">
+                            <tree editable="top">
+                                <field name="to_generate"/>
+                                <field name="importation_id"/>
+                                <field name="product_id"/>
+                                <field name="name"/>
+                                <field name="quantity"/>
+                                <field name="uos_id"/>
+                                <field name="price_unit"/>
+                                <field name="subtotal_importation"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="button_gen_invoice" string="Generar Factura" class="oe_highlight" type="object"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window name="Generar Factura (Parcial)"
+                    context="{'search_default_draft': 1}"
+                    res_model="generate.partial.invoice.imp"
+                    src_model="importation.order"
+                    view_mode="form"
+                    view_id="view_generate_invoice_partial_invoice"
+                    target="new"
+                    multi="True"
+                    key2="client_action_multi"
+                    id="action_account_generate_invoice_partial_invoice"/>
+
+    </data>
+</openerp>

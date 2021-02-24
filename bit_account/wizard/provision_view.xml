@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="form_provision_entry" model="ir.ui.view">
+			<field name="name">form.provision.entry</field>
+			<field name="model">provision.entries</field>
+			<field name="arch" type="xml">
+				<form string="Generar Asiento de Provision">
+                    <group col="4" colspan="2">
+                        <field name="journal_id"/>
+                        <field name="date_entry"/>
+                        <field name="period_id"/>
+                        <field name="ref" invisible="1"/>
+                        <field name="amount"/>
+                    </group>
+                    <footer>
+                        <button name="generate_provision" type="object" string="Provisionar"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_form_provision_entry" model="ir.actions.act_window">
+            <field name="name">Asiento de Provision</field>
+            <field name="res_model">provision.entries</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+	</data>
+</openerp>

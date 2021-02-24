@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+        <!--Esta es la importacion, en la misma pueden haber varias ordenes de importacion-->
+
+        <record id="tree_importation_order" model="ir.ui.view">
+            <field name="name">tree.importation.order</field>
+			<field name="model">importation.order</field>
+			<field name="arch" type="xml">
+                <tree string="Ordenes de Importacion">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="amount_total"/>
+                    <field name="company_id"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="form_importation_order" model="ir.ui.view">
+            <field name="name">form.importation.order</field>
+			<field name="model">importation.order</field>
+			<field name="arch" type="xml">
+                <form string="Orden de Importacion">
+                    <header>
+                        <button name="imp_received" string="Aprobar Solicitud" groups="group_importation_order_approve" type="object" class="oe_highlight" states="draft"/>
+                        <button name="imp_bid" string="Solicitud Presupuesto" groups="group_importation_order_request_requisition" class="oe_highlight" type="object" states="sent"/>
+                        <button name="imp_presp" string="Presupuestada" groups="group_importation_order_budgeted" class="oe_highlight" type="object" states="bid"/>
+                        <button name="imp_approve" string="Aprobacion Gerencia" groups="group_importation_order_line_managers" class="oe_highlight" type="object" states="confirmed"/>
+                        <button name="imp_manager" string="Aprobacion GG" groups="group_importation_order_general_manager_approve" class="oe_highlight" type="object" states="approved"/>
+                        <button name="purchase_confirm" type="object" groups="group_erp_importation_order_order_confirm" string="Confirm Order" class="oe_highlight" states="execute"/>
+                        <!--<button name="action_prorated" type="object"
+                        string="Liquidar Importacion" class="oe_highlight" id="imp_generate" states="transit"/>-->
+                        <!--<button name="imp_set_transit" string="Cambiar a transito" type="object" states="done"/>-->
+                        <button name="imp_cancel" string="Cancelar" type="object" states="sent,bid,confirmed,approved,execute"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,sent,bid,approved,execute,done"/>
+                    </header>
+                    <sheet>
+                        <group col="4" colspan="2">
+                            <field name="name" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}"/>
+                            <field name="partner_id" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}"/>
+                            <field name="company_id" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}"/>
+                            <field name="employee_id" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}"/>
+                            <field name="user_id" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}"/>
+                            <field name="date_order" attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}"/>
+                            <field name="currency_id" groups="base.group_multi_currency"
+                                   attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}"/>
+                        </group>
+                        <notebook>
+                            <page string="Solicitud de Producto"
+                                  attrs="{'invisible':[('state','not in', ['draft','sent','bid','confirmed','approved','execute'])]}">
+                                <field name="request_ids" attrs="{'invisible':[('state','not in', ['draft','sent'])]}">
+                                    <tree editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="qty"/>
+                                        <field name="product_uom"/>
+                                        <field name="date_requested"/>
+                                        <field name="importation_id" invisible="1"/>
+                                    </tree>
+                                </field>
+                                <field name="quotes" attrs="{'invisible':[('state','not in', ['sent','bid','confirmed','approved','execute'])]}" context="{'importation_id':id}"/>
+                            </page>
+                            <page string="Líneas de Pedido" attrs="{'invisible':[('state','not in', ['done','cancel'])]}">
+                                <field name="order_lines"  attrs="{'readonly':[('state', 'in', ['done', 'cancel'])]}">
+                                    <tree string="Purchase Order Lines" editable="bottom">
+                                        <field name="product_id"/>
+                                        <field name="number"/>
+                                        <field name="name"/>
+                                        <field name="date_planned"/>
+                                        <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                        <!--<field name="account_analytic_id" domain="[('type','not in',('view','template'))]"/>-->
+                                        <field name="product_qty"/>
+                                        <field name="product_uom" groups="product.group_uom"/>
+                                        <field name="price_unit"/>
+                                        <field name="taxes_id" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','!=','sale')]"/>
+                                        <field name="subtotal_importation"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                        <group class="oe_subtotal_footer oe_right">
+                            <field name="amount_total" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        </group>
+                        <div class="oe_clear">
+                            <label for="comment"/>
+                        </div>
+                        <field name="comment"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_importation_order" model="ir.actions.act_window">
+            <field name="name">Ordenes de Importacion</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">importation.order</field>
+            <field name="context">{
+				'readonly_by_pass': True,
+				}</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Estado borrador Draft PI para aprobar O2S Daniel Aldaz -->
+
+        <record id="action_importation_order_approve" model="ir.actions.act_window">
+            <field name="name">Aprobacion Solicitud</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">importation.order</field>
+            <field name="context">{
+				'readonly_by_pass': True,
+				}</field>
+            <field name="domain">[('state','=','draft')]</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Estado  O2S Daniel Aldaz -->
+
+        <record id="action_importation_order_request_requisition" model="ir.actions.act_window">
+            <field name="name">Solicitar Presupuesto</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">importation.order</field>
+            <field name="context">{
+				'readonly_by_pass': True,
+				}</field>
+            <field name="domain">[('state','=','sent')]</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Estado  O2S Daniel Aldaz -->
+
+        <record id="action_importation_order_budgeted" model="ir.actions.act_window">
+            <field name="name">Presupuestar</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">importation.order</field>
+            <field name="context">{
+				'readonly_by_pass': True,
+				}</field>
+            <field name="domain">[('state','=','bid')]</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Estado  O2S Daniel Aldaz -->
+
+        <record id="action_importation_order_line_managers" model="ir.actions.act_window">
+            <field name="name">Aprobacion Gerentes Area</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">importation.order</field>
+            <field name="context">{
+				'readonly_by_pass': True,
+				}</field>
+            <field name="domain">[('state','=','confirmed')]</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Estado  O2S Daniel Aldaz -->
+
+        <record id="action_importation_order_general_manager_approve" model="ir.actions.act_window">
+            <field name="name">Aprobacion Gerente General</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">importation.order</field>
+            <field name="context">{
+				'readonly_by_pass': True,
+				}</field>
+            <field name="domain">[('state','=','approved')]</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Estado  O2S Daniel Aldaz -->
+
+        <record id="action_erp_importation_order_order_confirm" model="ir.actions.act_window">
+            <field name="name">Confirmacion Ordenes</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">importation.order</field>
+            <field name="context">{
+				'readonly_by_pass': True,
+				}</field>
+            <field name="domain">[('state','=','execute')]</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_importation_order" id="menu_action_importation_order" parent="o2s_purchase_expense_distribution.menu_purchase_cost_control" sequence="1"/>
+        <menuitem action="action_importation_order_approve" id="menu_action_importation_order_approve" groups="group_importation_order_approve" parent="o2s_purchase_expense_distribution.menu_purchase_cost_control" sequence="2"/>
+        <menuitem action="action_importation_order_request_requisition" id="menu_action_importation_order_request_requisition" groups="group_importation_order_request_requisition" parent="o2s_purchase_expense_distribution.menu_purchase_cost_control" sequence="3"/>
+        <menuitem action="action_importation_order_budgeted" id="menu_action_importation_order_budgeted" groups="group_importation_order_budgeted" parent="o2s_purchase_expense_distribution.menu_purchase_cost_control" sequence="4"/>
+        <menuitem action="action_importation_order_line_managers" id="menu_action_importation_order_line_managers" groups="group_importation_order_line_managers" parent="o2s_purchase_expense_distribution.menu_purchase_cost_control" sequence="5"/>
+        <menuitem action="action_importation_order_general_manager_approve" id="menu_action_importation_order_general_manager_approve" groups="group_importation_order_general_manager_approve" parent="o2s_purchase_expense_distribution.menu_purchase_cost_control" sequence="6"/>
+        <menuitem action="action_erp_importation_order_order_confirm" id="menu_action_importation_order_order_confirm" groups="group_rp_importation_order_order_confirm" parent="o2s_purchase_expense_distribution.menu_purchase_cost_control" sequence="7"/>
+
+    </data>
+</openerp>

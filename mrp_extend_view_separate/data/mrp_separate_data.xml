@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <!--DATOS INICIALES-->
+    <data noupdate="1">
+
+    <!-- Ordenes de manofactura -->
+        <record model="ir.sequence.type" id="sequence_mrp_manufacturing_orders">
+            <field name="name">Ordenes de Manofactura</field>
+            <field name="code">manufacturing.mrp.orders</field>
+        </record>
+        <record model="ir.sequence" id="mrp_manufacturing_orders_sequence">
+            <field name="name">Ordenes de Manofactura</field>
+            <field name="code">manufacturing.mrp.orders</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">MO</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">301</field>
+            <field name="implementation">standard</field>
+            <field name="padding">5</field>
+        </record>
+
+        <!-- Ordenes de manofactura -->
+
+        <!-- Ordenes de ensamble -->
+
+        <record model="ir.sequence.type" id="sequence_mrp_assembly_orders">
+            <field name="name">Ordenes de Ensamble</field>
+            <field name="code">assembly.mrp.orders</field>
+        </record>
+        <record model="ir.sequence" id="mrp_assembly_orders_sequence">
+            <field name="name">Ordenes de Ensamble</field>
+            <field name="code">assembly.mrp.orders</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">AO</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+            <field name="implementation">standard</field>
+            <field name="padding">5</field>
+        </record>
+
+        <record model="ir.sequence.type" id="sequence_service_mrp_manufacturing_orders">
+            <field name="name">Manofactura de Servicios</field>
+            <field name="code">manufacturing.service.mrp.orders</field>
+        </record>
+        <record model="ir.sequence" id="mrp_service_manufacturing_orders_sequence">
+            <field name="name">Ordenes de Manofactura</field>
+            <field name="code">manufacturing.service.mrp.orders</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">MSO</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+            <field name="implementation">standard</field>
+            <field name="padding">5</field>
+        </record>
+
+    </data>
+</openerp>

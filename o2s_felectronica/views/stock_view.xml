@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+	<data>
+
+		<record id="view_stock_picking_electronica_form" model="ir.ui.view">
+			<field name="name">stock.picking.electronica.form</field>
+			<field name="type">form</field>
+			<field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_form" />
+			<field name="priority">3</field>
+			<field name="arch" type="xml">
+				<notebook position="inside" >
+					<page string="Guia Electronica" attrs="{'invisible':[('electronic_guide','!=',True)]}">
+						<group col="4" colspan="4">
+							<separator colspan="4" string="Informacion Guia Remision Electronica"/>
+							<field name="num_autoremi" />
+							<field name="state_remielectro" invisible="1"/>
+							<field name="date_aut_remi" />
+						</group>
+						<group col="4" colspan="4">
+							<separator colspan="4" string="Informacion Guia Remision"/>
+							<field name="d_partida" attrs="{'required':[('picking_type_id','=',2), ('electronic_guide','=',True)]}"/>
+							<field name="date_it" attrs="{'required':[('picking_type_id','=',2), ('electronic_guide','=',True)]}"/>
+							<field name="date_ft" attrs="{'required':[('picking_type_id','=',2), ('electronic_guide','=',True)]}"/>
+						</group>
+						<group col='4' colspan='4' attrs="{'invisible':[('state_remielectro','=',['autorizado'])]}">
+							<separator colspan="4" string="Pedir Autorizacion" />
+							<button name="%(action_guia_electronica_file)d" type='action' string='Registrar SRI' states='done' icon="gtk-convert"/>
+						</group>
+
+						<group col='4' colspan='4' attrs="{'invisible':[('state_remielectro','=','pendiente')]}">
+							<separator colspan="4" string="Autorizado" />
+						</group>
+						<newline/>
+						<field colspan="4" name="gremision_id" nolabel="1">
+							<form string="Guia Remision Electronica">
+								<group col="4" colspan="4">
+									<separator string="Guia Remision Electronica" colspan="4"/>
+									<field name="name" />
+									<field name="clave_acceso" />
+									<field name="contingencia" />
+									<field name="clave_contingencia" attrs="{'required':[('contingencia','=',True)]}"/>
+									<field name="cod_comprobante" />
+									<field name="note" />
+								</group>
+							</form>
+							<tree string="Guia Remision Electronica" editable="button">
+								<field name="name" />
+								<field name="clave_acceso" />
+								<field name="contingencia" />
+								<field name="clave_contingencia" />
+								<field name="cod_comprobante" />
+							</tree>
+						</field>
+					</page>
+					<page string="Informacion Transportista-Destinatario"
+						  attrs="{'invisible':[('electronic_guide','!=',True)]}">
+						<group col="4" colspan="4">
+							<separator colspan="4" string="Informacion Transportista-Destinatario"/>
+							<field name="transportista" domain="[('supplier','=', False), ('customer','=', False)]"
+								   attrs="{'required':[('picking_type_id','=',2), ('electronic_guide','=',True)]}"/>
+							<field name="destinatario"
+								   attrs="{'required':[('picking_type_id','=',2), ('electronic_guide','=',True)]}"/>
+							<!--<field name="carrier_id_type" attrs="{'required':['|', '|', ('picking_type_id','=',2), ('electronic_guide','=',True)]}"/>-->
+							<field name="ruta"
+								   attrs="{'required':[('picking_type_id','=',2), ('electronic_guide','=',True)]}"/>
+							<!--<field name="identt" attrs="{'required':['|', '|', ('picking_type_id','=',2), ('electronic_guide','=',True)]}"/>-->
+							<field name="motivo"
+								   attrs="{'required':[('picking_type_id','=',2), ('electronic_guide','=',True)]}"/>
+							<label for="prefactura"/>
+							<div>
+								<div>outgoing
+									<field name="emission_series" style="width: 12%" nolabel="1" placeholder="001"/>
+									<field name="emission_point" style="width: 12%" nolabel="1" placeholder="002"/>
+									<field name="prefactura" nolabel="1" class="oe_inline"/>
+								</div>
+							</div>
+							<!--<field name="ticket_id" readonly="1"/>-->
+							<!--<field name="contrato" invisible="1"/>-->
+						</group>
+						<group col="4" colspan="4">
+							<separator colspan="4" string="Salida de Bodega"/>
+							<field name="applicant" attrs="{'required':[('picking_type_id','=',2), ('electronic_guide','=',True)]}"/>
+							<field name="posting" attrs="{'required':[('picking_type_id','=',2), ('electronic_guide','=',True)]}"/>
+						</group>
+						<group col="4" colspan="4">
+							<separator colspan="4" string="Informacion Adicional Transportista"/>
+							<field name="carrier_by" />
+							<field name="placat" attrs="{'required':[('picking_type_id','=',2), ('electronic_guide','=',True)]}"/>
+						</group>
+					</page>
+					<!--<page string="Service Ticket" attrs="{'invisible':[('state','!=','done')]}">-->
+					<!--<separator colspan="4" string="Service Ticket" />-->
+					<!--<group colspan="2">-->
+					<!--&lt;!&ndash;<field name="services_ids" nolabel="1"/>&ndash;&gt;-->
+					<!--</group>-->
+					<!--</page>-->
+				</notebook>
+			</field>
+		</record>
+
+	</data>
+</openerp>

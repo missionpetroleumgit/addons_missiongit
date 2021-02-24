@@ -1,0 +1,300 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* hr_loan-master
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20150604\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-08-24 22:37+0000\n"
+"PO-Revision-Date: 2015-08-24 22:37+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: hr_loan-master
+#: view:hr.loan:hr_loan-master.view_hr_loan_form
+msgid "(update)"
+msgstr "(actualización)"
+
+#. module: hr_loan-master
+#: view:hr.loan:hr_loan-master.view_hr_loan_form
+msgid "Account Move"
+msgstr "Lineas Contables"
+
+#. module: hr_loan-master
+#: view:hr.loan:hr_loan-master.view_hr_loan_form
+msgid "Approve"
+msgstr "Aprobar"
+
+#. module: hr_loan-master
+#: selection:hr.loan,state:0
+msgid "Approved"
+msgstr "Aprobado"
+
+#. module: hr_loan-master
+#: view:hr.loan:hr_loan-master.view_hr_loan_form
+msgid "Compute"
+msgstr "Calcular"
+
+#. module: hr_loan-master
+#: field:hr.loan,create_uid:0
+#: field:hr.loan.line,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: hr_loan-master
+#: field:hr.loan,create_date:0
+#: field:hr.loan.line,create_date:0
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: hr_loan-master
+#: field:hr.loan,date:0
+msgid "Date Request"
+msgstr "Fecha de solicitud"
+
+#. module: hr_loan-master
+#: help:hr.loan,message_last_post:0
+msgid "Date of the last message posted on the record."
+msgstr "Fecha del último mensaje publicado en el expediente."
+
+#. module: hr_loan-master
+#: selection:hr.loan,state:0
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: hr_loan-master
+#: field:hr.loan,employee_id:0
+#: field:hr.loan.line,employee_id:0
+#: model:ir.model,name:hr_loan-master.model_hr_employee
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: hr_loan-master
+#: field:hr.loan,emp_account_id:0
+msgid "Employee Account"
+msgstr "Cuenta del empleado"
+
+#. module: hr_loan-master
+#: field:hr.loan,move_id:0
+msgid "Entry Journal"
+msgstr "Diario de Entrada"
+
+#. module: hr_loan-master
+#: field:hr.loan,message_follower_ids:0
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: hr_loan-master
+#: model:ir.model,name:hr_loan-master.model_hr_loan
+msgid "HR Loan Request"
+msgstr "Solicitud de Préstamo de Recursos Humanos"
+
+#. module: hr_loan-master
+#: model:ir.model,name:hr_loan-master.model_hr_loan_line
+msgid "HR Loan Request Line"
+msgstr "Solicitud de Préstamo Línea de Recursos Humanos"
+
+#. module: hr_loan-master
+#: help:hr.loan,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Sostiene el resumen Chatter (número de mensajes, ...). Este resumen es directamente en formato html para ser insertada en vistas kanban."
+
+#. module: hr_loan-master
+#: field:hr.loan,id:0
+#: field:hr.loan.line,id:0
+msgid "ID"
+msgstr "Identificación"
+
+#. module: hr_loan-master
+#: help:hr.loan,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "Si se marca nuevos mensajes requieren su atención."
+
+#. module: hr_loan-master
+#: view:hr.loan:hr_loan-master.view_hr_loan_form
+msgid "Installments"
+msgstr "Cuotas"
+
+#. module: hr_loan-master
+#: field:hr.loan,message_is_follower:0
+msgid "Is a Follower"
+msgstr "Es un seguidor"
+
+#. module: hr_loan-master
+#: field:hr.loan,journal_id:0
+msgid "Journal"
+msgstr "Diario"
+
+#. module: hr_loan-master
+#: model:ir.model,name:hr_loan-master.model_account_move_line
+msgid "Journal Items"
+msgstr "Detalle de asientos Contables"
+
+#. module: hr_loan-master
+#: field:hr.loan,message_last_post:0
+msgid "Last Message Date"
+msgstr "Último Mensaje Fecha"
+
+#. module: hr_loan-master
+#: field:hr.loan,write_uid:0
+#: field:hr.loan.line,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización realizada por"
+
+#. module: hr_loan-master
+#: field:hr.loan,write_date:0
+#: field:hr.loan.line,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: hr_loan-master
+#: field:account.move.line,loan_id:0
+msgid "Loan"
+msgstr "Préstamo"
+
+#. module: hr_loan-master
+#: field:hr.loan,loan_amount:0
+msgid "Loan Amount"
+msgstr "Monto del préstamo"
+
+#. module: hr_loan-master
+#: view:hr.loan:hr_loan-master.view_hr_loan_form
+#: field:hr.loan,loan_line_ids:0
+msgid "Loan Line"
+msgstr "Préstamo Línea"
+
+#. module: hr_loan-master
+#: field:hr.loan,name:0
+msgid "Loan Name"
+msgstr "Préstamo Nombre"
+
+#. module: hr_loan-master
+#: field:hr.loan.line,loan_id:0
+msgid "Loan Ref."
+msgstr "Referencia de Prestamo"
+
+#. module: hr_loan-master
+#: view:hr.loan:hr_loan-master.view_hr_loan_form
+msgid "Loan Request"
+msgstr "Solicitud de Préstamo"
+
+#. module: hr_loan-master
+#: view:hr.loan:hr_loan-master.tree_hr_loan_view
+#: model:ir.actions.act_window,name:hr_loan-master.action_hr_loan_request
+#: model:ir.ui.menu,name:hr_loan-master.menu_hr_loan_request
+msgid "Loan Requests"
+msgstr "Las solicitudes de préstamos"
+
+#. module: hr_loan-master
+#: view:hr.payslip:hr_loan-master.hr_payslip_form_inherit_view
+#: field:hr.payslip,loan_ids:0
+#: model:ir.actions.act_window,name:hr_loan-master.act_hr_loan_request
+#: model:ir.ui.menu,name:hr_loan-master.menu_hr_loans
+msgid "Loans"
+msgstr "Préstamos"
+
+#. module: hr_loan-master
+#: field:hr.loan,message_ids:0
+msgid "Messages"
+msgstr "Mensajes"
+
+#. module: hr_loan-master
+#: help:hr.loan,message_ids:0
+msgid "Messages and communication history"
+msgstr "Los mensajes y la historia de la comunicación"
+
+#. module: hr_loan-master
+#: field:hr.loan,no_month:0
+msgid "No Of Month"
+msgstr "N# De Mes"
+
+#. module: hr_loan-master
+#: field:hr.loan.line,notes:0
+msgid "Notes"
+msgstr "Notas"
+
+#. module: hr_loan-master
+#: field:hr.loan.line,paid:0
+msgid "Paid"
+msgstr "Pagado"
+
+#. module: hr_loan-master
+#: field:hr.loan.line,paid_amount:0
+msgid "Paid Amount"
+msgstr "Monto de pago"
+
+#. module: hr_loan-master
+#: view:hr.loan:hr_loan-master.view_hr_loan_form
+msgid "Pay Amount"
+msgstr "Monto de Pago"
+
+#. module: hr_loan-master
+#: model:ir.model,name:hr_loan-master.model_hr_payslip
+msgid "Pay Slip"
+msgstr "Nómina"
+
+#. module: hr_loan-master
+#: field:hr.loan.line,paid_date:0
+msgid "Payment Date"
+msgstr "Día de pago"
+
+#. module: hr_loan-master
+#: field:hr.loan.line,payroll_id:0
+msgid "Payslip Ref."
+msgstr "Referencia de nómina."
+
+#. module: hr_loan-master
+#: view:hr.loan:hr_loan-master.view_hr_loan_form
+msgid "Recompute Balance"
+msgstr "Reequilibrio de computo"
+
+#. module: hr_loan-master
+#: view:hr.loan:hr_loan-master.view_hr_loan_form
+msgid "Refuse"
+msgstr "Rechazar"
+
+#. module: hr_loan-master
+#: selection:hr.loan,state:0
+msgid "Refused"
+msgstr "Rechazado"
+
+#. module: hr_loan-master
+#: view:hr.loan:hr_loan-master.view_hr_loan_form
+msgid "Set To Draft"
+msgstr "Cambiar a borrador"
+
+#. module: hr_loan-master
+#: field:hr.loan,payment_start_date:0
+msgid "Start Date of Payment"
+msgstr "Fecha de Pago Inicio "
+
+#. module: hr_loan-master
+#: field:hr.loan,state:0
+msgid "State"
+msgstr "Estado"
+
+#. module: hr_loan-master
+#: field:hr.loan,message_summary:0
+msgid "Summary"
+msgstr "Sumatoria"
+
+#. module: hr_loan-master
+#: field:hr.loan,treasury_account_id:0
+msgid "Treasury Account"
+msgstr "Cuenta de Tesorería"
+
+#. module: hr_loan-master
+#: field:hr.loan,message_unread:0
+msgid "Unread Messages"
+msgstr "Mensajes no leídos"
+
+#. module: hr_loan-master
+#: view:hr.payslip:hr_loan-master.hr_payslip_form_inherit_view
+msgid "Update Loans"
+msgstr "Actualizar Préstamos "
+

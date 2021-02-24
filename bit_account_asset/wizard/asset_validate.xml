@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="asset_modify_form2">
+            <field name="name">wizard.asset.modify.form2</field>
+            <field name="model">asset.modify</field>
+            <field name="inherit_id" ref="account_asset.asset_modify_form"/>
+            <field name="arch" type="xml">
+                <field name="method_number" position="after">
+                    <field name="new_date"/>
+                    <field name="new_residual"/>
+                </field>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_asset_validate">
+            <field name="name">asset.validate</field>
+            <field name="model">asset.validate</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <form string="Depreciar Activos" version="7.0">
+                    <label string="Los activos fijos seleccionados seran depreciados en el periodo:"/>
+                    <group col="4" colspan="2">
+                        <field name="period_id" nolabel="1"/>
+                        <group></group>
+                    </group>
+                  	<footer>
+						<button name="deprecate" string="Depreciar Activos" class="oe_highlight" type="object"/>
+					</footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- <delete model="ir.actions.act_window" id="action_account_payment_file"/> -->
+
+		<act_window name="Depreciacion"
+            context="{'search_default_draft': 1, 'wizard': 'check'}"
+            res_model="asset.validate"
+            src_model="account.asset.asset"
+            view_mode="form"
+            view_id="view_asset_validate"
+            target="new"
+            multi="True"
+            key2="client_action_multi"
+            id="action_view_asset_validate"/>
+
+    </data>
+</openerp>

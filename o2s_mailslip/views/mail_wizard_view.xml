@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_mail_payslip_file">
+            <field name="name">mail.payslip</field>
+            <field name="model">mail.payslip</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <form string="Envio de correo masivo">
+                    <label string="Esta seguro de enviar los archivos por correo?"/>
+                  	<footer>
+						<button name="send_mail" string="Enviar" class="oe_highlight" type="object"/>
+					</footer>
+                </form>
+            </field>
+        </record>
+
+        <act_window
+                id="act_hr_send_mail"
+                name="Enviar Slip por email"
+                context="{'search_default_draft': 1}"
+                res_model="mail.payslip"
+                src_model="hr.payslip"
+                view_mode="form"
+                view_id="view_mail_payslip_file"
+                target="new"
+                multi="True"
+                key2="client_action_multi"/>
+
+    </data>
+</openerp>

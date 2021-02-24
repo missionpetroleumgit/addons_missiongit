@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+  <data>
+  
+	  <record id="view_contract_mod_employee_form" model="ir.ui.view">
+	      <field name="name">contract.employee.name</field>
+	      <field name="model">hr.contract</field>
+	      <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+	      <field name="arch" type="xml">
+	      <field name="employee_id" position="replace">
+	      	<field name="employee_id"  on_change="onchange_completa_nombre(employee_id)"/>
+	      </field>
+	      </field>
+	  </record>
+	  
+	  <record id="view_contract_mod_name_form" model="ir.ui.view">
+	      <field name="name">contract.mod.name</field>
+	      <field name="model">hr.contract</field>
+	      <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+	      <field name="arch" type="xml">
+			  <field name="name" position="replace">
+				  <field name="name" invisible="1"/>
+			  </field>
+			  <xpath expr="//sheet" position="before">
+				  <header>
+					  <field name="state" widget="statusbar"/>
+				  </header>
+			  </xpath>
+	      </field>
+	  </record>
+	  
+	  <record id="view_contract_add_active_form" model="ir.ui.view">
+	      <field name="name">contract.add.active.form</field>
+	      <field name="model">hr.contract</field>
+	      <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+	      <field name="arch" type="xml">
+	      <field name="type_id" position="after">
+			  <field name="activo" invisible="1"/>
+			  	<separator string="Reporte Contrato" colspan="5"/>
+			  	<field name="name_contractor" string="Nombre contratante" readonly="1"/>
+   	      	  		<field name="identity_contractor" string="Cédula contratante" readonly="1"/>
+	      		  </field>
+		  	  <xpath expr="//notebook/page[@string='Work Permit']" position="after">
+			  <page string="Control de Cambios">
+				  <group>
+					  <field name="change_control_ids" nolabel="1">
+						  <tree editable="bottom" create="false" delete="false">
+							  <field name="change_date" readonly="1"/>
+							  <field name="change"/>
+							  <field name="old_value" readonly="1"/>
+							  <field name="current_value" readonly="1"/>
+							  <field name="user" readonly="1"/>
+						  </tree>
+					  </field>
+				  </group>
+			  </page>
+		  </xpath>
+	      </field>
+	  </record>
+	  
+	  <record id="view_contract_add_active_tree" model="ir.ui.view">
+	      <field name="name">contract.add.active.tree</field>
+	      <field name="model">hr.contract</field>
+	      <field name="inherit_id" ref="hr_contract.hr_contract_view_tree"/>
+	      <field name="arch" type="xml">
+	      <field name="date_end" position="after">
+	      	<field name="horas_x_dia"/>
+	      	<field name="activo"/>
+	      </field>
+	      </field>
+	  </record>
+	  
+<!-- 	  <record id="view_contract_rol_liquidacion_form" model="ir.ui.view">
+	      <field name="name">contract.rol.liquidacion.form</field>
+	      <field name="model">hr.contract</field>
+	      <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+	      <field name="arch" type="xml">
+	      <field name="horas_x_dia" position="after">
+	      	<field name="pagar_rol_l" readonly="1"/>
+	      </field>
+	      </field>
+	  </record> -->
+	  
+	  
+	  
+	   <record id="view_contract_del_trial_form" model="ir.ui.view">
+	      <field name="name">contract.del.trial</field>
+	      <field name="model">hr.contract</field>
+	      <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+	      <field name="arch" type="xml">
+	      
+	      <field name="trial_date_start" position="attributes">
+	      	<attribute name="invisible">1</attribute>
+	      </field>
+	      <field name="trial_date_end" position="attributes">
+	      	<attribute name="invisible">1</attribute>
+	      </field>
+	      <label string="Trial Period Duration" position="attributes">
+	      	<attribute name="invisible">1</attribute>
+	      </label>
+	      
+	      <field name="working_hours" position="attributes">
+	      	<attribute name="required">1</attribute>
+	      	<attribute name="string">Tipo contrato horas</attribute>
+	      </field>
+          <group name="duration_group" string="Duration" position="attributes">
+          <attribute name="string">Inicio de labores</attribute>
+          </group>      
+	      </field>
+	  </record> 
+	  
+	  <record id="view_contract_add_horas_form" model="ir.ui.view">
+	      <field name="name">contract.add.horas</field>
+	      <field name="model">hr.contract</field>
+	      <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+	      <field name="arch" type="xml">
+	      <field name="working_hours" position="after">
+	      	<field name="horas_x_dia"/>
+	      </field>
+	      </field>
+	  </record>
+	  
+	  <record id="resource_horas_trabajo_form_inherit" model="ir.ui.view">
+            <field name="name">resource.horas.trabajo.form.inherit</field>
+            <field name="model">resource.calendar</field>            
+            <field name="type">form</field>
+            <field name="inherit_id" ref="resource.resource_calendar_form"/>
+            <field name="arch" type="xml">
+         		<xpath expr="//field[@name='manager']" position="before">
+					    <field name="desde" />
+					    <field name="hasta" />			
+				</xpath>
+            </field>
+      </record>
+	   
+  </data>
+</openerp>

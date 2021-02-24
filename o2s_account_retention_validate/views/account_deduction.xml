@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+		<record id="view_deduction_form_add_account_journal" model="ir.ui.view">
+            <field name="name">view.deduction.form.add.account.journal</field>
+            <field name="model">account.deduction</field>
+            <field name="inherit_id" ref="bit_account.view_account_deduction_form"/>
+            <field name="arch" type="xml">
+                <field name="invoice_id" position="after">
+                	<field name="move_id"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

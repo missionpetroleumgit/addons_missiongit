@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="view_sale_order_transit_state_form" model="ir.ui.view">
+            <field name="name">sale.order.transit.form</field>
+            <field name="model">sale.order.transit</field>
+            <field name="arch" type="xml">
+                <form string="Fecha de bien/servicio">
+                    <group attrs="{'invisible': [('date_ok','=', True)]}">
+                        <field name="date"/>
+                        <field name="date_ok" invisible="1"/>
+                        <p>Tenga en cuenta que la fecha que vaya a ingresar en bien/servicio debe ser la fecha
+                            en que se entregó el bien/servicio.</p>
+                    </group>
+                    <group attrs="{'invisible': [('date_ok','=', False)]}">
+                        <field name="docs_date"/>
+                        <p>Tenga en cuenta que la fecha que vaya a ingresar en documentos debe ser la fecha que
+                            el vendedor le entregó los documentos correspondientes a la venta.</p>
+                    </group>
+                    <footer>
+                        <button icon="gtk-execute" string="Aplicar" name="move_date_transit" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_sale_order_transit_control" model="ir.actions.act_window">
+            <field name="name">Fechas de control</field>
+            <field name="res_model">sale.order.transit</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sale_order_transit_state_form"/>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</openerp>

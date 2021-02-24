@@ -1,0 +1,9 @@
+
+.openerp .announcement_bar {
+    display: none;
+	visibility: hidden;
+}
+
+.openerp .oe_form_sheet_width {
+  max-width: 99%;
+}

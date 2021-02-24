@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_company_isd_add" model="ir.ui.view">
+            <field name="name">company.isd.add</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <field name="currency_id" position="after">
+                    <field name="percent" required="True"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</openerp>

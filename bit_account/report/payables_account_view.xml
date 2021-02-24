@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_payables_account_form" model="ir.ui.view">
+            <field name="name">view.payables.account.form</field>
+            <field name="model">payables.account</field>
+            <field name="arch" type="xml">
+                <form string="Cuentas por Pagar" version="7.0">
+                    <sheet>
+                        <group col="4">
+                            <field name="company_id"/>
+                            <field name="account_type"/>
+                            <field name="period_length"/>
+                            <field name="start_period" options="{'no_create': True}"/>
+                            <field name="end_period" options="{'no_create': True}"/>
+                            <field name="type_export"/>
+                            <field name="id" invisible="1"/>
+                            <!--<field name="end_period"/>-->
+                        </group>
+                        <field name="partner_ids"/>
+                        <button name="create_excel" type="object" string="Imprimir" attrs="{'invisible': [('id','=',False)]}"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_payables_account_form" model="ir.actions.act_window">
+            <field name="name">Cuentas por Pagar</field>
+            <field name="res_model">payables.account</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="context">{'supplier': True}</field>
+            <field name="target">current</field>
+        </record>
+
+        <record id="action_receibables_account_form" model="ir.actions.act_window">
+            <field name="name">Cuentas por Cobrar</field>
+            <field name="res_model">payables.account</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="context">{'supplier': False}</field>
+            <field name="target">current</field>
+        </record>
+
+        <menuitem parent="account.menu_finance_reporting" id="mission_accounting_reports" name="Reportes Contables"/>
+        <menuitem action="action_payables_account_form" id="menu_action_payables_account_form"
+                  parent="account.menu_finance_reporting"
+                  string="CxP"/>
+        <menuitem action="action_receibables_account_form" id="menu_action_receibables_account_form"
+                  parent="account.menu_finance_reporting" string="CxC"/>
+
+    </data>
+</openerp>

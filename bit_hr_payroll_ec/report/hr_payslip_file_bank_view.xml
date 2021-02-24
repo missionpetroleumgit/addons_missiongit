@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <record id="view_hr_payslip_file_bank_form" model="ir.ui.view">
+    	<field name="name">Importar</field>
+        <field name="model">hr.payslip.file.bank</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+	        <form string="Ingresos" version="7.0">
+	        <group colspan="2" col="4">
+                <field name="company_id" groups="base.group_multi_company" widget="selection" string="Compañía"/>
+                <field name="type_hr" required="1"/>
+                <field name="bank_id" required="1"/>
+                <!--<field name="dep_id" />-->
+                <field name="date_from" required="1"/>
+                <field name="date_to" required="1"/>
+                <field name="extension"/>
+            </group >
+                <button name="generate_file" type="object" string="Generar archivo"/>
+                <field name="txt_filename" />
+                <field name="txt_binary" filename="txt_filename"/>
+            </form>
+        </field>  
+    </record>
+
+     <record id="action_hr_payslip_file_bank" model="ir.actions.act_window">
+        <field name="name">Importar</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.payslip.file.bank</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+        <field name="view_id" ref="view_hr_payslip_file_bank_form"/>
+    </record>
+
+</data>
+</openerp>

@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+  <data>
+  
+	<record id="view_hr_holidays_move" model="ir.ui.view">
+		<field name="name">view.hr.holidays.move</field>
+		<field name="model">hr.holidays</field>
+		<field name="type">form</field>
+		<field name="inherit_id" ref="hr_holidays.edit_holiday_new"/>
+		<field name="arch" type="xml">
+			<xpath expr="//group/field[@name='department_id']" position="after">
+				<field name="move_id" attrs="{'invisible':[('move_id','=', False)]}"/>
+			</xpath>
+		</field>
+	</record>
+
+<!--    
+	  <record id="view_hr_salary_rule_form_add_order" model="ir.ui.view">
+	      <field name="name">hr.salary.rule.add.order</field>
+	      <field name="model">hr.salary.rule</field>
+	      <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+	      <field name="arch" type="xml">
+              <field name="appears_on_payslip" position="after">
+                      <field name="order"/>
+              </field>
+              <field name="register_id" position="replace">
+                  <field name="partner_id"/>
+	              <field name="register_id" invisible="1"/>
+              </field>
+	      </field>
+	  </record>
+-->
+	  <record id="view_hr_payroll_filter_inherited" model="ir.ui.view">
+             <field name="name">view.hr.payroll.filter.inherit</field>
+             <field name="model">hr.payslip</field>
+             <field name="type">search</field>
+             <field name="inherit_id" ref="hr_payroll.view_hr_payslip_filter"/>
+             <field name="arch" type="xml">
+                     <xpath expr="/search/filter[1]" position="after">
+                            <field name="date_from" domain="[('date_start','&gt;=',self)]"  string="This Month"/>
+                            <field name="date_to" domain="[('date_end','&lt;=',self)]"  string="This Month"/>
+                     </xpath>
+                 <filter name="state" position="after">
+                     <filter string="Departamento" name="department_id" icon="terp-stock_effects-object-colorize" context="{'group_by':'department_id'}"/>
+                 </filter>
+             </field>
+     </record>
+     
+     <record id="view_hr_employee_tree_inherited" model="ir.ui.view">
+             <field name="name">view.hr.employee.tree.inherit</field>
+             <field name="model">hr.employee</field>
+             <field name="type">search</field>
+             <field name="inherit_id" ref="hr.view_employee_tree"/>
+             <field name="arch" type="xml">
+                <field name="work_phone" position="replace">
+                    <field name="identification_id"/>
+                    <field name="bank_account"/>
+	      		</field>
+	      		<!--<field name="parent_id" position="replace">-->
+                    <!--<field name="last_pay_slip_amount"/>-->
+                    <!--<field name="last_pay_slip_date"/>-->
+	      		<!--</field>-->
+             </field>
+     </record>
+
+      <!-- Se Agrego esta herencia para filtrar por region 25-07-2016 o2s Ramses -->
+      <record id="view_employee_filter_inherited" model="ir.ui.view">
+          <field name="name">view.hr.employee.filter.inherit</field>
+          <field name="model">hr.employee</field>
+          <field name="inherit_id" ref="hr.view_employee_filter"/>
+          <field name="arch" type="xml">
+              <filter string="Job" position="after">
+                  <filter string="Region" icon="terp-gtk-select-all" domain="[]" context="{'group_by':'region'}"/>
+              </filter>
+          </field>
+      </record>
+
+     <record id="view_hr_payslip_tree_inherited" model="ir.ui.view">
+         <field name="name">view.hr.payslip.tree.inherit</field>
+         <field name="model">hr.payslip</field>
+         <field name="type">tree</field>
+         <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
+         <field name="arch" type="xml">
+             <xpath expr="//tree[@string='Payslips']" position="attributes">
+                 <attribute name="create">0</attribute>
+             </xpath>
+             <field name="date_to" position="after">
+                 <field name="region"/>
+             </field>
+         </field>
+     </record>
+     
+     <!-- attrs="{'invisible':[('type','=','rol')],'required':[('type','=','quincena')]}" -->
+     
+     <record id="hr_payslip_run_inherited_form" model="ir.ui.view">
+             <field name="name">hr.payslip.run.inherited</field>
+             <field name="model">hr.payslip.run</field>
+             <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+             <field name="arch" type="xml">
+                     <field name="credit_note" position='after'>
+	                     <separator string="Tipo" colspan="4"/>
+                         <newline/>
+	                     <field name="type"/>
+		            	 <field name="struct_id" attrs="{'invisible':[('type','=','rol')],'readonly':[('type','in',['liquidation','quincena'])]}"/>
+					</field>
+             </field>
+     </record>
+     
+     <record id="hr_payslip_run_inherited_add_val_form" model="ir.ui.view">
+             <field name="name">hr.payslip.run.inherited.add.val</field>
+             <field name="model">hr.payslip.run</field>
+             <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+             <field name="arch" type="xml">
+	            <button string="Set to Draft" position='after'>
+	                 <button name="validate_payslip_run" type="object" string="Validar" states="close" class="oe_highlight"/>
+				</button>
+				
+				<button string="Set to Draft" position="attributes">
+	      			<attribute name="states">validate</attribute>
+	      		</button>
+             </field>
+     </record>
+
+     	<!-- PROCESAMIENTO DE QUINCENAS -->
+        <record id="action_hr_payslip_pro_quin_tree" model="ir.actions.act_window">
+            <field name="name">Procesamiento de Quincenas</field>
+            <field name="res_model">hr.payslip.run</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field eval="False" name="view_id"/>
+            <field name="domain">[('type','=','quincena')]</field>
+            <field name="context">{'type':'quincena'}</field>
+            <field name="view_id" ref="hr_payroll.hr_payslip_run_tree"/>
+            <field name="search_view_id" ref="hr_payroll.hr_payslip_run_filter"/>
+            
+        </record>
+        
+        <record id="action_hr_payslip_pro_quin_tree_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="action_hr_payslip_pro_quin_tree"/>
+        </record>
+        
+        <record id="action_hr_payslip_pro_quin_form_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="context">{'type':'quincena'}</field>
+            <field name="view_id" ref="hr_payslip_run_inherited_form"/>
+            <field name="act_window_id" ref="action_hr_payslip_pro_quin_tree"/>
+        </record>
+        
+        
+        
+        <!-- QUINCENAS DEL EMPLEADO --> 
+        <record id="action_view_hr_payslip_quincena_form" model="ir.actions.act_window">
+            <field name="name">Quincenas del Empleado</field>
+            <field name="res_model">hr.payslip</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('type','=','quincena')]</field>
+            <field name="view_id" ref="hr_payroll.view_hr_payslip_tree"/>
+            <field name="search_view_id" ref="hr_payroll.view_hr_payslip_filter"/>
+            <field name="context">{'type':'quincena'}</field>
+        </record>
+        
+        
+         <!-- PROCESAMIENTO DE ROLES--> 
+      <record id="action_hr_payslip_pro_rol_tree" model="ir.actions.act_window">
+            <field name="name">Rol</field>
+            <field name="res_model">hr.payslip.run</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field eval="False" name="view_id"/>
+            <field name="domain">[('type','=','rol')]</field>
+            <field name="context">{'type':'rol'}</field>
+            <field name="view_id" ref="hr_payroll.hr_payslip_run_tree"/>
+            <field name="search_view_id" ref="hr_payroll.hr_payslip_run_filter"/>
+        </record>
+        
+        <!-- Roles DE EMPLEADOS --> 
+        <record id="action_view_hr_payslip_rol_form" model="ir.actions.act_window">
+            <field name="name">Roles del Empleado</field>
+            <field name="res_model">hr.payslip</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('type','=','rol')]</field>
+            <field name="view_id" ref="hr_payroll.view_hr_payslip_tree"/>
+            <field name="search_view_id" ref="hr_payroll.view_hr_payslip_filter"/>
+            <field name="context">{'type':'rol'}</field>
+        </record>
+        
+        
+        <!--PROCESAMIENTO DE LIQUIDACIÓN-->
+        <record id="action_hr_payslip_pro_liquidacion" model="ir.actions.act_window">
+            <field name="name">Procesamiento de liquidación Empleados</field>
+            <field name="res_model">hr.payslip.run</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field eval="False" name="view_id"/>
+            <field name="domain">[('type','=','liquidation')]</field>
+            <field name="context">{'type':'liquidation'}</field>
+            <field name="view_id" ref="hr_payroll.hr_payslip_run_tree"/>
+            <field name="search_view_id" ref="hr_payroll.hr_payslip_run_filter"/>
+        </record>
+        <!-- LIQUIDACION DEL EMPLEADO --> 
+        <record id="action_view_hr_payslip_liquidacion_realizada" model="ir.actions.act_window">
+            <field name="name">Liquidacion del Empleado</field>
+            <field name="res_model">hr.payslip</field>
+            <field name="view_type">form</field>
+            <field name="domain">[('type','=','liquidation')]</field>
+            <field name="view_id" ref="hr_payroll.view_hr_payslip_tree"/>
+            <field name="search_view_id" ref="hr_payroll.view_hr_payslip_filter"/>
+            <field name="context">{'type':'liquidation'}</field>
+        </record>
+     
+	  <record id="view_hr_payslip_filter_inh_form" model="ir.ui.view">
+	      <field name="name">hr.payslip.filter.inh</field>
+	      <field name="model">hr.payslip</field>
+	      <field name="inherit_id" ref="hr_payroll.view_hr_payslip_filter"/>
+	      <field name="arch" type="xml">
+	      <filter string="Done" position="after">
+ 						<filter string="Enero" icon="terp-partner" domain="[('date_from','=',time.strftime('%%Y-01-01'))]"/>
+			            <filter string="Febrero" icon="terp-partner" domain="[('date_from','=',time.strftime('%%Y-02-01'))]"/>
+			            <filter string="Marzo" icon="terp-partner" domain="[('date_from','=',time.strftime('%%Y-03-01'))]"/>
+			            <filter string="Abril" icon="terp-partner" domain="[('date_from','=',time.strftime('%%Y-04-01'))]"/>
+			            <filter string="Mayo" icon="terp-partner" domain="[('date_from','=',time.strftime('%%Y-05-01'))]"/>
+			            <filter string="Junio" icon="terp-partner" domain="[('date_from','=',time.strftime('%%Y-06-01'))]"/>
+			            <filter string="Julio" icon="terp-partner" domain="[('date_from','=',time.strftime('%%Y-07-01'))]"/>
+			            <filter string="Agosto" icon="terp-partner" domain="[('date_from','=',time.strftime('%%Y-08-01'))]"/>
+			            <filter string="Septiembre" icon="terp-partner" domain="[('date_from','=',time.strftime('%%Y-09-01'))]"/>
+			            <filter string="Octubre" icon="terp-partner" domain="[('date_from','=',time.strftime('%%Y-10-01'))]"/>
+			            <filter string="Noviembre" icon="terp-partner" domain="[('date_from','=',time.strftime('%%Y-11-01'))]"/>
+			            <filter string="Diciembre" icon="terp-partner" domain="[('date_from','=',time.strftime('%%Y-12-01'))]"/>
+			            
+	      </filter>
+              <filter name="company_id" position="after">
+                  <filter string="Región" name="region" icon="terp-go-home" context="{'group_by':'region'}"/>
+              </filter>
+	      </field>
+	   </record>
+	   
+	   
+	        <record id="view_hr_payslip_by_employees_filter" model="ir.ui.view">
+            <field name="name">hr_payroll_payslip_employees</field>
+            <field name="model">hr.payslip.employees</field>
+            <field name="arch" type="xml">
+                <form string="Payslips by Employees">
+                    <header>
+                        <button icon="gtk-execute" string="Generate" name="compute_sheet" type="object" class="oe_highlight"  />
+                    </header>
+                    <group>
+                        <label colspan="4" nolabel="1" string="This wizard will generate payslips for all selected employee(s) based on the dates and credit note specified on Payslips Run." />
+                    </group>
+                    <group colspan="4" >
+                        <separator string="Employees" colspan="4"/>
+                        <newline/>
+                       <field name="employee_ids" nolabel="1" domain="['|', '&amp;',('state_emp', '=', 'active'), ('pagar_rol_l', '=', False), '&amp;',('state_emp', '=', 'sold_out'), ('pagar_rol_l', '=', True)]"
+/>
+                    </group>
+               </form>
+            </field>
+        </record>
+        
+        
+        <record id="action_hr_payslip_by_employees_filter" model="ir.actions.act_window">
+            <field name="name">Generate Payslips</field>
+            <field name="res_model">hr.payslip.employees</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_hr_payslip_by_employees_filter"/>
+            <field name="target">new</field>
+        </record>
+	   
+	   
+         <record id="view_hr_payslip_by_employees_new" model="ir.ui.view">
+            <field name="name">hr_payroll_payslip_employees</field>
+            <field name="model">hr.payslip.employees</field>
+            <field name="arch" type="xml">
+                <form string="Payslips by Employees">
+                    <header>
+                        <button icon="gtk-execute" string="Generate" name="compute_sheet" type="object" class="oe_highlight"  />
+                    </header>
+                    <group>
+                        <label colspan="4" nolabel="1" string="This wizard will generate payslips for all selected employee(s) based on the dates and credit note specified on Payslips Run." />
+                    </group>
+                    <group colspan="4">
+                        <separator string="Employees" colspan="4"/>
+                        <newline/>
+                        <field name="employee_ids" nolabel="1" domain="[('state_emp', '=','sold_out')]"/>
+                    </group>
+               </form>
+            </field>
+        </record>
+        
+	    <record id="action_hr_payslip_by_employees_new" model="ir.actions.act_window">
+            <field name="name">Generate Payslips</field>
+            <field name="res_model">hr.payslip.employees</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_hr_payslip_by_employees_new"/>
+            <field name="target">new</field>
+        </record> 
+
+        <record id="view_hr_payslip_by_employees_quin" model="ir.ui.view">
+            <field name="name">hr_payroll_payslip_employees_quin</field>
+            <field name="model">hr.payslip.employees</field>
+            <field name="arch" type="xml">
+                <form string="Payslips by Employees">
+                    <header>
+                        <button icon="gtk-execute" string="Generate" name="compute_sheet" type="object" class="oe_highlight"  />
+                    </header>
+                    <group>
+                        <label colspan="4" nolabel="1" string="This wizard will generate payslips for all selected employee(s) based on the dates and credit note specified on Payslips Run." />
+                    </group>
+                    <group colspan="4">
+                        <separator string="Employees" colspan="4"/>
+                        <newline/>
+                        <field name="employee_ids" nolabel="1" domain="['&amp;', '|', ('state_emp', '!=','sold_out'),('emp_quincena', '=',True)]"/>
+                    </group>
+               </form>
+            </field>
+        </record>
+
+	    <record id="action_hr_payslip_by_employees_quin" model="ir.actions.act_window">
+            <field name="name">Generate Payslips</field>
+            <field name="res_model">hr.payslip.employees</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_hr_payslip_by_employees_quin"/>
+            <field name="target">new</field>
+        </record>
+        
+ 	    <record id="hr_payslip_run_form_new" model="ir.ui.view">
+            <field name="name">hr.payslip.run.form</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+            <field name="arch" type="xml">
+            	<button name="%(hr_payroll.action_hr_payslip_by_employees)d" position="replace">
+            	    <group  colspan="4" attrs="{'invisible':[('type','in',['liquidation', 'quincena'])]}">
+                    <button name="%(bit_hr_payroll_ec.action_hr_payslip_by_employees_filter)d" type="action" states="draft" string="Generar Rol" class="oe_highlight"/>
+                    </group>
+                    <group colspan="4" attrs="{'invisible':[('type','in',['rol', 'quincena'])]}">
+                    <button name="%(bit_hr_payroll_ec.action_hr_payslip_by_employees_new)d" type="action" states="draft" string="Generar Liquidacion" class="oe_highlight"/>
+            	    </group>
+            	    
+                    <group colspan="4" attrs="{'invisible':[('type','in',['rol', 'liquidation'])]}">
+                    <button name="%(bit_hr_payroll_ec.action_hr_payslip_by_employees_quin)d" type="action" states="draft" string="Generar Quincena" class="oe_highlight"/>
+            	    </group>            	    
+            	</button>
+            </field>
+        </record>
+
+  </data>
+</openerp>

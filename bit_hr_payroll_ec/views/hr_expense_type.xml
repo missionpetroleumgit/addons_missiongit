@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        <!-- 
+        ===================================================================
+       Administracion de Egresos
+        ===================================================================
+         -->
+        <record id="hr_expense_type_search_view" model="ir.ui.view">
+            <field name="name">hr.expense.type.search</field>
+            <field name="model">hr.expense.type</field>
+            <field name="arch" type="xml">
+                <search string="Administracion de Egresos">
+                    <field name="name"/>
+                    <field name="code"/>
+                </search>
+            </field>
+        </record>
+        
+        <record id=" hr_expense_type_form_view" model="ir.ui.view">
+            <field name="name">hr.expense.type.form</field>
+            <field name="model">hr.expense.type</field>
+            <field name="arch" type="xml">
+            <form string="Administracion de Egresos" version="7.0">
+            <sheet>
+            <group string="Registro">
+            	<group>
+            	    <field name="name"/>
+                    <field name="code"/>
+                    <field name="payroll_label"/>
+                    <field name="account_id"/>
+                    <field name="default_value"/>
+                    <field name="orden"/>
+            	</group>
+			</group>
+            </sheet>
+            </form>
+            </field>
+        </record>
+        
+        <record id=" hr_expense_type_tree_view" model="ir.ui.view">
+            <field name="name">hr.expense.type.tree</field>
+            <field name="model">hr.expense.type</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <tree string="Gestión de Documentos" >
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_hr_expense_type" model="ir.actions.act_window">
+            <field name="name">Administracion de Egresos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.expense.type</field>
+            <field name="context">{}</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="hr_expense_type_search_view"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para registrar un nuevo Egreso.
+              </p>
+            </field>
+        </record>
+         <!-- 
+        ===================================================================
+       Registro de Egresos
+        ===================================================================
+         -->
+			<record id="hr_expense_view" model="ir.ui.view">
+			    <field name="name">hr.expense.search</field>
+			    <field name="model">hr.expense</field>
+			    <field name="arch" type="xml">
+			        <search string="Egresos">
+			            <field name="expense_type_id"/>
+			            <field name="employee_id"/>
+			            <field name="fijo"/>
+			            
+			            <filter string="Enero" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-01-31')),('date','&gt;=',time.strftime('%%Y-01-01'))]"/>
+			            <filter string="Febrero" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-02-28')),('date','&gt;=',time.strftime('%%Y-02-01'))]"/>
+			            <filter string="Marzo" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-03-31')),('date','&gt;=',time.strftime('%%Y-03-01'))]"/>
+			            <filter string="Abril" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-04-30')),('date','&gt;=',time.strftime('%%Y-04-01'))]"/>
+			            <filter string="Mayo" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-05-31')),('date','&gt;=',time.strftime('%%Y-05-01'))]"/>
+			            <filter string="Junio" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-06-30')),('date','&gt;=',time.strftime('%%Y-06-01'))]"/>
+			            <filter string="Julio" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-07-31')),('date','&gt;=',time.strftime('%%Y-07-01'))]"/>
+			            <filter string="Agosto" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-08-31')),('date','&gt;=',time.strftime('%%Y-08-01'))]"/>
+			            <filter string="Septiembre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-09-30')),('date','&gt;=',time.strftime('%%Y-09-01'))]"/>
+			            <filter string="Octubre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-10-31')),('date','&gt;=',time.strftime('%%Y-10-01'))]"/>
+			            <filter string="Noviembre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-11-30')),('date','&gt;=',time.strftime('%%Y-11-01'))]"/>
+			            <filter string="Diciembre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-12-31')),('date','&gt;=',time.strftime('%%Y-12-01'))]"/>
+			            
+			            <separator/>
+			            
+			            <filter string="Egresos Fijos" domain="[('fijo','=','True')]"/>
+                        <group expand="0" string="Agrupar por" groups="base.group_multi_company">
+                            <filter string="Compañia" context="{'group_by': 'company_id'}"/>
+                        </group>
+			        </search>
+			    </field>
+			</record>
+         
+        <record model="ir.ui.view" id="view_hr_expense_form">
+            <field name="name">hr.expense.view.form</field>
+            <field name="model">hr.expense</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Egresos de Empleado">
+                    <group string="Egresos de Empleado">
+                        <field name="expense_type_id" required="1"  attrs="{'readonly':[('state','=','procesado')]}" domain="[('name','!=','MULTAS')]"/>
+                        <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                        <field name="employee_id" required="1" select="1" attrs="{'readonly':[('state','=','procesado')]}"
+                               domain="[('state_emp', 'in', ('active', 'sold_out')),('company_id','=',company_id)]"/>
+                        <!--
+                        <field name="contract_id" required="1" select="1" domain="[('employee_id','=',employee_id)]" />
+                        -->
+                        <field name="reg_porcentaje" attrs="{'invisible':[('expense_type_id','!=',16)]}"/>
+                        <field name="porcentaje" attrs="{'invisible':[('reg_porcentaje','=',False)], 'required':[('reg_porcentaje','=',True)]}" 
+                        		on_change="onchange_calcula_valor(employee_id, porcentaje)"/>
+                        
+                        <field name="value" required="1" attrs="{'readonly':[('fijo','=',False),('state','=','procesado')]}"/>
+                        <field name="fijo" on_change="on_change_value(fijo)"/>
+                        <field name="date_egr_f" attrs="{'required':[('fijo','=',True)], 'invisible':[('fijo','=',False)]}"/>
+                        <field name="comment" attrs="{'readonly':[('state','=','procesado')]}"/>
+                       
+                         <field name="date" select="1" attrs="{'readonly':[('state','=','procesado')], 'required':[('fijo','=', False)], 'invisible':[('fijo','=', True)]}"/>
+                          <field name="state" readonly="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+          <record model="ir.ui.view" id="view_hr_expense_tree">
+            <field name="name">hr.expense.view.tree</field>
+            <field name="model">hr.expense</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Egresos de Empleado">
+                    <field name="employee_id" select="1" />
+                    <!--  
+                    <field name="contract_id" select="1" />
+                    -->
+                    <field name="expense_type_id" required="1" on_change="onchange_expense_type(expense_type_id)"/>
+                    <field name="name" invisible="1" />
+                    <field name="value"  sum="Total"/>
+                    <field name="date"  />
+                    <field name="fijo"/>
+                    <field name="date_egr_f"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_hr_expense" model="ir.actions.act_window">
+            <field name="name">Egresos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.expense</field>
+            <field name="domain">[('expense_type_id.code', '!=', 'EGRUNIF')]</field>
+            <field name="context">{}</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="hr_expense_view"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para registrar un nuevo Egreso.
+              </p>
+            </field>
+        </record>
+        
+        <record id="action_hr_expense_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_hr_expense_tree"/>
+            <field name="act_window_id" ref="action_hr_expense"/>
+        </record>
+        
+        <record id="action_hr_expense_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_hr_expense_form"/>
+            <field name="act_window_id" ref="action_hr_expense"/>
+        </record>
+<!--          
+        <record id="hr_expense_process_action" model="ir.actions.server">
+            <field name="name">Process Expenses</field>
+            <field name="model_id" ref="model_hr_expense"/>
+            <field name="state">code</field>
+            <field name="code">action = self.renew_license(cr, uid, context.get('active_ids', []), context=context)</field>
+        </record>
+
+        <record model="ir.values" id="test_more_item">
+            <field name="name">Process Expenses</field>
+            <field name="model" eval="'hr.expense'" />
+            <field name="key" >action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,%d'%hr_expense_process_action" />
+            <field name="object" eval="True" />
+        </record>
+-->        
+        
+        
+        
+          <!-- 
+        ===================================================================
+       Sanciones
+        ===================================================================
+         -->
+			<record id="hr_sancion_view" model="ir.ui.view">
+			    <field name="name">hr.expense.sancion.search</field>
+			    <field name="model">hr.expense</field>
+			    <field name="arch" type="xml">
+			        <search string="Egresos">
+			            <field name="expense_type_id"/>
+			            <field name="employee_id"/>
+			            <field name="fijo"/>
+			            <filter string="Enero" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-01-31')),('date','&gt;=',time.strftime('%%Y-01-01'))]"/>
+			            <filter string="Febrero" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-02-28')),('date','&gt;=',time.strftime('%%Y-02-01'))]"/>
+			            <filter string="Marzo" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-03-31')),('date','&gt;=',time.strftime('%%Y-03-01'))]"/>
+			            <filter string="Abril" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-04-30')),('date','&gt;=',time.strftime('%%Y-04-01'))]"/>
+			            <filter string="Mayo" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-05-31')),('date','&gt;=',time.strftime('%%Y-05-01'))]"/>
+			            <filter string="Junio" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-06-30')),('date','&gt;=',time.strftime('%%Y-06-01'))]"/>
+			            <filter string="Julio" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-07-31')),('date','&gt;=',time.strftime('%%Y-07-01'))]"/>
+			            <filter string="Agosto" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-08-31')),('date','&gt;=',time.strftime('%%Y-08-01'))]"/>
+			            <filter string="Septiembre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-09-30')),('date','&gt;=',time.strftime('%%Y-09-01'))]"/>
+			            <filter string="Octubre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-10-31')),('date','&gt;=',time.strftime('%%Y-10-01'))]"/>
+			            <filter string="Noviembre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-11-30')),('date','&gt;=',time.strftime('%%Y-11-01'))]"/>
+			            <filter string="Diciembre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-12-31')),('date','&gt;=',time.strftime('%%Y-12-01'))]"/>
+			        </search>
+			    </field>
+			</record>
+        <record model="ir.ui.view" id="view_hr_sancion_form">
+            <field name="name">hr.expense.sancion.view.form</field>
+            <field name="model">hr.expense</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Egresos de Empleado">
+                    <group string="Egresos de Empleado">
+                        <field name="expense_type_id" required="1"  attrs="{'readonly':[('state','=','procesado')]}"
+                               domain="[('name','=','MULTAS')]" on_change="onchange_expense_type(expense_type_id)"/>
+                        <field name="rel_name" invisible="1"/>
+                        <field name="employee_id" required="1" select="1" attrs="{'readonly':[('state','=','procesado')]}" domain="[('state_emp', '=', 'active')]"/>
+                        <field name="reg_porcentaje" attrs="{'invisible':[('rel_name','!=','MULTAS')]}"/>
+                        <field name="porcentaje" attrs="{'invisible':[('reg_porcentaje','=',False)], 'required':[('reg_porcentaje','=',True)]}" 
+                        		on_change="onchange_calcula_valor(employee_id, porcentaje)"/>
+                        
+                        <field name="value" required="1" attrs="{'readonly':[('state','=','procesado')]}"/>
+                        <field name="fijo"/>
+                        <field name="comment" attrs="{'readonly':[('state','=','procesado')]}"/>
+                       
+                         <field name="date" select="1" attrs="{'readonly':[('state','=','procesado')]}"/>
+                          <field name="state" readonly="1"/>
+                    </group>
+                    <button name="print_report" type="object" string="Imprimir Sancion"/>
+                </form>
+            </field>
+        </record>
+        
+          <record model="ir.ui.view" id="view_hr_sancion_tree">
+            <field name="name">hr.expense.sancion.view.tree</field>
+            <field name="model">hr.expense</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Egresos de Empleado">
+                    <field name="employee_id" select="1" />
+                    <field name="expense_type_id" required="1" on_change="onchange_expense_type(expense_type_id)"/>
+                    <field name="name" invisible="1" />
+                    <field name="value"  sum="Total"/>
+                    <field name="date"  />
+                    <field name="fijo"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_hr_sancion" model="ir.actions.act_window">
+            <field name="name">Sanciones</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.expense</field>
+            <!-- JJM 2017-01-09  filtrar por codigo correpondiente a multas
+            <field name="domain">[('expense_type_id.code', '=', 'EGRUNIF')]</field>-->
+            <field name="domain">[('expense_type_id.code', '=', 'EGCTSL')]</field>
+            <field name="context">{}</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="hr_expense_view"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para registrar un nueva sancion.
+              </p>
+            </field>
+        </record>
+        
+        <record id="action_hr_sancion_tree" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_hr_sancion_tree"/>
+            <field name="act_window_id" ref="action_hr_sancion"/>
+        </record>
+        
+        <record id="action_hr_sancion_form" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_hr_sancion_form"/>
+            <field name="act_window_id" ref="action_hr_sancion"/>
+        </record>
+<!--          
+        <record id="hr_expense_process_action" model="ir.actions.server">
+            <field name="name">Process Expenses</field>
+            <field name="model_id" ref="model_hr_expense"/>
+            <field name="state">code</field>
+            <field name="code">action = self.renew_license(cr, uid, context.get('active_ids', []), context=context)</field>
+        </record>
+
+        <record model="ir.values" id="test_more_item">
+            <field name="name">Process Expenses</field>
+            <field name="model" eval="'hr.expense'" />
+            <field name="key" >action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.server,%d'%hr_expense_process_action" />
+            <field name="object" eval="True" />
+        </record>
+-->        
+	</data>
+</openerp>
+

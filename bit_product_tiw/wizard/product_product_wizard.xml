@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_product_1">
+            <field name="name">product.wizard.form</field>
+            <field name="model">product.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Productos">
+                    <group>
+                        <field name="name" nolabel="1" invisible="1"/>
+                    </group>
+                    <group string="Variantes">
+                        <field name="product_template_ids" nolabel="1">
+                            <tree string="Variantes" editable="bottom">
+                                <field name="default_code"/>
+                                <field name="name_template"/>
+                                <field name="attribute_value_ids" widget="many2many_tags"/>
+                                <field name="type"/>
+                                <field name="lst_price"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <button string="Create Variants" name="create_var" type="object" context="{'product_template_ids': product_template_ids}"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="variant_wizard_action" model="ir.actions.act_window">
+            <field name="name">Variants</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_type">form</field>
+        </record>
+    </data>
+</openerp>

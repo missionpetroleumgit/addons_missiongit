@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+       <record id="gen_country_city_search_view" model="ir.ui.view">
+            <field name="name">gen.country.city.search</field>
+            <field name="model">gen.country.city</field>
+            <field name="arch" type="xml">
+                <search string="Ciudad">
+                    <field name="name"/>
+                    <field name="country_state_id"/>
+                </search>
+            </field>
+        </record>
+        
+        <record id="gen_country_city_form_view" model="ir.ui.view">
+            <field name="name">gen.country.city.form</field>
+            <field name="model">gen.country.city</field>
+            <field name="arch" type="xml">
+            <form string=">Ciudades" version="7.0">
+            <sheet>
+           		<group>
+	            	<field name="name"/>
+	            	<field name="country_state_id"/>
+				</group>
+            </sheet>
+            </form>
+            </field>
+        </record>
+        
+        <record id="gen_country_city_tree_view" model="ir.ui.view">
+            <field name="name">gen.country.city.tree</field>
+            <field name="model">gen.country.city</field>
+            <field name="arch" type="xml">
+            <form string=">Ciudades" version="7.0">
+            	<field name="name"/>
+            	<field name="country_state_id"/>
+            </form>
+            </field>
+        </record>
+        
+        <record id="action_gen_country_city" model="ir.actions.act_window">
+            <field name="name">Ciudades</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">gen.country.city</field>
+            <field name="context">{}</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="gen_country_city_search_view"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                	Click para registrar una Ciudad.
+              </p>
+            </field>
+        </record>
+		
+		<menuitem name="Ciudades" id="menu_gen_country_city" 
+		   			parent="base.menu_config_address_book" action="action_gen_country_city" />        
+       
+	</data>
+</openerp>

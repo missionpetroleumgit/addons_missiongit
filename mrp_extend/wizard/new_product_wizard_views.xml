@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_transient_move_create" model="ir.ui.view">
+            <field name="name">Establecer Producto</field>
+            <field name="model">transient.move.create</field>
+            <field name="arch" type="xml">
+                <form string="Establecer Producto">
+                    <separator string="Establecer Producto" colspan="4"/>
+                    <newline/>
+                    <field name="transient_lines">
+                        <tree editable="top">
+                            <field name="product_id" options="{'no_create':True}"/>
+                            <field name="product_qty" required="1"/>
+                            <field name="product_uom" required="1" options="{'no_create':True}"/>
+                            <field name="src_location_id" domain="[('usage','=','internal')]"
+                                   readonly="1" options="{'no_create':True}"/>
+                        </tree>
+                    </field>
+                    <footer>
+                        <button name="button_create" string="Establecer"
+                                colspan="1" type="object" class="oe_highlight"  />
+                        o
+                        <button string="Cancelar" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_view_transient_move_create" model="ir.actions.act_window">
+            <field name="name">Establecer Producto</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">transient.move.create</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+    </data>
+</openerp>

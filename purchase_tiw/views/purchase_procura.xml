@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <menuitem id="menu_action_purchase_procura_orders" name="Procura"
+                  parent="base.menu_purchase_root" sequence="5"/>
+
+        <!-- Procura Compra Local -->
+
+        <record id="view_purchase_order_procura_filter" model="ir.ui.view">
+            <field name="name">order.procura.filter</field>
+            <field name="model">purchase.order</field>
+            <field name="arch" type="xml">
+                <search string="Buscar">
+                    <field name="name" string="Reference"/>
+                    <separator/>
+                    <group expand="0" string="Agrupar por">
+                        <filter string="Estado" context="{'group_by':'state'}"/>
+                        <filter string="Proveedor" context="{'group_by':'partner_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="purchase_order_procura_form" model="ir.ui.view">
+            <field name="name">purchase.order.form.procura.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Order">
+                    <header>
+                        <button name="purchase_confirm" string="Confirm Order" id="draft_confirm"
+                                attrs="{'invisible':['|', ('is_send','=', False), ('state','in', ('draft', 'approved'))]}"
+                                groups="purchase_tiw.group_procura_orders_confirm"
+                                confirm="Esta seguro de confirmar la Orden?"/>
+                        <button name="send_approved" type="object" string="Enviar Aprobacion"
+                                groups="purchase_tiw.group_procura_orders_creation"
+                                attrs="{'invisible':['|', ('is_send','=', True), ('state','!=', 'draft')]}" />
+                        <button name="approve_manager_procura" states="draft" type="object" string="Aprobar Orden" groups="purchase_tiw.group_purchase_manager_approve_procura"/>
+                        <button name="picking_ok" states="except_picking" string="Manually Corrected"/>
+                        <button name="invoice_ok" states="except_invoice" string="Manually Corrected"/>
+                        <button name="purchase_approve" states="confirmed" string="Approve Order" class="oe_highlight" groups="purchase.group_purchase_manager"/>
+                        <!--<button name="wkf_send_rfq" states="approved" string="Send PO by Email" type="object" context="{'send_rfq':False}"/>-->
+                        <button name="view_picking" string="Receive Products" type="object" attrs="{'invisible': ['|', ('shipped','=',True), ('state','!=', 'approved')]}" class="oe_highlight"/>
+                        <button name="view_invoice" string="Receive Invoice" type="object" attrs="{'invisible': ['|', ('invoice_method','in', ['picking', 'manual']), '|', ('state','!=', 'approved'), ('invoiced','=',True) ]}" class="oe_highlight"/>
+                        <button name="action_cancel_draft" states="cancel" string="Set to Draft"
+                                type="object" confirm="Esta seguro que quiere cancelar la orden ?"/>
+                        <button name="action_cancel" states="draft,confirmed,sent,bid,approved,except_picking,except_invoice"
+                                string="Cancel" type="object" confirm="Esta seguro que quiere cancelar la orden ?"/>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,sent,approved" statusbar_colors='{"except_picking":"red","except_invoice":"red","confirmed":"blue"}' readonly="1"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <label string="Request for Quotation " attrs="{'invisible': [('state','not in',('draft','sent','bid'))]}"/>
+                                <label string="Purchase Order " attrs="{'invisible': [('state','in',('draft','sent','bid'))]}"/>
+                                <field name="name" class="oe_inline" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="partner_id" on_change="onchange_partner_id(partner_id, context)" context="{'search_default_supplier':1, 'default_supplier':1, 'default_customer':0}" domain="[('supplier','=',True)]"/>
+                                <field name="req_user_id" readonly="1"/>
+                                <field name="app_user_id" invisible="1"/>
+                                <field name="partner_ref"/>
+                                <field domain="[('type','=','purchase')]" name="pricelist_id" groups="product.group_purchase_pricelist" on_change="onchange_pricelist(pricelist_id, context)"/>
+                                <field name="currency_id" groups="base.group_multi_currency"/>
+                                <field name="journal_id" invisible='1'/>
+                                <field name="type_purchase" required="1"/>
+                            </group>
+                            <group>
+                                <field name="date_order"/>
+                                <field name="origin" required="1"/>
+                                <field name="number_req" readonly="1"/>
+                                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                <field name="picking_type_id" on_change="onchange_picking_type_id(picking_type_id, context)" domain="[('code','=','incoming')]" options="{'no_create': True}" context="{'special_shortened_wh_name': True}" groups="stock.group_locations"/>
+                                <field name="related_usage" invisible="1"/>
+                                <field name="dest_address_id" string="Customer Address" on_change="onchange_dest_address_id(dest_address_id, context)"
+                                       attrs="{'invisible':[('related_usage','!=','customer')],
+                                'required': [('related_usage','=', 'customer')]}"
+                                       groups="stock.group_locations"/>
+                                <field name="is_send" invisible="1"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Productos" attrs="{'invisible':[('state','not in',['draft', 'sent'])]}">
+                                <field name="request_products" attrs="{'invisible':[('state','!=', 'draft')],'readonly':[('state','!=','draft')]}">
+                                    <tree string="Solicitud de Productos" editable="bottom">
+                                        <field name="product_id" domain="[('purchase_ok','=',True),('type','=',parent.type_purchase)]"/>
+                                        <field name="description"/>
+                                        <field name="analytics_id" required="1"/>
+                                        <field name="qty"/>
+                                        <field name="qty_available"/>
+                                        <field name="virtual_available"/>
+                                        <field name="product_uom"/>
+                                        <field name="date_requested"/>
+                                    </tree>
+                                </field>
+                                <field name="id" invisible="1"/>
+                                <field name="quotes_ids" attrs="{'invisible':['|', ('state','not in',['draft','sent']), ('id', '=', False)]}" context="{'order_id':id}"/>
+                            </page>
+                            <page string="Products" attrs="{'readonly':[('state', '=', 'approved')], 'invisible':[('state','in',['draft','sent'])]}">
+                                <field name="order_line" attrs="{'readonly':[('state', '=', 'approved')], 'invisible':[('state','in',['draft','sent'])]}">
+                                    <tree string="Purchase Order Lines" editable="bottom">
+                                        <field name="product_id" on_change="onchange_product_id(parent.pricelist_id,product_id,0,False,parent.partner_id, parent.date_order,parent.fiscal_position,date_planned,False,False,parent.state,context)"/>
+                                        <field name="name"/>
+                                        <field name="date_planned"/>
+                                        <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                        <field name="account_analytic_id" groups="purchase.group_analytic_accounting" domain="[('type','not in',('view','template'))]"/>
+                                        <field name="product_qty" on_change="onchange_product_id(parent.pricelist_id,product_id,product_qty,product_uom,parent.partner_id,parent.date_order,parent.fiscal_position,date_planned,name,False,parent.state,context)"/>
+                                        <field name="product_uom" groups="product.group_uom" on_change="onchange_product_uom(parent.pricelist_id,product_id,product_qty,product_uom,parent.partner_id, parent.date_order,parent.fiscal_position,date_planned,name,False,parent.state,context)"/>
+                                        <field name="price_unit"/>
+                                        <field name="taxes_id" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','!=','sale')]"/>
+                                        <field name="price_subtotal"/>
+                                        <field name="state" invisible="1"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <div class="oe_subtotal_footer_separator oe_inline">
+                                        <label for="amount_total"/>
+                                        <button name="button_dummy"
+                                                states="draft" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                                    </div>
+                                    <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                                <div class="oe_clear"/>
+                                <field name="notes" class="oe_inline" placeholder="Terms and conditions..."/>
+                            </page>
+                            <page string="RFQ &amp; Bid">
+                                <group>
+                                    <field name="incoterm_id"/>
+                                    <field name="bid_date"/>
+                                    <field name="bid_validity"/>
+                                </group>
+                            </page>
+                            <page string="Deliveries &amp; Invoices">
+                                <group>
+                                    <group>
+                                        <field name="minimum_planned_date"/>
+                                        <field name="location_id" groups="stock.group_locations"/>
+                                        <field name="shipped" groups="base.group_no_one"/>
+                                    </group>
+                                    <group>
+                                        <field name="invoice_method"/>
+                                        <field name="invoiced"/>
+                                        <field name="payment_term_id" options="{'no_open': True, 'no_create': True}"/>
+                                        <field name="fiscal_position" attrs="{'readonly': [('invoiced','=', True)]}" />
+                                        <!-- We do not need these fields anymore, the information is in open chatter -->
+                                        <field name="validator" groups="base.group_no_one"/>
+                                        <field name="date_approve" groups="base.group_no_one"/>
+                                        <field name="is_procura" readonly="1" groups="base.group_no_one"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="purchase_order_procura_tree" model="ir.ui.view">
+            <field name="name">purchase.order.procura.tree.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="arch" type="xml">
+                <tree colors="grey:state=='cancel';blue:state=='draft';green:state=='approved'" string="Ordenes Procura">
+                    <field name="name" string="Reference"/>
+                    <field name="date_order" />
+                    <field name="partner_id"/>
+                    <field name="origin"/>
+                    <field name="amount_untaxed" sum="Total Untaxed amount" string="Untaxed"/>
+                    <field name="amount_total" sum="Total amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="purchase_procura_new_by_user" model="ir.actions.act_window">
+            <field name="name">Ordenes de Procura</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="view_id" ref="purchase_order_procura_form"/>
+            <field name="context">{
+                'default_is_procura': True,
+                'is_procura': True
+                }</field>
+            <field name="domain">[('is_procura', '=', True)]</field>
+            <field name="search_view_id" ref="view_purchase_order_procura_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a request for quotation.
+                </p><p>
+                The quotation contains the history of the discussion/negotiation
+                you had with your supplier. Once confirmed, a request for
+                quotation is converted into a purchase order.
+            </p><p>
+                Most propositions of purchase orders are created automatically
+                by Odoo based on inventory needs.
+            </p>
+            </field>
+        </record>
+
+        <record id="purchase_procura_new_by_user_tree" model="ir.actions.act_window">
+            <field name="name">Ordenes de Procura</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="view_id" ref="purchase_order_procura_tree"/>
+            <field name="context">{
+                'default_is_procura': True,
+                'is_procura': True
+                }</field>
+            <field name="domain">[('is_procura', '=', True)]</field>
+            <field name="search_view_id" ref="view_purchase_order_procura_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a request for quotation.
+                </p><p>
+                The quotation contains the history of the discussion/negotiation
+                you had with your supplier. Once confirmed, a request for
+                quotation is converted into a purchase order.
+            </p><p>
+                Most propositions of purchase orders are created automatically
+                by Odoo based on inventory needs.
+            </p>
+            </field>
+        </record>
+
+        <record id="action_purchase_order_procura_filter_inherit" model="ir.actions.act_window">
+            <field name="name">Procura</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{
+                'default_is_procura': True,
+                'is_procura': True
+                }</field>
+            <field name="domain">[('is_procura', '=', True)]</field>
+            <field name="search_view_id" ref="view_purchase_order_procura_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a request for quotation.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_purchase_tree_procura_view_ih" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="purchase_procura_new_by_user_tree"/>
+        </record>
+
+        <record id="action_purchase_tree_procura_ih2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="purchase_order_procura_form"/>
+            <field name="act_window_id" ref="purchase_procura_new_by_user_tree"/>
+        </record>
+
+        <record id="purchase_order_procura_approve_tree_inh" model="ir.ui.view">
+            <field name="name">purchase.approve.procura.tree.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="arch" type="xml">
+                <tree colors="grey:state=='cancel';blue:state=='draft';green:state=='approved'" string="Ordenes Procura">
+                    <field name="name" string="Reference"/>
+                    <field name="date_order" />
+                    <field name="partner_id"/>
+                    <field name="origin"/>
+                    <field name="amount_untaxed" sum="Total Untaxed amount" string="Untaxed"/>
+                    <field name="amount_total" sum="Total amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="purchase_procura_manager_approve" model="ir.actions.act_window">
+            <field name="name">Aprobaciones Procura</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_id" ref="purchase_order_procura_form"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{
+                'default_is_procura': True,
+                'is_procura': True
+                }</field>
+            <field name="domain">[('is_procura', '=', True), ('is_send', '=', True), ('state', '=', 'draft')]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a request for quotation.
+                </p><p>
+                The quotation contains the history of the discussion/negotiation
+                you had with your supplier. Once confirmed, a request for
+                quotation is converted into a purchase order.
+            </p><p>
+                Most propositions of purchase orders are created automatically
+                by Odoo based on inventory needs.
+            </p>
+            </field>
+        </record>
+
+        <record id="purchase_procura_manager_approve_treeinh" model="ir.actions.act_window">
+            <field name="name">Aprobaciones Procura</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_id" ref="purchase_order_procura_approve_tree_inh"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{
+                'default_is_procura': True,
+                'is_procura': True
+                }</field>
+            <field name="domain">[('is_procura', '=', True), ('is_send', '=', True), ('state', '=', 'draft')]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a request for quotation.
+                </p><p>
+                The quotation contains the history of the discussion/negotiation
+                you had with your supplier. Once confirmed, a request for
+                quotation is converted into a purchase order.
+            </p><p>
+                Most propositions of purchase orders are created automatically
+                by Odoo based on inventory needs.
+            </p>
+            </field>
+        </record>
+
+        <record id="action_approve_tree_procura_view" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="purchase_procura_manager_approve_treeinh"/>
+        </record>
+
+        <record id="action_approve_tree_procura_inh2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="purchase_order_procura_form"/>
+            <field name="act_window_id" ref="purchase_procura_manager_approve_treeinh"/>
+        </record>
+
+        <record id="purchase_procura_confirm_orders_inh" model="ir.actions.act_window">
+            <field name="name">Confirmaciones Procura</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_id" ref="purchase_order_procura_approve_tree_inh"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{
+                'default_is_procura': True,
+                'is_procura': True
+                }</field>
+            <field name="domain">[('is_procura', '=', True), ('is_send', '=', True), ('state', '=', 'sent')]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a request for quotation.
+                </p><p>
+                The quotation contains the history of the discussion/negotiation
+                you had with your supplier. Once confirmed, a request for
+                quotation is converted into a purchase order.
+            </p><p>
+                Most propositions of purchase orders are created automatically
+                by Odoo based on inventory needs.
+            </p>
+            </field>
+        </record>
+
+        <record id="action_procura_confirm_orders_act1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="purchase_procura_confirm_orders_inh"/>
+        </record>
+
+        <record id="action_procura_confirm_orders_act2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="purchase_order_procura_form"/>
+            <field name="act_window_id" ref="purchase_procura_confirm_orders_inh"/>
+        </record>
+
+        <menuitem action="purchase_procura_new_by_user_tree" id="menu_purchase_procura_new_by_user"
+                  parent="purchase_tiw.menu_action_purchase_procura_orders" name="Compra Procura" sequence="1"
+                  groups="purchase_tiw.group_procura_orders_creation"/>
+
+        <menuitem action="purchase_procura_manager_approve_treeinh" id="menu_purchase_procura_manager_approve"
+                  parent="purchase_tiw.menu_action_purchase_procura_orders" name="Aprobación Oc Procura" sequence="2"
+                  groups="purchase_tiw.group_purchase_manager_approve_procura"/>
+
+        <menuitem action="purchase_procura_confirm_orders_inh" id="menu_procura_orders_confirm_manager"
+                  parent="purchase_tiw.menu_action_purchase_procura_orders" name="Confirmación Oc Procura" sequence="3"
+                  groups="purchase_tiw.group_procura_orders_confirm"/>
+
+        <!-- Fin Procura Compra Local-->
+
+        <record id="purchase_order_add_procura_values_inh_form" model="ir.ui.view">
+            <field name="name">purchase.order.add.values.form</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <field name="date_approve" groups="base.group_no_one" position="after">
+                    <field name="is_procura" readonly="1"/>
+                </field>
+                <!--<xpath expr="//form/header/sheet/notebook/page[@string='Deliveries &amp; Invoices']/group/group/field[@name='date_approve']" position="after">-->
+                <!--<field name="is_procura" readonly="1"/>-->
+                <!--</xpath>-->
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+ 	 <data>
+		  <!--<record id="view_res_company_inherited_form2" model="ir.ui.view">-->
+			  <!--<field name="name">res.company.inherited2</field>-->
+			  <!--<field name="model">res.company</field>-->
+			  <!--<field name="inherit_id" ref="base.view_company_form"/>-->
+			  <!--<field name="arch" type="xml">-->
+					<!--<field name="website" position="after">-->
+                        <!--<group>-->
+                            <!--<field name="is_retail"/>-->
+                        <!--</group>-->
+                    <!--</field>-->
+			  <!--</field>-->
+		  <!--</record>-->
+
+		 <record id="view_res_company_inherited_o2s" model="ir.ui.view">
+			  <field name="name">res.company.inherited.o2s</field>
+			  <field name="model">res.company</field>
+			  <field name="inherit_id" ref="base.view_company_form"/>
+			  <field name="arch" type="xml">
+					<field name="currency_id" position="after">
+						<field name="is_retail"/>
+						<field name="receivable_ids" widget="many2many_tags" domain="[('type','!=','view'),('type','=','receivable')]"/>
+						<field name="payable_ids" widget="many2many_tags" domain="[('type','!=','view'),('type','=','payable')]"/>
+						<field name="taxiva_account_id" domain="[('type', '!=', 'view'), ('type', '!=', 'consolidation'), ('company_id', '=', id)]"/>
+						<field name="taxrenta_account_id" domain="[('type', '!=', 'view'), ('type', '!=', 'consolidation'), ('company_id', '=', id)]"/>
+						<field name="advsuppl_account_id" domain="[('type', '!=', 'view'), ('type', '!=', 'consolidation'), ('company_id', '=', id)]"/>
+						<field name="advcustom_account_id" domain="[('type', '!=', 'view'), ('type', '!=', 'consolidation'), ('company_id', '=', id)]"/>
+                    </field>
+			  </field>
+		  </record>
+	 </data>
+</openerp>

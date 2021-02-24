@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="hr_contract_o2s_inherited_tiw" model="ir.ui.view">
+            <field name="name">hr.contract.o2s.inherited.tiw</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <page string="Bonos a percibir">
+                        <field name="bonus_ids">
+                            <tree editable="top">
+                                <field name="type" required="1"/>
+                                <field name="related_field" required="1"/>
+                                <field name="amount" required="1"/>
+                                <field name="convert"/>
+                                <field name="type_convert" attrs="{'required': [('convert','=',True)]}"/>
+                                <field name="limit" widget="float_time" attrs="{'required': [('convert','=',True)]}"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+
+        <!--<record id="hr_employee_inherited_tiw" model="ir.ui.view">-->
+            <!--<field name="name">hr.employee.o2s.inherited.tiw</field>-->
+            <!--<field name="model">hr.employee</field>-->
+            <!--<field name="inherit_id" ref="hr.view_employee_form"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<field name="department_id" position="after">-->
+                    <!--<field name="service_line"/>-->
+                <!--</field>-->
+            <!--</field>-->
+        <!--</record>-->
+
+	  <!--<record id="view_employee_percent_add_form_hide_page" model="ir.ui.view">-->
+	      <!--<field name="name">employee.percent.add.hide</field>-->
+	      <!--<field name="model">hr.employee</field>-->
+	      <!--<field name="inherit_id" ref="bit_hr_payroll_ec.view_employee_percent_add_form"/>-->
+	      <!--<field name="arch" type="xml">-->
+              <!--<page string="Compañías que aportan 10%" position="attributes">-->
+                  <!--<attribute name="invisible">1</attribute>-->
+              <!--</page>-->
+              <!--&lt;!&ndash;<field name="pay_10" position="attributes">&ndash;&gt;-->
+                  <!--&lt;!&ndash;<attribute name="invisible">1</attribute>&ndash;&gt;-->
+              <!--&lt;!&ndash;</field>&ndash;&gt;-->
+	      <!--</field>-->
+	  <!--</record>-->
+
+    </data>
+</openerp>

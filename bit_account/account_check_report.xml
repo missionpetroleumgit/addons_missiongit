@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <report
+            id="action_report_check" 
+            model="account.bank.statement" 
+            string="Cheque/Egreso"
+            report_type="qweb-pdf"
+            name="bit_account.report_check" 
+            file="bit_account.report_check" 
+        />
+        
+        <report
+            id="action_report_egreso_check" 
+            model="account.bank.statement" 
+            string="Comprobante"
+            report_type="qweb-pdf"
+            name="bit_account.report_egreso_check" 
+            file="bit_account.report_egreso_check" 
+        />
+        
+        <report
+            id="action_report_check_supp" 
+            model="account.check" 
+            string="Egreso/Ingreso"
+            report_type="qweb-pdf"
+            name="bit_account.report_check_supp" 
+            file="bit_account.report_check_supp" 
+        />
+        
+        <report
+            id="action_report_asientos_contables_view" 
+            model="account.move" 
+            string="Asientos"
+            report_type="qweb-pdf"
+            name="bit_account.report_asientos_contables_view" 
+            file="bit_account.report_asientos_contables_view" 
+        />
+        
+        
+        
+       <!--  <report
+            id="action_report_account_statement" 
+            model="account.invoice" 
+            string="OK"
+            report_type="qweb-pdf"
+            name="bit_account.report_account_statement" 
+            file="bit_account.report_account_statement" 
+        /> -->
+        
+        <!-- <report
+            id="action_report_account_statement_retencion" 
+            model="account.invoice" 
+            string="Retención"
+            report_type="qweb-pdf"
+            name="bit_account.report_retencion_view" 
+            file="bit_account.report_retencion_view" 
+        /> -->
+        
+        <record id="action_report_check_supp" model="ir.actions.report.xml">
+            <field name="paperformat_id" ref="bit_account.paperformat_check"/>
+        </record>
+<!-- 
+ -->
+    </data>
+</openerp>

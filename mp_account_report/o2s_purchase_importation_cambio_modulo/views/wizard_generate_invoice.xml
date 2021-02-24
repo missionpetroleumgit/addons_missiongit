@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!--CSV: 15-09-2017 Creo wizard para crear factura desde orden importación-->
+        <record model="ir.ui.view" id="view_generate_invoice_importacion">
+            <field name="name">generate.invoice.imp</field>
+            <field name="model">generate.invoice.imp</field>
+            <field name="priority">3</field>
+            <field name="arch" type="xml">
+                <form string="Generar Facturas" version="7.0">
+                    <label string="Está seguro de generar la factura de la orden seleccionada?"/>
+                    <group>
+                        <field name="date_start"/>
+                    </group>
+                  	<footer>
+						<button name="button_gen_invoice" string="Generar Factura" class="oe_highlight" type="object"/>
+					</footer>
+                </form>
+            </field>
+        </record>
+
+		<act_window name="Generar Factura"
+            context="{'search_default_draft': 1}"
+            res_model="generate.invoice.imp"
+            src_model="importation.order"
+            view_mode="form"
+            view_id="view_generate_invoice_importacion"
+            target="new"
+            multi="True"
+            key2="client_action_multi"
+            id="action_account_generate_invoice_importacion"/>
+
+    </data>
+</openerp>

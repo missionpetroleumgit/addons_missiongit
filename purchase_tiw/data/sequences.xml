@@ -1,0 +1,148 @@
+<?xml version="1.0" ?>
+<openerp>
+	<data noupdate='1'>
+
+		<!-- Sequence -->
+
+		<record id="ir_seq_type_quotes" model="ir.sequence.type">
+			<field name="name">Cotizaciones</field>
+			<field name="code">purchase.quotes</field>
+		</record>
+
+		<record id="ir_seq_quotes" model="ir.sequence">
+			<field name="name">Cotizaciones</field>
+			<field name="code">purchase.quotes</field>
+			<field name="prefix">COT/</field>
+			<field name="padding">7</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+
+		<!-- Sequence -->
+
+		<record id="ir_seq_type_purch_serv" model="ir.sequence.type">
+			<field name="name">Compras Servicios</field>
+			<field name="code">purchase.order.service</field>
+		</record>
+
+		<record id="seq_purchase_service_orden" model="ir.sequence">
+			<field name="name">Compras Servicios</field>
+			<field name="code">purchase.order.service</field>
+			<field name="prefix">MP-OS-</field>
+			<field name="padding">4</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+
+		<!-- Sequence -->
+
+		<record id="ir_seq_type_purch_prod" model="ir.sequence.type">
+			<field name="name">Compras Productos</field>
+			<field name="code">purchase.order.product</field>
+		</record>
+
+		<record id="seq_purchase_product_orden" model="ir.sequence">
+			<field name="name">Compras Productos</field>
+			<field name="code">purchase.order.product</field>
+			<field name="prefix">MP-OC-</field>
+			<field name="padding">4</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+
+		<!-- Sequence -->
+
+		<record id="ir_seq_type_req_purch_pro" model="ir.sequence.type">
+			<field name="name">Requisicion Productos</field>
+			<field name="code">purc.order.req.prod</field>
+		</record>
+
+		<record  id="seq_req_prod_id" model="ir.sequence">
+			<field name="name">Requisicion Productos</field>
+			<field name="code">purc.order.req.prod</field>
+			<field name="prefix">MP-REQ-PRO-</field>
+			<field name="padding">4</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+
+		<!-- Sequence -->
+
+		<record id="ir_seq_type_req_purch_serv" model="ir.sequence.type">
+			<field name="name">Requisicion Servicios</field>
+			<field name="code">pur.order.req.serv</field>
+		</record>
+
+		<record id="seq_req_serv_id" model="ir.sequence">
+			<field name="name">Requisicion Servicios</field>
+			<field name="code">pur.order.req.serv</field>
+			<field name="prefix">MP-REQ-SER-</field>
+			<field name="padding">4</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+
+		<record id="ir_procura_purchase_orders_seq" model="ir.sequence.type">
+			<field name="name">Procura Purchase Order</field>
+			<field name="code">procura.purchase.order</field>
+		</record>
+
+		<!--
+			Sequence
+		-->
+
+		<record id="ir_procura_purchase_orders_type" model="ir.sequence">
+			<field name="name">Procura Purchase Order</field>
+			<field name="code">procura.purchase.order</field>
+			<field name="prefix">PO-PROC</field>
+			<field name="padding">6</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+
+		<record id="ir_procura_requisition_orders_seq" model="ir.sequence.type">
+			<field name="name">Procura Requisition Order</field>
+			<field name="code">procura.requisition.order</field>
+		</record>
+
+		<!--
+			Sequence
+		-->
+
+		<record id="ir_procura_requisition_orders_type" model="ir.sequence">
+			<field name="name">Procura Requisition Order</field>
+			<field name="code">procura.requisition.order</field>
+			<field name="prefix">MP-REQ-PROC-</field>
+			<field name="padding">6</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+
+		<record id="ir_procura_orders_seq" model="ir.sequence.type">
+			<field name="name">Procura Order</field>
+			<field name="code">procura.order</field>
+		</record>
+
+		<!--
+			Sequence
+		-->
+
+		<record id="ir_procura_orders_type" model="ir.sequence">
+			<field name="name">Procura Order</field>
+			<field name="code">procura.order</field>
+			<field name="prefix">MP-OC-PROC-</field>
+			<field name="padding">6</field>
+			<field name="number_increment">1</field>
+			<field name="number_next_actual">1</field>
+			<field name="implementation">standard</field>
+		</record>
+
+	</data>
+</openerp>

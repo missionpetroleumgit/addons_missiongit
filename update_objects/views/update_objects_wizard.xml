@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <record id="form_update_objectup" model="ir.ui.view">
+			<field name="name">form.update.objectup</field>
+			<field name="model">import.transient.objectup</field>
+			<field name="arch" type="xml">
+				<form string="Actualizar Modelos">
+                    <group col="2" colspan="2">
+                        <field name="is_update"/>
+                        <field name="model"/>
+                        <field name="data_file"/>
+                    </group>
+                    <group>
+                    <field name="update_fields" nolabel="1">
+                            <tree string="Campos a actualizar" editable="bottom">
+                                <field name="obj_field" options="{'no_create': True}"/>
+                                <field name="obj_field_name"/>
+                                <field name="obj_type" options="{'no_create': True}"/>
+                                <field name="obj_field_required"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <footer>
+                        <button name="button_update" type="object" string="Actualizar"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="update_objectup_action" model="ir.actions.act_window">
+            <field name="name">Actualizar modelos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">import.transient.objectup</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="form_update_objectup"/>
+            <field name="target">new</field>
+            <field name="context">{'active': 'product.product'}</field>
+        </record>
+
+        <menuitem name="Actualizar modelos"
+                  parent="base.next_id_9"
+                  id="menu_update_objectup"
+                  action="update_objectup_action"/>
+	</data>
+</openerp>

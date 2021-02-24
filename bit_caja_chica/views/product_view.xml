@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+  <data>
+
+	  <record id="view_product_add_pcchica_form" model="ir.ui.view">
+	      <field name="name">product.add.pcchica</field>
+	      <field name="model">product.product</field>
+	      <field name="inherit_id" ref="product.product_normal_form_view"/>
+	      <field name="arch" type="xml">
+                <field name="attribute_value_ids" position='after'>
+					<label for="is_pcchica" string="Producto caja chica" />
+                	<field name="is_pcchica"/>
+				</field>
+          </field>
+	  </record>
+
+
+
+  </data>
+</openerp>

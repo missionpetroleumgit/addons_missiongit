@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="purchase_importation_operations_report_form" model="ir.ui.view">
+            <field name="name">purchase.importation.operations.report.form</field>
+            <field name="model">purchase.importation.operations.report</field>
+            <field name="arch" type="xml">
+                <form string="Reportes de Importación" version="7.0">
+                    <sheet>
+                        <separator style="color:green !important" string="Reporte Importaciones de Operaciones"/>
+                        <group col="1" colspan="2">
+                            <separator string="Rango de Fechas"/>
+                            <div>
+                                <div>
+                                    <field name="date_from" style="width: 12%" required="1"
+                                           placeholder="01-01-2019" help="Fecha Inicio"/>
+                                    <span style="color:white !important">--</span>
+                                    <strong><span>-</span></strong>
+                                    <span style="color:white !important">--</span>
+                                    <field name="date_to" style="width: 12%" required="1"
+                                           placeholder="31-12-2019" help="Fecha Fin"/>
+                                </div>
+                            </div>
+                            <separator string="Opciones"/>
+                            <group col="2" colspan="2">
+                                <field name="partner_id"
+                                       domain="[('supplier','=', True), ('customer', '=', False), ('part_type', '=', 's')]"
+                                       options="{'no_create': True, 'no_open':True}"/>
+                            </group>
+                            <group col="4" colspan="1">
+                                <field name="type" string="Estado" help="En blanco para reporte todos los estados"/>
+                                <field name="destination" string="Tipo"/>
+                            </group>
+                            <group col="4" colspan="1">
+                                <field name="transport"/>
+                                <field name="type_export"/>
+                            </group>
+                            <field name="id" invisible="1"/>
+                        </group>
+                        <button name="excel_action" type="object" string="Imprimir"
+                                attrs="{'invisible': [('id','=',False)]}"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_purchase_importation_operations_report" model="ir.actions.act_window">
+            <field name="name">Importaciones</field>
+            <field name="res_model">purchase.importation.operations.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="context">{}</field>
+            <field name="target">current</field>
+        </record>
+
+        <menuitem action="action_purchase_importation_operations_report"
+                  id="menu_action_purchase_importation_operations_report"
+                  parent="base.next_id_73"
+                  string="Importaciones"/>
+    </data>
+</openerp>

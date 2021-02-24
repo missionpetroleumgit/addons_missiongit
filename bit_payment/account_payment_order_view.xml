@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+<!-- Payment order -->    
+	<!-- Form -->
+        <record model="ir.ui.view" id="view_bit_payment_order_wzd">
+            <field name="name">payment.document.wizard.wzd</field>
+            <field name="model">payment.document</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <form string="Supplier Invoice" version="7.0">
+                  <sheet string="Transactions">
+                    <group >
+	                	<group >
+	                   		<field name="check_number" attrs="{'required': [('check_number', '!=', False)],'invisible':[('check_number', '=', False)]}"/>
+	                		<field name="partner_id" required="1" />
+	                        <field name="pay_mode_id" required='1' />
+	                        <field name="amount"/>
+	            		</group>
+	                	<group >
+	                        <field name="date" />
+	                        <field name="res_partner_id" span="4"/>
+	                    	<field name="pay_reason" required='1' />                        
+	                        <field name="type" required="1" readonly='1'/>
+	                        <field name="company_id" widget="selection" groups="base.group_multi_company"/>
+	                    </group>
+					</group><!-- 
+	                    <label string ="(List of current payments)" />
+	                    <field name="voucher_ids" nolabel='1' readonly='1'/>
+					 -->
+                  </sheet>
+                  	<footer>
+						<button name="save_transaction" string="Generate" class="oe_highlight" type="object" /> or
+						<button string="Cancel" class="oe_link" special="cancel"/>
+					</footer>
+                </form>
+            </field>
+        </record>    
+    
+    <!-- Wizard  - Payment order -->
+		<act_window name="Make payment"
+            context="{'search_default_draft': 1, 'wizard': 'check'}"
+            res_model="payment.document"
+            src_model="account.voucher"
+            view_mode="form"
+            view_id="view_bit_payment_order_wzd"
+            target="new"
+            multi="True"
+            key2="client_action_multi"
+            id="action_account_payment_order_wizard"/>
+      
+    </data>
+</openerp>

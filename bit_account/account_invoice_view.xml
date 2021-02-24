@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="view_account_invoice_filter" model="ir.ui.view">
+			<field name="name">account.invoice.select</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.view_account_invoice_filter"/>
+			<field name="arch" type="xml">
+				<!-- JJM 2018-02-01  agrego grupby  automatico -->
+				<xpath expr="//filter[@string='Status']" position="attributes">
+					<attribute name="name">group_status</attribute>
+				</xpath>
+
+				<field name="number" position="before">
+					<field name="number_seq" />
+				</field>
+				<filter string="Salesperson" position="after">
+					<filter string="Provision" context="{'group_by':'state_provision'}"/>
+				</filter>
+			</field>
+		</record>
+
+		<!-- JJM 2018-02-01  extiendo action invoice para group_by-->
+		<record id="account.action_invoice_tree1" model="ir.actions.act_window">
+			<field name="context">{'default_type':'out_invoice', 'type':'out_invoice', 'journal_type': 'sale', 'search_default_group_status': 1}</field>
+		</record>
+
+		<record id="invoice_tree_inheritance_provision" model="ir.ui.view">
+			<field name="name">account.invoice.tree.provision</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_tree"/>
+			<field name="arch" type="xml">
+				<field name="state" position="after">
+					<field name="state_provision" invisible="1"/>
+				</field>
+			</field>
+		</record>
+
+		<!-- Supplier Account Invoice -->
+		<!-- Form -->
+		<record id="view_bit_invoice_supplier_form" model="ir.ui.view">
+			<field name="name">account.invoice.supplier.form</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_supplier_form"/>
+			<field name="priority">2</field>
+			<field name="arch" type="xml">
+				<field name="invoice_line_tax_id" position="attributes">
+					<attribute name="options">{'no_create':True}</attribute>
+				</field>
+				<field name="state" position="replace">
+					<field name="state" widget="statusbar" statusbar_visible="draft,open,paid,invalidate"
+						   statusbar_colors='{"proforma":"blue","proforma2":"blue","invalidate":"green"}'/>
+				</field>
+				<field name="state" position="after">
+					<field name="state_provision" widget="statusbar"
+						   attrs="{'invisible':[('type','not in',['in_invoice','out_invoice'])]}"/>
+				</field>
+				<button name="action_cancel_draft" position="after">
+					<button name="invalidate" string="Anular Factura" type="object" states="open,cancel"/>
+					<button name="generate_provision" string="Provisionar" type="object"
+							attrs="{'invisible':[('state_provision','!=','invoice'),('type','in',['in_invoice','out_invoice'])]}"/>
+					<button name="reverse_provition" string="Revertir Provision" type="object"
+							attrs="{'invisible':[('state_provision','!=','prov'),('type','in',['in_invoice','out_invoice'])]}"/>
+				</button>
+				<field name="partner_id" position="attributes">
+					<attribute name="context">{'load_auth': True, 'doc_type': document_type}</attribute>
+				</field>
+				<field name="origin" position="attributes">
+					<attribute name="attrs">{'readonly':['|',('type','=','in_refund'),('state', 'not in ', ['draft'])]}</attribute>
+				</field>
+				<field name="product_id" position="attributes">
+					<attribute name="domain">[('type','=','normal'),('state', '&lt;&gt;', 'close')]</attribute>
+				</field>
+				<field name="supplier_invoice_number" position='replace'>
+					<field name="supplier_invoice_number" invisible="1"/>
+				</field>
+				<!--JJM 2018-05-05  cambio posicion de elementos en pantalla-->
+				<field name="fiscal_position" position='replace'><!--cambio de posicion--></field>
+				<field name="origin" position='replace'></field>
+				<field name="check_total" position="after">
+					<field name="fiscal_position" options="{'no_create': True}"/>
+					<field name="origin"
+						   attrs="{'readonly':['|',('type','=','in_refund'),('state', 'not in ', ['draft'])]}"/>
+				</field>
+				<field name="partner_id" position='after'>
+					<field name="is_inv_elect" invisible='0' context="{'is_inv_elect': is_inv_elect}"/>
+					<field name="document_type" required='1' context="{'load_auth': True}"
+						   domain="[('is_retention', '=', False)]"
+						   on_change="onchange_doc_type(partner_id, document_type, is_inv_elect, context)"/>
+					<field name="tax_support" required='1'/>
+					<label for="number_seq"/>
+					<div>
+						<div>
+							<field name="emission_series" style="width: 12%" attrs="{'required': [('is_inv_elect', '=', True)], 'invisible': [('is_inv_elect', '=', False)]}" placeholder="001"/>
+							<field name="emission_point" style="width: 12%" attrs="{'required': [('is_inv_elect', '=', True)], 'invisible': [('is_inv_elect', '=', False)]}" placeholder="002"/>
+							<field name="number_seq" required="1" class="oe_inline"/>
+						</div>
+					</div>
+
+					<field name="elect_authorization"
+						   attrs="{'required': [('is_inv_elect', '=', True)], 'invisible': [('is_inv_elect', '=', False)]}"
+						   string="Nro. Autorización"/>
+					<field name="retention_type" required='1'/>
+					<field name="retention_sequence_id"
+						   attrs="{'invisible':[('retention_type','!=','Electronica')],'required':[('retention_type','=','Electronica')]}"
+						   domain="[('company_id','=',company_id),('sequence_retention', '=', True)]"
+						   options="{'no_create':True}"/>
+				</field>
+				<field name="amount_untaxed" position='after'>
+					<field name="base_iva" widget='monetary'/>
+					<field name="base_sin_iva" widget='monetary'/>
+					<field name="amount_iva" widget='monetary'/>
+					<field name="amount_total_iva" widget='monetary'/>
+					<field name="amount_other" widget='monetary'/>
+				</field>
+				<label for="amount_tax" position="replace"/>
+				<field name="amount_tax" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</field>
+				<field name="fiscal_position" position="attributes">
+					<attribute name="readonly">1</attribute>
+				</field>
+				<field name="date_invoice" position="after">
+					<field name="date_cont"/>
+				</field>
+				<field name="invoice_line" position="attributes">
+					<attribute name="context">{'partner_id': partner_id, 'price_type': context.get('price_type') or False, 'type': type, 'company_id' : company_id}</attribute>
+				</field>
+				<field name="product_id" position="attributes">
+					<attribute name="domain">[('purchase_ok', '=', True)]</attribute>
+				</field>
+				<field name="period_id" position="after">
+					<field name="deduction_id" readonly="1"/>
+				</field>
+				<field name="move_id" position="after">
+					<field name="prov_id"/>
+				</field>
+				<field name="prov_id" position="after">
+					<field name="provrev_id"/>
+				</field>
+				<!--	AUTHORIZATION	-->
+				<page string="Payments" position='after'>
+					<page string="Authorization" attrs="{'invisible': [('is_inv_elect', '=', True)]}">
+						<group col="2">
+							<field name="authorization_id" on_change="onchange_authorization(authorization_id, context)"
+								   attrs="{'required': [('is_inv_elect', '=', False)]}"/>
+							<field name="range"/>
+							<field name="auth_due_date" readonly='1'/>
+							<field name="is_inv_liq" invisible='1'/>
+						</group>
+					</page>
+				</page>
+				<xpath expr="//field[@name='invoice_line']/tree/field[@name='product_id']" position="attributes">
+					<attribute name="domain">[('purchase_ok','=',True),('company_id','=',parent.company_id)]</attribute>
+				</xpath>
+			</field>
+		</record>
+		<!-- Customer Account Invoice -->
+		<!-- Form -->
+		<record id="invoice_form_customer_inherit" model="ir.ui.view">
+			<field name="name">account.invoice.customer.inherit</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form"/>
+			<field name="arch" type="xml">
+				<field name="invoice_line_tax_id" position="attributes">
+					<attribute name="options">{'no_create':True}</attribute>
+				</field>
+				<button name="invoice_cancel" position="after">
+					<button name="invalidate" string="Anular Factura" type="object" states="open,cancel"/>
+					<button name="generate_provision" string="Provisionar" type="object"
+							attrs="{'invisible':[('state_provision','!=','invoice'),('type','in',['in_invoice','out_invoice'])]}"/>
+					<button name="reverse_provition" string="Revertir Provision" type="object"
+							attrs="{'invisible':[('state_provision','!=','prov'),('type','in',['in_invoice','out_invoice'])]}"/>
+				</button>
+				<field name="state" position="replace">
+					<field name="state" widget="statusbar" statusbar_visible="draft,open,paid,invalidate"
+						   statusbar_colors='{"proforma":"blue","proforma2":"blue","invalidate":"green"}'/>
+				</field>
+				<field name="state" position="after">
+					<field name="state_provision" widget="statusbar" attrs="{'invisible':[('type','not in',['in_invoice','out_invoice'])]}"/>
+				</field>
+				<button name="action_cancel_draft" position="attributes">
+					<attribute name="groups">account.group_account_manager</attribute>
+				</button>
+				<button name="invoice_cancel" position="attributes">
+					<attribute name="groups">account.group_account_manager</attribute>
+				</button>
+				<button name="invoice_open" position="attributes">
+					<attribute name="groups">account.group_account_manager</attribute>
+				</button>
+				<field name="partner_id" position="attributes">
+					<attribute name="context">{'load_auth': True, 'doc_type': document_type}</attribute>
+				</field>
+				<field name="account_id" position='after'>
+					<field name="document_type" required='1' context="{'load_auth': True}"
+						   domain="[('is_retention', '=', False),('only_sale', '=', True)]"
+						   attrs="{'readonly': [('state', '!=', 'draft')] }"
+						   on_change="onchange_doc_type(partner_id, document_type, context)"/>
+					<field name="retention_type" required='1'/>
+				</field>
+				<field name="move_id" position="after">
+					<field name="deduction_id" readonly="1"/>
+				</field>
+				<field name="origin" position="attributes">
+					<attribute name="attrs">{'readonly':['|',('type','=','out_refund'),('state', 'not in ', ['draft'])]}</attribute>
+				</field>
+				<field name="amount_untaxed" position='after'>
+					<field name="amount_iva" widget='monetary' />
+					<field name="amount_total_iva" widget='monetary' />
+					<field name="amount_other" widget='monetary' />
+				</field>
+				<label for="amount_tax" position="replace"/>
+				<field name="amount_tax" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</field>
+				<field name="date_invoice" position="attributes">
+					<attribute name="required">1</attribute>
+				</field>
+				<field name="price_unit" position="attributes">
+					<attribute name="invisible">0</attribute>
+					<!--<attribute name="attrs">{'readonly':[ ('is_reemb', '!=', True), ('refund', '=', False) ] }</attribute>-->
+				</field>
+				<field name="invoice_line_tax_id" position="before">
+					<!-- 
+					 -->
+					<field name="refund" invisible='1'/>
+					<field name="rel_price_unit" invisible='1'/>
+					<!--<field name="is_reemb" invisible='1'/>-->
+				</field>
+				<field name="product_id" position="attributes">
+					<attribute name="domain">[('sale_ok', '=', True)]</attribute>
+				</field>
+				<field name="move_id" position="after">
+					<field name="prov_id"/>
+				</field>
+				<field name="prov_id" position="after">
+					<field name="provrev_id"/>
+				</field>
+				<!-- 
+				 -->
+				<!--	AUTHORIZATION	-->
+				<page string="Payments" position='after'>
+					<page string="Authorization" groups="base.group_user">
+						<group col="2">
+							<field name="authorization_id" required='1' on_change="onchange_authorization(authorization_id, context)"
+								   domain="[('to_customer', '=', True)]"
+								   attrs="{'readonly': [('state', '!=', 'draft')] }" />
+							<field name="number_seq" readonly='1' />
+							<field name="auth_due_date" readonly='1' />
+						</group>
+					</page>
+				</page>
+			</field>
+		</record>
+
+		<record id="view_bit_partner_property_form" model="ir.ui.view">
+			<field name="name">res.partner.property.form.inherit</field>
+			<field name="model">res.partner</field>
+			<field name="priority">2</field>
+			<field name="inherit_id" ref="account.view_partner_property_form"/>
+			<field name="arch" type="xml">
+				<field name="property_account_receivable" position="attributes">
+				<attribute name='attrs'>{'required': [('customer', '=', True)]}</attribute>
+				</field>
+				<field name="property_account_payable" position="attributes">
+				<attribute name='attrs'>{'required': [('supplier', '=', True)]}</attribute>
+				</field>
+				<field name="property_account_receivable" position="after">
+					<field name="document_type" required='1' />
+				</field>
+				<field name="property_account_payable" position="after">
+                                        <field name="tax_support" attrs="{'required': [('supplier', '=', True)] }" />
+                		</field>
+			</field>
+		</record>
+
+		<!-- DETALLE AUTORIZACIÓN -->
+		<record id="view_account_authorization_search" model="ir.ui.view">
+			<field name="name">account.authorization.search</field>
+			<field name="model">account.authorization</field>
+			<field name="arch" type="xml">
+				<search string="Authorization number">
+					<field name="name"/>
+					<field name="partner_id"/>
+					<field name="num_resolution"/>
+					<field name="expiration_date"/>
+					<field name="type_id"/>
+				</search>
+			</field>
+		</record>
+		<record id="view_account_authorization_tree" model="ir.ui.view">
+			<field name="name">account.authorization.tree</field>
+			<field name="model">account.authorization</field>
+			<field name="arch" type="xml">
+				<tree string="Authorization number">
+					<field name="name" />
+					<field name="expiration_date" />
+					<field name="num_start" />
+					<field name="num_end" />
+					<field name="partner_id"/>
+					<field name="serie_entity" />
+					<field name="serie_emission" />
+					<field name="type_id" />
+					<field name="to_customer" />
+				</tree>
+			</field>
+		</record>
+		<record id="view_account_authorization_form" model="ir.ui.view">
+			<field name="name">account.authorization.form</field>
+			<field name="model">account.authorization</field>
+			<field name="arch" type="xml">
+				<form string="Authorization number" >
+					<sheet>
+						<group col="6">
+							<group col="4">
+								<field name="is_retention" colspan='4'
+									   attrs="{'readonly': [('to_customer', '=', True)] }"/>
+								<field name="name" colspan='4'/>
+								<field name="company_id" colspan='4' groups="base.group_multi_company"/>
+								<field name="partner_id" colspan='4'/>
+								<field name="type_id" colspan='4'
+									   domain="['|', '&amp;', ('is_retention', '=', is_retention), ('is_liquidation', '!=', to_customer),
+			                    					'&amp;', ('is_retention', '=', is_retention), ('is_liquidation', '=', False)]"
+									   context="{'search_doc_type': True}" attrs="{'readonly':['|',('num_start','=',0),('num_end','=',0)]}"/>
+								<field name="sequence_id" colspan='4' readonly='1'/>
+								<field name="is_electronic" colspan='4'/>
+								<field name="num_resolution" colspan='4' />
+								<field name="id" invisible='1' colspan='4'/>
+							</group>
+							<group col="2">
+								<field name="to_customer"/>
+								<field name="expiration_date" attrs="{'readonly': [('id', '!=', False)]}"/>
+								<field name="num_start" attrs="{'readonly': [('id', '!=', False)]}"/>
+								<field name="num_end" attrs="{'readonly': [('id', '!=', False)]}"/>
+								<field name="serie_entity" />
+								<field name="serie_emission" />
+								<field name="active" />
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_account_authorization_c" model="ir.actions.act_window">
+			<field name="name">Authorization number from customer</field>
+			<field name="res_model">account.authorization</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'to_customer' : True, 'readonly_by_pass': True}</field>
+			<field name="domain">[('to_customer','=',True)]</field>
+		</record>
+
+		<record id="action_account_authorization_s" model="ir.actions.act_window">
+			<field name="name">Authorization number from supplier</field>
+			<field name="res_model">account.authorization</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="context">{'to_customer' : False, 'readonly_by_pass': True}</field>
+			<field name="domain">[('to_customer','=',False)]</field>
+		</record>
+
+		<menuitem id="menu_account_authorization" name="Authorization number" parent="account.menu_configuration_misc" sequence="1" />
+		<menuitem id="menu_account_authorization_c" action="action_account_authorization_c" name="To customer" parent="menu_account_authorization" sequence="1" />
+		<menuitem id="menu_account_authorization_s" action="action_account_authorization_s" name="From supplier" parent="menu_account_authorization" sequence="1" />
+
+		<!-- DETALLE RETENCION -->
+		<record id="view_account_deduction_search" model="ir.ui.view">
+			<field name="name">account.deduction.search</field>
+			<field name="model">account.deduction</field>
+			<field name="arch" type="xml">
+				<search string="Deductions">
+					<field name="name" />
+					<field name="authorization_id" />
+					<field name="number" />
+					<field name="type" />
+					<field name="partner_id" />
+					<field name="emission_date" />
+					<field name="invoice_id" />
+					<field name="tax_ids" />
+					<group expand="0" string="Agrupar por">
+						<filter string="Retencion" icon="terp-folder-orange" domain="" context="{'group_by':'retention_type'}"/>
+					</group>
+				</search>
+			</field>
+		</record>
+		<record id="view_account_deduction_tree" model="ir.ui.view">
+			<field name="name">account.deduction.tree</field>
+			<field name="model">account.deduction</field>
+			<field name="arch" type="xml">
+				<tree string="Deductions" create='false' delete='false' edit='true'>
+					<field name="name" />
+					<field name="authorization_id" />
+					<field name="number" />
+					<field name="type" />
+					<field name="partner_id" />
+					<field name="emission_date" />
+					<field name="invoice_id" />
+					<field name="tax_ids" />
+					<field name="state" />
+				</tree>
+			</field>
+		</record>
+		<record id="view_account_deduction_form" model="ir.ui.view">
+			<field name="name">account.deduction.form</field>
+			<field name="model">account.deduction</field>
+			<field name="arch" type="xml">
+				<form string="Deduction" create='false' delete='false'>
+					<header string="State deduction">
+						<button name="wkf_open" string="Validar" states="draft" type="object"/>
+						<button name="wkf_cancel" string="Borrador" states="open,paid" type="object"/>
+						<button name="reconcile_deduction" string="Conciliar con factura"  type="object"
+								attrs="{'invisible':['|','|',('state','!=','open'),('type','=','supplier'),('move_id','=',False)]}"/>
+						<button name="wkf_cancel1" string="Cancelar" states="open" type="object"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,open,paid" statusbar_colors='{"active":"blue"}'/>
+					</header>
+					<sheet string="Deduction">
+						<group col="6">
+							<group col="2">
+								<field name="name" />
+								<field name="authorization_id" attrs="{'invisible': [('type', '=', 'customer')]}" />
+								<field name="auth_customer" attrs="{'invisible': [('type', '=', 'supplier')]}" />
+								<field name="partner_id" readonly='0' />
+								<field name="invoice_id" readonly='0' />
+								<field name="retention_type" attrs="{'invisible': [('type', '=', 'customer')]}"/>
+							</group>
+							<group col="2">
+								<field name="number" required='1'/>
+								<field name="emission_date" required='1'/>
+								<field name="type" readonly='0' />
+							</group>
+						</group>
+						<notebook>
+							<page string="Tax retentions" readonly='1'>
+								<field name="tax_ids" />
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="action_account_deduction_payable" model="ir.actions.act_window">
+			<field name="name">Deductions</field>
+			<field name="res_model">account.deduction</field>
+			<field name="domain">[('type','=','customer')]</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+		<record id="action_account_deduction_receivable" model="ir.actions.act_window">
+			<field name="name">Deductions</field>
+			<field name="res_model">account.deduction</field>
+			<field name="domain">[('type','=','supplier')]</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem id="menu_account_deduction_pay" action="action_account_deduction_payable" name="Deductions payable"
+				  parent="account.menu_finance_receivables" groups="account.group_account_invoice" sequence="11" />
+		<menuitem id="menu_account_deduction_rec" action="action_account_deduction_receivable" name="Deductions receivable"
+				  parent="account.menu_finance_payables" groups="account.group_account_invoice" sequence="11" />
+
+		<!--<delete model="ir.actions.act_window" id="action_invoice_tree3"/>-->
+		<!--<record id="action_invoice_tree3" model="ir.actions.act_window">-->
+		<!--<field name="name">Supplier Invoices</field>-->
+		<!--<field name="res_model">account.invoice</field>-->
+		<!--<field name="view_type">form</field>-->
+		<!--<field name="view_mode">tree,form,calendar,graph</field>-->
+		<!--&lt;!&ndash;<field eval="False" name="view_id"/>&ndash;&gt;-->
+		<!--<field name="domain">[('type','=','in_invoice')]</field>-->
+		<!--<field name="context">{'default_type': 'in_invoice', 'type': 'in_invoice', 'journal_type': 'purchase'}</field>-->
+		<!--<field name="view_id" ref="account.invoice_supplier_form"/>-->
+		<!--<field name="search_view_id" ref="view_account_invoice_filter"/>-->
+		<!--<field name="help" type="html">-->
+		<!--<p class="oe_view_nocontent_create">-->
+		<!--Click to record a new supplier invoice.-->
+		<!--</p><p>-->
+		<!--You can control the invoice from your supplier according to-->
+		<!--what you purchased or received. Odoo can also generate-->
+		<!--draft invoices automatically from purchase orders or receipts.-->
+		<!--</p>-->
+		<!--</field>-->
+		<!--</record>-->
+		<!--<menuitem action="action_invoice_tree3" id="menu_action_invoice_tree3" parent="account.menu_finance_payables"/>-->
+
+
+		<!-- JJM 2018-03-01  extiendo vista para para group_by en cuentas-->
+		<record id="view_account_statement_from_invoice_lines_filter" model="ir.ui.view">
+			<field name="name">account.statement.from.invoice.lines.filter</field>
+			<field name="model">account.statement.from.invoice.lines</field>
+			<field name="inherit_id" ref="account.view_account_statement_from_invoice_lines"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='line_ids']" position="attributes">
+					<attribute name="context">{'currency':True,'search_default_group_journal': True}</attribute>
+				</xpath>
+			</field>
+		</record>
+
+		<!-- JJM 2018-03-01  extiendo account_move_line para group_by-->
+		<record id="view_account_move_line_filter_extend" model="ir.ui.view">
+			<field name="name">account.move.line_group</field>
+			<field name="model">account.move.line</field>
+			<field name="inherit_id" ref="account.view_account_move_line_filter"/>
+			<field name="arch" type="xml">
+				<!-- JJM 2018-02-01  agrego grupby  automatico -->
+				<xpath expr="//filter[@string='Journal']" position="attributes">
+					<attribute name="name">group_journal</attribute>
+				</xpath>
+			</field>
+		</record>
+
+	</data>
+</openerp>

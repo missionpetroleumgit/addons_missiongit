@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+  <data>
+  
+
+	  <record id="view_product_add_camposv_form" model="ir.ui.view">
+	      <field name="name">product.add.camposv</field>
+	      <field name="model">product.product</field>
+	      <field name="inherit_id" ref="product.product_normal_form_view"/>
+	      <field name="arch" type="xml">
+              <!--<field name="type" position="before">-->
+                  <!--<field name="categ_id"/>-->
+              <!--</field>-->
+			  <field name="attribute_value_ids" position="attributes">
+				  <attribute name="readonly">0</attribute>
+			  </field>
+          </field>
+	  </record>
+
+	  <!--<record id="view_product_add_refprod_tree_attr" model="ir.ui.view">-->
+	      <!--<field name="name">product.add.refprod.attr</field>-->
+	      <!--<field name="model">product.product</field>-->
+	      <!--<field name="inherit_id" ref="product.product_product_tree_view"/>-->
+	      <!--<field name="arch" type="xml">-->
+			  <!--<tree string="Product Variants" position="attributes">-->
+				  <!--<attribute name="create">false</attribute>-->
+			  <!--</tree>-->
+	      <!--</field>-->
+	  <!--</record>-->
+	  
+	  <record id="view_product_campos_form" model="ir.ui.view">
+	      <field name="name">product.campos.form</field>
+	      <field name="model">product.template</field>
+	      <field name="inherit_id" ref="product.product_template_only_form_view"/>
+	      <field name="arch" type="xml">
+			  <field name="ean13" position="attributes">
+				   <attribute name="invisible">1</attribute>
+			  </field>
+              <xpath expr="//notebook/page[@name='variants']/field[@name='attribute_line_ids']" position="after">
+                  <button class="oe_inline oe_stat_button" string="Show Variants"
+                          name="show_wizard" type="object" icon="fa-strikethrough"/>
+              </xpath>
+	      </field>
+	  </record>
+
+  </data>
+</openerp>

@@ -1,0 +1,7 @@
+code,note,name
+IGBS,Ingresos que generan beneficios sociales para calculos,Ingresos (Genera Beneficios Sociales)
+OINGNBS,No generan beneficios sociales,Otros Ingresos (No generan beneficios sociales)
+EGRE,Egresos del Empleado,Egresos (Egresos del Empleado)
+SUBTOTAL,,Subtotales()
+PRO,Proviciones,Provisiones(proviciones)
+CONF,,Configuracion Reglas

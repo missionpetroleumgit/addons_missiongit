@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+    <!--
+      CSV:15-08-2017:Albarran Salida Aumento Ticket
+    -->
+
+     <record id="view_stock_picking_tree_add_ticket" model="ir.ui.view">
+        <field name="name">Albarran Salida - Add ticket on tree</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.vpicktree"/>
+        <field name="arch" type="xml">
+            <field name="origin" position="after">
+                <field name="picking_type_id" invisible="1"/>
+                <field name="ticket_id" string="S.Ticket" attrs="{'invisible':[('picking_type_id','!=',2)]}"/>
+            </field>
+        </field>
+    </record>
+
+
+</data>
+</openerp>

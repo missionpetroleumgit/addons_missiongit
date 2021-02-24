@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_retencion_inv_supplier">
+    <t t-call="report.html_container">
+    <t t-foreach="docs" t-as="o">
+        <div class="page">
+                <div style="position:absolute;left:600;top:150px">
+                 <p><span t-esc="get_date(o.id)"/></p>
+                 <p><span t-field="o.document_type"/></p>
+                 <p><span t-esc="get_invoice(o.id)"/></p>
+                </div>
+            <div style="position:absolute;left:107;top:150px">
+		          <p><span t-field="o.partner_id.name"/>.</p>
+		          <p><span t-field="o.partner_id.part_number"/></p>
+		          <p><span t-field="o.partner_id.street"/>.</p>
+            </div>
+            <div style="position:absolute;left:110;top:290px;width:90%;">
+            <table class="moz-email-headers-table" border="0" cellpadding="0" cellspacing="0">
+                <thead>
+                </thead>
+                <tbody>
+                    <tr t-foreach="get_taxes(o.id)" t-as="t">
+                        <td width="90px"><span t-esc="get_date(o.id)" t-field-options='{"format": "y"}'/></td>
+                        <td width="100px"><span t-field="t.tax_number"/></td>
+                        <td width="130px"><span t-field="t.base"/></td>
+                        <td width="200px"><span t-field="t.tax_type" /></td>
+                        <td width="120px"><span t-field="t.tax_percent"/></td>
+                        <td width="80px"><span t-esc="abs(t.amount)"/></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+      </div>   
+    </t>
+</t>
+</template>
+<template id="report_invoice">
+    <t t-call="report.html_container">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'account.report_invoice_document')"/>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

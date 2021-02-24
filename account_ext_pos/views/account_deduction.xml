@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <record id="view_account_deduction_form_inheritance" model="ir.ui.view">
+            <field name="name">view.account.deduction.form.inheritance</field>
+            <field name="model">account.deduction</field>
+            <field name="inherit_id" ref="bit_account.view_account_deduction_form"/>
+            <field name="arch" type="xml">
+                <field name="invoice_id" position="after">
+                    <field name="pos_config" invisible="1"/>
+                </field>
+            </field>
+        </record>
+	</data>
+</openerp>

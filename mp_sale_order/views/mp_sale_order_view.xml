@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_sale_order_control_quotation_form" model="ir.ui.view">
+            <field name="name">stock.sale.order.control.quotation.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="quotation_state" widget="statusbar" statusbar_visible="open,close"
+                           attrs="{'invisible':[('state','not in', ('draft', 'sent'))]}"/>
+                </field>
+                <field name="currency_id" position="after">
+                    <field name="id" invisible="1" />
+                    <field name="pass_order" invisible="1" />
+                    <field name="days_to_close" string="Dias (Expiración)" attrs="{'invisible':[('id','=', False)],
+                    'required':[('id','!=', False)], 'readonly':[('days_count','!=', False)]}"/>
+                    <field name="days_count"
+                           attrs="{'invisible':['|', ('id','=', False), ('state','not in', ('draft', 'sent'))],
+                    'required':[('pass_order', '=', False), ('id', '!=', False)]}"/>
+                    <field name="check_control" invisible="1"/>
+                </field>
+                <xpath expr="//button[@name='action_cancel']" position="replace">
+                    <button name="action_cancel" states="manual,progress"
+                            string="Cancel Order" type="object" groups="mp_sale_order.group_sale_order_cancel"/>
+                    <button name="create_new_invoice" states="manual,progress"
+                            string="Refacturar Orden" type="object" groups="mp_sale_order.group_sale_order_cancel"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

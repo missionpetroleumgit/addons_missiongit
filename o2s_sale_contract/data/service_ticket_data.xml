@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <!--DATOS INICIALES-->
+    <data noupdate="1">
+        <record model="ir.sequence.type" id="service_ticket_sequence">
+            <field name="name">Secuencia Service Ticket</field>
+            <field name="code">service.ticket.sequence</field>
+        </record>
+        <record model="ir.sequence.type" id="service_ticket_rent_sequence">
+            <field name="name">Secuencia Service Ticket Renta</field>
+            <field name="code">service.ticket.rent.sequence</field>
+        </record>
+        <record model="ir.sequence.type" id="service_ticket_repair_sequence">
+            <field name="name">Secuencia Service Ticket Reparacion</field>
+            <field name="code">service.ticket.repair.sequence</field>
+        </record>
+        <record model="ir.sequence.type" id="service_ticket_sale_sequence">
+            <field name="name">Secuencia Service Ticket Sale</field>
+            <field name="code">service.ticket.sale.sequence</field>
+        </record>
+        <record model="ir.sequence" id="service_ticket_sequence_renta">
+            <field name="name">Sequence Service Ticket renta.</field>
+            <field name="code">service.ticket.rent.sequence</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">TICKET-RENTA-</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">3</field>
+            <field name="implementation">standard</field>
+            <field name="padding">5</field>
+        </record>
+        <record model="ir.sequence" id="service_ticket_sequence_repair">
+            <field name="name">Sequence Service Ticket Reparacion.</field>
+            <field name="code">service.ticket.repair.sequence</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">TICKET-REPARACION-</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">7</field>
+            <field name="implementation">standard</field>
+            <field name="padding">5</field>
+        </record>
+        <record model="ir.sequence" id="service_ticket_sequence_sale">
+            <field name="name">Sequence Service Ticket Venta</field>
+            <field name="code">service.ticket.sale.sequence</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">TICKET-VENTA-</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">202</field>
+            <field name="implementation">standard</field>
+            <field name="padding">5</field>
+        </record>
+        <record model="ir.sequence.type" id="service_ticket_draft_sequence">
+            <field name="name">Draft sequence for Service Ticket</field>
+            <field name="code">service.ticket.sequence</field>
+        </record>
+        <record model="ir.sequence" id="service_ticket_sequence">
+            <field name="name">Service Ticket</field>
+            <field name="code">service.ticket.sequence</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">MP-OR</field>
+            <field name="suffix">**</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+            <field name="implementation">standard</field>
+            <field name="padding">5</field>
+        </record>
+
+        <record id="service_line_lh" model="service.line">
+            <field name="name">Liner Hanger</field>
+            <field name="sequence_id" ref="o2s_sale_contract.service_ticket_sequence_lh"/>
+        </record>
+        <record id="service_line_pt" model="service.line">
+            <field name="name">Power Tong</field>
+            <field name="sequence_id" ref="o2s_sale_contract.service_ticket_sequence_pt"/>
+        </record>
+
+        <!--Contizacion de Renta-->
+        <record model="ir.sequence.type" id="service_ticket_req_rent_">
+            <field name="name">Secuencia Cotizacion Renta</field>
+            <field name="code">cotizacion.rent.sequence</field>
+        </record>
+
+        <record model="ir.sequence" id="service_ticket_sequence_rent">
+            <field name="name">Secuencia Cotizacion Renta</field>
+            <field name="code">cotizacion.rent.sequence</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">MP-COT-REN-</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">3</field>
+            <field name="implementation">standard</field>
+            <field name="padding">5</field>
+        </record>
+
+        <!--Contizacion de Reparacion-->
+        <record model="ir.sequence.type" id="service_ticket_req_repa">
+            <field name="name">Secuencia Cotizacion Reparacion</field>
+            <field name="code">cotizacion.repar.sequence</field>
+        </record>
+
+        <record model="ir.sequence" id="service_reparacion_sequence_sale">
+            <field name="name">Secuencia Cotizacion Renta</field>
+            <field name="code">cotizacion.repar.sequence</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">MP-COT-REP-</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">22</field>
+            <field name="implementation">standard</field>
+            <field name="padding">5</field>
+        </record>
+
+        <!--Contizacion de Venta-->
+        <record model="ir.sequence.type" id="service_ticket_req_ven">
+            <field name="name">Secuencia Cotizacion Venta</field>
+            <field name="code">cotizacion.ven.sequence</field>
+        </record>
+
+        <record model="ir.sequence" id="service_Venta_sequence_sale">
+            <field name="name">Secuencia Cotizacion Renta</field>
+            <field name="code">cotizacion.ven.sequence</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">MP-COT-</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">94</field>
+            <field name="implementation">standard</field>
+            <field name="padding">5</field>
+        </record>
+
+        <!--orden-->
+         <!--Orden de Renta-->
+        <record model="ir.sequence.type" id="service_orden_req_rent_">
+            <field name="name">Secuencia Orden de Renta</field>
+            <field name="code">orden.rent.sequence</field>
+        </record>
+
+        <record model="ir.sequence" id="service_orden_sequence_sale">
+            <field name="name">Secuencia Orden Renta</field>
+            <field name="code">orden.rent.sequence</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">MP-OREN-</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">611</field>
+            <field name="implementation">standard</field>
+            <field name="padding">5</field>
+        </record>
+
+        <!--orden de Reparacion-->
+        <record model="ir.sequence.type" id="service_orden_repa">
+            <field name="name">Secuencia Orden Reparacion</field>
+            <field name="code">orden.repar.sequence</field>
+        </record>
+
+        <record model="ir.sequence" id="service_orden_reparacion_sequence_sale">
+            <field name="name">Secuencia Orden Reparacion</field>
+            <field name="code">orden.repar.sequence</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">MP-OREP-</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">2088</field>
+            <field name="implementation">standard</field>
+            <field name="padding">5</field>
+        </record>
+
+        <!--Orden de Venta-->
+        <record model="ir.sequence.type" id="service_orden_req_ven">
+            <field name="name">Secuencia Orden Venta</field>
+            <field name="code">orden.ven.sequence</field>
+        </record>
+
+        <record model="ir.sequence" id="service_orden_venta_sequence_sale">
+            <field name="name">Secuencia Orden Venta</field>
+            <field name="code">orden.ven.sequence</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">MP-OV-</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">5188</field>
+            <field name="implementation">standard</field>
+            <field name="padding">5</field>
+        </record>
+
+
+
+    </data>
+</openerp>

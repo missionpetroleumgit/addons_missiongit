@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+	<!--
+        Atributos
+	-->
+
+		<record id="ref_att_01" model="purchase.cost.expense.type">
+            <field name="ref">Cálculo por precio por unidad</field>
+            <field name="name">Cálculo por precio por unidad</field>
+            <field name="calculation_method">amount</field>
+            <field name="default_expense">True</field>
+        </record>
+        
+         </data>
+</openerp>
+        

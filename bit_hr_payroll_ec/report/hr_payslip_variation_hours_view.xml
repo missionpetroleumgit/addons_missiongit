@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <record id="view_hr_payslip_variation_hours_form" model="ir.ui.view">
+    	<field name="name">Importar</field>
+        <field name="model">hr.payslip.variation.hours</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+	        <form string="Ingresos" version="7.0">
+                <sheet>
+                    <group colspan="2" col="4">
+                        <field name="company_id" required="1"/>
+                        <div>
+                            <label for="date_from" string="Desde/Hasta"/>
+                            <field name="date_from" required="1" class="oe_inline"/> -
+                            <field name="date_to" required="1" class="oe_inline"/>
+                        </div>
+                    </group >
+                    <button name="generate_file" type="object" string="Generar archivo"/>
+                    <separator string="Archivo Generado"/>
+                    <group colspan="2" col="6">
+                        <field name="txt_filename" nolabel="1"/>
+                        <field name="txt_binary" filename="txt_filename" nolabel="1"/>
+                        <group colspan="2"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>  
+    </record>
+
+
+
+
+
+ 
+         <record id="action_hr_payslip_variation_hours" model="ir.actions.act_window">
+            <field name="name">Importar</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.payslip.variation.hours</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+            <field name="view_id" ref="view_hr_payslip_variation_hours_form"/>
+        </record>
+        
+        
+        
+        
+            
+        
+        
+        
+        
+</data>
+</openerp>

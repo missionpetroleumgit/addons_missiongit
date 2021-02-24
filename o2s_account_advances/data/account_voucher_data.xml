@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <!--DATOS INICIALES-->
+    <data noupdate="1">
+        <record model="ir.sequence" id="account_voucher_receipts_sequence">
+            <field name="name">Pagos Clientes</field>
+            <field name="code">receipt_voucher</field>
+            <field name="active">TRUE</field>
+            <field name="prefix">N</field>
+            <field name="suffix">**</field>
+            <field name="number_increment">1</field>
+            <field name="number_next">1</field>
+            <field name="implementation">standard</field>
+            <field name="padding">9</field>
+        </record>
+
+        <record model="ir.sequence.type" id="account_voucher_only_receipts_seq">
+            <field name="name">Secuencia de pagos clientes</field>
+            <field name="code">receipt_voucher</field>
+        </record>
+    </data>
+</openerp>

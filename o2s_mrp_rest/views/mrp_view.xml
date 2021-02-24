@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="mrp_bom_form_view_inherit" model="ir.ui.view">
+            <field name="name">mrp.bom.form.view.inherit</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="replace"/>
+                <field name="product_id" position="replace"/>
+                <field name="product_tmpl_id" position="before">
+                    <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                </field>
+                <field name="bom_line_ids" position="attributes">
+                    <attribute name="context">{'company_id': company_id}</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="mrp_bom_form_view_inherit1" model="ir.ui.view">
+            <field name="name">mrp.bom.form.view.inherit1</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+                <field name="product_tmpl_id" position="before">
+                    <field name="product_id" on_change="onchange_product_prod_id(product_id, context)" domain="[('company_id', '=', company_id)]" string="Producto"/>
+                </field>
+                <field name="product_tmpl_id" position="replace">
+                    <field name="product_tmpl_id" on_change="onchange_product_tmpl_id(product_tmpl_id, product_qty, context)" invisible="1"/>
+                </field>
+                <field name="attribute_value_ids" position="replace">
+                    <field name="attribute_value_ids" invisible="1"/>
+                </field>
+                <field name="property_ids" position="replace">
+                    <field name="property_ids" invisible="1"/>
+                </field>
+                <!--<field name="product_rounding" position="replace">-->
+                    <!--<field name="product_rounding" invisible="1"/>-->
+                <!--</field>-->
+                <!--<field name="product_efficiency" position="replace">-->
+                    <!--<field name="product_efficiency" invisible="1"/>-->
+                <!--</field>-->
+
+                <xpath expr="//field[@name='bom_line_ids']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="domain">[('company_id','=',parent.company_id)]</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="mrp_bom_form_view_vigencia" model="ir.ui.view">
+            <field name="name">mrp.bom.form.view.vigencia</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+                <field name="type" position="after">
+                    <field name="vigencia"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="mrp_bom_line_tree_view_inherit2" model="ir.ui.view">
+            <field name="name">mrp.bom.line.tree.view.inherit2</field>
+            <field name="model">mrp.bom.line</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_component_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="product_rounding" position="replace">
+                    <field name="product_rounding" invisible="1"/>
+                </field>
+                <field name="product_efficiency" position="replace">
+                    <field name="product_efficiency" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="mrp_production_form_view_inherit" model="ir.ui.view">
+            <field name="name">mrp.production.form.view.inherit</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <field name="company_id" position="replace"/>
+                <field name="origin" position="after">
+                    <field name="vigencia" />
+                </field>
+                <field name="product_id" position="before">
+                    <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                </field>
+                <field name="product_id" position="replace">
+                    <field name="product_id" on_change="product_id_change(product_id, product_qty)" domain="[('bom_ids','!=',False),('bom_ids.type','!=','phantom'), ('company_id', '=', company_id)]" class="oe_inline" context='{"default_type": "product"}'/>
+                </field>
+                <field name="priority" position="after">
+                    <field name="observacion" />
+                </field>
+                <field name="product_uom" position="replace">
+                    <field name="product_uom" groups="product.group_uom" readonly="0" class="oe_inline"/>
+                </field>
+                <notebook position="inside" >
+					<page string="Eficiencia Producción" attrs="{'invisible':[('state','!=','done')]}">
+						<group>
+							<field name="peso_prod" />
+                            <field name="uni_real" on_change="eficiencia_uni_change(product_qty, peso_prod, uni_real)"/>
+                            <field name="peso_total" on_change="eficiencia_change(product_qty, peso_prod, peso_total)"/>
+                            <field name="efic_produccion" />
+						</group>
+                        <separator colspan="4" string="Costos Producción" />
+						<group colspan="2">
+							<field name="costo_tprod" readonly="1"/>
+                            <field name="costo_unid" readonly="1"/>
+						</group>
+					</page>
+					<page string="Asiento Producción" attrs="{'invisible':[('state','!=','done')]}">
+                        <separator colspan="4" string="Asientos Produccion" />
+						<group colspan="2">
+							<field name="moves_ids" nolabel="1"/>
+						</group>
+					</page>
+				</notebook>
+            </field>
+        </record>
+    <!--
+      CSV:11-09-2017:Ordenes de Produccion Aumento cantidad real
+    -->
+         <record id="view_mrp_production_tree_add_cant_real" model="ir.ui.view">
+            <field name="name">Orden Produccion - Add cant real on tree</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="product_qty" position="after">
+                    <field name="uni_real" string="Cantidad Real" sum="Total Real"/>
+                </field>
+            </field>
+         </record>
+
+    </data>
+</openerp>

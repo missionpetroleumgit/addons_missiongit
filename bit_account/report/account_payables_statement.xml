@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- vim:fdn=3:
+-->
+<openerp>
+    <data>
+
+		<record model="ir.ui.view" id="view_account_payables_statement">
+			<field name="name">view.account.payables.statement</field>
+			<field name="model">account.payables.statement</field>
+			<field name="arch" type="xml">
+				<form string="Estado de cuenta proveedores" version="7.0">
+                <sheet>
+                    <group col="4">
+                        <field name="id" invisible="1"/>
+                        <field name="company_id"/>
+                        <field name="datefrom"/>
+                        <field name="dateto"/>
+                        <field name="account_id" required="1"/>
+                        <field name="summary"/>
+                    </group>
+                    <field name="partner_ids"/>
+                    <button name="generar" type="object" string="Imprimir" attrs="{'invisible': [('id','=',False)]}"/>
+                </sheet>
+                </form>
+			</field>
+		</record>
+
+        <record model="ir.actions.act_window" id="action_account_payables_statement">
+			<field name="name">Estado de cuenta proveedores</field>
+			<field name="res_model">account.payables.statement</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">form</field>
+		</record>
+
+        <!--<record id="action_payables_account_form" model="ir.actions.act_window">-->
+            <!--<field name="name">Cuentas por Pagar</field>-->
+            <!--<field name="res_model">payables.account</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">form</field>-->
+            <!--<field name="context">{'supplier': True}</field>-->
+            <!--<field name="target">current</field>-->
+        <!--</record>-->
+
+        <menuitem id="menu_action_account_payables_statement" name="Estado de cuenta proveedores"
+                  parent="mission_accounting_reports"  action="action_account_payables_statement"
+          />
+    </data>
+</openerp>

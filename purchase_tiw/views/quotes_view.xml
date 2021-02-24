@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <!--reporte-->
+        <report
+            string="Reporte de Cotizacion"
+            id="action_report_purchase_quotes"
+            model="purchase.quotes"
+            report_type="qweb-pdf"
+            name="purchase_tiw.report_purchasequotes"
+            file="purchase_tiw.report_purchasequotes"
+         />
+
+        <record id="purchase_order_inherited_form_5" model="ir.ui.view">
+            <field name="name">purchase.order.form.5</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="before">
+                    <field name="req_user_id" readonly="1"/>
+                    <field name="app_user_id" readonly="1"/>
+                    <field name="type_purchase" required="1" attrs="{'readonly':[('state','=','approved')]}"/>
+                </field>
+                <page string="Products" position="after">
+                    <page string="Productos" attrs="{'invisible':[('state','not in',['draft', 'sent','bid'])]}">
+                        <field name="request_products" attrs="{'invisible':[('state','not in',['draft', 'sent'])],'readonly':[('state','!=','draft')]}">
+                            <tree string="Solicitud de Productos" editable="bottom">
+                                <field name="req_sequence" />
+                                <field name="product_id" domain="[('purchase_ok','=',True),('type','=',parent.type_purchase)]"/>
+                                <field name="description"/>
+                                <field name="analytics_id" required="1"/>
+                                <field name="qty"/>
+                                <field name="qty_available"/>
+                                <field name="virtual_available"/>
+                                <field name="product_uom"/>
+                                <field name="date_requested"/>
+                                <field name="line_fill" invisible="1"/>
+                            </tree>
+                        </field>
+                        <field name="quotes_ids" attrs="{'invisible':[('state','not in',['sent','bid'])]}"
+                               context="{'order_id':id}"/>
+                    </page>
+                </page>
+                <page string="Products" position="attributes">
+                    <attribute name="attrs">{'invisible':[('state','in',['draft','sent','bid'])]}</attribute>
+                </page>
+                <field name="partner_id" position="attributes">
+                    <attribute name="attrs">{'invisible':[('state','not in',['approved','done'])]}</attribute>
+                </field>
+                <field name="partner_ref" position="attributes">
+                    <attribute name="attrs">{'invisible':[('state','not in',['approved','done'])]}</attribute>
+                </field>
+                <field name="origin" position="replace">
+                    <field name="origin" string="Descripcion" required="1" attrs="{'readonly':[('state','=','approved')]}"/>
+                    <field name="employee_id"
+                           attrs="{'invisible':[('state','not in',['sent','bid','confirmed','approved','except_picking','except_invoice','done','cancel'])],'readonly':[('state','=','approved')],
+                           'required':[('state','=','sent')]}"/>
+                </field>
+                <xpath expr="//field[@name='company_id']" position="after">
+                   <field name="place_delivery"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="purchase_order_inherited_form_7" model="ir.ui.view">
+            <field name="name">purchase.order.form.replace.button</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='bid_received']" position="attributes">
+                    <attribute name="groups">purchase_tiw.group_approv_prep_order</attribute>
+                </xpath>
+                <xpath expr="//button[@name='print_quotation']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="quotes_tree_view" model="ir.ui.view">
+            <field name="name">quotes.tree.view</field>
+            <field name="model">purchase.quotes</field>
+            <field name="arch" type="xml">
+                <tree string="Cotizaciones">
+                    <field name="name"/>
+                    <field name="date_request"/>
+                    <field name="partner_id"/>
+                    <field name="amount_total"/>
+                    <field name="state"/>
+                    <button name="action_done" type="object" string="Confirmar" icon="gtk-ok" groups="purchase_tiw.group_seleccionar_ganadoras_app"/>
+                    <button name="send_mymail" type="object" string="Enviar mail" icon="terp-mail-message-new"/>
+                    <button name="print_quotes" string="Print" type="object" icon="gtk-print"/>
+                    <button name="action_cancel" type="object" string="Cancelar" icon="gtk-cancel" groups="purchase_tiw.group_seleccionar_ganadoras_app"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="quotes_form_view" model="ir.ui.view">
+            <field name="name">quotes.form.view</field>
+            <field name="model">purchase.quotes</field>
+            <field name="arch" type="xml">
+                <form string="Cotización">
+                    <sheet>
+                        <header>
+                            <field name="state" widget="statusbar"/>
+                        </header>
+                        <group col="4" colspan="2">
+                            <field name="name" readonly="1"/>
+                            <field name="date_request" attrs="{'readonly':[('state','in',('done','cancel'))]}"/>
+                            <field name="partner_id" attrs="{'readonly':[('state','in',('done','cancel'))]}"/>
+                            <!--<field name="pricelist_id"/>-->
+                            <field name="company_id" groups="base.group_multi_company" attrs="{'readonly':[('state','in',('done','cancel'))]}"/>
+                            <field name="payment_term_id"/>
+                            <field name="time_delivery"/>
+                        </group>
+                        <notebook>
+                            <page string="Lineas de cotizacion">
+                                <field name="quotes_lines" attrs="{'readonly':[('state','in',('done','cancel'))]}">
+                                    <tree editable="bottom" string="Lineas de Cotización" create="false">
+                                        <field name="quote_sequence"/>
+                                        <field name="product_id"
+                                               on_change="onchange_product_id(False,product_id,product_qty,False,parent.partner_id, parent.date_request,False,False,False,parent.state,context)"
+                                               domain="[('purchase_ok','=',True)]"/>
+                                        <field name="name" required="1"/>
+                                        <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                        <field name="analytics_id"/>
+                                        <field name="product_qty"
+                                               on_change="onchange_product_id(False,product_id,product_qty,False,parent.partner_id, parent.date_request,False,False,False,parent.state,context)"/>
+                                        <field name="product_uom"
+                                               on_change="onchange_product_uom(False,product_id,product_qty,product_uom,parent.partner_id, parent.date_request,False,name,False,parent.state,context)"/>
+                                        <field name="price_unit"/>
+                                        <field name="taxes_id" widget="many2many_tags"/>
+                                        <field name="discount"/>
+                                        <field name="percent" invisible="1"/>
+                                        <field name="price_subtotal"/>
+                                        <field name="date_planned"/>
+                                        <field name="state"/>
+                                        <button name="action_cancel" type="object" string="Cancelar" icon="gtk-cancel" groups="purchase_tiw.group_seleccionar_ganadoras_app"/>
+                                    </tree>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right">
+                                    <field name="amount_subtotal"/>
+                                    <field name="total_discount"/>
+                                    <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                    <div class="oe_subtotal_footer_separator oe_inline">
+                                        <label for="amount_total"/>
+                                        <button name="button_dummy"
+                                                states="draft" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                                    </div>
+                                    <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                </group>
+                            </page>
+                            <page string="Proformas">
+                                    <group>
+                                        <field name="attachment_ids" widget="many2many_binary"/>
+                                    </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_purchase_quotes_filter" model="ir.ui.view">
+            <field name="name">purchase.quotes.select</field>
+            <field name="model">purchase.quotes</field>
+            <field name="arch" type="xml">
+                <search string="Cotizaciones">
+                    <field name="name" string="Reference"/>
+                    <field name="partner_id" operator="child_of"/>
+                    <field name="purchase_order_id"/>
+                    <field name="date_request"/>
+                    <field name="create_uid"/>
+                    <separator/>
+                    <group expand="0" string="Group By">
+                        <filter string="Proveedor" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Estado" icon="terp-go-month" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Orden de Compra" icon="terp-go-month" domain="[]" context="{'group_by':'purchase_order_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="purchase_quotes_rfq" model="ir.actions.act_window">
+            <field name="name">Cotizaciones</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.quotes</field>
+            <field name="context">{}</field>
+            <field name="domain">[]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_purchase_quotes_filter"/>
+        </record>
+
+        <menuitem action="purchase_quotes_rfq" id="menu_purchase_quotes_rfq"
+                  parent="purchase.menu_procurement_management"/>
+
+        <record id="purchase_order_observation_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.observation.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase_order_previus_control_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@string='Controller']" position="after">
+                    <page string="Comentarios">
+                        <group>
+                            <field name="obs_ids" nolabel="1" context="{'default_user_obs_id':uid}">
+                                <tree editable="top">
+                                    <field name="user_obs_id" />
+                                    <field name="comment"/>
+                                </tree>
+                            </field>
+                        </group>
+                        <separator string="Observaciones Generales" colspan="4" />
+                        <field name="notes"/>
+                    </page>
+                    <page string="Seguimiento">
+                        <group>
+                            <field name="tracing_id" nolabel="1" readonly="1">
+                                <tree>
+                                    <field name="user_id"/>
+                                    <field name="date_tracing"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+        <record id="purchase_order_control_hoja_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.observation.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase_order_observation_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@string='Seguimiento']" position="after">
+                    <page string="Gestión de Calidad">
+                        <group>
+                            <field name="control_sheet_ids" nolabel="1" readonly="1">
+                                <tree editable="top">
+                                    <field name="control_id"/>
+                                    <field name="report"/>
+                                    <field name="code"/>
+                                    <field name="review"/>
+                                    <field name="issue"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

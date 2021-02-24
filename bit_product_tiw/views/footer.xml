@@ -1,0 +1,13 @@
+<openerp>
+    <data>
+        <template id="report_footer_last" inherit_id="report.layout">
+            <xpath expr="//head" position="inside">
+              <script src='/report_custom_footer/static/js/footer_change.js'></script>
+            </xpath>
+
+            <xpath expr="//body" position="attributes">
+                <attribute t-translation="off" name="onload">footer();</attribute>
+            </xpath>
+        </template>
+    </data>
+</openerp>

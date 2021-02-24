@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+        <!-- 
+        ===================================================================
+       Administracion de Bonos
+        ===================================================================
+         -->
+        <record id="hr_adm_bono_search_view" model="ir.ui.view">
+            <field name="name">hr.adm.incomes.search</field>
+            <field name="model">hr.adm.incomes</field>
+            <field name="arch" type="xml">
+                <search string="Administracion de Bonos">
+                    <field name="name"/>
+                    <field name="code"/>
+                </search>
+            </field>
+        </record>
+        
+        <record id="hr_adm_bono_form_view" model="ir.ui.view">
+            <field name="name">hr.adm.bono.form</field>
+            <field name="model">hr.adm.bono</field>
+            <field name="arch" type="xml">
+            <form string="Administracion de Bonos" version="7.0">
+            <sheet>
+            <group string="Registro">
+            	<group>
+	            	<field name="name"/>
+                    <field name="code"/>
+                    <field name="default_value"/>
+            	</group>
+			</group>
+            </sheet>
+            </form>
+            </field>
+        </record>
+        
+        <record id="hr_adm_bono_tree_view" model="ir.ui.view">
+            <field name="name">hr.adm.bono.tree</field>
+            <field name="model">hr.adm.bono</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <tree string="Gestión de Documentos" >
+                    <field name="name"/>
+                    <field name="code"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_hr_adm_bono" model="ir.actions.act_window">
+            <field name="name">Administracion de Bonos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.adm.bono</field>
+            <field name="context">{}</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="hr_adm_bono_search_view"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para registrar un nuevo Bono.
+              </p>
+            </field>
+        </record>
+        
+        <!-- 
+        ===================================================================
+       Registro de Bonos
+        ===================================================================
+         -->
+           <!--
+			<record id="hr_bono_view" model="ir.ui.view">
+			    <field name="name">hr.bono.search</field>
+			    <field name="model">hr.bono</field>
+			    <field name="arch" type="xml">
+			        <search string="Bonos">
+			            <field name="name"/>
+			        </search>
+			    </field>
+			</record>
+         
+        <record model="ir.ui.view" id="view_hr_bono_form">
+            <field name="name">hr.bono.view.form</field>
+            <field name="model">hr.bono</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Bono del Empleado">
+                    <group string="Bonos del Empleado">
+                        <field name="adm_id" required="1" select="1" /> 
+                        <field name="value" required="1" attrs="{'readonly':[('state','!=','draft')]}"/>
+                        <field name="state" />
+                        <field name="date" readonly="1"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+          <record model="ir.ui.view" id="view_hr_bono_tree">
+            <field name="name">hr.bono.view.tree</field>
+            <field name="model">hr.bono</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Bono del Empleado" >
+                    <field name="name" invisible="1" />
+                    <field name="adm_id" select="1" />
+                    <field name="value" />
+                    <field name="state" />
+                    <field name="date" />
+                </tree>
+            </field>
+        </record>
+        <record id="action_hr_bono" model="ir.actions.act_window">
+            <field name="name">Bonos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.bono</field>
+            <field name="context">{}</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="hr_bono_view"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click para registrar un nuevo Bono .
+              </p>
+               </field>
+        </record>-->
+       
+	</data>
+</openerp>

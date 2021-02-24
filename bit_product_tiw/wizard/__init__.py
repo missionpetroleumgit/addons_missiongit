@@ -1,0 +1,1 @@
+import product_product_wizard

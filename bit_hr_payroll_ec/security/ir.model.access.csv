@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_hr_education_level,hr.education.level,bit_hr_ec.model_hr_education_level,base.group_hr_manager,1,1,1,1
+access_hr_family_burden,hr.family.burden,bit_hr_ec.model_hr_family_burden,base.group_hr_manager,1,1,1,1
+access_res_country_canton,res.country.canton,bit_hr_ec.model_res_country_canton,base.group_hr_manager,1,1,1,1
+access_hr_income,hr.income,model_hr_income,base.group_hr_manager,1,1,1,1
+access_hr_expense,hr.expense,model_hr_expense,base.group_hr_manager,1,1,1,1
+access_hr_expense_type,hr.expense.type,model_hr_expense_type,base.group_hr_manager,1,1,1,1
+access_hr_adm_incomes,hr.adm.incomes,model_hr_adm_incomes,base.group_hr_manager,1,1,1,1
+access_hr_adm_bono,hr.adm.bono,model_hr_adm_bono,base.group_hr_manager,1,1,1,1

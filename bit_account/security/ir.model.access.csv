@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+access_account_invoice_document,account.invoice.document,model_account_invoice_document,account.group_account_invoice,1,1,1,1
+access_account_authorization,account.authorization,model_account_authorization,account.group_account_invoice,1,1,1,1
+access_account_tax_support,account.tax.support,model_account_tax_support,account.group_account_invoice,1,1,1,1
+access_account_deduction,account.deduction,model_account_deduction,account.group_account_invoice,1,1,1,1
+access_ir_sequence,ir.sequence,model_ir_sequence,account.group_account_invoice,1,1,1,1
+access_account_check,account.check,model_account_check,account.group_account_invoice,1,1,1,1

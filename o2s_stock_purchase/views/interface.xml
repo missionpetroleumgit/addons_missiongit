@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<!--<record id="interface_divide_view" model="ir.ui.view">-->
+			<!--<field name="name">Creacion de series</field>-->
+			<!--<field name="model">interface</field>-->
+			<!--<field name="arch" type="xml">-->
+				<!--<form string="Series">-->
+                    <!--<field name="quantity"/>-->
+                    <!--<field name="lines">-->
+                        <!--<tree editable="bottom">-->
+                            <!--<field name="serial"/>-->
+                        <!--</tree>-->
+                    <!--</field>-->
+                    <!--<button name="create_operation" type="object" string="Crear series"/>-->
+                <!--</form>-->
+            <!--</field>-->
+        <!--</record>-->
+
+        <!--<record id="interface_action" model="ir.actions.act_window">-->
+            <!--<field name="name">Crear Series</field>-->
+            <!--<field name="type">ir.actions.act_window</field>-->
+            <!--<field name="res_model">interface</field>-->
+            <!--<field name="view_type">form</field>-->
+            <!--<field name="view_mode">form</field>-->
+            <!--<field name="view_id" ref="interface_divide_view"/>-->
+            <!--<field name="target">new</field>-->
+        <!--</record>-->
+
+	</data>
+</openerp>

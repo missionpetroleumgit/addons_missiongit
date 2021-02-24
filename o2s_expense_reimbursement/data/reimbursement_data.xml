@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="0">
+
+        <!--  Mi presicion decimal-->
+
+        <record model="decimal.precision" id="precision_reimbursement">
+            <field name="name">Reembolsos</field>
+            <field name="digits">4</field>
+        </record>
+    </data>
+</openerp>

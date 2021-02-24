@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+         <report
+            id="action_contract"
+            model="hr.contract"
+            string="Contrato"
+            report_type="qweb-pdf"
+            groups="group_con_cooperativa"
+            name="bit_hr_contract_ec.report_contract_view"
+            file="bit_hr_contract_ec.report_contract_view"
+        />
+        
+        
+        <report
+            id="action_contract_s"
+            model="hr.contract"
+            string="Contrato S"
+            report_type="qweb-pdf"
+            groups="group_con_salominco"
+            name="bit_hr_contract_ec.report_contract_s_view"
+            file="bit_hr_contract_ec.report_contract_s_view"
+        />
+        
+        
+         <report
+            id="action_contract_part"
+            model="hr.contract"
+            string="CONTRATO PART TIME"
+            report_type="qweb-pdf"
+            groups="group_con_part"
+            name="bit_hr_contract_ec.report_contract_part_view"
+            file="bit_hr_contract_ec.report_contract_part_view"
+        />
+        
+        
+         <report
+            id="action_contract_full"
+            model="hr.contract"
+            string="CONTRATO FULL TIME"
+            report_type="qweb-pdf"
+            groups="group_con_full"
+            name="bit_hr_contract_ec.report_contract_full_view"
+            file="bit_hr_contract_ec.report_contract_full_view"
+        />
+        
+        <report
+            id="action_contract_part_lpair"
+            model="hr.contract"
+            string="CONTRATO PART TIME"
+            report_type="qweb-pdf"
+            groups="group_report_lpair"
+            name="bit_hr_contract_ec.report_contract_part_lpair"
+            file="bit_hr_contract_ec.report_contract_part_lpair"
+        />
+        
+        
+         <report
+            id="action_contract_full_lpair"
+            model="hr.contract"
+            string="CONTRATO FULL TIME"
+            report_type="qweb-pdf"
+            groups="group_report_lpair"
+            name="bit_hr_contract_ec.report_contract_full_lpair"
+            file="bit_hr_contract_ec.report_contract_full_lpair"
+        />
+    </data>
+</openerp>

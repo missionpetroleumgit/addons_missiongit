@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_setedis_sgi_res_company,setedis_sgi_res_company,base.model_res_company,setedis_sgi.group_setedis_sgi_admin,1,1,1,1
+access_setedis_sgi_kits,setedis_sgi_kits,setedis_sgi.model_sgi_kits,stock.group_stock_manager,1,1,1,1
+access_setedis_sgi_kits_line,setedis_sgi_kits_line,setedis_sgi.model_sgi_kits_line,stock.group_stock_manager,1,1,1,1
+access_setedis_sgi_guardalmacen_bodega,setedis_guardalmacen_bodega,model_sgi_guardalmacen_bodega,stock.group_stock_manager,1,1,1,1
+access_setedis_res_company,setedis_res_company,base.model_res_company,stock.group_stock_manager,1,1,0,0
+access_setedis_sgi_bodegas_secuencias,setedis_sgi_bodegas_secuencias,model_sgi_bodegas_secuencias,stock.group_stock_manager,1,1,1,0
+access_setedis_ir_sequence,setedis_sgi_ir_sequence,base.model_ir_sequence,stock.group_stock_manager,1,1,1,0
+access_setedis_ir_sequence_type,setedis_sgi_ir_sequence_type,base.model_ir_sequence_type,stock.group_stock_manager,1,1,1,0
+access_setedis_res_country_state,setedis_sgi_res_country_state,base.model_res_country_state,stock.group_stock_manager,1,1,0,0

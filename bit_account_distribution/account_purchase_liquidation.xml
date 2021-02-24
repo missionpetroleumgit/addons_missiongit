@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+	<!-- DETALLE RETENCION -->
+        <record id="view_account_liquidation_search" model="ir.ui.view">
+            <field name="name">account.liquidation.search</field>
+            <field name="model">account.liquidation</field>
+            <field name="arch" type="xml">
+                <search string="Purchase liquidation">
+                    <field name="line_ids" />
+                </search>
+            </field>
+        </record>
+        <record id="view_account_liquidation_tree" model="ir.ui.view">
+            <field name="name">account.liquidation.tree</field>
+            <field name="model">account.liquidation</field>
+            <field name="arch" type="xml">
+                <tree string="Purchase liquidation" >
+                    <field name="line_ids" />
+                </tree>
+            </field>
+        </record>
+        <record id="view_account_liquidation_form" model="ir.ui.view">
+            <field name="name">account.liquidation.form</field>
+            <field name="model">account.liquidation</field>
+            <field name="arch" type="xml">
+                <form string="Purchase liquidation" ><!--
+	                <header string="State deduction">
+						<button name="wkf_open" string="Open" states="draft"/>
+                        <button name="wkf_cancel" string="Cancel" states="open,paid"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,open,paid" statusbar_colors='{"active":"blue"}'/>
+	                </header>-->
+	                <sheet string="Purchase liquidation">
+		                <notebook>
+                            <page string="Invoices" >
+								<field name="line_ids" >
+                   	                <tree string="Invoices" editable="bottom" >
+					                    <field name="partner_id" />
+					                    <field name="acc_partner_id" />
+					                    <field name="product_id" />
+					                    <field name="name" />
+					                    <field name="acc_product_id" />
+					                    <field name="price_unit" />
+					                    <field name="quantity" />
+					                </tree>
+			                    </field>
+                            </page>
+                        </notebook>
+	                </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_account_liquidation" model="ir.actions.act_window">
+            <field name="name">Purchase liquidation</field>
+            <field name="res_model">account.liquidation</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <menuitem id="menu_account_liquidation" action="action_account_liquidation" name="Purchase liquidation" parent="account.menu_finance_payables" sequence="10" />
+                       
+    </data>
+</openerp>

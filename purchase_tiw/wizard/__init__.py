@@ -1,0 +1,1 @@
+import generate_invoice_from_many_purchases

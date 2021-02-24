@@ -1,0 +1,492 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* bit_hr_ec
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20150209\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-26 16:44+0000\n"
+"PO-Revision-Date: 2015-06-26 16:44+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: bit_hr_ec
+#: model:ir.actions.act_window,help:bit_hr_ec.open_view_employee_calendar
+msgid "<p class=\"oe_view_nocontent_create\">\n"
+"                Click to add a new employee.\n"
+"              </p><p>\n"
+"                With just a quick glance on the Odoo employee screen, you\n"
+"                can easily find all the information you need for each person;\n"
+"                contact data, job position, availability, etc.\n"
+"              </p>\n"
+"            "
+msgstr "<p class=\"oe_view_nocontent_create\">\n"
+"Pulse para crear un nuevo empleado.\n"
+"</p><p>\n"
+"Con sólo un vistazo rápido en la pantalla de empleados de Odoo, puede encontrar fácilmente toda la información que necesita para cada persona: datos de contacto, puesto de trabajo, disponibilidad, etc.\n"
+"</p>\n"
+"            "
+
+#. module: bit_hr_ec
+#: selection:hr.education.level,status:0
+#: selection:hr.family.burden,status:0
+msgid "Abandonado"
+msgstr "Abandonado"
+
+#. module: bit_hr_ec
+#: selection:hr.employee,state_emp:0
+msgid "Activo"
+msgstr "Activo"
+
+#. module: bit_hr_ec
+#: field:hr.education.level,at_present:0
+msgid "Actualmente?"
+msgstr "Actualmente?"
+
+#. module: bit_hr_ec
+#: field:hr.employee,emp_fondo_reserva:0
+msgid "Acumula Fondos de Reserva"
+msgstr "Acumula Fondos de Reserva"
+
+#. module: bit_hr_ec
+#: view:hr.employee:bit_hr_ec.view_employee_add_nom_ape_form
+#: field:hr.employee,emp_apellidos:0
+#: field:hr.family.burden,last_name:0
+msgid "Apellidos"
+msgstr "Apellidos"
+
+#. module: bit_hr_ec
+#: field:hr.education.level,education_area_id:0
+#: model:ir.model,name:bit_hr_ec.model_hr_education_area
+msgid "Area de Educacion"
+msgstr "Área de Educación"
+
+#. module: bit_hr_ec
+#: selection:hr.employee,emp_tipo_disc:0
+msgid "Auditiva"
+msgstr "Auditiva"
+
+#. module: bit_hr_ec
+#: model:ir.model,name:bit_hr_ec.model_res_partner_bank
+msgid "Bank Accounts"
+msgstr "Cuentas bancarias"
+
+#. module: bit_hr_ec
+#: view:hr.employee:bit_hr_ec.view_hr_employee_calendar
+msgid "Birthday Celebration"
+msgstr "Cumpleaños"
+
+#. module: bit_hr_ec
+#: field:hr.employee,canton_id:0
+#: model:ir.model,name:bit_hr_ec.model_res_country_canton
+#: field:res.country.canton,name:0
+msgid "Canton"
+msgstr "Canton"
+
+#. module: bit_hr_ec
+#: view:hr.employee:bit_hr_ec.view_employee_add_cargas_form
+#: model:ir.model,name:bit_hr_ec.model_hr_family_burden
+msgid "Cargas Familiares"
+msgstr "Cargas Familiares"
+
+#. module: bit_hr_ec
+#: selection:hr.employee,emp_tipo_doc:0
+msgid "Cedula"
+msgstr "Cédula"
+
+#. module: bit_hr_ec
+#: selection:hr.employee,emp_modo_pago:0
+msgid "Cheque"
+msgstr "Cheque"
+
+#. module: bit_hr_ec
+#: field:hr.employee,education_ids:0
+msgid "Childrens"
+msgstr "Niveles de Educación"
+
+#. module: bit_hr_ec
+#: field:hr.employee,emp_quincena:0
+msgid "Cobra Quincena"
+msgstr "Cobra Quincena"
+
+#. module: bit_hr_ec
+#: field:res.country.canton,country_canton_id:0
+msgid "Country State"
+msgstr "Estado"
+
+#. module: bit_hr_ec
+#: field:hr.education.area,create_uid:0
+#: field:hr.education.level,create_uid:0
+#: field:hr.family.burden,create_uid:0
+#: field:res.country.canton,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: bit_hr_ec
+#: field:hr.education.area,create_date:0
+#: field:hr.education.level,create_date:0
+#: field:hr.family.burden,create_date:0
+#: field:res.country.canton,create_date:0
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: bit_hr_ec
+#: view:hr.employee:bit_hr_ec.view_employee_mod_otherid_form
+msgid "Código Sectorial"
+msgstr "Código Sectorial"
+
+#. module: bit_hr_ec
+#: view:hr.employee:bit_hr_ec.view_employee_add_discapacidad_form
+#: field:hr.employee,emp_discapacidad:0
+msgid "Discapacidad"
+msgstr "Discapacidad"
+
+#. module: bit_hr_ec
+#: field:hr.employee,emp_dec_cuarto:0
+msgid "Décimo Cuarto"
+msgstr "Décimo Cuarto"
+
+#. module: bit_hr_ec
+#: field:hr.employee,emp_dec_tercero:0
+msgid "Décimo Tercero"
+msgstr "Décimo Tercero"
+
+#. module: bit_hr_ec
+#: view:hr.employee:bit_hr_ec.view_employee_add_nomina_form
+msgid "Décimos Mensualizados"
+msgstr "Décimos Mensualizados"
+
+#. module: bit_hr_ec
+#: field:hr.family.burden,age:0
+msgid "Edad"
+msgstr "Edad"
+
+#. module: bit_hr_ec
+#: selection:hr.education.level,level:0
+#: selection:hr.family.burden,level:0
+msgid "Educacion Primaria"
+msgstr "Educación Primaria"
+
+#. module: bit_hr_ec
+#: selection:hr.education.level,level:0
+#: selection:hr.family.burden,level:0
+msgid "Educacion Secundaria"
+msgstr "Educación Secundaria"
+
+#. module: bit_hr_ec
+#: selection:hr.education.level,level:0
+#: selection:hr.family.burden,level:0
+msgid "Educacion Superior"
+msgstr "Educación Superior"
+
+#. module: bit_hr_ec
+#: field:hr.family.burden,employee_id:0
+msgid "Empleado"
+msgstr "Empleado"
+
+#. module: bit_hr_ec
+#: field:hr.education.level,employee_id:0
+#: model:ir.model,name:bit_hr_ec.model_hr_employee
+msgid "Employee"
+msgstr "Empleado"
+
+#. module: bit_hr_ec
+#: model:ir.actions.act_window,name:bit_hr_ec.open_view_employee_calendar
+#: model:ir.ui.menu,name:bit_hr_ec.menu_open_view_employee_calendar
+msgid "Employees Birthdays"
+msgstr "Cumpleaños empleados"
+
+#. module: bit_hr_ec
+#: selection:hr.education.level,status:0
+#: selection:hr.family.burden,status:0
+msgid "En Curso"
+msgstr "En Curso"
+
+#. module: bit_hr_ec
+#: field:hr.employee,wife_id:0
+#: selection:hr.family.burden,relationship:0
+msgid "Esposo/a"
+msgstr "Esposo/a"
+
+#. module: bit_hr_ec
+#: field:hr.education.level,status:0
+#: field:hr.employee,state_emp:0
+#: field:hr.family.burden,status:0
+msgid "Estado"
+msgstr "Estado"
+
+#. module: bit_hr_ec
+#: view:hr.family.burden:bit_hr_ec.hr_family_burden_form_view
+#: view:hr.family.burden:bit_hr_ec.hr_family_burden_tree_view
+msgid "Family Burden"
+msgstr "Carga familiar"
+
+#. module: bit_hr_ec
+#: field:hr.family.burden,birth_date:0
+msgid "Fch. Nacimiento"
+msgstr "Fch. Nacimiento"
+
+#. module: bit_hr_ec
+#: field:hr.education.level,end_date:0
+msgid "Fecha Fin"
+msgstr "Fecha Fin"
+
+#. module: bit_hr_ec
+#: field:hr.education.level,start_date:0
+msgid "Fecha Inicio"
+msgstr "Fecha Inicio"
+
+#. module: bit_hr_ec
+#: selection:hr.employee,emp_tipo_disc:0
+msgid "Fisica"
+msgstr "Física"
+
+#. module: bit_hr_ec
+#: selection:hr.education.level,status:0
+#: selection:hr.family.burden,status:0
+msgid "Graduado"
+msgstr "Graduado"
+
+#. module: bit_hr_ec
+#: selection:hr.family.burden,relationship:0
+msgid "Hijo/a"
+msgstr "Hijo/a"
+
+#. module: bit_hr_ec
+#: field:hr.education.area,id:0
+#: field:hr.education.level,id:0
+#: field:hr.family.burden,id:0
+#: field:res.country.canton,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: bit_hr_ec
+#: selection:hr.employee,state_emp:0
+msgid "Inactivo"
+msgstr "Ináctivo"
+
+#. module: bit_hr_ec
+#: view:hr.education.level:bit_hr_ec.education_level_form_view
+msgid "Informacion"
+msgstr "Información"
+
+#. module: bit_hr_ec
+#: view:hr.employee:bit_hr_ec.view_employee_add_nomina_form
+msgid "Informacion Pago"
+msgstr "Información Pago"
+
+#. module: bit_hr_ec
+#: field:hr.education.level,institution:0
+msgid "Institucion"
+msgstr "Institución"
+
+#. module: bit_hr_ec
+#: selection:hr.employee,emp_tipo_disc:0
+msgid "Intelectual"
+msgstr "Intelectual"
+
+#. module: bit_hr_ec
+#: sql_constraint:hr.employee:0
+msgid "La cedula debe ser unica!"
+msgstr "La cédula debe ser única!"
+
+#. module: bit_hr_ec
+#: field:hr.education.area,write_uid:0
+#: field:hr.education.level,write_uid:0
+#: field:hr.family.burden,write_uid:0
+#: field:res.country.canton,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: bit_hr_ec
+#: field:hr.education.area,write_date:0
+#: field:hr.education.level,write_date:0
+#: field:hr.family.burden,write_date:0
+#: field:res.country.canton,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: bit_hr_ec
+#: selection:hr.education.level,level:0
+#: selection:hr.family.burden,level:0
+msgid "Licenciatura"
+msgstr "Licenciatura"
+
+#. module: bit_hr_ec
+#: selection:hr.employee,state_emp:0
+msgid "Liquidado"
+msgstr "Liquidado"
+
+#. module: bit_hr_ec
+#: selection:hr.family.burden,relationship:0
+msgid "Madre"
+msgstr "Madre"
+
+#. module: bit_hr_ec
+#: selection:hr.education.level,level:0
+#: selection:hr.family.burden,level:0
+msgid "Magister"
+msgstr "Magister"
+
+#. module: bit_hr_ec
+#: help:hr.employee,emp_fondo_reserva:0
+msgid "Marque este campo cuando el empleado desee ahorrar el valor de Fondo de Reserva"
+msgstr "Marque este campo cuando el empleado desee ahorrar el valor de Fondo de Reserva"
+
+#. module: bit_hr_ec
+#: help:hr.employee,emp_dec_cuarto:0
+msgid "Marque este campo si desea que al Empleado se le pague el Décimo Cuarto"
+msgstr "Marque este campo si desea que al Empleado se le pague el Décimo Cuarto"
+
+#. module: bit_hr_ec
+#: help:hr.employee,emp_dec_tercero:0
+msgid "Marque este campo si desea que al Empleado se le pague el Décimo Tercero"
+msgstr "Marque este campo si desea que al Empleado se le pague el Décimo Tercero"
+
+#. module: bit_hr_ec
+#: help:hr.employee,emp_quincena_tipo:0
+msgid "Marque este campo si paga la quincena en Valor, Desmarcar para pagar en Porcentaje"
+msgstr "Marque este campo si paga la quincena en Valor, Desmarcar para pagar en Porcentaje"
+
+#. module: bit_hr_ec
+#: selection:hr.employee,emp_tipo_disc:0
+msgid "Mental"
+msgstr "Mental"
+
+#. module: bit_hr_ec
+#: field:hr.employee,emp_modo_pago:0
+msgid "Modo de Pago"
+msgstr "Modo de Pago"
+
+#. module: bit_hr_ec
+#: selection:hr.family.burden,relationship:0
+msgid "Nieto/a"
+msgstr "Nieto/a"
+
+#. module: bit_hr_ec
+#: field:hr.education.level,level:0
+#: view:hr.employee:bit_hr_ec.view_employee_add_cargas_form
+#: field:hr.family.burden,level:0
+msgid "Nivel Educacion"
+msgstr "Nivel Educacion"
+
+#. module: bit_hr_ec
+#: view:hr.education.level:bit_hr_ec.education_level_form_view
+#: view:hr.education.level:bit_hr_ec.education_level_tree_view
+#: model:ir.model,name:bit_hr_ec.model_hr_education_level
+msgid "Nivel de Educacion"
+msgstr "Nivel de Educacion"
+
+#. module: bit_hr_ec
+#: field:hr.education.area,name:0
+msgid "Nombre"
+msgstr "Nombre"
+
+#. module: bit_hr_ec
+#: view:hr.employee:bit_hr_ec.view_employee_add_nom_ape_form
+#: field:hr.employee,emp_nombres:0
+#: field:hr.family.burden,name:0
+msgid "Nombres"
+msgstr "Nombres"
+
+#. module: bit_hr_ec
+#: selection:hr.family.burden,relationship:0
+msgid "Padre"
+msgstr "Padre"
+
+#. module: bit_hr_ec
+#: selection:hr.employee,emp_tipo_doc:0
+msgid "Pasaporte"
+msgstr "Pasaporte"
+
+#. module: bit_hr_ec
+#: view:hr.education.level:bit_hr_ec.education_level_form_view
+msgid "Periodo"
+msgstr "Periodo"
+
+#. module: bit_hr_ec
+#: selection:hr.education.level,level:0
+#: selection:hr.family.burden,level:0
+msgid "Ph.D."
+msgstr "Ph.D."
+
+#. module: bit_hr_ec
+#: field:hr.employee,emp_porcentaje_disc:0
+msgid "Porcentaje"
+msgstr "Porcentaje"
+
+#. module: bit_hr_ec
+#: field:hr.employee,provincia_id:0
+msgid "Provincia"
+msgstr "Provincia"
+
+#. module: bit_hr_ec
+#: field:hr.employee,emp_quincena_valor:0
+msgid "Quin. Valor/Porcentaje"
+msgstr "Quin. Valor/Porcentaje"
+
+#. module: bit_hr_ec
+#: field:hr.employee,emp_quincena_tipo:0
+msgid "Quin. en Valor ?"
+msgstr "Quin. en Valor ?"
+
+#. module: bit_hr_ec
+#: field:hr.education.level,country_id:0
+msgid "Región"
+msgstr "Región"
+
+#. module: bit_hr_ec
+#: field:hr.family.burden,relationship:0
+msgid "Relación"
+msgstr "Relación"
+
+#. module: bit_hr_ec
+#: help:hr.employee,emp_quincena:0
+msgid "Seleccionar si al empleado se le paga quincena"
+msgstr "Seleccionar si al empleado se le paga quincena"
+
+#. module: bit_hr_ec
+#: help:hr.employee,emp_discapacidad:0
+msgid "Seleccionar si el empleado posee algun tipo de discapacidad"
+msgstr "Seleccionar si el empleado posee algun tipo de discapacidad"
+
+#. module: bit_hr_ec
+#: field:hr.employee,emp_tipo_disc:0
+msgid "Tipo"
+msgstr "Tipo"
+
+#. module: bit_hr_ec
+#: field:hr.employee,emp_tipo_doc:0
+msgid "Tipo Identificacion"
+msgstr "Tipo Identificacion"
+
+#. module: bit_hr_ec
+#: field:hr.education.level,title:0
+msgid "Titulo"
+msgstr "Titulo"
+
+#. module: bit_hr_ec
+#: selection:hr.employee,emp_modo_pago:0
+msgid "Transferencia"
+msgstr "Transferencia"
+
+#. module: bit_hr_ec
+#: view:hr.education.level:bit_hr_ec.education_level_form_view
+msgid "Ubicacion"
+msgstr "Ubicación"
+
+#. module: bit_hr_ec
+#: selection:hr.employee,emp_tipo_disc:0
+msgid "Visual"
+msgstr "Visual"
+
+#. module: bit_hr_ec
+#: field:hr.employee,birthday_celebration_day:0
+msgid "unknown"
+msgstr "desconocido"
+

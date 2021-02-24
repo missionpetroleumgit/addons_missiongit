@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_bit_invoice_form_inherit_tiw" model="ir.ui.view">
+            <field name="name">invoice.form.o2s.inherit.tiw</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='invoice_line']/tree/field[@name='product_id']" position="after">
+                    <field name="custom_identificator"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

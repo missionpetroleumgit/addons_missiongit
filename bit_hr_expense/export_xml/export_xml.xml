@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="generate_xml_form" model="ir.ui.view">
+            <field name="name">generate.xml.form</field>
+            <field name="model">rdep</field>
+            <field name="arch" type="xml">
+                <form string="Generar RDEP">
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="fiscalyear_id" string="Año Fiscal"/>
+                            <field name="company_id"/>
+                        </group>
+                        <group string="Generación de Archivo">
+                            <button name="generate_file" type="object" string="Generar archivo"/>
+                            <group colspan="2">
+                                <field name="file"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="generate_action" model="ir.actions.act_window">
+            <field name="name">Generar RDEP</field>
+            <field name="res_model">rdep</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+            <field name="view_id" ref="generate_xml_form"/>
+        </record>
+
+        <menuitem action="generate_action" id="generate_xml_action_menu" name="Generar RDEP"
+                  parent="hr.menu_hr_reporting"/>
+
+    </data>
+</openerp>

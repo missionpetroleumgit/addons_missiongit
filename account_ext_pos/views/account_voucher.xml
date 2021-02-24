@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <record id="o2s_view_voucher_form_inheritance" model="ir.ui.view">
+            <field name="name">account.voucher.form.inheritance</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="bit_payment.view_bit_voucher_payment_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="before">
+                    <field name="is_advance"/>
+                </field>
+                <field name="amount" position="replace">
+                	<field name="amount" attrs="{'invisible':[('is_advance','=',False)]}"/>
+                </field>
+                <field name="amount" position="after">
+                	<field name="amount_payment" attrs="{'invisible':[('is_advance','=',True)]}"/>
+                </field>
+            </field>
+        </record>
+	</data>
+</openerp>

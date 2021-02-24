@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_contract_s_view">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <h2 class="text-center">CONTRATO  DE TRABAJO  <span t-field="o.type_id.name"/></h2>
+                    <p class="text-justify">Conste por el presente instrumento, el Contrato de Trabajo, que celebran por una parte, la Sra. Lucy Yelena  Estrella Naranjo
+                        en su calidad de Representante Legal de Salomón Importadora y Comercializadora Salomimco Cía. Ltda.,
+                        Propietaria de los Almacenes Sock Shop / Mix Two,
+                        quien dentro del presente contrato se podrá denominar  <strong>la Empleadora</strong>; y,
+                        por otra parte <span t-field="o.employee_id"/>, portador de la cedula de ciudadanía # <span t-field="o.employee_id.identification_id"/>
+                        , a quien en el curso del presente contrato se podrá denominar <strong>TRABAJADOR (A)  y/o Empleada</strong>,quienes en forma libre y voluntaria convienen en celebrar el presente Contrato de Trabajo, al tenor
+                         de las siguientes cláusulas:</p>
+                          
+                    <table class="table table-condensed">
+                        <tr>
+                            <td><strong>PRIMERA:</strong></td>
+                            <td><strong>ANTECEDENTES:</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                               <p> 1. Lucy Estrella es una persona natural que tiene como actividad principal la importación, comercialización y distribución, de toda clase de productos textiles tales como medias, lencería tanto al por mayor como al detal en el Ecuador.</p>
+                               <p> 2. Para tal efecto es propietaria y administra los Almacenes  Sock Shop / Mix Two ubicados en distintos centros comerciales del país.</p>
+                               <p> 3. La Trabajadora declara conocer y se compromete a acatar los  reglamentos  internos,  las  disposiciones  generales y  las  órdenes  e  instrucciones  que  imparta  la  Empleadora  o  sus  representantes; cumpliendo las funciones asignadas.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>SEGUNDA:</strong></td>
+                            <td><strong>OBJETO:</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                               La Empleadora  contrata los servicios personales de la señorita  <span t-field="o.employee_id"/>,quien desempeñará la función
+                               <span t-field="o.employee_id.job_id"/>,además de las actividades 
+                               conexas que le sean encomendadas, afines a la naturaleza de sus funciones, de conformidad con lo establecido por la ley, el Reglamento Interno debidamente aprobado,
+                                las disposiciones generales y las instrucciones que imparta
+                               <p>La Empleadora o sus representantes, dedicando el mayor esfuerzo y capacidad en el desempeño de las actividades para las cuales ha sido contratada
+                                para lo cual declara tener los conocimientos necesarios, así mismo podrá remplazar temporal o definitivamente a otra empleada en cualquiera de los locales de la Empleadora que realice su misma función,
+                               a cuyo propósito la Empleada deja expresa constancia de su aceptación y consentimiento,
+                                aclarando que no se considerará, por ningún concepto cambio de ocupación ni despido intempestivo.</p>
+                            </td>
+                        </tr>
+                        
+                        
+                        <tr>
+                            <td><strong>TERCERA:</strong></td>
+                            <td><strong>OBLIGACIONES DE LA EMPLEADA</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                            Además de las previstas en la ley, La Empleada entre otras obligaciones, tendrá las siguientes:
+                               <p> a) Cumplir y someterse a las normas, procedimientos y disposiciones vigentes de  La Empleadora y las que en adelante se expidieren.</p>
+                               <p> b) Cuidar y mantener en debida forma los bienes de La Empleadora que estuvieren a su cargo en razón de sus funciones. En caso de pérdidas o daños imputables a la Empleada, los valores correspondientes serán deducidos de sus haberes, previa comprobación y verificación del mismo.</p>
+                               <p> c) Deberá mantener el grado de eficiencia necesario, acorde con las funciones que va a desempeñar.</p>
+                               <p> d) Guardar absoluta cordialidad y respeto en las relaciones con sus compañeros de labor y funcionarios superiores de la empresa.</p>
+                               <p> e) Obrar con absoluta moral y buenas costumbres, debiendo observar buena conducta en sus actuaciones, estando expresamente prohibido el laborar bajo la influencia de sustancias psicotrópicas, estupefacientes o bebidas alcohólicas.</p>
+                               <p> f) Otorgar información inmediata a los personeros de la compañía, sobre todo asunto o acontecimiento que pudiera ocasionar perjuicio a la empresa, sus acciones, Directores, Gerentes, Administradores y Subrogantes.</p>
+                               <p> g) Acatar y someterse al Reglamento Interno de Trabajo el cual LA EMPLEADA declara conocerlo.</p>
+                               <p> h) A la trabajadora le está prohibido directa e indirectamente prestar sus servicios laborales a otros empleadores.</p>
+                               <p> i) Abstenerse de realizar por sí o a través de terceros competencia directa o indirecta a las actividades de la compañía.</p>
+                               <p> j) Cumplir con todas las obligaciones determinadas en el Código del Trabajo. 
+La violación                         de lo aquí estipulado será causa suficiente para concluir este contrato de conformidad con el procedimiento determinado en el artículo 172 del Código del Trabajo.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>CUARTA:</strong></td>
+                            <td><strong>REMUNERACIÓN</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                               La Trabajadora por la prestación de sus servicios lícitos y personales, recibirá una  remuneración mensual, $ <span t-field="o.wage"/>, más horas ordinarias y extraordinarias
+                               y  los beneficios adicionales establecidos en la Ley, que será cancelada en dos quincenas de acuerdo a la política de La Empleadora. 
+                               <p>Del estipendio de la Empleada se deducirán los valores correspondientes al Instituto Ecuatoriano de Seguridad Social;
+                                Impuesto a la Renta, en caso de haberlas; los ordenados por Juez o autoridad competente  y demás determinados por la Ley o solicitados voluntariamente o autorizados por la trabajadora.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                        </tr>
+                        <tr>
+                            <td><strong>QUINTA:</strong></td>
+                            <td><strong>LUGAR Y HORARIO DE TRABAJO</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                                  <p>Por las actividades propias del negocio de la Empleadora, la Trabajadora y/o Empleada,
+                                  se compromete a prestar sus servicios en el local  de Mix Two <span t-field="o.department_id"/> los días lunes, martes, miércoles, sábado y domingo con el horario de jornada ordinaria de 10H00 a 19H00, con días libres es decir domingo y lunes, con una hora de almuerzo, es decir de 13H00 a 14H00, 
+                                  pudiendo ésta hacer reajustes o cambios de horarios de estimarlo conveniente.
+                                  Cabe indicar que el horario estará sujetos a las políticas y horarios del Centro Comercial en donde estén ubicados los locales de la Empleadora y por las actividades propias del negocio que no pueden ser interrumpidas, la Compañía ha establecido turnos especiales y en cualquier día de la semana, incluyendo los días de descanso obligatorio, sábados y domingos, los cuales serán compensados en cumplimiento al descanso forzoso.
+                                  Es decir la Empleadora declara que se dará cumplimiento a lo establecido en los artículos 47, 50 y numeral 2 del artículo 52 del Código de Trabajo, que se respetará las cuarenta horas semanales que deben cumplir los trabajadores y el descanso forzoso semanal en cualquier otro día de la semana, sin que sean necesariamente sábado o domingo, 
+                                  los cuales serán considerados como jornada ordinaria de trabajo sin derecho a recargo alguno.
+                                  Cuando se trate de horas extraordinarias o suplementarias se estará a lo dispuesto en el artículo 55 del Código del Trabajo.
+                                  La empleadora podrá solicitar a la Empleada la realización de trabajos extraordinarios y suplementarios, únicamente con solicitud expresa y por escrito, en este caso, la Empleadora se verá obligada a remunerar dicha actividad de acuerdo a lo establecido en el Art. 55 del Código del Trabajo; sin embargo si no existiere dicha solicitud expresa y por escrito por parte de La Empleadora, 
+                                  la Trabajadora que realizare trabajos fuera de su horario de trabajo, se entenderá que lo hace por cuenta o voluntad propia, sin que La Empleadora se vea obligado a remunerar dicha actividad. Para efectos de la remuneración se considerara lo establecido en el artículo 58 del Código del Trabajo.
+                                  El cambio de horario, lugar de trabajo o turnos, no afectará la remuneración aquí pactada y tampoco significará despido intempestivo, pues la Trabajadora y/o Empleada por las labores únicas y específicas de la Empleadora acepta expresamente laborar en el local, jornada y turno que le dispusiere expresamente la Empleadora, siempre y cuando tales cambios no impliquen disminución de remuneración o de categoría.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>SEXTA:</strong></td>
+                            <td><strong>PLAZO:</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                              <p>Este Contrato de Trabajo, 
+                              tendrá un periodo de prueba cuya duración será de 90 días a contarse desde su suscripción, período durante el cual las partes podrán dar por terminado el presente contrato libremente, sin que de lugar a ningún tipo de indemnización. Transcurrido este período de prueba, 
+                              sin que las relaciones laborales se hubieren dado  por terminadas el presente contrato continuará por el período que falta para completar el año, si ninguna de las partes expresa su voluntad de dar por terminado el contrato de trabajo en los términos del artículo 184 y 185 del Código del Trabajo,
+                              éste se renovará automáticamente por un segundo año entendiéndose en tal caso, que el Contrato es a Plazo Fijo.
+                              De igual manera, si al término del segundo año, las partes desean continuar sus relaciones laborales éste se convertirá en Contrato Indefinido.</p>
+                            </td>
+                            
+                             </tr>
+                            
+                            <tr>
+                            <td><strong>SÉPTIMA:</strong></td>
+                            <td><strong>VACACIONES:</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                              <p>La Empleada tendrá derecho a gozar de vacaciones una vez cumplido el año de la relación laboral, y de acuerdo al período que La Empleadora oportunamente señale,
+                               en caso de separación de la trabajadora se liquidará las vacaciones no gozadas de acuerdo con la ley y la política de La Empleadora.</p>
+                            </td>
+                        </tr>
+                        
+                            
+                            
+                              <tr>
+                            <td><strong>OCTAVA:</strong></td>
+                            <td><strong>RECONOCIMIENTO EXPRESO:</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                              <p>La Empleada reconoce expresamente que los descubrimientos o invenciones, las mejoras en los procedimientos, así como los trabajos y resultados que obtenga en su actividad dependiente, mientras preste sus servicios al Empleador, quedarán en propiedad exclusiva de éste,
+                               el cual podrá patentar o registrar a su nombre tales inventos, mejoras y trabajos en general.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>NOVENA:</strong></td>
+                            <td><strong>CONFIDENCIALIDAD</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                              <p>Cualquier información, documentos, manuales, y otros materiales que se relacionen con las actividades previstas en este Contrato,
+                               tendrán  un manejo confidencial, y no podrán ser divulgados por La Empleada sin autorización expresa de La Empleadora. 
+                              Deberá guardar absoluta reserva sobre los asuntos que por su naturaleza tuvieren esta calidad, 
+                              y, que con motivo de la labor que desempeña llegaren a su conocimiento; y en especial deberá guardar el secreto profesional. 
+                               Si La Empleada incumpliere esta obligación, 
+                               tal incumplimiento se considerará como causal suficiente para que La Empleadora pueda dar por terminado en forma anticipada el presente Contrato,
+                                reservándose La Empleadora el derecho de iniciar las acciones legales que creyera convenientes por tal incumplimiento.</p>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>DÉCIMA:</strong></td>
+                            <td><strong>DIVISIBILIDAD DEL CONTRATO:</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                              <p>En caso de que cualquier convenio o condición constantes en este contrato o su  aplicación a cualquier persona o situación no sea ejecutable o aplicable durante el plazo de vigencia de este contrato, al punto de ser considerados inválidos tales convenios o condiciones,
+                               dicha invalidez parcial no afectará al resto de los convenios o condiciones constantes en las cláusulas de este contrato, las que serán ejecutables y aplicables en todo sentido permitido por las leyes.</p>
+                            </td>
+                        </tr>
+                        
+                         <tr>
+                            <td><strong>DÉCIMA PRIMERA:</strong></td>
+                            <td><strong>AUTORIZACION:</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                              <p>La Trabajadora y/o Empleada, autoriza expresamente a la Empleadora descontar de su rol de pagos mensual, los valores que por algún motivo le sean imputables como  préstamos, 
+                              multas o  de otra naturaleza de conformidad con el Código del Trabajo y el Reglamento Interno debidamente aprobado.</p>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td><strong>DÉCIMO SEGUNDA:</strong></td>
+                            <td><strong>JURISDICCIÓN Y COMPETENCIA:</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                              <p>En todo lo previsto en este instrumento las partes se remiten al Código del Trabajo. Para el caso de controversias señalan domicilio en Quito, se someten a los jueces competentes de esta jurisdicción y al trámite vigente.
+                                  Para constancia firman este documento <span t-field="o.date_start"/>, y en tres ejemplares de igual texto y valor,
+                                  que se registrará ante el señor Inspector del Trabajo de Pichincha en el plazo previsto en el Artículo 20 del Código del Trabajo.</p>
+                            </td>
+                        </tr>
+                       
+                    </table>
+                   
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/> 
+                   
+                    <table class="table table-condensed">
+                        <tr>
+                            <td class="text-center"><strong>LUCY ESTRELLA NARANJO
+                            <p>EL EMPLEADOR</p></strong></td>
+                            <td class="text-center"><strong><span t-field="o.employee_id"/>
+                            <p>C.I.<span t-field="o.employee_id.identification_id"/></p></strong></td>
+                        </tr>
+                    </table>
+                </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

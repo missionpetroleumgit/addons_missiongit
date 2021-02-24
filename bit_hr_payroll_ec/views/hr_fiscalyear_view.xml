@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+<data>
+        <!--
+     Fiscal Year
+    -->
+
+        <record id="view_account_fiscalyear_form" model="ir.ui.view">
+            <field name="name">hr.fiscalyear.form</field>
+            <field name="model">hr.fiscalyear</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Año Fiscal">
+                    <field name="name" select="1"/>
+                    <field name="code" select="1"/>
+                    <field name="date_start"/>
+                    <field name="date_stop"/>
+		    <field name="company_id"/>
+                    <separator colspan="4" string="Periodos"/>
+                    <field colspan="4" name="period_ids" nolabel="1" widget="one2many_list">
+                        <form string="Periodo">
+                            <field name="name" select="1"/>
+                            <field name="date_start"/>
+                            <field name="date_stop"/>
+                        </form>
+                    </field>
+                    <separator colspan="4" string="States"/>
+                    <field name="state" select="1" readonly="1"/>
+                    <group col="2" colspan="2">
+                        <button name="create_period" states="draft" string="Periodos Mensuales" type="object"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        
+        <record id="view_hr_fiscalyear_tree" model="ir.ui.view">
+            <field name="name">hr.fiscalyear.tree</field>
+            <field name="model">hr.fiscalyear</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Fiscalyear">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="action_hr_fiscalyear_form" model="ir.actions.act_window">
+            <field name="name">Año de Trabajo</field>
+            <field name="res_model">hr.fiscalyear</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+</data>
+</openerp>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="view_stock_inventary_real_form" model="ir.ui.view">
+            <field name="name">Reporte Inventario Real</field>
+            <field name="model">stock.inventary.real</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <sheet>
+                    <form string="Inventario Productos A la Fecha" version="7.0">
+
+                        <separator string="Seleccione Compania" colspan="4" />
+                        <group colspan="4" col="2">
+                            <field name="company_id" required="1"/>
+                        </group >
+                        <separator string="Seleccione Fecha Corte Reporte" colspan="4" />
+                        <group colspan="4" col="4">
+                            <field name="date_from" required="1"/>
+                        </group >
+                        <separator string="Acciones" colspan="4" />
+                        <button name="action_excel" type="object" string="Generar archivo"/>
+                    </form>
+                </sheet>
+            </field>
+        </record>
+
+
+        <record id="action_stock_inventary_real" model="ir.actions.act_window">
+            <field name="name">Inventario Real Fecha</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">stock.inventary.real</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">current</field>
+            <field name="view_id" ref="view_stock_inventary_real_form"/>
+        </record>
+
+        <menuitem id="menu_action_stock_inventary_real" action="action_stock_inventary_real" parent="stock.next_id_61" sequence="3"/>
+
+    </data>
+</openerp>

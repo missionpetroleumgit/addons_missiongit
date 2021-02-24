@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="AREA_01 " model="hr.education.area">
+			<field name="name">Abogacía / Derecho / Leyes</field>
+		</record>
+		<record id="AREA_02 " model="hr.education.area">
+			<field name="name">Actuaría</field>
+		</record>
+		<record id="AREA_03 " model="hr.education.area">
+			<field name="name">Acuicultura</field>
+		</record>
+		<record id="AREA_04 " model="hr.education.area">
+			<field name="name">Adm. de Empresas</field>
+		</record>
+		<record id="AREA_05 " model="hr.education.area">
+			<field name="name">Adm. y Gestión Pública</field>
+		</record>
+		<record id="AREA_06 " model="hr.education.area">
+			<field name="name">Administración Agropecuaria</field>
+		</record>
+		<record id="AREA_07 " model="hr.education.area">
+			<field name="name">Agrimensor</field>
+		</record>
+		<record id="AREA_08 " model="hr.education.area">
+			<field name="name">Agronegocios</field>
+		</record>
+		<record id="AREA_09 " model="hr.education.area">
+			<field name="name">Antropología</field>
+		</record>
+		<record id="AREA_10 " model="hr.education.area">
+			<field name="name">Análisis de Sistemas</field>
+		</record>
+		<record id="AREA_11 " model="hr.education.area">
+			<field name="name">Apoderado Aduanal</field>
+		</record>
+		<record id="AREA_12 " model="hr.education.area">
+			<field name="name">Arqueología</field>
+		</record>
+		<record id="AREA_13 " model="hr.education.area">
+			<field name="name">Arquitectura</field>
+		</record>
+		<record id="AREA_14 " model="hr.education.area">
+			<field name="name">Asesoría Legal Internacional</field>
+		</record>
+		<record id="AREA_15 " model="hr.education.area">
+			<field name="name">Asesoría en Comercio Exterior</field>
+		</record>
+		<record id="AREA_16 " model="hr.education.area">
+			<field name="name">Asesoría en Comercio Exterior Jubilado</field>
+		</record>
+		<record id="AREA_17 " model="hr.education.area">
+			<field name="name">Asistente de Tráfico</field>
+		</record>
+		<record id="AREA_18 " model="hr.education.area">
+			<field name="name">Astronomía</field>
+		</record>
+		<record id="AREA_19 " model="hr.education.area">
+			<field name="name">Bachiller</field>
+		</record>
+		<record id="AREA_20 " model="hr.education.area">
+			<field name="name">Bellas Artes</field>
+		</record>
+		<record id="AREA_21 " model="hr.education.area">
+			<field name="name">Bibliotecología</field>
+		</record>
+		<record id="AREA_22 " model="hr.education.area">
+			<field name="name">BioFisica</field>
+		</record>
+		<record id="AREA_23 " model="hr.education.area">
+			<field name="name">Bioingeniería</field>
+		</record>
+		<record id="AREA_24 " model="hr.education.area">
+			<field name="name">Biología</field>
+		</record>
+		<record id="AREA_25 " model="hr.education.area">
+			<field name="name">Bioquímica</field>
+		</record>
+		<record id="AREA_26 " model="hr.education.area">
+			<field name="name">Biotecnología</field>
+		</record>
+		<record id="AREA_27 " model="hr.education.area">
+			<field name="name">Call Center</field>
+		</record>
+		<record id="AREA_28 " model="hr.education.area">
+			<field name="name">Capacitación Comercio Exterior</field>
+		</record>
+		<record id="AREA_29 " model="hr.education.area">
+			<field name="name">Cartografía</field>
+		</record>
+		<record id="AREA_30 " model="hr.education.area">
+			<field name="name">Ciencias Físicas</field>
+		</record>
+		<record id="AREA_31 " model="hr.education.area">
+			<field name="name">Ciencias Políticas</field>
+		</record>
+		<record id="AREA_32 " model="hr.education.area">
+			<field name="name">Ciencias de la Educación</field>
+		</record>
+		<record id="AREA_33 " model="hr.education.area">
+			<field name="name">Ciencias del Ejercicio / Educacion Física</field>
+		</record>
+		<record id="AREA_34 " model="hr.education.area">
+			<field name="name">Comercio Int./Ext.</field>
+		</record>
+		<record id="AREA_35 " model="hr.education.area">
+			<field name="name">Compras Internacionales/Importación</field>
+		</record>
+		<record id="AREA_36 " model="hr.education.area">
+			<field name="name">Computación / Informática</field>
+		</record>
+		<record id="AREA_37 " model="hr.education.area">
+			<field name="name">Comunicación Audiovisual</field>
+		</record>
+		<record id="AREA_38 " model="hr.education.area">
+			<field name="name">Comunicación Social</field>
+		</record>
+		<record id="AREA_39 " model="hr.education.area">
+			<field name="name">Construcción / Obras Civiles</field>
+		</record>
+		<record id="AREA_40 " model="hr.education.area">
+			<field name="name">Consultorías Comercio Exterior</field>
+		</record>
+		<record id="AREA_41 " model="hr.education.area">
+			<field name="name">Contabilidad / Auditoría</field>
+		</record>
+		<record id="AREA_42 " model="hr.education.area">
+			<field name="name">Dibujo Técnico</field>
+		</record>
+		<record id="AREA_43 " model="hr.education.area">
+			<field name="name">Diseño Gráfico</field>
+		</record>
+		<record id="AREA_44 " model="hr.education.area">
+			<field name="name">Diseño Industrial</field>
+		</record>
+		<record id="AREA_45 " model="hr.education.area">
+			<field name="name">Diseño de Imagen y Sonido</field>
+		</record>
+		<record id="AREA_46 " model="hr.education.area">
+			<field name="name">Diseño de Vestuario / Textil / Modas</field>
+		</record>
+		<record id="AREA_47 " model="hr.education.area">
+			<field name="name">Ecología</field>
+		</record>
+		<record id="AREA_48 " model="hr.education.area">
+			<field name="name">Economía</field>
+		</record>
+		<record id="AREA_49 " model="hr.education.area">
+			<field name="name">Educacion</field>
+		</record>
+		<record id="AREA_50 " model="hr.education.area">
+			<field name="name">Electricidad</field>
+		</record>
+		<record id="AREA_51 " model="hr.education.area">
+			<field name="name">Electrónica</field>
+		</record>
+		<record id="AREA_52 " model="hr.education.area">
+			<field name="name">Enfermería</field>
+		</record>
+		<record id="AREA_53 " model="hr.education.area">
+			<field name="name">Escribanía</field>
+		</record>
+		<record id="AREA_54 " model="hr.education.area">
+			<field name="name">Estadística</field>
+		</record>
+		<record id="AREA_55 " model="hr.education.area">
+			<field name="name">Farmacia</field>
+		</record>
+		<record id="AREA_56 " model="hr.education.area">
+			<field name="name">Filosofía</field>
+		</record>
+		<record id="AREA_57 " model="hr.education.area">
+			<field name="name">Finanzas</field>
+		</record>
+		<record id="AREA_58 " model="hr.education.area">
+			<field name="name">Finanzas Internacionales</field>
+		</record>
+		<record id="AREA_59 " model="hr.education.area">
+			<field name="name">Fisioterapia</field>
+		</record>
+		<record id="AREA_60 " model="hr.education.area">
+			<field name="name">Fonoaudiologia</field>
+		</record>
+		<record id="AREA_61 " model="hr.education.area">
+			<field name="name">Fotografía</field>
+		</record>
+		<record id="AREA_62 " model="hr.education.area">
+			<field name="name">Gastronomía / Cocina</field>
+		</record>
+		<record id="AREA_63 " model="hr.education.area">
+			<field name="name">Geofísica</field>
+		</record>
+		<record id="AREA_64 " model="hr.education.area">
+			<field name="name">Geografía</field>
+		</record>
+		<record id="AREA_65 " model="hr.education.area">
+			<field name="name">Geología / Geomensura / Topografía</field>
+		</record>
+		<record id="AREA_66 " model="hr.education.area">
+			<field name="name">Hidráulica</field>
+		</record>
+		<record id="AREA_67 " model="hr.education.area">
+			<field name="name">Historia</field>
+		</record>
+		<record id="AREA_68 " model="hr.education.area">
+			<field name="name">Hotelería</field>
+		</record>
+		<record id="AREA_69 " model="hr.education.area">
+			<field name="name">Ing. - otros</field>
+		</record>
+		<record id="AREA_70 " model="hr.education.area">
+			<field name="name">Ing. Aerospacial</field>
+		</record>
+		<record id="AREA_71 " model="hr.education.area">
+			<field name="name">Ing. Agropecuario</field>
+		</record>
+		<record id="AREA_72 " model="hr.education.area">
+			<field name="name">Ing. Agrónomo</field>
+		</record>
+		<record id="AREA_73 " model="hr.education.area">
+			<field name="name">Ing. Alimentos</field>
+		</record>
+		<record id="AREA_74 " model="hr.education.area">
+			<field name="name">Ing. Ambiental</field>
+		</record>
+		<record id="AREA_75 " model="hr.education.area">
+			<field name="name">Ing. Comercial</field>
+		</record>
+		<record id="AREA_76 " model="hr.education.area">
+			<field name="name">Ing. Electrónica</field>
+		</record>
+		<record id="AREA_77 " model="hr.education.area">
+			<field name="name">Ing. Eléctrica</field>
+		</record>
+		<record id="AREA_78 " model="hr.education.area">
+			<field name="name">Ing. Forestal</field>
+		</record>
+		<record id="AREA_79 " model="hr.education.area">
+			<field name="name">Ing. Hidraúlica</field>
+		</record>
+		<record id="AREA_80 " model="hr.education.area">
+			<field name="name">Ing. Industrial</field>
+		</record>
+		<record id="AREA_81 " model="hr.education.area">
+			<field name="name">Ing. Informática</field>
+		</record>
+		<record id="AREA_82 " model="hr.education.area">
+			<field name="name">Ing. Matemática</field>
+		</record>
+		<record id="AREA_83 " model="hr.education.area">
+			<field name="name">Ing. Mecánica/Metalúrgica</field>
+		</record>
+		<record id="AREA_84 " model="hr.education.area">
+			<field name="name">Ing. Naval</field>
+		</record>
+		<record id="AREA_85 " model="hr.education.area">
+			<field name="name">Ing. Nuclear</field>
+		</record>
+		<record id="AREA_86 " model="hr.education.area">
+			<field name="name">Ing. Obras Civiles/Construcción</field>
+		</record>
+		<record id="AREA_87 " model="hr.education.area">
+			<field name="name">Ing. Pesquera / Cultivos Marinos</field>
+		</record>
+		<record id="AREA_88 " model="hr.education.area">
+			<field name="name">Ing. Petróleo</field>
+		</record>
+		<record id="AREA_89 " model="hr.education.area">
+			<field name="name">Ing. Química</field>
+		</record>
+		<record id="AREA_90 " model="hr.education.area">
+			<field name="name">Ing. Recursos Hídricos</field>
+		</record>
+		<record id="AREA_91 " model="hr.education.area">
+			<field name="name">Ing. Sonido</field>
+		</record>
+		<record id="AREA_92 " model="hr.education.area">
+			<field name="name">Ing. Telecomunicaciones</field>
+		</record>
+		<record id="AREA_93 " model="hr.education.area">
+			<field name="name">Ing. Transporte</field>
+		</record>
+		<record id="AREA_94 " model="hr.education.area">
+			<field name="name">Ing. en Materiales</field>
+		</record>
+		<record id="AREA_95 " model="hr.education.area">
+			<field name="name">Ing. en Minas</field>
+		</record>
+		<record id="AREA_96 " model="hr.education.area">
+			<field name="name">Ing. en Sistemas</field>
+		</record>
+		<record id="AREA_97 " model="hr.education.area">
+			<field name="name">Ingeniero en construcción</field>
+		</record>
+		<record id="AREA_98 " model="hr.education.area">
+			<field name="name">Ingeniero vial</field>
+		</record>
+		<record id="AREA_99 " model="hr.education.area">
+			<field name="name">Intérprete</field>
+		</record>
+		<record id="AREA_100 " model="hr.education.area">
+			<field name="name">Kinesiología</field>
+		</record>
+		<record id="AREA_101 " model="hr.education.area">
+			<field name="name">Laboratorio (Mecánica) Dental</field>
+		</record>
+		<record id="AREA_102 " model="hr.education.area">
+			<field name="name">Literatura</field>
+		</record>
+		<record id="AREA_103 " model="hr.education.area">
+			<field name="name">Maestro Mayor de Obras</field>
+		</record>
+		<record id="AREA_104 " model="hr.education.area">
+			<field name="name">Marketing / Comercialización</field>
+		</record>
+		<record id="AREA_105 " model="hr.education.area">
+			<field name="name">Matemáticas</field>
+		</record>
+		<record id="AREA_106 " model="hr.education.area">
+			<field name="name">Mecánica / Metalúrgica</field>
+		</record>
+		<record id="AREA_107 " model="hr.education.area">
+			<field name="name">Medicina</field>
+		</record>
+		<record id="AREA_108 " model="hr.education.area">
+			<field name="name">Medio Ambiente</field>
+		</record>
+		<record id="AREA_109 " model="hr.education.area">
+			<field name="name">Mercadotecnia Internacional</field>
+		</record>
+		<record id="AREA_110 " model="hr.education.area">
+			<field name="name">Minería / Petróleo / Gas</field>
+		</record>
+		<record id="AREA_111 " model="hr.education.area">
+			<field name="name">Música</field>
+		</record>
+		<record id="AREA_112 " model="hr.education.area">
+			<field name="name">Nutrición</field>
+		</record>
+		<record id="AREA_113 " model="hr.education.area">
+			<field name="name">Oceanografía</field>
+		</record>
+		<record id="AREA_114 " model="hr.education.area">
+			<field name="name">Odontología</field>
+		</record>
+		<record id="AREA_115 " model="hr.education.area">
+			<field name="name">Organización Industrial</field>
+		</record>
+		<record id="AREA_116 " model="hr.education.area">
+			<field name="name">Otra</field>
+		</record>
+		<record id="AREA_117 " model="hr.education.area">
+			<field name="name">Paisajismo</field>
+		</record>
+		<record id="AREA_118 " model="hr.education.area">
+			<field name="name">Periodismo</field>
+		</record>
+		<record id="AREA_119 " model="hr.education.area">
+			<field name="name">Perito Mercantil</field>
+		</record>
+		<record id="AREA_120 " model="hr.education.area">
+			<field name="name">Procesos / Calidad Total</field>
+		</record>
+		<record id="AREA_121 " model="hr.education.area">
+			<field name="name">Programación</field>
+		</record>
+		<record id="AREA_122 " model="hr.education.area">
+			<field name="name">Psicología</field>
+		</record>
+		<record id="AREA_123 " model="hr.education.area">
+			<field name="name">Psicopedagogía</field>
+		</record>
+		<record id="AREA_124 " model="hr.education.area">
+			<field name="name">Publicidad</field>
+		</record>
+		<record id="AREA_125 " model="hr.education.area">
+			<field name="name">Química</field>
+		</record>
+		<record id="AREA_126 " model="hr.education.area">
+			<field name="name">Recursos Humanos / Relac. Ind.</field>
+		</record>
+		<record id="AREA_127 " model="hr.education.area">
+			<field name="name">Relaciones Internac.</field>
+		</record>
+		<record id="AREA_128 " model="hr.education.area">
+			<field name="name">Relaciones Públicas</field>
+		</record>
+		<record id="AREA_129 " model="hr.education.area">
+			<field name="name">Secretariado</field>
+		</record>
+		<record id="AREA_130 " model="hr.education.area">
+			<field name="name">Seguridad Industrial</field>
+		</record>
+		<record id="AREA_131 " model="hr.education.area">
+			<field name="name">Seguros</field>
+		</record>
+		<record id="AREA_132 " model="hr.education.area">
+			<field name="name">Sociología</field>
+		</record>
+		<record id="AREA_133 " model="hr.education.area">
+			<field name="name">Tecnico</field>
+		</record>
+		<record id="AREA_134 " model="hr.education.area">
+			<field name="name">Tecnología Médica / Laboratorio</field>
+		</record>
+		<record id="AREA_135 " model="hr.education.area">
+			<field name="name">Tecnología de Alimentos</field>
+		</record>
+		<record id="AREA_136 " model="hr.education.area">
+			<field name="name">Tecnologías de la Información</field>
+		</record>
+		<record id="AREA_137 " model="hr.education.area">
+			<field name="name">Telecomunicaciones</field>
+		</record>
+		<record id="AREA_138 " model="hr.education.area">
+			<field name="name">Terapia Ocupacional</field>
+		</record>
+		<record id="AREA_139 " model="hr.education.area">
+			<field name="name">Trabajo Social</field>
+		</record>
+		<record id="AREA_140 " model="hr.education.area">
+			<field name="name">Traducción </field>
+		</record>
+		<record id="AREA_141 " model="hr.education.area">
+			<field name="name">Transporte</field>
+		</record>
+		<record id="AREA_142 " model="hr.education.area">
+			<field name="name">Turismo</field>
+		</record>
+		<record id="AREA_143 " model="hr.education.area">
+			<field name="name">Ventas Internacionales/Exportación</field>
+		</record>
+		<record id="AREA_144 " model="hr.education.area">
+			<field name="name">Veterinaria</field>
+		</record>
+
+
+
+	</data>
+</openerp>

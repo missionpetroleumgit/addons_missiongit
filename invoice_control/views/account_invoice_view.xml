@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--<record id="invoice_form_customer_add_control_buttons" model="ir.ui.view">-->
+            <!--<field name="name">account.invoice.customer.add.control.buttons</field>-->
+            <!--<field name="model">account.invoice</field>-->
+            <!--<field name="inherit_id" ref="bit_account.invoice_form_customer_inherit"/>-->
+            <!--<field name="arch" type="xml">-->
+                <!--<button name="generate_provision" position="after">-->
+                    <!--<button name="invoice_traicing" class="oe_highlight" string="Fac. Remitida al Cliente" type="object"-->
+                            <!--attrs="{'invisible':['|', ('invoice_sent','!=', False), ('state', '!=', 'open')]}"-->
+                    <!--confirm="Esta seguro/a de que la factura esta remitida al cliente ?"/>-->
+                    <!--<button name="invoice_traicing_accept" class="oe_highlight" string="Factura Recibida" type="object"-->
+                            <!--attrs="{'invisible':['|', '|', ('invoice_accept','!=', False),-->
+                            <!--('invoice_sent','=', False), ('state', '!=', 'open')]}"-->
+                    <!--confirm="Esta seguro/a de que la factura fue aceptada por el cliente ?"/>-->
+                <!--</button>-->
+                <!--<field name="deduction_id" position="after">-->
+					<!--<field name="invoice_sent" invisible="1"/>-->
+                    <!--<field name="invoice_accept" invisible="1"/>-->
+				<!--</field>-->
+            <!--</field>-->
+        <!--</record>-->
+    </data>
+</openerp>

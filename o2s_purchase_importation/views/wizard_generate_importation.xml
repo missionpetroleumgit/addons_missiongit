@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_generate_importation">
+            <field name="name">generate.importation</field>
+            <field name="model">generate.importation</field>
+            <field name="priority">2</field>
+            <field name="arch" type="xml">
+                <form string="Generar Importación" version="7.0">
+                    <label string="Está seguro de generar la importación de las ordenes seleccionadas?"/>
+                    <group>
+                        <field name="date_start"/>
+                    </group>
+                  	<footer>
+						<button name="button_generate" string="Generar Importación" class="oe_highlight" type="object"/>
+					</footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- <delete model="ir.actions.act_window" id="action_account_payment_file"/> -->
+
+		<act_window name="Generar Importación"
+            context="{'search_default_draft': 1}"
+            res_model="generate.importation"
+            src_model="importation.order"
+            view_mode="form"
+            view_id="view_generate_importation"
+            target="new"
+            multi="True"
+            key2="client_action_multi"
+            id="action_account_generate_importation"/>
+
+    </data>
+</openerp>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="purchase_order_type_purchase_control_view" model="ir.ui.view">
+            <field name="name">purchase.order.type.purchase.control.view</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase_tiw.purchase_order_inherited_form_5"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='app_user_id']" position="after">
+                    <field name="services" groups="purchase_adjustment.group_select_only_services"/>
+                    <field name="stock" groups="purchase_adjustment.group_select_all_type_purchase"/>
+                </xpath>
+                <field name="type_purchase" position="replace">
+                    <field name="type_purchase" required="1" attrs="{'readonly':[('state','=','approved')]}"
+                           groups="purchase_adjustment.group_only_stock_requisitions"/>
+                    <field name="req_responsable_id" options="{'no_create': True, 'no_open': True}"
+                           attrs="{'readonly':[('req_responsable_id','!=', False)]}"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="res_users_add_responsable_requisition_field_view" model="ir.ui.view">
+            <field name="name">res.users.add.responsable.requisition.field.view</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='signature']" position="after">
+                    <field name="not_apply"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_product_button_requisition_order_view" model="ir.ui.view">
+            <field name="name">product.product.button.requisition.order.view</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="groups_id" eval="[(4, ref('purchase.group_purchase_user'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button class="oe_inline oe_stat_button" name="action_requisitions_view" type="object" icon="fa-tasks">
+                        <field name="requisition_count" string="Requisitions" widget="statinfo"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="product_template_button_requisition_order_view" model="ir.ui.view">
+            <field name="name">product.template.button.requisition.order.view</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="groups_id" eval="[(4, ref('purchase.group_purchase_user'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button class="oe_inline oe_stat_button" name="action_view_requisitions" type="object" icon="fa-tasks">
+                        <field name="requisition_count" string="Requisitions" widget="statinfo"/>
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="request_products_tree" model="ir.ui.view">
+            <field name="name">request.product.tree</field>
+            <field name="model">request.product</field>
+            <field name="arch" type="xml">
+                <tree string="Lineas de Requisición" create="false">
+                    <field name="product_id"/>
+                    <field name="product_uom" groups="product.group_uom"/>
+                    <field name="description"/>
+                    <field name="order_id"/>
+                    <field name="solicited_qty"/>
+                    <field name="qty_available"/>
+                    <field name="date_requested" widget="date" width="135"/>
+                    <field name="analytics_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_request_products_tree">
+            <field name="context">{}</field>
+            <field name="name">Lineas Requisicion</field>
+            <field name="res_model">request.product</field>
+            <field name="view_id" ref="request_products_tree"/>
+        </record>
+
+    </data>
+</openerp>

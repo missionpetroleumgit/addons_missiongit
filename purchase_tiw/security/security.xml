@@ -1,0 +1,74 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data>
+        <record model="res.groups" id="group_general_manager_app">
+            <field name="name">Gerente General</field>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+        <record model="res.groups" id="group_approv_prep_order">
+            <field name="name">Aprobacion de Presupuesto</field>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+        <record model="res.groups" id="group_confirm_order">
+            <field name="name">Confirmar orden de compra</field>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+        <record model="res.groups" id="group_general_area_app">
+            <field name="name">Gerente de Area</field>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+
+        <!-- O2SGH: 17-05-2017, Nuevos menus TIW-->
+        <record model="res.groups" id="group_req_finances">
+            <field name="name">Solicitar Presupuesto</field>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+
+        <record model="res.groups" id="group_quote_previus_control">
+            <field name="name">Controller</field>
+            <field name="implied_ids" eval="[(4, ref('purchase_tiw.group_approv_prep_order')),(4, ref('purchase_tiw.group_general_manager_app'))]"/>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+
+        <record model="res.groups" id="group_seleccionar_ganadoras_app">
+            <field name="name">Seleccionar Ganadoras</field>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+
+        <record id="group_purchase_manager_tiw" model="res.groups">
+            <field name="name">Confirmar Requisicion Procura</field>
+            <field name="comment">Purchase</field>
+        </record>
+
+        <record id="group_purchase_manager_approve_procura" model="res.groups">
+            <field name="name">Aprobaciones Procura</field>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+
+        <record id="group_purchase_not_required_sale_order" model="res.groups">
+            <field name="name">Bodega transferencias internas (OS)</field>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+
+        <record model="res.groups" id="group_procura_orders_confirm">
+            <field name="name">Confirmacion OC Procura</field>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+
+        <record model="res.groups" id="group_procura_orders_creation">
+            <field name="name">Creacion OC Procura</field>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+
+        <record model="res.groups" id="group_procura_importation_confirm">
+            <field name="name">Confirmacion IMP Procura</field>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+
+        <record model="res.groups" id="group_procura_importation_creation">
+            <field name="name">Creacion IMP Procura</field>
+            <field name="category_id" ref="base.module_category_purchase_management"/>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,863 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* purchase_expense_distribution
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-07-02 19:35+0000\n"
+"PO-Revision-Date: 2014-07-02 21:42+0100\n"
+"Last-Translator: Joaquin Gutierrez <joaquing.pedrosa@gmail.com>\n"
+"Language-Team: \n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "(update)"
+msgstr "(Actualizar)"
+
+#. module: purchase_expense_distribution
+#: model:ir.actions.act_window,help:purchase_expense_distribution.action_purchase_cost_order
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"\t\t\t\t\tClick to create a draft purchase expenses order.\n"
+"\t\t\t\t</p>\n"
+"\t\t\t\t<p>\n"
+"\t\t\t\t\tUse this menu to control the cost of purchases by type de expense\n"
+"\t\t\t\t\tsuch as transport, insurance, freight customs, etc.\n"
+"\t\t\t\t</p>\n"
+"\t\t\t\t<p>\n"
+"\t\t\t\t\tYou can add one o more receipts which share the same expenses\n"
+"\t\t\t\t\tand update cost price of product.\n"
+"\t\t\t\t</p>\n"
+"\t\t\t"
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"\t\t\t\t\tHaz clic para crear ordenes de gastos de compras.\n"
+"\t\t\t\t</p>\n"
+"\t\t\t\t<p>\n"
+"\t\t\t\t\tPodrás controlar los gastos de tus compras por tipo de gasto\n"
+"\t\t\t\t\tcomo transporte, seguros, fletes, aduana, etc.\n"
+"\t\t\t\t</p>\n"
+"\t\t\t\t<p>\n"
+"\t\t\t\t\tPuedes agregar a la orden uno o varios albaranes de entrada para el reparto de gastos\n"
+"\t\t\t\t\ty actualizar desde la misma el precio de coste de los productos.\n"
+"\t\t\t\t</p>\n"
+"\t\t\t"
+
+#. module: purchase_expense_distribution
+#: model:ir.actions.act_window,help:purchase_expense_distribution.action_purchase_cost_expense_types
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"\t\t\t\t\tClick to create expenses types.\n"
+"\t\t\t\t</p>\n"
+"\t\t\t\t<p>\n"
+"\t\t\t\t\tUse this menu to create types of purchase expenses.\n"
+"\t\t\t\t\tThe types marked by default will be added to the order\n"
+"\t\t\t\t\tautomatically.\n"
+"\t\t\t\t</p>\n"
+"\t\t\t\t<p>\n"
+"\t\t\t\t\tDefine the data type of purchase expense used for\n"
+"\t\t\t\t\tcalculate the distribution between lines.\n"
+"\t\t\t\t</p>\n"
+"\t\t\t"
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"\t\t\t\t\tHaz clic para agregar tipos de gastos a las ordenes.\n"
+"\t\t\t\t</p>\n"
+"\t\t\t\t<p>\n"
+"\t\t\t\t\tUsa este menu para crear tipos de gastos de compras.\n"
+"\t\t\t\t\tLos tipos de gastos marcados como \"por defecto\" se agregan\n"
+"\t\t\t\t\ta la orden de forma automatica.\n"
+"\t\t\t\t</p>\n"
+"\t\t\t\t<p>\n"
+"\t\t\t\t\tDefine para cada tipo de gastos un tipo de reparto del mismo\n"
+"\t\t\t\t\teste, sera calculado y repartido por todas las lineas de la orden.\n"
+"\t\t\t\t</p>\n"
+"\t\t\t"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,amount:0
+msgid "Amount Line"
+msgstr "Total Linea"
+
+#. module: purchase_expense_distribution
+#: selection:purchase.cost.expense.type,calculation_method:0
+msgid "Amount line"
+msgstr "Total Linea"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.wizard:0
+msgid "Back"
+msgstr "Atrás"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "Calculate"
+msgstr "Calcular"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "Calculated Cost"
+msgstr "Costo Calculado"
+
+#. module: purchase_expense_distribution
+#: selection:purchase.cost.order.log,state:0
+msgid "Calculation Done"
+msgstr "Calculos Correctos"
+
+#. module: purchase_expense_distribution
+#: selection:purchase.cost.order.log,state:0
+msgid "Calculation Error"
+msgstr "Error Calculos"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.expense.type,calculation_method:0
+msgid "Calculation Method"
+msgstr "Metodo Calculo"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:631
+#, python-format
+msgid "Calculation is Done"
+msgstr "Calculo Correcto"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+#: selection:purchase.cost.order,state:0
+#: view:purchase.cost.wizard:0
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.expense.type,company_id:0
+#: field:purchase.cost.order,company_id:0
+#: field:purchase.cost.order.line,company_id:0
+msgid "Company"
+msgstr "Compañia"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.wizard:0
+msgid "Copy"
+msgstr "Copiar"
+
+#. module: purchase_expense_distribution
+#: model:ir.actions.act_window,name:purchase_expense_distribution.action_purchase_cost_wizard_open
+#: view:purchase.cost.order:0
+msgid "Copy Incoming Shipments"
+msgstr "Copiar Albaran de entrada"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,standard_price_old:0
+msgid "Cost"
+msgstr "Coste"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,expense_amount:0
+msgid "Cost Amount"
+msgstr "Coste Linea"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line.expense,cost_ratio:0
+msgid "Cost Amount for Product"
+msgstr "Gasto Producto"
+
+#. module: purchase_expense_distribution
+#: model:ir.actions.act_window,name:purchase_expense_distribution.action_purchase_cost_order
+#: model:ir.ui.menu,name:purchase_expense_distribution.menu_purchase_cost_orders
+msgid "Cost Distribution Orders"
+msgstr "Ordenes de Costes"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order,expense_line:0
+msgid "Cost Distributions"
+msgstr "Cost Distributions"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.expense.type,note:0
+msgid "Cost Documentation"
+msgstr "Documentación adicional"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "Cost Line Expenses"
+msgstr "Cost Line Expenses"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.expense,order_id:0
+#: field:purchase.cost.order.line,order_id:0
+#: field:purchase.cost.order.log,order_id:0
+msgid "Cost Order"
+msgstr "Orden de Costo"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line.expense,order_line_id:0
+msgid "Cost Order Line"
+msgstr "Linea Orden de Costo"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,cost_ratio:0
+msgid "Cost Ratio"
+msgstr "Coste Producto"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order,cost_update_type:0
+msgid "Cost Update Type"
+msgstr "Tipo de actualizacion de Coste"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order,currency_id:0
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order,date_order:0
+#: field:purchase.cost.order.log,date_log:0
+msgid "Date"
+msgstr "Fecha"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.expense.type,default_expense:0
+msgid "Default Expense"
+msgstr "Gasto por Defecto"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,name:0
+#: field:purchase.cost.order.log,lognote:0
+msgid "Description"
+msgstr "Descripción"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.expense.type:0
+msgid "Description for this expense..."
+msgstr "Descripción para este gasto"
+
+#. module: purchase_expense_distribution
+#: selection:purchase.cost.order,cost_update_type:0
+msgid "Direct Update"
+msgstr "Actualizacion Directa"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order,note:0
+msgid "Documentation for this order"
+msgstr "Documentacion de esta Orden"
+
+#. module: purchase_expense_distribution
+#: selection:purchase.cost.order,state:0
+#: selection:purchase.cost.wizard,state:0
+msgid "Done"
+msgstr "Realizado"
+
+#. module: purchase_expense_distribution
+#: selection:purchase.cost.order,state:0
+msgid "Draft Order"
+msgstr "Borrador"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:452
+#, python-format
+msgid "ERROR EXPENSE!"
+msgstr "ERROR EN GASTO!"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:459
+#, python-format
+msgid "ERROR NOT LINES!"
+msgstr "ERROR SIN LINEAS!"
+
+#. module: purchase_expense_distribution
+#: selection:purchase.cost.expense.type,calculation_method:0
+msgid "Equal to"
+msgstr "Equitativo por Linea"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/wizard/purchase_expense_distribution_wizard.py:108
+#: selection:purchase.cost.order,state:0
+#, python-format
+msgid "Error"
+msgstr "Error"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order,expense_amount:0
+#: field:purchase.cost.order.expense,expense_amount:0
+msgid "Expense Amount"
+msgstr "Total Gastos"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line.expense,expense_amount:0
+msgid "Expense Amount Type Line"
+msgstr "Gasto de Linea"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.expense,type_id:0
+#: field:purchase.cost.order.line.expense,type_id:0
+msgid "Expense Type"
+msgstr "Tipo Gasto"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line.expense,expense_id:0
+msgid "Expenses Distribution Line"
+msgstr "Expenses Distribution Line"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,expense_line:0
+msgid "Expenses Distribution line"
+msgstr "Expenses Distribution line"
+
+#. module: purchase_expense_distribution
+#: model:ir.actions.act_window,name:purchase_expense_distribution.action_purchase_cost_expense_types
+#: model:ir.ui.menu,name:purchase_expense_distribution.menu_purchase_cost_expenses_types
+msgid "Expenses Types"
+msgstr "Tipos de Gastos"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,product_weight:0
+msgid "Gross Weight"
+msgstr "Peso bruto (Kgr)"
+
+#. module: purchase_expense_distribution
+#: code:_description:0
+#: model:ir.model,name:purchase_expense_distribution.model_purchase_cost_wizard
+#, python-format
+msgid "Import incoming shipments"
+msgstr "Copiar Albaranes de entrada"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:393
+#, python-format
+msgid "In order to delete a confirmed cost order!"
+msgstr "Intenta borrar una orden de coste confirmada!"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.wizard,picking_id:0
+msgid "Incoming Shipments"
+msgstr "Albaranes de entrada"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:76
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:392
+#, python-format
+msgid "Invalid Action!"
+msgstr "¡Acción no válida!"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,amount_weight:0
+msgid "Line Gross Weight"
+msgstr "Peso bruto Linea (Kgr)"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,amount_weight_net:0
+msgid "Line Net Weight"
+msgstr "Peso neto Linea (Kgr)"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,amount_volume:0
+msgid "Line Volume"
+msgstr "Volumen Linea"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order,log_line:0
+msgid "Log Lines"
+msgstr "Líneas de registro"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "Log Process"
+msgstr "Lineas de proceso"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order,lognote:0
+msgid "Log process for this order"
+msgstr "Lineas de proceso para esta orden"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:707
+#, python-format
+msgid "Missing product price in line %s product %s.\n"
+msgstr "Falta el precio de producto en la linea %s producto %s.\n"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:720
+#, python-format
+msgid "Missing product qty in line %s product %s.\n"
+msgstr "Falta cantidad de producto en la linea %s producto %s.\n"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:759
+#, python-format
+msgid "Missing product volume in line Id %s product %s.\n"
+msgstr "Falta el volumen de producto en la linea %s producto %s.\n"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:733
+#, python-format
+msgid "Missing product weight in line %s product %s.\n"
+msgstr "Falta el peso bruto del producto en la linea %s producto %s.\n"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:746
+#, python-format
+msgid "Missing product weight net in line %s product %s.\n"
+msgstr "Falta el peso neto del producto en la linea %s producto %s.\n"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:687
+#, python-format
+msgid "Missing total expense amount.\n"
+msgstr "Falta el total de gasto de la orden.\n"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:697
+#, python-format
+msgid "Missing total in line %s product %s.\n"
+msgstr "Falta el importe total de la linea %s producto %s.\n"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:681
+#, python-format
+msgid "Missing total purchase amount.\n"
+msgstr "Falta el importe total de la compra.\n"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:684
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:713
+#, python-format
+msgid "Missing total purchase qty.\n"
+msgstr "Falta la cantidad de unidades totales compradas.\n"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:752
+#, python-format
+msgid "Missing total purchase volume.\n"
+msgstr "Falta el volumen total de las compras.\n"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:739
+#, python-format
+msgid "Missing total purchase weight net.\n"
+msgstr "Falta el peso neto total de las compras.\n"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:726
+#, python-format
+msgid "Missing total purchase weight.\n"
+msgstr "Falta el peso bruto total de las compras.\n"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.expense.type,name:0
+#: field:purchase.cost.order,name:0
+#: field:purchase.cost.order.log,name:0
+msgid "Name"
+msgstr "Nombre"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,product_weight_net:0
+msgid "Net Weight"
+msgstr "Peso neto (Kgr)"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,standard_price_new:0
+msgid "New Cost"
+msgstr "Nuevo Costo"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:460
+#, python-format
+msgid "No shipping lines in this order"
+msgstr "No se han añadido líneas en esta orden."
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order.log:0
+msgid "Notes"
+msgstr "Notas"
+
+#. module: purchase_expense_distribution
+#: selection:purchase.cost.order,state:0
+msgid "Order Calculated"
+msgstr "Calculado"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order,weight:0
+msgid "Order Gross Weight"
+msgstr "Peso bruto (Kgr)"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order,cost_line:0
+msgid "Order Lines"
+msgstr "Lineas de Orden"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order,weight_net:0
+msgid "Order Net Weight"
+msgstr "Peso neto (Kgr)"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "Order Number"
+msgstr "Numero"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order,uom_qty:0
+msgid "Order Quantity"
+msgstr "Cantidad"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order,volume:0
+msgid "Order Volume"
+msgstr "Volumen"
+
+#. module: purchase_expense_distribution
+#: selection:purchase.cost.order.log,state:0
+msgid "Order return in Draft"
+msgstr "Orden cambiada a Borrador"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,picking_id:0
+msgid "Picking"
+msgstr "Albaran"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,move_line_id:0
+msgid "Picking Line"
+msgstr "Linea Albaran"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:453
+#, python-format
+msgid "Please enter amount for this expense: \"%s\" (amount:%d)"
+msgstr "Por favor introduzca un importe para este gasto: \"%s\" (amount:%d)"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:431
+#, python-format
+msgid "Please select Supplier"
+msgstr "Por favor seleccione un proveedor"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/wizard/purchase_expense_distribution_wizard.py:109
+#, python-format
+msgid "Please select incoming shippment"
+msgstr "Por favor seleccione un albaran de entrada"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,product_id:0
+msgid "Product"
+msgstr "Producto"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "Product Information"
+msgstr "Información de producto"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,product_uos:0
+msgid "Product UOS"
+msgstr "Producto UOS"
+
+#. module: purchase_expense_distribution
+#: selection:purchase.cost.expense.type,calculation_method:0
+msgid "Product Volume"
+msgstr "Producto Volumen"
+
+#. module: purchase_expense_distribution
+#: selection:purchase.cost.expense.type,calculation_method:0
+msgid "Product price"
+msgstr "Producto Precio"
+
+#. module: purchase_expense_distribution
+#: selection:purchase.cost.expense.type,calculation_method:0
+msgid "Product quantity"
+msgstr "Producto Cantidad"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order,product_price_amount:0
+msgid "Product unit amount"
+msgstr "Producto Precio/Unidad"
+
+#. module: purchase_expense_distribution
+#: selection:purchase.cost.expense.type,calculation_method:0
+msgid "Product weight"
+msgstr "Producto Peso Bruto"
+
+#. module: purchase_expense_distribution
+#: selection:purchase.cost.expense.type,calculation_method:0
+msgid "Product weight net"
+msgstr "Producto Peso Neto"
+
+#. module: purchase_expense_distribution
+#: model:ir.ui.menu,name:purchase_expense_distribution.menu_purchase_cost_control
+msgid "Purchase Cost Distribution"
+msgstr "Distribucion Gasto Compras"
+
+#. module: purchase_expense_distribution
+#: code:_description:0
+#: model:ir.model,name:purchase_expense_distribution.model_purchase_cost_order_expense
+#, python-format
+msgid "Purchase Cost Expenses"
+msgstr "Gastos de Compra"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "Purchase Cost Line"
+msgstr "Linea Coste Compra"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "Purchase Cost Line Information"
+msgstr "Informacion Linea de Compra"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "Purchase Cost Lines"
+msgstr "Lineas de Compra"
+
+#. module: purchase_expense_distribution
+#: code:_description:0
+#: code:addons/purchase_expense_distribution/wizard/purchase_expense_distribution_wizard.py:122
+#: model:ir.model,name:purchase_expense_distribution.model_purchase_cost_order
+#: view:purchase.cost.order:0
+#, python-format
+msgid "Purchase Cost Order"
+msgstr "Orden de Gasto de Compra"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "Purchase Cost Order "
+msgstr "Orden de Gasto de Compra"
+
+#. module: purchase_expense_distribution
+#: code:_description:0
+#: model:ir.model,name:purchase_expense_distribution.model_purchase_cost_order_line
+#, python-format
+msgid "Purchase Cost Order Line"
+msgstr "Linea de Gasto de Compra"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "Purchase Cost Order Lines"
+msgstr "Lineas Orden de Coste"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "Purchase Cost Orders"
+msgstr "Ordenes Coste de Compra"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "Purchase Expenses Distribution"
+msgstr "Gastos"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "Purchase Expenses Distribution Order"
+msgstr "Gastos de la Orden"
+
+#. module: purchase_expense_distribution
+#: code:_description:0
+#: model:ir.model,name:purchase_expense_distribution.model_purchase_cost_order_line_expense
+#, python-format
+msgid "Purchase Expenses Order Line Distribution"
+msgstr "Lineas de Distribucion de Gasto"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "Purchase Expenses Order documentation..."
+msgstr "Documentacion de la Orden de Coste de Compras..."
+
+#. module: purchase_expense_distribution
+#: code:_description:0
+#: model:ir.model,name:purchase_expense_distribution.model_purchase_cost_expense_type
+#: view:purchase.cost.expense.type:0
+#, python-format
+msgid "Purchase Expenses Types"
+msgstr "Tipos de Gastos de Compras"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "Purchase Information"
+msgstr "Informacion de Compra"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,purchase_id:0
+msgid "Purchase Order"
+msgstr "Pedido de Compra"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+#: view:purchase.cost.order.log:0
+msgid "Purchase Order Calculation Log"
+msgstr "Log de proceso"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order.expense:0
+msgid "Purchase Order Expense"
+msgstr "Gasto Pedido Compra"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,purchase_line_id:0
+msgid "Purchase Order Line"
+msgstr "Linea Pedido Compra"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order,purchase_amount:0
+msgid "Purchase Total"
+msgstr "Importe Compra"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,product_qty:0
+msgid "Quantity"
+msgstr "Cantidad"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,product_uos_qty:0
+msgid "Quantity (UOS)"
+msgstr "Cantidad (UOS)"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.expense.type,ref:0
+#: field:purchase.cost.order,ref:0
+msgid "Reference"
+msgstr "Referencia"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.wizard:0
+msgid "Select Incoming Shipments Wizard"
+msgstr "Asistente para seleccionar albaranes de entrada"
+
+#. module: purchase_expense_distribution
+#: help:purchase.cost.expense.type,default_expense:0
+msgid "Specify if the expense can be automatic selected in a purchase cost order."
+msgstr "Especifica si el gasto sera agregado automáticamente a la orden de gasto de compras."
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order,state:0
+#: field:purchase.cost.order.log,state:0
+#: field:purchase.cost.wizard,state:0
+msgid "Status"
+msgstr "Estado"
+
+#. module: purchase_expense_distribution
+#: selection:purchase.cost.wizard,state:0
+msgid "Step 1"
+msgstr "Paso 1"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.wizard:0
+#: selection:purchase.cost.wizard,state:0
+msgid "Step 2"
+msgstr "Paso 2"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,partner_id:0
+#: field:purchase.cost.wizard,partner_id:0
+msgid "Supplier"
+msgstr "Proveedor"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:796
+#, python-format
+msgid "The Order has been changed from Calculated to Draft by the action of cancel button"
+msgstr "La orden ha cambiado de Calculada a Borrador por la accion del boton Cancel"
+
+#. module: purchase_expense_distribution
+#: help:purchase.cost.order,weight:0
+#: help:purchase.cost.order.line,product_weight:0
+msgid "The gross weight in Kg."
+msgstr "Peso bruto en (Kgr)."
+
+#. module: purchase_expense_distribution
+#: help:purchase.cost.order.line,amount_weight:0
+msgid "The line gross weight in Kg."
+msgstr "El Peso bruto de la linea en (Kgr)"
+
+#. module: purchase_expense_distribution
+#: help:purchase.cost.order.line,amount_weight_net:0
+msgid "The line net weight in Kg."
+msgstr "El Peso neto de la Linea en (Kgr)."
+
+#. module: purchase_expense_distribution
+#: help:purchase.cost.order.line,amount_volume:0
+msgid "The line volume in m3."
+msgstr "El volumen de la linea en m3."
+
+#. module: purchase_expense_distribution
+#: help:purchase.cost.order,weight_net:0
+#: help:purchase.cost.order.line,product_weight_net:0
+msgid "The net weight in Kg."
+msgstr "El peso neto en (Kgr)."
+
+#. module: purchase_expense_distribution
+#: help:purchase.cost.order,currency_id:0
+msgid "The optional other currency if it is a multi-currency entry."
+msgstr "La otra divisa opcional si es un asiento multi-divisa."
+
+#. module: purchase_expense_distribution
+#: help:purchase.cost.order,volume:0
+#: help:purchase.cost.order.line,product_volume:0
+msgid "The volume in m3."
+msgstr "El volumen en m3."
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order,amount_total:0
+msgid "Total"
+msgstr "Total"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "Total Expenses"
+msgstr "Total Gastos"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,product_price_unit:0
+msgid "Unit Price"
+msgstr "Precio Unidad"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,product_uom:0
+msgid "Unit of Measure"
+msgstr "Unidad de Medida"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "Update Cost"
+msgstr "Actualizar Costes"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:664
+#, python-format
+msgid "Update Cost price of products is Done"
+msgstr "La actualizacion del precio de coste de los productos ha sido correcta"
+
+#. module: purchase_expense_distribution
+#: selection:purchase.cost.order.log,state:0
+msgid "Update products cost Done"
+msgstr "Precio de coste de los productos actualizado"
+
+#. module: purchase_expense_distribution
+#: field:purchase.cost.order.line,product_volume:0
+msgid "Volume"
+msgstr "Volumen"
+
+#. module: purchase_expense_distribution
+#: view:purchase.cost.order:0
+msgid "Warehouse Information"
+msgstr "Informacion Almacen"
+
+#. module: purchase_expense_distribution
+#: code:addons/purchase_expense_distribution/purchase_expense_distribution.py:76
+#, python-format
+msgid "You can not delete expense type, is being used!"
+msgstr "No puede borrar este tipo de gastos, se esta usando!"
+
+#. module: purchase_expense_distribution
+#: code:_description:0
+#: model:ir.model,name:purchase_expense_distribution.model_purchase_cost_order_log
+#, python-format
+msgid "purchase.cost.order.log"
+msgstr "purchase.cost.order.log"
+

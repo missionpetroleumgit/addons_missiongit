@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+		<record id="view_product_add_manufacturing_form" model="ir.ui.view">
+			<field name="name">product.add.manufacturing</field>
+			<field name="model">product.product</field>
+			<field name="inherit_id" ref="product.product_normal_form_view"/>
+			<field name="arch" type="xml">
+				<field name="attribute_value_ids" position="after">
+					<label for="is_production" />
+					<field name="is_production" />
+					<label for="is_insumo" />
+					<field name="is_insumo" />
+					<label for="with_process" />
+					<field name="with_process"/>
+				</field>
+				<notebook position="inside" >
+					<page string="Produccion" attrs="{'invisible':[('is_production','!=',True)]}">
+						<group attrs="{'invisible':[('is_production','!=',True)]}">
+							<field name="peso_prod" attrs="{'required': [('is_production', '=', True)]}"/>
+							<field name="account_final_prod" attrs="{'required': [('is_production', '=', True)]}"/>
+							<field name="account_trasi_prod" attrs="{'invisible':['|', ('with_process','!=',True)], 'required':[('with_process', '=', True)]}"/>
+						</group>
+					</page>
+					<page string="Insumo" attrs="{'invisible':[('is_insumo','!=',True)]}">
+						<group attrs="{'invisible':[('is_insumo','!=',True)]}">
+							<field name="account_stock_prod" attrs="{'required': [('is_insumo', '=', True)]}"/>
+							<field name="account_trasi_prod" attrs="{'invisible':['|', ('with_process','!=',True)], 'required':[('with_process', '=', True)]}"/>
+						</group>
+					</page>
+				</notebook>
+			</field>
+		</record>
+	</data>
+</openerp>

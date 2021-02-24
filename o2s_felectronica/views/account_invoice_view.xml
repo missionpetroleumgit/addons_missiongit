@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+
+		<record id="view_account_fact_elect_form" model="ir.ui.view">
+			<field name="name">account.fact.elect.form</field>
+			<field name="type">form</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_supplier_form" />
+			<field name="priority">3</field>
+			<field name="arch" type="xml">
+				<notebook position="inside">
+					<page string="F Electronica">
+						<separator colspan="4" string="Facturacion Electronica"/>
+						<group colspan='2'>
+							<field name="tipo_comp" />
+							<field name="date_emision"/>
+							<field name="state_factelectro" />
+							<field name="por_iva" />
+						</group>
+                        <group col='4' colspan='4' attrs="{'invisible':['|', ('type','=','out_invoice'), ('document_type', '!=', 68)]}">
+							<separator colspan="4" string="Datos Liquidacion" />
+                            <field name="liquidation_authorization" />
+							<field name="date_aut" />
+							<group col='4' colspan='4' attrs="{'invisible':[('state_factelectro','=','autorizado')]}">
+								<separator colspan="4" string="Pedir autorizacion" />
+								<button name="%(action_purchase_clearance_file)d" type='action' string='Liquidacion SRI' states='open,paid' icon="gtk-convert"/>
+							</group>
+						</group>
+						<group col='4' colspan='4' attrs="{'invisible':['|', ('type','=','in_invoice'), ('document_type', '=', 68)]}">
+							<field name="num_autoelectronica" />
+							<field name="date_aut" />
+							<group col='4' colspan='4' attrs="{'invisible':[('state_factelectro','=','autorizado')]}">
+								<separator colspan="4" string="Pedir Autorizacion" />
+								<button name="%(action_retention_electronica_file)d" type='action' string='C. Retencion SRI' states='open' icon="gtk-convert"/>
+							</group>
+						</group>
+						<group col='4' colspan='4' attrs="{'invisible':['|', ('type','=','in_refund'), ('document_type', '=', 68)]}">
+							<separator colspan="4" string="Datos Retencion" />
+							<field name="num_autoreten" />
+							<field name="date_aut_ret" />
+							<group col='4' colspan='4' attrs="{'invisible':[('state_factelectro','=','autorizado')]}">
+								<separator colspan="4" string="Pedir Autorizacion" />
+								<button name="%(action_retention_electronica_file)d" type='action' string='C. Retencion SRI' states='open' icon="gtk-convert"/>
+							</group>
+						</group>
+						<group col='4' colspan='4' attrs="{'invisible':['|', ('type','=','in_refund'), ('document_type', '=', 68)]}">
+							<group col='4' colspan='4' attrs="{'invisible':[('state_factelectro','=','pendiente')]}">
+								<separator colspan="4" string="Enviar Comprobante al Mail" />
+								<button name="action_retention_sent_elect" type="object" string="Enviar Retencion Mail" class="oe_highlight" groups="base.group_user"/>
+							</group>
+						</group>
+						<group col='4' colspan='4' attrs="{'invisible':['|', ('type','=','in_invoice'), ('document_type', '=', 68)]}">
+							<group col='4' colspan='4' attrs="{'invisible':[('state_factelectro','=','pendiente')]}">
+								<separator colspan="4" string="Enviar Comprobante al Mail" />
+								<button name="action_retention_sent_elect" type="object" string="Enviar Retencion Mail" />
+							</group>
+						</group>
+						<newline/>
+						<field colspan="4" name="factuele_id" nolabel="1">
+							<form string="Facturacion Electronica">
+								<group col="4" colspan="4">
+									<separator string="Facturacion Electronica" colspan="4"/>
+									<field name="name" />
+									<field name="clave_acceso" />
+									<field name="contingencia" />
+									<field name="clave_contingencia" attrs="{'required':[('contingencia','=',True)]}"/>
+									<field name="cod_comprobante" />
+									<field name="note" />
+								</group>
+							</form>
+							<tree string="Facturacion Electronica" editable="button">
+								<field name="name" />
+								<field name="clave_acceso" />
+								<field name="contingencia" />
+								<field name="clave_contingencia" />
+								<field name="cod_comprobante" />
+							</tree>
+						</field>
+						<newline/>
+						<group col='4' colspan='4'>
+							<field name="inf_electronica" />
+						</group>
+					</page>
+				</notebook>
+			</field>
+		</record>
+
+		<record id="view_account_fact_elect_client_form" model="ir.ui.view">
+			<field name="name">account.fact.elect.client.form</field>
+			<field name="type">form</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_form" />
+			<field name="priority">5</field>
+			<field name="arch" type="xml">
+				<notebook position="inside" >
+					<page string="F Electronica">
+						<separator colspan="4" string="Facturacion Electronica"/>
+						<group colspan='2'>
+							<field name="tipo_comp" />
+							<field name="date_emision"/>
+							<field name="num_autoelectronica" />
+							<field name="state_factelectro"/>
+							<field name="date_aut" />
+							<field name="por_iva" />
+						</group>
+						<group col='4' colspan='4' attrs="{'invisible':[('state_factelectro','=','autorizado')]}">
+							<separator colspan="4" string="Pedir Autorizacion" />
+							<button name="%(action_factura_electronica_file)d" type='action' string='Factura SRI' states='open' icon="gtk-convert"/>
+						</group>
+						<group col='4' colspan='4' attrs="{'invisible':[('state_factelectro','=','pendiente')]}">
+							<separator colspan="4" string="Enviar Comprobante al Mail" />
+							<button name="action_invoice_sent_elect" type="object" string="Enviar Comprobante Mail" attrs="{'invisible':['|',('sent','=',True), ('state', '!=', 'open')]}" class="oe_highlight" groups="base.group_user"/>
+						</group>
+						<newline/>
+						<field colspan="4" name="factuele_id" nolabel="1">
+							<form string="Facturacion Electronica">
+								<group col="4" colspan="4">
+									<separator string="Facturacion Electronica" colspan="4"/>
+									<field name="name" />
+									<field name="clave_acceso" />
+									<field name="contingencia" />
+									<field name="clave_contingencia" attrs="{'required':[('contingencia','=',True)]}"/>
+									<field name="cod_comprobante" />
+									<field name="note" />
+								</group>
+							</form>
+							<tree string="Facturacion Electronica"  editable="button">
+								<field name="name" />
+								<field name="clave_acceso" />
+								<field name="contingencia" />
+								<field name="clave_contingencia" />
+								<field name="cod_comprobante" />
+							</tree>
+						</field>
+						<newline/>
+						<group col='4' colspan='4'>
+							<field name="inf_electronica" />
+						</group>
+					</page>
+				</notebook>
+			</field>
+		</record>
+
+		<!--CSV:06-02-2018:AUMENTO PARA ENVIO FACTURAS MASIVO EMAIL-->
+		<record id="action_invoice_felectronica_email" model="ir.actions.server">
+			<field name="name">Enviar Factura Email</field>
+			<field name="type">ir.actions.server</field>
+			<field name="model_id" ref="o2s_felectronica.model_account_invoice"/>
+			<field name="state">code</field>
+			<field name="code">self.action_invoice_sent_elect_masivo(cr, uid, context.get('active_ids'), context=context)</field>
+		</record>
+
+		<record id="value_id_name_email" model="ir.values">
+			<field name="name">Enviar Factura Email</field>
+			<field name="action_id" ref="action_invoice_felectronica_email"/>
+			<field name="value" eval="'ir.actions.server,' + str(ref('action_invoice_felectronica_email'))"/>
+			<field name="key">action</field>
+			<field name="model_id" ref="o2s_felectronica.model_account_invoice"/>
+			<field name="model">account.invoice</field>
+			<field name="key2">client_action_multi</field>
+		</record>
+
+		<!--CSV:06-02-2018:AUMENTO PARA ENVIO RETENCION MASIVO EMAIL-->
+		<record id="action_retention_felectronica_email" model="ir.actions.server">
+			<field name="name">Enviar Retencion Email</field>
+			<field name="type">ir.actions.server</field>
+			<field name="model_id" ref="o2s_felectronica.model_account_invoice"/>
+			<field name="state">code</field>
+			<field name="code">self.action_retention_sent_elect_masivo(cr, uid, context.get('active_ids'), context=context)</field>
+		</record>
+
+		<record id="value_id_name_retemail" model="ir.values">
+			<field name="name">Enviar Retencion Email</field>
+			<field name="action_id" ref="action_retention_felectronica_email"/>
+			<field name="value" eval="'ir.actions.server,' + str(ref('action_retention_felectronica_email'))"/>
+			<field name="key">action</field>
+			<field name="model_id" ref="o2s_felectronica.model_account_invoice"/>
+			<field name="model">account.invoice</field>
+			<field name="key2">client_action_multi</field>
+		</record>
+		<!--
+          CSV:07-06-2017: aumento estado electronico
+        -->
+
+		<record id="view_invoice_tree_add_state_elect" model="ir.ui.view">
+			<field name="name">Account Invoice - Add state_elect on tree</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_tree"/>
+			<field name="arch" type="xml">
+				<field name="state" position="after">
+					<field name="state_factelectro" string="E.Electronico"/>
+					<field name="sent" string="Enviada Correo"/>
+				</field>
+			</field>
+		</record>
+
+		<record id="view_invoice_form_add_importacion" model="ir.ui.view">
+			<field name="name">Account Invoice - Add importacion on form</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="account.invoice_supplier_form"/>
+			<field name="arch" type="xml">
+				<field name="reference" position="after">
+					<label for="is_importa" string="Importacion"/>
+					<field name="is_importa" string="Importacion"/>
+				</field>
+			</field>
+		</record>
+
+	</data>
+</openerp>

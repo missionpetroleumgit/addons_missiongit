@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+  <data>
+
+    <report auto="False"
+	    id="account_retentionfe"
+	    model="account.invoice"
+	    name="account.retentionfe"
+	    rml="o2s_felectronica/report/account_retention.rml"
+	    string="Comprobante de Retencion FE"
+	    header="False"
+       />
+       
+       
+      <report auto="False"
+	    id="account_invoices_indfe"
+	model="account.invoice"
+	name="account.invoice.indfe"
+	rml="o2s_felectronica/report/invoice_ind.rml"
+	string="Facturas/NC Ventas FE"
+	header="False"
+        />
+
+
+      <report auto="False"
+	    id="guia_remision"
+	model="stock.picking"
+	name="guia.remision"
+	rml="o2s_felectronica/report/guia_remision.rml"
+	string="Guia Remision FE"
+	header="False"
+        />
+
+  </data>
+</openerp>

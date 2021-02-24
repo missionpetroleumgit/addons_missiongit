@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="validate_tenth_view" model="ir.ui.view">
+            <field name="name">validate.tenth.view</field>
+            <field name="model">validate.tenth</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Validar Décimos">
+                    <group colspan="4" col="4" >
+                        <field name="type" required="1"/>
+                        <field name="region" attrs="{'required': [('type', '=', 'dc4')],
+                        'readonly': [('type', '!=', 'dc4')]}"/>
+                        <field name="period_id" options="{'no_create': True}"
+                               attrs="{'required': [('type', '=', 'dc3')],
+                        'readonly': [('type', '!=', 'dc3')]}"/>
+                    </group>
+                    <button icon="gtk-ok" string="Validar" name="validate_tenth" type="object" class="oe_highlight"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="validate_tenth_view_action" model="ir.actions.act_window">
+            <field name="name">Validar</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">validate.tenth</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="validate_tenth_view"/>
+        </record>
+
+        <menuitem action="validate_tenth_view_action"
+                  name="Validar Décimos"
+                  id="menu_validate_tenth"
+                  parent="hr_payroll.menu_hr_root_payroll"/>
+
+    </data>
+</openerp>

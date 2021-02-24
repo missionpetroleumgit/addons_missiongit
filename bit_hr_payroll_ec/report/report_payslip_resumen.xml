@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_payslip_resumen">
+    <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+                <div class="page">
+                  <div style="position:absolute;top:0px;width:98%;">
+                    <table class="table table-condensed table-bordered">
+                        <tr>
+                            <td align="center"><img t-if="company.logo" t-att-src="'data:image/png;base64,%s' % company.logo" style="max-height:80px"/></td>
+                            <td align="center"><strong><h3><span t-field="o.company_id.name"/></h3></strong> <h4>Rol de Pago <span t-field="o.date_from" t-field-options='{"format": "MMMM y"}'/></h4></td>
+                        </tr>
+        			</table>
+                </div>
+
+                <div style="position:absolute;top:100px;width:98%;">
+                    <table class="table table-condensed table-bordered">
+                        <tr>
+                            <td><strong>Nombre</strong></td>
+                            <td><span t-field="o.employee_id"/></td>
+                            <td><strong>Cédula</strong></td>
+                            <td><span t-field="o.employee_id.identification_id"/></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cargo</strong></td>
+                            <td><span t-field="o.employee_id.job_id"/></td>
+                            <td><strong>Sueldo</strong></td>
+                            <td><span t-field="o.contract_id.wage"/></td>
+                        </tr>
+<!--Comentado fecha ingreso y proyecto y las horas extras Daniel Aldaz O2S 10042017-->
+                        <!--<tr>
+                            <td><strong>Sueldo Referencia</strong></td>
+                            <td><span t-field="o.contract_id.wage"/></td>
+                            <td><strong>Proyecto</strong></td>
+                            <td><span t-esc="get_analytics(o.contract_id)"/></td>
+                        </tr>-->
+                    </table>
+                </div>
+
+                <div style="position:absolute;top:210px;width:98%;">                   
+                    <table class="table table-condensed">
+                        <tbody>
+                           <tr>
+                                   <td align="center"><strong>Ingresos</strong></td>
+                                   <td align="center"><strong>Egresos</strong></td>
+                           </tr>
+                           <tr>
+                                <td>
+                                        <table class="table table-condensed">
+                                        <tbody>
+                                            <tr t-foreach="o.details_by_salary_rule_category" t-as="d">
+                                                <td t-if="d.sequence &lt; 100 and d.sequence &gt; 0"><span t-field="d.name"/> <span t-if="d.code" t-esc="get_horas(d.slip_id.id, d.code)"/></td>
+                                                <td class="text-right" t-if="d.sequence &lt; 100 and d.sequence &gt;= 0"><span t-field="d.total"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                                <td>
+                                        <table class="table table-condensed">
+                                        <tbody>
+                                            <tr t-foreach="o.details_by_salary_rule_category" t-as="d">                                               
+                                                <td t-if="d.sequence &lt; 200 and d.sequence &gt;= 100"><span t-field="d.name"/></td>                                               
+                                                <td class="text-right" t-if="d.sequence &lt; 200 and d.sequence &gt;= 100"><span t-field="d.total"/></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>                               
+                           </tr>  
+                           <tr>
+                                   <td>
+                                        <table class="table table-condensed">
+                                        <tbody>
+                                            <tr t-foreach="o.details_by_salary_rule_category" t-as="d">                                              
+                                                <td t-if="d.code == 'SUBTING'"><strong class="title">TOTAL INGRESOS</strong></td>
+                                                <td class="text-right" t-if="d.code == 'SUBTING'"><strong class="title"><span t-field="d.total"/></strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                   </td>
+                                <td>
+                                        <table class="table table-condensed">
+                                        <tbody>
+                                            <tr t-foreach="o.details_by_salary_rule_category" t-as="d">                                               
+                                                <td t-if="d.code == 'SUBTEGR'"><strong class="title">TOTAL EGRESOS</strong></td>
+                                                <td class="text-right" t-if="d.code == 'SUBTEGR'"><strong class="title"><span t-field="d.total"/></strong></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                           </tr>  
+                           
+                           <!-- GH051115:  -->
+                           <tr t-foreach="o.details_by_salary_rule_category" t-as="d">
+	                           <td class="text-left" t-if="d.code == 'NR'">
+	                           Recibí conforme
+	                           </td>
+	                           <td class="text-right" t-if="d.code == 'NR'"><strong class="title">TOTAL A RECIBIR: <span t-field="d.total"/></strong>
+	                           </td>
+                           </tr>    
+                                             
+                        </tbody>
+
+                    </table>
+                </div>
+                </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

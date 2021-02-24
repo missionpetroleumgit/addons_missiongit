@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <record id="accounting_report_view2" model="ir.ui.view">
+            <field name="name">Accounting Report Extend</field>
+            <field name="model">accounting.report</field>
+            <field name="inherit_id" ref="account.account_common_report_view"/>
+            <field name="arch" type="xml">
+                <button name="check_report" position="replace">
+                    <button name="check_report2" string="Print" type="object" default_focus="1" class="oe_highlight" attrs="{'invisible':[('id','==',False)]}"/>
+                </button>
+                <button string="Cancel" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+                <field name="filter" position="after">
+                    <field name="type_export"/>
+                    <field name="level_report"/>
+                    <field name="id" invisible="1"/>
+                </field>
+            </field>
+        </record>
+        <record id="account.action_account_report_bs" model="ir.actions.act_window">
+             <field name="name">Balance Sheet</field>
+             <field name="res_model">accounting.report</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">form</field>
+             <field name="view_id" ref="account.accounting_report_view"/>
+             <field name="target">current</field>
+             <field name="context" eval="{'default_account_report_id':ref('account.account_financial_report_balancesheet0')}"/>
+        </record>
+        <record id="action_account_report_pl2" model="ir.actions.act_window">
+             <field name="name">Estado de Resultados</field>
+             <field name="res_model">accounting.report</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">form</field>
+             <field name="view_id" ref="account.accounting_report_view"/>
+             <field name="target">current</field>
+             <field name="context" eval="{'default_account_report_id':ref('account.account_financial_report_profitandloss0')}"/>
+        </record>
+        <delete model="ir.actions.act_window" id="account.action_account_report_pl"/>
+        <menuitem icon="STOCK_PRINT" name="Estado de Resultados" action="action_account_report_pl2" id="menu_account_report_pl2" parent="account.final_accounting_reports"/>
+
+        <record id="account_report_balance_view2" model="ir.ui.view">
+          <field name="name">Trial Balance</field>
+          <field name="model">account.balance.report</field>
+          <field name="inherit_id" ref="account.account_report_balance_view" />
+          <field name="arch" type="xml">
+            <data>
+            <footer position="replace">
+                <footer>
+                    <button name="check_report" string="Print" type="object" default_focus="1" class="oe_highlight"/>
+                </footer>
+            </footer>
+            <button name="check_report" position="attributes">
+                <attribute name="attrs">{'invisible':[('id','==',False)]}</attribute>
+            </button>
+            <xpath expr="//field[@name='filter']" position="after">
+                <field name="type_export"/>
+                <field name="id" invisible="1"/>
+                <newline/>
+            </xpath>
+            </data>
+          </field>
+        </record>
+
+        <record id="account.action_account_balance_menu" model="ir.actions.act_window">
+            <field name="name">Trial Balance</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account.balance.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="account.account_report_balance_view"/>
+            <field name="target">current</field>
+        </record>
+
+        <record id="account_aged_balance_view2" model="ir.ui.view">
+            <field name="name">Aged Partner Balance</field>
+            <field name="model">account.aged.trial.balance</field>
+            <field name="inherit_id" ref="account.account_aged_balance_view" />
+            <field name="arch" type="xml">
+                <field name="target_move" position="after">
+                    <field name="type_export"/>
+                    <field name="id" invisible="1"/>
+                </field>
+                <footer position="replace">
+                    <footer>
+                        <button name="check_report" string="Print" type="object" default_focus="1" class="oe_highlight"/>
+                    </footer>
+                </footer>
+                <button name="check_report" position="attributes">
+                    <attribute name="attrs">{'invisible':[('id','==',False)]}</attribute>
+                </button>
+            </field>
+        </record>
+
+         <record id="account.action_account_aged_balance_view" model="ir.actions.act_window">
+             <field name="name">Aged Partner Balance</field>
+             <field name="res_model">account.aged.trial.balance</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">tree,form</field>
+             <field name="view_id" ref="account.account_aged_balance_view"/>
+             <field name="context">{}</field>
+             <field name="target">current</field>
+       </record>
+
+        <menuitem icon="STOCK_PRINT"
+            name="Aged Partner Balance"
+            action="account.action_account_aged_balance_view"
+            id="account.menu_aged_trial_balance"
+            parent="account.final_accounting_reports"/>
+
+    </data>
+</openerp>

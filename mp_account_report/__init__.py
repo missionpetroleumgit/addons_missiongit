@@ -1,0 +1,9 @@
+import sale_order_report
+import purchase_order_report
+import mp_account_invoice
+import mp_account_invoice_report
+import mp_purchase_order
+import mp_invoice_supplier_purchase_report
+import sale_invoice_report
+import sale_order_states_report
+import sale_margin_report

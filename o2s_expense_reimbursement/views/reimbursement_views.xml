@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<record id="view_reimbursement_form" model="ir.ui.view">
+			<field name="name">view.reimbursement.form</field>
+			<field name="model">reimbursement.account</field>
+			<field name="arch" type="xml">
+				<form string="Reembolso de Gasto">
+					<group>
+						<group >
+							<field name="journal_id" required="1"/>
+							<field name="document_type" required="1"/>
+							<field name="identification_type" required="1"/>
+							<field name="ident_refund" attrs="{'required': [('identification_type', '=', 'ced')],
+							 'invisible': [('identification_type', '!=', 'ced')]}"/>
+							<field name="ruc_ident_refund" attrs="{'required': [('identification_type', '=', 'ruc')],
+							'invisible': [('identification_type', '!=', 'ruc')]}"/>
+							<field name="pasport_ident_refund" attrs="{'invisible': [('identification_type', '!=', 'passport')]}"/>
+							<field name="date_refund"/>
+							<field name="account_reimbursement_id" invisible="1"/>
+						</group>
+						<group>
+							<field name="refund_number" required="1" style="width:50%"/>
+							<field name="refund_authorization" required="1" style="width:50%"/>
+							<group colspan="2" col="2">
+								<field name="est_refund" style="width:25%"/>
+								<field name="refund_series" style="width:25%"/>
+							</group>
+						</group>
+
+					</group>
+					<sheet string="Reembolso de Gasto">
+						<notebook>
+							<page string="Importes">
+								<group>
+									<field name="ice_amount" widget="monetary" style="width:18%"/>
+									<field name="refund_base_iva" widget="monetary" style="width:18%"/>
+									<field name="refund_iva" widget="monetary" style="width:18%"/>
+									<field name="refund_base_iva_cero" widget="monetary" style="width:18%"/>
+									<field name="active_refund_iva" widget="monetary" style="width:18%"/>
+									<field name="taxable_iva_exempt" widget="monetary" style="width:18%"/>
+									<field name="total_without_taxes" widget="monetary" style="width:18%"/>
+									<field name="refund_total_amount" widget="monetary" style="width:18%"/>
+								</group>
+							</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_reimbursement_tree" model="ir.ui.view">
+			<field name="name">view.reimbursement.tree</field>
+			<field name="model">reimbursement.account</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="journal_id"/>
+					<field name="document_type"/>
+					<field name="identification_type"/>
+					<field name="ident_refund"/>
+					<field name="date_refund"/>
+					<field name="refund_number"/>
+					<field name="refund_authorization"/>
+					<field name="est_refund"/>
+					<field name="refund_series"/>
+					<field name="refund_iva"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="action_account_reimbursement" model="ir.actions.act_window">
+			<field name="name">Reembolso de Gasto</field>
+			<field name="res_model">reimbursement.account</field>
+			<field name="view_type">form</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_reimbursement_form"/>
+		</record>
+
+		<record id="action_account_reimbursement_tree" model="ir.actions.act_window">
+			<field name="name">Reembolso de Gasto</field>
+			<field name="res_model">reimbursement.account</field>
+			<field name="view_type">tree</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_reimbursement_tree"/>
+		</record>
+
+		<record id="view_reimbursement_account_form" model="ir.ui.view">
+			<field name="name">view.reimbursement.account.form</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="o2s_felectronica.view_account_fact_elect_form" />
+			<field name="arch" type="xml">
+				<xpath expr="//page[@string='F Electronica']" position="after">
+					<page string="Reembolso de Gasto" attrs="{'invisible':[('is_exp_reimb','=', False)]}">
+						<field name="reimbursement_ids" attrs="{'readonly':[('state','!=', 'open')]}">
+							<tree>
+								<field name="journal_id"/>
+								<field name="document_type"/>
+								<field name="identification_type"/>
+								<field name="refund_number"/>
+								<field name="est_refund"/>
+								<field name="refund_series"/>
+								<field name="refund_total_amount"/>
+							</tree>
+						</field>
+						<group class="oe_subtotal_footer oe_right">
+							<field name="total_without_taxes" widget="monetary"/>
+							<field name="total_reimbursement" widget="monetary"/>
+						</group>
+						<separator string="." style="color:white !important"/>
+					</page>
+				</xpath>
+			</field>
+		</record>
+
+		<!-- Añado el check de Gastos -->
+
+		<record id="view_reimbursement_check_invoice_form" model="ir.ui.view">
+			<field name="name">view.reimbursement.check.invoice.form</field>
+			<field name="model">account.invoice</field>
+			<field name="inherit_id" ref="bit_account.view_bit_invoice_supplier_form" />
+			<field name="arch" type="xml">
+				<field name="origin" position="after">
+					<field name="is_exp_reimb"/>
+				</field>
+			</field>
+		</record>
+	</data>
+</openerp>
+

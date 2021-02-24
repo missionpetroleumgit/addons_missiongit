@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_move_revision_stock_report_form" model="ir.ui.view">
+            <field name="name">view.move.revision.stock.report.form</field>
+            <field name="model">move.revision.stock.report</field>
+            <field name="arch" type="xml">
+                <form string="Reporte revisión de movimentos de stock" version="7.0">
+                    <sheet>
+                        <group col="1" colspan="2">
+                            <separator string="Seleccione rango de fechas"
+                                       attrs="{'invisible': [('select_mode','!=', 'none')],
+                               'required':[('select_mode','=', 'none')]}"/>
+                            <div>
+                                <div>
+                                    <field name="date_from"
+                                           attrs="{'invisible': [('select_mode','!=', 'none')],
+                               'required':[('select_mode','=', 'none')]}"
+                                           style="width: 30%"/>
+                                    <field name="date_to"
+                                           attrs="{'invisible': [('select_mode','!=', 'none')],
+                               'required':[('select_mode','=', 'none')]}"
+                                           style="width: 30%"/>
+                                </div>
+                            </div>
+                            <separator string="Opciones"/>
+                            <field name="select_mode"/>
+                            <field name="purchase_id"
+                                   attrs="{'invisible': [('select_mode','!=', 'purchase')],
+                                    'required':[('select_mode','=', 'purchase')]}"
+                                   options="{'no_open':True,'no_create':True}"/>
+                            <field name="importation_id"
+                                   attrs="{'invisible': [('select_mode','!=', 'import')],
+                                    'required':[('select_mode','=', 'import')]}"
+                                   options="{'no_open':True,'no_create':True}"/>
+                            <field name="product_id"
+                                   attrs="{'invisible': [('select_mode','!=', 'product')],
+                                    'required':[('select_mode','=', 'product')]}"/>
+                            <field name="type"
+                                   attrs="{'invisible': [('select_mode','!=', 'none')],
+                               'required':[('select_mode','=', 'none')]}"/>
+
+                            <field name="id" invisible="1"/>
+                            <field name="state"/>
+                            <field name="type_export"/>
+                        </group>
+                        <button name="excel_action" type="object" string="Imprimir"
+                                attrs="{'invisible': [('id','=',False)]}"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_move_revision_stock_report_form" model="ir.actions.act_window">
+            <field name="name">Revision Movimientos Stock</field>
+            <field name="res_model">move.revision.stock.report</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="context">{}</field>
+            <field name="target">current</field>
+        </record>
+
+        <menuitem action="action_move_revision_stock_report_form" id="menu_action_move_revision_stock_report_form"
+                  parent="stock.next_id_61"
+                  string="Reporte Revision Stock"/>
+    </data>
+</openerp>

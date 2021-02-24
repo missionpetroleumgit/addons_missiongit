@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+<!--        <record id="view_add_f4_information_page_inherit_form" model="ir.ui.view">
+            <field name="name">view.f4.information.report.inherit.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="o2s_felectronica.view_res_partner_sucur_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@string='Info Electronica']" position="after">
+                    <page string="Informacion F4">
+                        <group>
+                            <field name="service_type"/>
+                            <field name="service_categ"/>
+                            <field name="region"/>
+                            <field name="canton_id"/>
+                            <field name="parish_id"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>-->
+
+    </data>
+</openerp>

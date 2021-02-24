@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data noupdate="1">
+	
+	<!-- TIPO DE CONTRATOS -->
+    <record id="hr_contract_empleado" model="hr.contract.type">
+        <field name="name">Empleado</field>
+    </record> 
+
+    <!-- CUENTAS BANCARIAS -->
+    <record id="bank_ahorro" model="res.partner.bank.type">
+            <field name="name">Cuenta de Ahorro</field>
+            <field name="code">ahorro</field>
+    </record>
+    <record id="bank_corriente" model="res.partner.bank.type">
+            <field name="name">Cuenta Corriente</field>
+            <field name="code">corriente</field>
+    </record>
+
+    <!-- CAUSAS DE AUSENCIA -->
+	<record id="hr_holidays_status_ocasional" model="hr.holidays.status">
+		<field name="code">AUSENCIA</field>
+		<field name="name">Ausencia ocasional</field>
+		<field name="company_id" ref="base.main_company"/>
+		<field name="color_name">black</field>
+		<field name="type">unpaid</field>
+		<field eval="1" name="active"/>
+	</record>
+	<record id="hr_holidays_status_enfermedad" model="hr.holidays.status">
+		<field name="code">ENFERMEDAD</field>
+		<field name="name">ENFERMEDAD</field>
+		<field name="company_id" ref="base.main_company"/>
+		<field name="color_name">red</field>
+		<field eval="1" name="limit"/>
+		<field name="type">unpaid</field>
+		<field eval="1" name="active"/>
+	</record>
+	<record id="hr_holidays_status_vacacion" model="hr.holidays.status">
+		<field name="code">VACACION</field>
+		<field name="name">Vacaciones pagadas</field>
+		<field name="company_id" ref="base.main_company"/>
+		<field name="color_name">black</field>
+		<field name="type">unpaid</field>
+		<field eval="1" name="active"/>
+	</record>
+	<record id="hr_holidays_status_maternidad" model="hr.holidays.status">
+		<field name="code">MATERNID</field>
+		<field name="name">Maternidad</field>
+		<field name="company_id" ref="base.main_company"/>
+		<field name="color_name">red</field>
+		<field eval="1" name="limit"/>
+		<field name="type">unpaid</field>
+		<field eval="1" name="active"/>
+	</record>
+	</data>
+
+    <data>
+   
+<!--                
+        <delete id="hr_contract.hr_contract_type_emp" model="hr.contract.type"/>
+        <delete id="hr_contract.hr_contract_type_wrkr" model="hr.contract.type"/>
+        <delete id="hr_contract.hr_contract_type_sub" model="hr.contract.type"/>
+
+ 
+        <delete id="hr_payroll.hr_rule_basic" model="hr.salary.rule"/>          
+        <delete id="hr_payroll.hr_rule_taxable" model="hr.salary.rule"/>
+        <delete id="hr_payroll.hr_rule_net" model="hr.salary.rule"/>
+        
+        <delete id="hr_payroll.BASIC" model="hr.salary.rule.category"/>
+        <delete id="hr_payroll.ALW" model="hr.salary.rule.category"/>
+        <delete id="hr_payroll.GROSS" model="hr.salary.rule.category"/>
+        <delete id="hr_payroll.DED" model="hr.salary.rule.category"/>
+        <delete id="hr_payroll.NET" model="hr.salary.rule.category"/>
+        <delete id="hr_payroll.COMP" model="hr.salary.rule.category"/>
+        
+        <delete id="hr_payroll.structure_base" model="hr.payroll.structure"/>
+        
+        <delete id="hr_payroll.contrib_register_employees" model="hr.contribution.register"/>
+        
+-->        
+		
+        
+        
+
+        
+
+    </data>
+</openerp>

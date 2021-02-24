@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_contract_part_view">
+   <t t-call="report.html_container">
+        <t t-foreach="docs" t-as="o">
+                <div class="page">
+					<table class="table table-condensed" >
+	                	<tr >
+	                        <td align="center"><img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="max-height:80px"/></td>
+							<td><h2 class="text-center">CONTRATO DE TRABAJO A PLAZO INDEFINIDO</h2></td>
+	                    </tr>
+                	</table>
+                    <p class="text-justify">En <span t-field="o.employee_id.canton_id"/>, <strong><span t-field="o.date_start" t-field-options='{"format": "d"}'/> de <span t-field="o.date_start" t-field-options='{"format": "MMMM"}'/> del <span t-field="o.date_start" t-field-options='{"format": "y"}'/></strong>,
+                     comparecen por una parte el Señor  <strong><span t-field="o.name_contractor"/></strong>,
+                     en su calidad de Gerente General de la empresa <strong><span t-field="res_company.name"/></strong>, a quien en adelante y 
+                     para efectos del presente contrato se le denominará
+                     <strong>"EMPLEADOR"</strong>; y  por otra parte <strong><span t-field="o.employee_id"/></strong>, por sus propios derechos, 
+                     mayor de edad, portador de la Cédula de ciudadanía <strong><span t-field="o.employee_id.identification_id"/></strong>
+                     a quien en adelante y para efectos del presente contrato se le denominará el <strong>"TRABAJADOR(A)"</strong>,
+                     los cuales convienen en celebrar el presente contrato, al tenor de las siguientes cláusulas y estipulaciones:</p>
+                       
+                    <table class="table table-condensed">
+                        <tr>
+                            <td><strong>PRIMERA.- </strong></td>
+                            <td><strong>ANTECEDENTES: </strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                               El EMPLEADOR es la empresa <strong><span t-field="res_company.name"/></strong>, con
+                               operaciones en lugares ubicados dentro de todo el territorio nacional, empresa privada que se dedica a la prestación
+                               de servicios de seguridad y vigilancia relacionados con la gestión aeroportuaria.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>SEGUNDA.-</strong></td>
+                            <td><strong>OBJETO DEL CONTRATO Y CLASE DE TRABAJO.- </strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                               El Empleador, para el desarrollo de las tareas propias de su actividad, contrata los servicios lícitos y personales del
+                               Trabajador(a) para que se desempeñe como <strong> <span t-field="o.employee_id.job_id"/></strong>, funciones que cumplirá 
+                               de conformidad con la Ley, los Reglamentos Internos, las disposiciones generales, órdenes e instrucciones que imparta el 
+                               Empleador o sus representantes.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>TERCERA.- </strong></td>
+                            <td><strong>PRESTACION DE SERVICIOS</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                               El trabajador(a) se obliga a prestar sus servicios lícitos y personales
+                               para con el Empleador y bajo su directa dependencia, en la clase de trabajo acordado, para el cual declara tener
+                               todos los conocimientos y capacidades necesarias. Declara también que conoce que el contrato que suscribe es de
+                               jornadas parciales permanentes, que su naturaleza, alcances y condiciones le han sido explicadas suficientemente y
+                               que en forma voluntaria, espontánea y libre ha aceptado celebrar este contrato, expresando su conformidad con las
+                               explicaciones que se le han dado y con el contenido del mismo.
+                            </td>
+                        </tr>
+                    
+                        
+                         <tr>
+                            <td><strong>CUARTA.- </strong></td>
+                            <td><strong>REMUNERACION Y FORMA DE PAGO.- </strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                               El Empleador pagará al Trabajador (a) por la prestación de sus servicios, en forma mensual, una remuneración de <span t-esc="o.get_amount_in_letters(o.wage)"/> 
+                                <strong>DOLARES AMERICANOS</strong> (<strong>$<span t-field="o.wage"/></strong>),
+                               más todos los  beneficios previstos en la Ley, para los Trabajador(a)es en general. <p>De la remuneración se harán
+                               los descuentos correspondientes a los aportes personales del Trabajador(a) al Instituto Ecuatoriano de Seguridad
+                               Social, retenciones de impuesto a la renta o las que estableciere la legislación tributaria, en caso de haberlas, los
+                               ordenados por el Juez o Autoridad competente y los demás determinados por la Ley.</p>
+                                <p>Los beneficios legales serán pagados en los montos y fechas establecidas en la Ley</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>QUINTA.- </strong></td>
+                            <td><strong>LUGAR DE TRABAJO, HORARIOS Y JORNADAS.- </strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td t-class="text-justify" t-if="o.employee_id.region in ['sierra']">
+					              El Trabajador desarrollará su trabajo en las oficinas en la Tababela, Quito Airport Center, oficina 421, o en el lugar
+                                  que le indique el empleador en la ciudad de Quito Provincia de Pichincha, no obstante y dado su cargo, deberá 
+                                  trasladarse temporalmente cuantas veces sea necesario en todo el territorio ecuatoriano y fuera de éste para el
+                                  cumplimiento cabal de las funciones a él encomendadas y si el traslado fuera necesario, el Empleador deberá cumplir 
+                                  con lo dispuesto en el numeral 22 del Art.42 del Código del Trabajo.
+                                  Su jornada de trabajo se cumplirá  en el horario  de <span t-field="o.working_hours.desde"/> a <span t-field="o.working_hours.hasta"/>, de lunes a 
+                                  viernes pudiendo modificarse para lograr ajustarse a las demandas de servicios de los clientes de la empresa,
+                                  hecho que expresamente lo acepta el trabajador ofreciendo su cooperación para que tales cambios de horarios se
+                                  operen y establezcan, para lo cual manifiesta su consentimiento, incluso para el caso de prolongación de la jornada
+                                  considerando que la operación de la compañía depende de factores externos y exógenos, incluso los de carácter
+                                  meteorológico y de operación de las líneas aéreas a las que se prestan servicios.  En caso de laborar en horas 
+                                  suplementarias y/o extraordinarias estas deberán ser autorizadas  por su superior, obligándose el empleador  en este caso
+                                  a pagar dando cumplimientos a lo determinado en los art. 49, 52 y 55 del código laboral.
+					        </td>
+				            <td t-class="text-justify" t-if="o.employee_id.region in ['costa']">
+					              El Trabajador desarrollará su trabajo en las oficinas en el Aeropuerto José Joaquín de Olmedo, Guayaquil Edificio de Tagsa, 
+					              2do. Piso, oficina 3, o en el lugar que le indique el empleador en la ciudad de Guayaquil Provincia de Guayas, no obstante y 
+					              dado su cargo, deberá trasladarse temporalmente cuantas veces sea necesario en todo el territorio ecuatoriano y fuera de éste para el
+                                  cumplimiento cabal de las funciones a él encomendadas y si el traslado fuera necesario, el Empleador deberá cumplir 
+                                  con lo dispuesto en el numeral 22 del Art.42 del Código del Trabajo.
+                                  Su jornada de trabajo se cumplirá  en el horario  de <span t-field="o.working_hours.desde"/> a <span t-field="o.working_hours.hasta"/>, de lunes a 
+                                  viernes pudiendo modificarse para lograr ajustarse a las demandas de servicios de los clientes de la empresa,
+                                  hecho que expresamente lo acepta el trabajador ofreciendo su cooperación para que tales cambios de horarios se
+                                  operen y establezcan, para lo cual manifiesta su consentimiento, incluso para el caso de prolongación de la jornada
+                                  considerando que la operación de la compañía depende de factores externos y exógenos, incluso los de carácter
+                                  meteorológico y de operación de las líneas aéreas a las que se prestan servicios.  En caso de laborar en horas
+                                  suplementarias y/o extraordinarias estas deberán ser autorizadas  por su superior, obligándose el empleador  en este caso
+                                  a pagar dando cumplimientos a lo determinado en los art. 49, 52 y 55 del código laboral.
+					        </td>
+                        </tr>
+			</table>
+			<table class="table table-condensed">
+				<tr></tr>
+			</table>
+			<table class="table table-condensed">
+				<tr></tr>
+			</table>
+			<table class="table table-condensed">
+				<tr></tr>
+			</table>
+			<table class="table table-condensed">
+				<tr></tr>
+			</table>
+			<table class="table table-condensed">
+				<tr></tr>
+			</table>
+			<table class="table table-condensed">
+				<tr></tr>
+			</table>
+			<table class="table table-condensed">
+				<tr></tr>
+			</table>
+			<table class="table table-condensed">
+				<tr></tr>
+			</table>
+			<table class="table table-condensed">
+				<tr></tr>
+			</table>
+			<table class="table table-condensed">
+				<tr></tr>
+			</table>
+			<table class="table table-condensed">
+                         <tr>
+                            <td><strong>SEXTA.- </strong></td>
+                            <td><strong>OBLIGACIONES DEL TRABAJADOR(A).- </strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                            Además de las obligaciones establecidas en el Código de Trabajo 
+                            y Reglamento Interno de Trabajo, el Trabajador(a) se obliga adicionalmente a las siguientes:
+                               <p> 1. Comunicar al empleador en forma oportuna los datos y  novedades que haya conocido o desarrollado durante su trabajo y que puedan interesar a ésta para evitar perjuicios o para mejorar su operación.  El incumplimiento de esta obligación se la considerará como negligencia del empleado.</p>
+                               <p> 2. Guardar estrictamente las normas de conducta  y de buena educación con sus superiores, compañeros, clientes y personas con las que debe tratar, en razón de su actividad.</p>
+                               <p> 3. Ingresar puntualmente a sus labores y no salir del trabajo antes del horario establecido.</p>
+                               <p> 4. Entregar y facilitar toda la documentación necesaria y actualizada, con el objeto de cumplir con las obligaciones que las leyes, reglamentos y otros instrumentos así lo exigen.</p>
+                               <p> 5. Estar a disposición del empleador a fin de que éste pueda atender los requerimientos de sus clientes cuando se produzcan hechos fortuitos o imprevisibles, o fuerza mayor, que obliguen a modificar horarios o lugares de trabajo o aplazar, adelantar o prolongar jornadas de trabajo.</p>
+                               <p> 6. Cumplir con los reglamentos internos de la compañía.</p>
+                               <p> 7. Observar las disposiciones de su empleador respecto al cuidado de su salud. Al tener el trabajador contacto con equipos relacionados con aviones, maquinas sonoras,  plantas de aire acondicionado, plantas de energía eléctricas, turbinas aéreas, etc., deberá utilizar en forma obligatoria protectores auditivos y chalecos reflectivos, por lo que el empleado está obligado a utilizar todo el equipo de seguridad entregado por la empresa, caso contrario la compañía no será responsable de ocurrirle alguna enfermedad por la falta de uso o el  uso inadecuado de estos elementos.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>SEPTIMA.- </strong></td>
+                            <td><strong>PLAZO Y TERMINACION.- </strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">																		
+                              <p>El presente Contrato es de plazo indefinido. De conformidad con el artículo 15 del Código del 
+                              Trabajo, al celebrarse por primera vez entre las partes, este contrato de trabajo  estipula un período
+                               inicial de prueba de noventa días, dentro del cual cualquiera de ellas lo puede dar por terminado 
+                               libremente sin que ello causare derecho a indemnizaciòn alguna. Este contrato podrá terminar por las 
+                               causales establecidas en el Art. 169 del cuerpo legal citado en cuanto sean aplicables.
+                              </p>
+                            </td>
+                        </tr>
+                        <tr>
+                           <td><strong>OCTAVA.- </strong></td>
+                           <td><strong>CONFIDENCIALIDAD.- </strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                              El empleado se obliga a observar y ajustarse a las siguientes políticas de confidencialidad:
+                               <p>1. A no comunicar a terceros las informaciones técnicas o comerciales que tenga o que conozca por razones de su trabajo. La contravención a esta disposición se considerará como falta de probidad del empleado, sin perjuicio de las responsabilidades civiles y penales a las que hubiere lugar.</p>
+                               <p>2. Toda la información que se relacione con los procesos administrativos, contables, de producción, de comercialización, publicitarios, proyectos comerciales, estudios de mercado, bases de datos, lista de clientes, estrategias de negocios, sistemas informáticos, códigos, contraseñas, contratos y demás instrumentos privados o públicos relacionados a su trabajo, e información a la que tenga acceso, y cualquier otra información interna del empleador, son exclusivas de éste, y el empleado no podrá en ningún momento retirar, transmitir, disponer, enviar, comunicar o copiar información alguna, por ningún medio.</p>
+                               <p>3. La confidencialidad, como salvaguarda de la integridad de la información de propiedad de EL EMPLEADOR, se mantendrá, vigente hasta DOS (2) años después de la fecha de terminación de este contrato.</p>
+                            </td><p></p>
+                        </tr>
+                        <tr>
+                            <td><strong>NOVENA.- </strong></td>
+                            <td><strong>CONDICIONES ESPECIALES.- </strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                               <p>Adicionalmente a las funciones que le corresponden cumplir al Trabajador(a) en su condición aquí estipulada, cumplirá las dispuestas por sus superiores en el contexto de este contrato y de acuerdo a las políticas de la entidad
+                                  empleadora. La empresa podrá decidir que el Trabajador(a) preste sus servicios en cualquiera de los Departamentos, instancias o estamentos de ésta, sin que aquello desvirtúe la relación de trabajo, ni pueda considerarse como cambio
+                                  de lugar de trabajo ni de funciones como tampoco la existencia de otro contrato de trabajo;  por lo tanto, el Trabajador(a) expresa de manera voluntaria  su consentimiento para los cambios que dispusiere el Empleador,  siempre y 
+                                  cuando tales cambios no impliquen disminución de remuneración o de categoría. 
+                               </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>DECIMA.- </strong></td>
+                            <td><strong>EVALUACIÓN.- </strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                              <p> El empleador efectuará evaluaciones de las labores que desempeñe el Trabajador(a) y, de arrojar resultados negativos tales evaluaciones, se asimilará a la figura determinada en el
+                                  numeral quinto del Art. 172 del Código del Trabajo quedando el Empleador en disposición de iniciar la respectiva acción de visto bueno. Adicionalmente, el Empleador propenderá a 
+                                  mantener políticas de capacitación interna para la profesionalización por especialidad y en equipo.
+                              </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>DECIMA PRIMERA.- </strong></td>
+                            <td><strong>INCORPORACION DE LEYES.- </strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">	
+                              <p>En todo lo que no estuviere previsto en el presente contrato, las partes declaran incorporadas las 
+                                  disposiciones de la Ley de la materia, en especial las relativas a las obligaciones del Empleador 
+                                  y del Trabajador(a) y las prohibiciones correspondientes.</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>DECIMA SEGUNDA.- </strong></td>
+                            <td><strong>CONTROVERSIAS.- </strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td class="text-justify">
+                              <p>En caso de controversia, las partes se someterán a los jueces competentes de la Provincia de Pichincha
+                                 y al trámite oral.</p>
+                            </td>
+                        </tr>
+                    </table>
+		    <table class="table table-condensed">
+			<tr></tr>
+		    </table>
+		    <table class="table table-condensed">
+			<tr></tr>
+		    </table>
+
+                   	<table class="table table-condensed">
+                        <tr>
+                            <td class="text-center"><strong><p>EL EMPLEADOR</p><span t-field="o.name_contractor"/> 
+                             <p>C.C.: <span t-field="o.identity_contractor"/></p></strong></td>
+                            <td class="text-center"><strong><p>EL TRABAJADOR</p><span t-field="o.employee_id"/>
+                            <p>C.C.<span t-field="o.employee_id.identification_id"/></p></strong></td>
+                        </tr>
+                   	</table>
+                </div>
+        </t>
+    </t>
+</template>
+</data>
+</openerp>

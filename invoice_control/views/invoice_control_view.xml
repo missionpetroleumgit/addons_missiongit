@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_order_form_add_buttons" model="ir.ui.view">
+            <field name="name">sale.order.add.buttons</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@string='Cancel Quotation']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//button[@string='Cancel Order']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('state', 'not in', ('draft', 'sent', 'progress', 'done'))]}</attribute>
+                </xpath>
+                <xpath expr="//button[@name='print_quotation']" position="before">
+                    <button name="%(action_sale_order_transit_control)d" class="oe_highlight" states="manual"
+                            attrs="{'invisible': ['|', ('docs_sent','!=', False)]}"
+                            string="Bien/Servicio Entregado" type="action"/>
+                    <button name="%(action_sale_order_transit_control)d" class="oe_highlight" states="manual"
+                            attrs="{'invisible': ['|', '|', ('docs_received','!=', False), ('docs_sent','=', False)]}"
+                            string="Documentos Enviados" type="action"/>
+                </xpath>
+                <xpath expr="//form/sheet/notebook/page[@string='Other Information']" position="after">
+                    <page string="Control Ordenes y Documentación">
+                        <separator string="Bien/Servicio Entregado" attrs="{'invisible': [('docs_sent','=', False)]}"/>
+                        <group>
+                            <strong><field name="docs_sent" style="width: 40%;font-size:18px" nolabel="1" readonly="1"
+                                           attrs="{'invisible': [('docs_sent','=', False)]}"/></strong>
+                        </group>
+                        <separator string="Documentos Enviados" attrs="{'invisible': [('docs_received','=', False)]}"/>
+                        <group>
+                            <div>
+                                <div>
+                                    <strong><field name="docs_received" readonly="1" style="width: 40%;font-size:18px"
+                                                   attrs="{'invisible': [('docs_received','=', False)]}"/></strong>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <strong>
+                                        <field name="docs_days" style="width: 20%;font-size:18px"
+                                               readonly="1" attrs="{'invisible': [('docs_days','=', '0')]}"/>
+                                    </strong>
+                                </div>
+                            </div>
+                        </group>
+                        <separator string="Pre-factura Aprobada" attrs="{'invisible': [('invoice_created','=', False)]}"/>
+                        <group>
+                            <div>
+                                <div>
+                                    <strong>
+                                        <field name="invoice_created" readonly="1" style="width: 40%;font-size:18px"/>
+                                    </strong>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <strong>
+                                        <field name="cr_days" style="width: 20%;font-size:18px;"
+                                               readonly="1" attrs="{'invisible': [('cr_days','=', '0')]}"/>
+                                    </strong>
+                                </div>
+                            </div>
+                        </group>
+                        <separator string="Factura Validada" attrs="{'invisible': [('invoice_valid','=', False)]}"/>
+                        <group>
+                            <div>
+                                <div>
+                                    <strong>
+                                        <field name="invoice_valid" readonly="1" style="width: 40%;font-size:18px"/>
+                                    </strong>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <strong>
+                                        <field name="val_days" style="width: 20%;font-size:18px;"
+                                               readonly="1" attrs="{'invisible': [('val_days','=', '0')]}"/>
+                                    </strong>
+                                </div>
+                            </div>
+                        </group>
+                        <separator string="Factura Pagada" attrs="{'invisible': [('invoice_paid_date','=', False)]}"/>
+                        <group>
+                            <div>
+                                <div>
+                                    <strong>
+                                        <field name="invoice_paid_date" readonly="1" style="width: 40%;font-size:18px"/>
+                                    </strong>
+                                </div>
+                            </div>
+                            <div>
+                                <div>
+                                    <strong>
+                                        <field name="invoice_paid_days" style="width: 20%;font-size:18px;" readonly="1"
+                                               attrs="{'invisible': [('invoice_paid_days','=', '0')]}"/>
+                                    </strong>
+                                </div>
+                            </div>
+                        </group>
+                        <separator string="Adjuntar Documentación" attrs="{'invisible': [('docs_sent','=', False)]}"/>
+                        <group>
+                            <field name="attach_sale_ids" widget="many2many_binary"
+                                   attrs="{'invisible': [('docs_sent','=', False)]}"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <!--<record id="view_order_form_add_orders_control_xml" model="ir.ui.view">-->
+        <!--<field name="name">sale.order.control.view</field>-->
+        <!--<field name="model">sale.order</field>-->
+        <!--<field name="inherit_id" ref="o2s_sale_contract.view_order_form_renta"/>-->
+        <!--<field name="arch" type="xml">-->
+        <!--<xpath expr="//button[@string='Cancel Quotation']" position="attributes">-->
+        <!--<attribute name="invisible">1</attribute>-->
+        <!--</xpath>-->
+        <!--<xpath expr="//button[@string='Cancel Order']" position="attributes">-->
+        <!--<attribute name="attrs">{'invisible': [('state', 'not in', ('draft', 'sent', 'progress', 'done'))]}</attribute>-->
+        <!--</xpath>-->
+        <!--<xpath expr="//button[@name='print_quotation']" position="before">-->
+        <!--<button name="invoice_control" class="oe_highlight" states="manual"-->
+        <!--attrs="{'invisible': ['|', ('docs_sent','!=', False)]}"-->
+        <!--string="Documentacion enviada" type="object"/>-->
+        <!--<button name="invoice_control" class="oe_highlight" states="manual"-->
+        <!--attrs="{'invisible': ['|', '|', ('docs_received','!=', False), ('docs_sent','=', False)]}"-->
+        <!--string="Documentacion Recibida" type="object"/>-->
+        <!--</xpath>-->
+        <!--<xpath expr="//form/sheet/notebook/page[@string='Other Information']" position="after">-->
+        <!--<page string="Seguimiento Facturas">-->
+        <!--<separator string="Documentos Enviados" attrs="{'invisible': [('docs_sent','=', False)]}"/>-->
+        <!--<group>-->
+        <!--<strong><field name="docs_sent" style="width: 40%;font-size:18px" nolabel="1" readonly="1"-->
+        <!--attrs="{'invisible': [('docs_sent','=', False)]}"/></strong>-->
+        <!--</group>-->
+        <!--<separator string="Documentos Recibidos" attrs="{'invisible': [('docs_received','=', False)]}"/>-->
+        <!--<group>-->
+        <!--<div>-->
+        <!--<div>-->
+        <!--<strong><field name="docs_received" readonly="1" style="width: 40%;font-size:18px"-->
+        <!--attrs="{'invisible': [('docs_received','=', False)]}"/></strong>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div>-->
+        <!--<div>-->
+        <!--<strong>-->
+        <!--<field name="docs_days" style="width: 20%;font-size:18px"-->
+        <!--readonly="1" attrs="{'invisible': [('docs_days','=', '0')]}"/>-->
+        <!--</strong>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</group>-->
+        <!--<separator string="Pre-factura Aprobada" attrs="{'invisible': [('invoice_created','=', False)]}"/>-->
+        <!--<group>-->
+        <!--<div>-->
+        <!--<div>-->
+        <!--<strong>-->
+        <!--<field name="invoice_created" readonly="1" style="width: 40%;font-size:18px"/>-->
+        <!--</strong>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div>-->
+        <!--<div>-->
+        <!--<strong>-->
+        <!--<field name="cr_days" style="width: 20%;font-size:18px;"-->
+        <!--readonly="1" attrs="{'invisible': [('cr_days','=', '0')]}"/>-->
+        <!--</strong>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</group>-->
+        <!--<separator string="Factura Validada" attrs="{'invisible': [('invoice_valid','=', False)]}"/>-->
+        <!--<group>-->
+        <!--<div>-->
+        <!--<div>-->
+        <!--<strong>-->
+        <!--<field name="invoice_valid" readonly="1" style="width: 40%;font-size:18px"/>-->
+        <!--</strong>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div>-->
+        <!--<div>-->
+        <!--<strong>-->
+        <!--<field name="val_days" style="width: 20%;font-size:18px;"-->
+        <!--readonly="1" attrs="{'invisible': [('val_days','=', '0')]}"/>-->
+        <!--</strong>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</group>-->
+        <!--<separator string="Factura Pagada" attrs="{'invisible': [('invoice_paid_date','=', False)]}"/>-->
+        <!--<group>-->
+        <!--<div>-->
+        <!--<div>-->
+        <!--<strong>-->
+        <!--<field name="invoice_paid_date" readonly="1" style="width: 40%;font-size:18px"/>-->
+        <!--</strong>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--<div>-->
+        <!--<div>-->
+        <!--<strong>-->
+        <!--<field name="invoice_paid_days" style="width: 20%;font-size:18px;" readonly="1"-->
+        <!--attrs="{'invisible': [('invoice_paid_days','=', '0')]}"/>-->
+        <!--</strong>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</group>-->
+        <!--</page>-->
+        <!--</xpath>-->
+        <!--</field>-->
+        <!--</record>-->
+
+        <record id="action_sale_order_view_kanban" model="ir.actions.act_window">
+            <field name="name">Control de facturas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph,kanban</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
+            <field name="context">{
+                'search_default_my_sale_orders_filter': 1
+                }
+            </field>
+            <field name="domain">[('state', 'not in', ('draft', 'sent', 'cancel'))]</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a quotation that can be converted into a sales
+                    order.
+                </p><p>
+                Odoo will help you efficiently handle the complete sales flow:
+                quotation, sales order, delivery, invoicing and payment.
+            </p>
+            </field>
+        </record>
+
+        <record id="view_add_days_count_inherit_form" model="ir.ui.view">
+            <field name="name">view.add.days.count.inherit.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="o2s_sale_contract.view_add_types_sale_order_inherit_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='sale_note']" position="after">
+                    <field name="invoiced_days_count" attrs="{'invisible': ['|', ('state','not in', ('progress', 'done')),
+                    ('invoiced_days_count','=', '')]}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_order_tree_inherit_add_rest_of_days" model="ir.ui.view">
+            <field name="name">sale.order.add.rest.of_days</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="invoiced_days_count"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_account_invoice_add_control_date_field_inh" model="ir.ui.view">
+            <field name="name">account.invoice.date.control</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="bit_account.invoice_form_customer_inherit"/>
+            <field name="arch" type="xml">
+                <field name="retention_type" position="after">
+                    <field name="date_invoice_control"
+                           attrs="{'readonly': [('state','in', ('open', 'paid'))]}"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- Coloco vista para wizard de extractos bancarios -->
+
+        <!--<record id="view_account_statement_from_invoice_lines_add_attribute" model="ir.ui.view">-->
+        <!--<field name="name">account.statement.from.invoice.lines.add.attrs</field>-->
+        <!--<field name="model">account.statement.from.invoice.lines</field>-->
+        <!--<field name="view_id" ref="account.view_account_statement_from_invoice_lines"/>-->
+        <!--<field name="arch" type="xml">-->
+        <!--<xpath expr="//field=[@name='line_ids']" position="attributes">-->
+        <!--<attribute name="domain">[('account_id.user_type','in',[2,23,3,22])]</attribute>-->
+        <!--</xpath>-->
+        <!--</field>-->
+        <!--</record>-->
+
+    </data>
+</openerp>

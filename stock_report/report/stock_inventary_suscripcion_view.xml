@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <record id="view_stock_inventary_suscripcion_form" model="ir.ui.view">
+    	<field name="name">Reporte Suscripciones</field>
+        <field name="model">stock.inventary.suscripcion</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <sheet>
+                <form string="Reporte Suscripciones" version="7.0">
+                <separator string="Seleccione Punto de Venta Reporte" colspan="4" />
+                    <group colspan="4" col="2">
+                         <field name="type_pv" required="1"/>
+                    </group >
+                <separator string="Seleccione Fechas Corte Reporte" colspan="4" />
+                    <group colspan="4" col="4">
+                         <field name="date_from" required="1"/>
+                         <field name="date_to" required="1"/>
+                    </group >
+                <field name="id" invisible="1"/>
+                <separator string="Acciones" colspan="4" />
+                         <!--<button icon="gtk-cancel" special="cancel" string="Cancel" />-->
+                         <button name="action_excel" type="object" string="Generar archivo"/>
+                <!--<separator string="" colspan="4" />-->
+                        <!--<field name="name" readonly="1"/>-->
+                        <!--<field name="data" readonly="1"/>-->
+                </form>
+            </sheet>
+        </field>  
+    </record>
+
+ 
+    <record id="action_stock_inventary_suscripcion" model="ir.actions.act_window">
+       <field name="name">Reporte Suscripciones</field>
+       <field name="type">ir.actions.act_window</field>
+       <field name="res_model">stock.inventary.suscripcion</field>
+       <field name="view_type">form</field>
+       <field name="view_mode">form</field>
+       <field name="target">current</field>
+       <field name="view_id" ref="view_stock_inventary_suscripcion_form"/>
+   </record>
+        
+   <menuitem id="menu_action_stock_inventary_suscripcion" action="action_stock_inventary_suscripcion" parent="stock.next_id_61" sequence="5"/>        
+        
+</data>
+</openerp>

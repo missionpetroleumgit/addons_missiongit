@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+
+	<!--
+        Tipos de comprobantes
+	-->
+
+		<record id="document_type_01" model="account.invoice.document">
+            <field name="code">01</field>
+            <field name="name">Factura</field>
+            <field name="only_sale">True</field>          
+            <field name="support_ids"
+                   eval="[(6, 0, [support_01, support_09, ])]"/>
+        </record>
+
+		<record id="document_type_02" model="account.invoice.document">
+            <field name="code">02</field>
+            <field name="name">Nota o boleta de venta</field>
+            <field name="only_sale">True</field>  
+            <field name="support_ids"
+                   eval="[(6, 0, [support_01, ])]"/>
+        </record>
+
+		<record id="document_type_03" model="account.invoice.document">
+            <field name="code">03</field>
+            <field name="name">Liquidación de compra de Bienes o Prestación de servicios</field>
+            <field name="is_liquidation">True</field>
+			<field name="support_ids"
+                   eval="[(6, 0, [support_02, support_03, ])]"/>
+        </record>
+
+		<record id="document_type_04" model="account.invoice.document">
+            <field name="code">04</field>
+            <field name="name">Nota de crédito</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_01, support_02, support_03, support_04,
+								   support_05, support_06, support_07, support_09,	])]"/>
+        </record>
+        
+		<record id="document_type_05" model="account.invoice.document">
+            <field name="code">05</field>
+            <field name="name">Nota de débito</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_01, support_02, support_03, support_04,
+								   support_05, support_06, support_07, support_09,	])]"/>
+        </record>
+
+		<record id="document_type_06" model="account.invoice.document">
+            <field name="code">06</field>
+            <field name="name">Guias de Remisión</field>
+        </record>
+
+		<record id="document_type_07" model="account.invoice.document">
+            <field name="code">07</field>
+            <field name="name">Comprobante de Retención</field>
+            <field name="is_retention">True</field>
+        </record>
+
+		<record id="document_type_08" model="account.invoice.document">
+            <field name="code">08</field>
+            <field name="name">Boletos o entradas a espectáculos públicos</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_01, ])]"/>
+        </record>
+
+		<record id="document_type_09" model="account.invoice.document">
+            <field name="code">09</field>
+            <field name="name">Tiquetes o vales emitidos por máquinas registradoras</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_01, ])]"/>
+        </record>
+
+		<record id="document_type_11" model="account.invoice.document">
+            <field name="code">11</field>
+            <field name="name">Pasajes expedidos por empresas de aviación</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_01, ])]"/>
+        </record>
+
+		<record id="document_type_12" model="account.invoice.document">
+            <field name="code">12</field>
+            <field name="name">Documentos emitidos por instituciones financieras</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_01, ])]"/>
+        </record>
+
+		<record id="document_type_15" model="account.invoice.document">
+            <field name="code">15</field>
+            <field name="name">Comprobante de venta emitido en el Exterior</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_03, ])]"/>
+        </record>
+
+		<record id="document_type_16" model="account.invoice.document">
+            <field name="code">16</field>
+            <field name="name">Formulario Único de Exportación (FUE) o Declaración Aduanera Única (DAU) o Declaración Andina de Valor (DAV)</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_09, ])]"/>
+        </record>
+
+		<record id="document_type_18" model="account.invoice.document">
+            <field name="code">18</field>
+            <field name="name">Documentos autorizados utilizados en ventas excepto N/C N/D</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_04, support_05, support_06, support_07, ])]"/>
+        </record>
+
+		<record id="document_type_19" model="account.invoice.document">
+            <field name="code">19</field>
+            <field name="name">Comprobantes de Pago de Cuotas o Aportes</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_01, support_02, support_03, ])]"/>
+        </record>
+
+		<record id="document_type_20" model="account.invoice.document">
+            <field name="code">20</field>
+            <field name="name">Documentos por Servicios Administrativos emitidos por Inst. del Estado</field>
+			<field name="support_ids"
+                   eval="[(6, 0, [ support_01, ])]"/>
+        </record>
+
+		<record id="document_type_21" model="account.invoice.document">
+            <field name="code">21</field>
+            <field name="name">Carta de Porte Aéreo</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_01, ])]"/>
+        </record>
+
+		<record id="document_type_22" model="account.invoice.document">
+            <field name="code">22</field>
+            <field name="name">RECAP</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_10, support_00, ])]"/>
+        </record>
+
+		<record id="document_type_23" model="account.invoice.document">
+            <field name="code">23</field>
+            <field name="name">Nota de Crédito TC</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_10, support_00, ])]"/>
+        </record>
+
+		<record id="document_type_24" model="account.invoice.document">
+            <field name="code">24</field>
+            <field name="name">Nota de Débito TC</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_10, support_00, ])]"/>
+        </record>
+
+		<record id="document_type_41" model="account.invoice.document">
+            <field name="code">41</field>
+            <field name="name">Comprobante de venta emitido por reembolso</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_01, support_02, support_03, support_04,
+								   support_05, support_06, support_09,	])]"/>
+        </record>
+
+		<record id="document_type_42" model="account.invoice.document">
+            <field name="code">42</field>
+            <field name="name">Documento agente de retención Presuntiva</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_01, ])]"/>
+        </record>
+
+		<record id="document_type_43" model="account.invoice.document">
+            <field name="code">43</field>
+            <field name="name">Liquidacion para Explotacion y Exploracion de Hidrocarburos</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_01, ])]"/>
+        </record>
+
+		<record id="document_type_44" model="account.invoice.document">
+            <field name="code">44</field>
+            <field name="name">Comprobante de Contribuciones y Aportes</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_04, support_05, support_06, ])]"/>
+        </record>
+
+		<record id="document_type_45" model="account.invoice.document">
+            <field name="code">45</field>
+            <field name="name">Liquidación por reclamos de aseguradoras</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_01, support_03, ])]"/>
+        </record>
+
+		<record id="document_type_47" model="account.invoice.document">
+            <field name="code">47</field>
+            <field name="name">Nota de Crédito por Reembolso Emitida por Intermediario</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_01, support_04, support_05, support_06, support_09,	])]"/>
+        </record>
+
+		<record id="document_type_48" model="account.invoice.document">
+            <field name="code">48</field>
+            <field name="name">Nota de Débito por Reembolso Emitida por Intermediario</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_01, support_04, support_05, support_06, support_09,	])]"/>
+        </record>
+
+		<record id="document_type_49" model="account.invoice.document">
+            <field name="code">49</field>
+            <field name="name">Proveedor Directo de Exportador Bajo Régimen Especial</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_04, ])]"/>
+        </record>
+
+		<record id="document_type_50" model="account.invoice.document">
+            <field name="code">50</field>
+            <field name="name">A Inst. Estado y Empr. Públicas que percibe ingreso exento de Imp. Renta</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_04, ])]"/>
+        </record>
+
+		<record id="document_type_51" model="account.invoice.document">
+            <field name="code">51</field>
+            <field name="name">N/C A Inst. Estado y Empr. Públicas que percibe ingreso exento de Imp. Renta</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_04, ])]"/>
+        </record>
+
+		<record id="document_type_52" model="account.invoice.document">
+            <field name="code">52</field>
+            <field name="name">N/D A Inst. Estado y Empr. Públicas que percibe ingreso exento de Imp. Renta</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_04, ])]"/>
+        </record>
+
+		<record id="document_type_294" model="account.invoice.document">
+            <field name="code">294</field>
+            <field name="name">Liquidación de compra de Bienes Muebles Usados</field>
+            <field name="support_ids"
+                   eval="[(6, 0, [ support_02, support_03, ])]"/>
+        </record>
+
+    </data>
+</openerp>

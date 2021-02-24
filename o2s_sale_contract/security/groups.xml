@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+        <!--    pricelist Users Groups        -->
+        <record model="res.groups" id="group_pricelist_button">
+            <field name="name">Grupo lista de precios</field>
+        </record>
+    </data>
+</openerp>
+

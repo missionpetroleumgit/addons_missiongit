@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+        <report
+            id="account_invoices_disaggregated"
+            model="account.invoice"
+            string="Facturas desagregadas"
+            report_type="qweb-pdf"
+            name="o2s_account_reports.report_invoice_disaggregated"
+            file="o2s_account_reports.report_invoice_disaggregated"
+        />
+</data>
+</openerp>

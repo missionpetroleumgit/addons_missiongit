@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+<template id="report_retencion_view_lpair">
+    <t t-call="report.html_container">
+    <t t-foreach="docs" t-as="o">
+        <div class="page">
+                <div style="position:absolute;left:690;top:134px">
+                 <p><span t-field="o.emission_date"/></p>
+                 <p><span t-field="o.invoice_id.document_type"/></p>
+                 <p><span t-field="o.invoice_id"/></p>
+                </div>
+            <div style="position:absolute;left:85;top:134px">
+		          <p><span t-field="o.partner_id.name"/>.</p>
+		          <p><span t-field="o.partner_id.part_number"/></p>
+		          <p><span t-field="o.partner_id.street"/>.</p>
+            </div>
+            <div style="position:absolute;left:80;top:312px;width:90%;">
+            <table class="moz-email-headers-table" border="0" cellpadding="0" cellspacing="0">
+                <thead>
+                </thead>
+                <tbody>
+                    <tr t-foreach="o.get_taxes(o.id)" t-as="t">
+                        <td class="text-left" width="90px"><span t-field="o.emission_date" t-field-options="{&quot;format&quot;: &quot;y&quot;}"/></td>
+                        <td class="text-center" width="100px"><span t-esc="t['tax_number']"/></td>
+                        <td class="text-right" width="130px"><span t-esc="round(t['base'], 2)"/></td>
+                        <td class="text-right" width="200px"><span t-esc="t['tax_type']"/></td>
+                        <td class="text-right" width="120px"><span t-esc="t['tax_percent']"/></td>
+                        <td class="text-right" width="80px"><span t-esc="abs(round(t['amount'], 2))"/></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+      </div>   
+    </t>
+</t>
+</template>
+<!--<template id="report_invoice">
+    <t t-call="report.html_container">
+        <t t-foreach="doc_ids" t-as="doc_id">
+            <t t-raw="translate_doc(doc_id, doc_model, 'partner_id.lang', 'account.report_invoice_document')"/>
+        </t>
+    </t>
+</template>-->
+</data>
+</openerp>

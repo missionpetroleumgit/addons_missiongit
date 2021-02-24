@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <!--    Cancel Orders Users Groups        -->
+        <record model="res.groups" id="group_sale_order_cancel">
+            <field name="name">Grupo cancelacion de ordenes de venta</field>
+        </record>
+
+                <!--    Picking Users Groups        -->
+        <record model="res.groups" id="group_picking_type_get">
+            <field name="name">Grupo albaran de control</field>
+        </record>
+
+    </data>
+</openerp>

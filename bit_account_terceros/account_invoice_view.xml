@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+		<record id="view_bit_res_company_inherited_form" model="ir.ui.view">
+			<field name="name">res.company.inherited</field>
+			<field name="model">res.company</field>
+			<field name="inherit_id" ref="bit_hr_ec.view_res_company_inherited_form"/>
+			<field name="arch" type="xml">
+				<field name="region" position="before">
+					<field name="exp_account_id" required='1' domain="[('type', '=', 'receivable')]"/>
+				</field>
+			</field>
+		</record>				
+
+<!-- Supplier Account Invoice -->
+	<!-- Form --> 
+        <record id="view_bit_invoice_supplier_third_form" model="ir.ui.view">
+            <field name="name">account.invoice.supplier.third.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="priority">3</field>
+            <field name="arch" type="xml">
+            	<field name="document_type" position='after'>
+                	<field name="is_third" on_change="onchange_isthird(is_third)"/>
+				</field>
+				<xpath expr="//field[@name='invoice_line']/tree/field[@name='product_id']" position="after">
+                	<field name="reemb_product" invisible="1"/>
+					<field name="third_partner_id" attrs="{'readonly': [('reemb_product','=',False)]}"/>
+                </xpath>
+				<notebook position="inside" >
+					<page string="Terceros" attrs="{'invisible':[('is_third','!=',True)]}">
+						<group>
+							<field name="varias_cuotas"/>
+							<field name="num_cuotas" attrs="{'invisible': [('varias_cuotas', '=', False)], 'required': [('varias_cuotas', '=', True)]}"/>
+							<field name="period_ini_couta" attrs="{'invisible': [('varias_cuotas', '=', False)], 'required': [('varias_cuotas', '=', True)]}"/>
+							
+							<field name="expense_type_id" attrs="{'required': [('is_third', '=', True)]}"
+								   options="{'no_open': True, 'no_create': True}"/>
+							<field name="period_tercero_id" attrs="{'invisible':[('varias_cuotas','=',True)]}" options="{'no_open':True,'no_create':True}"/>
+							<field name="type_emp"/>
+							
+							<button name="load_third" states="draft" string="Cargar Egresos Nomina" type="object"/>
+							<button name="load_employee" states="draft" string="Cargar Empleados Activos" type="object"/>
+							
+						</group>
+                    	<field name="terceros_line" mode="tree" on_change="onchange_amount_tercero(terceros_line)">
+                    		<tree string="Terceros lines" editable="bottom" delete="true">
+                    			<field name="employee" readonly="0"/>
+                    		    <field name="amount"/>
+                    		</tree>
+                    	</field>
+
+                    	<!--<button name="generate_expense" states="draft" string="Generar Egresos" type="object"/>-->
+
+						<group class="oe_subtotal_footer oe_right">
+							<div class="oe_subtotal_footer_separator oe_inline">
+								<label for="third_amount"/>
+								<button name="update_amount" string="(Actualizar)" class="oe_link"
+								type="object"/>
+							</div>
+							<field name="third_amount" class="oe_subtotal_footer_separator"
+								   widget="monetary" options="{'currency_field': 'currency_id'}" readonly="1" nolabel="1"/>
+						</group>
+					</page>
+				</notebook>
+				<!--   field name="product_id" position='before'>
+					<field name="employee"/>
+				</field -->
+            </field>
+        </record>
+                       
+    </data>
+</openerp>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<openerp>
+    <data>
+
+        <record id="view_employee_add_un_form" model="ir.ui.view">
+            <field name="name">employee.add.un</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="department_id" position="after">
+                    <field name="business_unit_id" placeholder="Ejemplo: Administrativo ..." required="True" />
+                </field>
+            </field>
+        </record>
+
+        <record id="view_employee_add_foreign_form" model="ir.ui.view">
+            <field name="name">employee.add.foreign</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="country_id" position="after">
+                    <field name="is_foreign" string="Es extranjero"/>
+                    <field name="foreign_code" string="Código extranjero" attrs="{'invisible': [('is_foreign', '=', False)], 'required': [('is_foreign', '=', True)]}" placeholder="Escriba el código..."/>
+                </field>
+                <field name="work_location" position="replace">
+                    <field name="job_center"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+    <record id="view_stock_inventory_report_form" model="ir.ui.view">
+    	<field name="name">Kardex por Producto</field>
+        <field name="model">stock.inventory.report</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <sheet>
+                <form string="Reporte Kardex" version="7.0">
+                <separator string="Compania" colspan="4" />
+                    <group colspan="4" col="2">
+                         <field name="company_id" readonly="1"/>
+                    </group >
+                <separator string="Producto" colspan="4" />
+                    <group colspan="4" col="2">
+                         <field name="product_id" required="1"/>
+                    </group >
+                <separator string="Seleccione Fechas de Corte" colspan="4" />
+                    <group colspan="4" col="4">
+                         <field name="date_from" required="1"/>
+                         <field name="date_to" required="1"/>
+                    </group >
+                <field name="id" invisible="1"/>
+                <separator string="Acción" colspan="4" />
+                         <button name="action_excel" type="object" string="Generar archivo" />
+                </form>
+            </sheet>
+        </field>
+    </record>
+
+
+    <record id="action_stock_inventory_report" model="ir.actions.act_window">
+       <field name="name">Kardex por Producto</field>
+       <field name="type">ir.actions.act_window</field>
+       <field name="res_model">stock.inventory.report</field>
+       <field name="view_type">form</field>
+       <field name="view_mode">form</field>
+       <field name="target">current</field>
+       <field name="view_id" ref="view_stock_inventory_report_form"/>
+   </record>
+
+   <menuitem id="menu_action_stock_inventory_report" action="action_stock_inventory_report" parent="stock.next_id_61" sequence="7"/>
+
+</data>
+</openerp>

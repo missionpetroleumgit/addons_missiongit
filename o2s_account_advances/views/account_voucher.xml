@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record id="view_vendor_payment_form_inherit_cross_account" model="ir.ui.view">
+            <field name="name">account.voucher.form.cross.account</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_payment_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="before">
+                    <field name="crossing_accounts"/>
+                    <field name="crossing_account_id" attrs="{'invisible':[('crossing_accounts','=',False)],'required':[('crossing_accounts','=',True)]}" domain="[('type','=','receivable')]"
+                           options="{'no_create':True}"/>
+                </field>
+                <field name="partner_id" position="attributes">
+                    <attribute name="on_change">onchange_partner_id(partner_id, journal_id, amount, currency_id, type, date, crossing_accounts, crossing_account_id, context)</attribute>
+                </field>
+                <!--<field name="amount" position="attributes">-->
+                    <!--<attribute name="on_change">onchange_amount(amount, payment_rate, partner_id, journal_id, currency_id, type, date, payment_rate_currency_id, company_id, crossing_accounts, crossing_account_id, context)</attribute>-->
+                <!--</field>-->
+                <field name="check_book_id" position="before">
+                    <field name="no_cheque" attrs="{'required':[('is_check','=',True)],'invisible':[('is_check','=',False)]}"/>
+                </field>
+
+            </field>
+        </record>
+
+        <record id="view_vendor_receipt_form_inherit_cross_account" model="ir.ui.view">
+            <field name="name">account.voucher.form.cross.account.receipt</field>
+            <field name="model">account.voucher</field>
+            <field name="inherit_id" ref="account_voucher.view_vendor_receipt_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="before">
+                    <field name="crossing_accounts"/>
+                    <field name="crossing_account_id" attrs="{'invisible':[('crossing_accounts','=',False)],'required':[('crossing_accounts','=',True)]}" domain="[('type','=','payable')]"
+                           options="{'no_create':True}"/>
+                    <field name="grouped_report"/>
+                </field>
+                <field name="partner_id" position="attributes">
+                    <attribute name="on_change">onchange_partner_id(partner_id, journal_id, amount, currency_id, type, date, crossing_accounts, crossing_account_id,context)</attribute>
+                </field>
+                <!-- Comento provisionalmente para que solo coja los valores que selecciono -->
+                <!--<field name="amount" position="attributes">-->
+                    <!--<attribute name="on_change">onchange_amount(amount, payment_rate, partner_id, journal_id, currency_id, type, date, payment_rate_currency_id, company_id, crossing_accounts, crossing_account_id, context)</attribute>-->
+                <!--</field>-->
+                <!--<xpath expr="//form/sheet/group/group/field[@name='journal_id']" position="after">
+                    <xpath expr="//form/sheet/group/group/field[@name='account_id']" position="replace">
+                        <group attrs="{'invisible':[('journal_id','!=', 31)]}" col="1" colspan="2">
+                            <field name="account_id" string="Cuenta" />
+                        </group>
+                    </xpath>
+                </xpath>-->
+	        <field name="account_id" widget="selection" invisible="True" position="replace">
+                    <field name="account_id" string="Cuenta" attrs="{'invisible':[('journal_id','!=', 31)]}"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

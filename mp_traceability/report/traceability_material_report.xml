@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <template id="traceability_material_report">
+            <t t-call="report.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <tr t-foreach="pack_records(o.purchase_importation_id.id, o.product_ids)" t-as="pack">
+                            <table style="width:100%;">
+                                <tr>
+                                    <td align="left">
+                                        <img t-if="res_company.logo" t-att-src="'data:image/png;base64,%s' % res_company.logo" style="max-height:90px"/>
+                                    </td>
+                                    <td align="left">
+                                        <h4><strong>TRAZABILIDAD DEL MATERIAL</strong></h4>
+                                    </td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="col-xs-9 pull-left">
+                                                <table class="table table-condensed">
+                                                    <tr class="border-black">
+                                                        <td><strong>CÓDIGO: </strong></td>
+                                                        <td class="text-right">
+                                                            <span>
+                                                                <span style="font-size: 12px">F05-INT/018-01</span>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="border-black">
+                                                        <td><strong>REVISIÓN: </strong></td>
+                                                        <td class="text-right">
+                                                            <span>
+                                                                <span style="font-size: 12px">01</span>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="border-black">
+                                                        <td><strong>EMISIÓN: </strong></td>
+                                                        <td class="text-right">
+                                                            <span>
+                                                                <span style="font-size: 12px">15/05/2019</span>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="border-black">
+                                                        <td><span style="color:white !important;">.</span></td>
+                                                        <td class="text-right">
+                                                            <span style="color:white !important;">.</span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table>
+                                <div class="row zero_min_height" style="width: 100%;">
+                                    <div class="col-xs-12">
+                                        <div style="border-bottom: 9px solid white;"/>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div style="border-bottom: 9px solid white;"/>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <div style="border-bottom: 5px solid black;"/>
+                                    </div>
+                                </div>
+                            </table>
+                            <table class="table table-condensed table-bordered">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>
+                                                <span style="font-size: 18px">CODIGO DE TRAZABILIDAD: </span>
+                                                <span style="font-size: 18px;color:green !important" t-esc="get_lines(o.purchase_importation_id.id)[0][6:]"/>
+                                                <span style="font-size: 18px;color:green !important"> - </span>
+                                                <span style="font-size: 18px;color:green !important" t-esc="pack.lot_id.id"/>
+                                            </strong>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>
+                                                <span style="font-size: 14px">SERIE / LOTE: </span>
+                                            </strong>
+                                            <span style="font-size: 14px" t-esc="pack.lot_id.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>
+                                                <span style="font-size: 14px">DESCRIPCION DEL MATERIAL: </span>
+                                            </strong>
+                                            <span style="font-size: 14px" t-esc="pack.product_id.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>
+                                                <span style="font-size: 14px">CANTIDAD RECIBIDA: </span>
+                                            </strong>
+                                            <span style="font-size: 14px" t-esc="pack.product_qty"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>
+                                                <span style="font-size: 14px">ORDEN DE COMPRA: </span>
+                                            </strong>
+                                            <span style="font-size: 14px" t-esc="get_lines(o.purchase_importation_id.id)[0]"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>
+                                                <span style="font-size: 14px">REQUISICION: </span>
+                                            </strong>
+                                            <span style="font-size: 14px" t-esc="get_lines(o.purchase_importation_id.id)[1]"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>
+                                                <span style="font-size: 14px">PROVEEDOR: </span>
+                                            </strong>
+                                            <span style="font-size: 14px" t-esc="pack.picking_id.partner_id.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>
+                                                <span style="font-size: 14px">No. INGRESO: </span>
+                                            </strong>
+                                            <span style="font-size: 14px" t-esc="pack.picking_id.name"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>
+                                                <span style="font-size: 14px">COLADA(S): </span>
+                                            </strong>
+                                            <span style="font-size: 14px" t-esc="heat_numbers(pack.lot_id.id)"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <table style="width:100%;">
+                                <tr>
+                                    <td align="center">
+                                        <h5><strong>RESPONSABLES</strong></h5>
+                                    </td>
+                                </tr>
+                            </table>
+                            <table style="width:100%;" class="table table-condensed table-bordered">
+                                <tr>
+                                    <td style="width:15%;">
+                                        <strong>
+                                            <span style="font-size: 14px">DEP. BODEGA: </span>
+                                        </strong>
+                                        (Realiza)
+                                        <p style="color:white !important">. </p>
+                                    </td>
+                                    <td style="width:30%;">
+                                        <strong>
+                                            <span style="font-size: 14px"> </span>
+                                        </strong>
+                                    </td>
+                                    <td style="width:30%;">
+                                        <strong>
+                                            <span style="font-size: 14px"> </span>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <strong>
+                                            <span style="font-size: 14px"> </span>
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:15%;">
+                                        <strong>
+                                            <span style="font-size: 14px">DEP. CALIDAD: </span>
+                                        </strong>
+                                        (Aprueba)
+                                        <p style="color:white !important">. </p>
+                                    </td>
+                                    <td style="width:30%;">
+                                        <strong>
+                                            <span style="font-size: 14px"> </span>
+                                        </strong>
+                                    </td>
+                                    <td style="width:30%;">
+                                        <strong>
+                                            <span style="font-size: 14px"> </span>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <strong>
+                                            <span style="font-size: 14px"> </span>
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="width:15%;">
+                                        <span style="font-size: 8px">Ref: API Spef. Q19th Ed / ISO 9001:2015: </span>
+                                    </td>
+                                    <td style="width:30%;" align="center">
+                                        <strong>
+                                            <span style="font-size: 14px">NOMBRES </span>
+                                        </strong>
+                                    </td>
+                                    <td style="width:30%;" align="center">
+                                        <strong>
+                                            <span style="font-size: 14px">FIRMA </span>
+                                        </strong>
+                                    </td>
+                                    <td align="center">
+                                        <strong>
+                                            <span style="font-size: 14px">FECHA </span>
+                                        </strong>
+                                    </td>
+                                </tr>
+                            </table>
+                            <td>
+                                <span style="color:white !important">.</span>
+                            </td>
+                            <td>
+                                <span style="color:white !important">.</span>
+                            </td>
+                            <td>
+                                <span style="color:white !important">.</span>
+                            </td>
+                        </tr>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</openerp>

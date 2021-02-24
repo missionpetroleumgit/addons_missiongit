@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="mrp_production_form_view_extended_v1" model="ir.ui.view">
+            <field name="name">mrp.production.form.extended.v1</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='move_lines']/tree[1]/button[@name='%(stock.move_scrap)d']" position="after">
+                    <button name="action_cancel" type="object" help="Cancelar" icon="gtk-cancel"/>
+                </xpath>
+<!--                <xpath expr="//field[@name='move_lines']/tree[1]/button[@name='%(stock.move_scrap)d']" position="after">-->
+<!--                    <button name="action_postconsume" type="object" help="Pasar a post-consumo"-->
+<!--                            icon="terp-stock_format-scientific" states="draft,confirmed,assigned"/>-->
+<!--                </xpath>-->
+                <field name="move_lines" position="before">
+                    <button name="action_set_new_product" type="object" string="Producto Sustituto" class="oe_highlight" states="confirmed,ready"/>
+                    <newline/>
+                </field>
+                <field name="move_lines" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+                <button name="button_produce" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </button>
+                <button name="button_produce" position="after">
+                    <button name="button_produce_start" states="ready" string="Iniciar" type="object" class="oe_highlight"/>
+                    <button name="check_stock_post_consum" string="Comprobar post-consumo"
+                            type="object" class="oe_highlight"
+                            attrs="{'invisible':['|', ('post_consum', '=', False), ('state', '!=', 'in_production')]}"/>
+                </button>
+                <button name="%(mrp.act_mrp_product_produce)d" position="attributes">
+                    <attribute name="states">in_production</attribute>
+                    <attribute name="string">Terminar</attribute>
+                </button>
+                <button name="force_production" position="attributes">
+                    <attribute name="groups">base.group_system</attribute>
+                </button>
+                <field name="product_id" position="replace">
+                    <field name="not_bom"/>
+                    <field name="product_id" on_change="product_id_change(product_id, product_qty)" class="oe_inline"
+                           context='{"default_type": "product"}'/>
+                    <newline/>
+                </field>
+                <field name="bom_id" position="replace">
+                    <field name="bom_id"
+                           domain="['|',
+                                            ('product_id','=',product_id),
+                                            '&amp;',
+                                                ('product_tmpl_id.product_variant_ids','=',product_id),
+                                                ('product_id','=',False)]"
+                           context="{'default_product_id': product_id}" on_change="bom_id_change(bom_id)"
+                           attrs="{'invisible':[('not_bom', '=', True)], 'required':[('not_bom', '=', False)]}"/>
+                    <field name="post_consum" invisible="1"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="mrp_production_form_view_add_productions" model="ir.ui.view">
+            <field name="name">mrp.production.form.add.productions</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+<!--                    <div class="oe_right oe_button_box">-->
+<!--                        <button name="view_importations"-->
+<!--                                type="object"-->
+<!--                                class="oe_stat_button oe_inline"-->
+<!--                                icon="fa-list"-->
+<!--                                attrs="{'invisible':[('mrp_count', '=', 0)]}">-->
+<!--                            <field name="mrp_count" widget="statinfo" string="Ordenes Hijas"/>-->
+<!--                        </button>-->
+<!--                    </div>-->
+                    <div class="oe_right oe_button_box">
+                        <button name="view_shipping"
+                                type="object"
+                                class="oe_stat_button oe_inline"
+                                icon="fa-list"
+                                attrs="{'invisible':[('ship_count', '=', 0)]}">
+                            <field name="ship_count" widget="statinfo" string="Albaranes"/>
+                        </button>
+                    </div>
+                </field>
+                <field name="origin" position="attributes">
+                    <attribute name="required">1</attribute>
+                </field>
+            </field>
+        </record>
+
+        <record id="mrp_production_form_view_add_req_view" model="ir.ui.view">
+            <field name="name">mrp.production.form.add.req.view</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/sheet/notebook/page[@string='Extra Information']" position="after">
+                    <page string="Requisiciones">
+                        <field name="requisition_ids">
+                            <tree editable="top">
+                                <field name="description" invisible="1"/>
+                                <field name="order_id"/>
+                                <field name="date_req"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="/form/sheet/notebook/page[@string='Finished Products']" position="after">
+                    <page string="Productos Post-Consumo">
+                        <group>
+                            <group string="Products to Consume">
+                                <button name="create_products_post_consume" type="object" string="Cargar" class="oe_highlight" states="confirmed"/>
+                                <field name="stock_moves" nolabel="1" options="{'reload_on_button': true}">
+                                    <tree colors="blue:state == 'draft';black:state in ('ready','assigned','in_production');gray:state in ('cancel','done');red:state in ('confirmed','waiting')" string="Products to Consume">
+                                        <field name="product_id"/>
+                                        <field name="product_uom_qty"  string="Quantity"/>
+                                        <field name="product_uom" string="Unit of Measure" groups="product.group_uom"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+        <record id="mrp_view_mrp_product_produce_wizard_inherit" model="ir.ui.view">
+            <field name="name">mrp.view.mrp.product.produce.wizard</field>
+            <field name="model">mrp.product.produce</field>
+            <field name="inherit_id" ref="mrp.view_mrp_product_produce_wizard"/>
+            <field name="arch" type="xml">
+                <field name="lot_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="product_qty" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+                <field name="consume_lines" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

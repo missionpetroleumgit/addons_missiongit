@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+  <data>
+
+    <!--
+	Partner Aumentado Codigo
+      -->
+   <record id="view_res_partner_factelec_form" model="ir.ui.view">
+      <field name="name">res.partner.factelec.form</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+      <field name="ref" position="after">
+      	<field name="cod_type_ident" invisible="1"/>
+      </field>
+      </field>
+   </record>
+
+  <record id="view_res_partner_sucur_form" model="ir.ui.view">
+      <field name="name">res.partner.sucur.form</field>
+      <field name="model">res.partner</field>
+      <field name="inherit_id" ref="base.view_partner_form"/>
+      <field name="arch" type="xml">
+      <notebook position="inside" >
+	  	<page string="Info Electronica">
+	  	    <separator colspan="4" string="Datos Tributarios"/>
+	  	    <group col="4" colspan="4">
+		      	<field name="cod_posfis" attrs="{'required':[('obli_contab','=','SI')]}"/>
+		      	<field name="obli_contab" required = "1"/>
+	      	</group>
+	  	    <separator colspan="4" string="Sucursales Facturacion Electronica"/>
+	  	    <group col="4" colspan="4">
+	  	        <field name="ident1"/>
+		  		<field name="sucursal1"/>
+		  		<field name="ident2"/>
+	      		<field name="sucursal2"/>
+	      	</group>
+	  	    <separator colspan="4" string="Formas Pago/Plazos"/>
+	  	    <group col="4" colspan="4">
+	  	        <field name="f_pago"/>
+		  		<field name="plazo"/>
+		  		<field name="unid_t"/>
+	      	</group>
+      	</page>
+	  </notebook>
+      </field>
+   </record>
+    <!--
+	Posicion Fiscal Aumenta Codigo y Contabilidad
+    -->
+  <!-- record id="view_account_position_factelec_form" model="ir.ui.view">
+      <field name="name">account.position.factelec.form</field>
+      <field name="model">account.fiscal.position</field>
+      <field name="inherit_id" ref="account.view_account_position_form"/>
+      <field name="arch" type="xml">
+      <field name="company_id" position="after">
+      	<field name="cod_posfis" attrs="{'required':[('obli_contab','=','SI')]}"/>
+      	<field name="obli_contab" required = "1"/>
+      </field>
+      </field>
+   </record -->
+
+  </data>
+</openerp>

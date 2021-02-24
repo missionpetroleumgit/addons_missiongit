@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="purchase_rfq_new_by_user" model="ir.actions.act_window">
+            <field name="name">Requisiciones de Compra Solicitadas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="context">{
+                'readonly_by_pass': True,
+                'is_importation': False
+                }</field>
+            <field name="domain">[('is_importation','=',False),('req_user_id.user_id','=',uid)]</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="search_view_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a request for quotation.
+                </p><p>
+                The quotation contains the history of the discussion/negotiation
+                you had with your supplier. Once confirmed, a request for
+                quotation is converted into a purchase order.
+            </p><p>
+                Most propositions of purchase orders are created automatically
+                by Odoo based on inventory needs.
+            </p>
+            </field>
+        </record>
+
+        <menuitem action="purchase_rfq_new_by_user" id="menu_purchase_rfq_new_by_user"
+                  parent="purchase.menu_procurement_management" name="Requisiciones Solicitadas" sequence="0"/>
+
+        <record id="o2s_purchase_expense_distribution.purchase_rfq_new" model="ir.actions.act_window">
+            <field name="name">Requisiciones por Aprobar</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="context">{
+                'readonly_by_pass': True,
+                'is_importation': False,
+                'is_send': True
+                }</field>
+            <field name="domain">[('state','in',('draft','cancel','confirmed')),('is_importation','=',False),('app_user_id','=',uid),('is_send','=',True)]</field><!-- ('app_user_id','=',uid) este domian solo para TIW -->
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="search_view_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a request for quotation.
+                </p><p>
+                The quotation contains the history of the discussion/negotiation
+                you had with your supplier. Once confirmed, a request for
+                quotation is converted into a purchase order.
+            </p><p>
+                Most propositions of purchase orders are created automatically
+                by Odoo based on inventory needs.
+            </p>
+            </field>
+        </record>
+
+        <menuitem action="o2s_purchase_expense_distribution.purchase_rfq_new" id="o2s_purchase_expense_distribution.menu_purchase_rfq_new"
+                  parent="purchase.menu_procurement_management"
+                  sequence="1"/>
+
+        <record id="purchase_order_inherited_form_add_manager_area" model="ir.ui.view">
+            <field name="name">purchase.order.form.add.manager.area.button</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <button name="action_cancel" position="before">
+                    <!--<button name="action_area_manager" type="object" string="Gerente de Area"
+                            attrs="{'invisible': [('state_manager','!=','area')]}" class="oe_highlight" groups="purchase_tiw.group_general_area_app"/>-->
+                    <!-- O2SGH: 17-05-2017-->
+                    <button name="purchase_finances" type="object" string="Pasar a Financiero" class="oe_highlight"
+                            attrs="{'invisible': ['|',('state','!=','order_cotrol'),'|',('control','=',False),'|',('state_manager','!=',False),('is_approve_quotes','=',False)]}"
+                            groups="purchase_tiw.group_req_finances"/>
+
+                    <button name="controller_order" type="object" string="Confirmar Compra" class="oe_highlight"
+                            attrs="{'invisible': ['|',('state','!=','sent'),'|',('control','=',False),'|',('state_manager','!=',False),('is_approve_quotes','=',False)]}"
+                            groups="purchase_tiw.group_req_finances"/>
+
+                    <!--O2SGH: Boton para regresar el flujo a Compras-->
+                    <button name="purchase_cancel_to_order" type="object" string="Regresar a Compras" class="oe_highlight"
+                            attrs="{'invisible': ['|',('state','!=','sent'),'|',('control','=',False),'|',('state_manager','!=',False),('is_approve_quotes','=',False)]}"
+                            groups="purchase_tiw.group_req_finances"/>
+
+                    <button name="check_approve_quotes"
+                            class="oe_highlight"
+                            attrs="{'invisible':['|','|',('state_manager','!=',False),('is_approve_quotes','=',True),('state','!=','sent')]}"
+                            type='object'  string="Pasar a Controller"
+                            groups="purchase_tiw.group_confirm_order"/>
+                </button>
+
+                <button id="bid_confirm" position="replace">
+                    <button name="purchase_confirm" string="Confirm Order" class="oe_highlight" id="bid_confirm"
+                            attrs="{'invisible': ['|',('state_manager','!=','approved'),('state','!=','bid')]}" groups="purchase_tiw.group_confirm_order"
+                            confirm="Esta seguro de confirmar la Orden?"/>
+                </button>
+                <button name="bid_received" position="replace">
+                    <button name="bid_received"
+                            class="oe_highlight"
+                            attrs="{'invisible':['|',('state_manager','!=','presupuesto')]}"
+                            string="Aprobar Presupuesto"/>
+                </button>
+
+                <field name="journal_id" position="after">
+                    <field name="is_approve_quotes" invisible="1"/>
+                    <field name="is_send" invisible="1"/>
+                    <field name="invoice_created" invisible="1"/>
+                </field>
+                <!--<field name="date_order" position="after">-->
+                <!--<field name="multi"/>-->
+                <!--</field>-->
+            </field>
+        </record>
+
+        <record id="purchase_area_manager_approve" model="ir.actions.act_window">
+            <field name="name">Aprobacion Gerente Area</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="context">{
+                'readonly_by_pass': True,
+                'is_importation': False
+                }</field>
+            <field name="domain">[('state','=','bid'),('state_manager','=','area'),('is_importation','=',False),('app_user_id','=',uid)]</field><!-- ('app_user_id','=',uid) este domian solo para TIW -->
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="search_view_id" ref="purchase.view_purchase_order_filter"/>
+        </record>
+
+        <menuitem action="purchase_area_manager_approve" id="purchase_area_manager_approve_menu"
+                  parent="purchase.menu_procurement_management"
+                  sequence="5" groups="purchase_tiw.group_general_area_app"/>
+
+
+        <record id="purchase_order_inherited_form2" model="ir.ui.view">
+            <field name="name">purchase.order.form2</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="state_manager" widget="statusbar" statusbar_visible="presupuesto,area,except,approved"
+                           attrs="{'invisible':[('state','not in',('sent','bid','confirmed','approved','except_picking','except_invoice','done'))]}"/>
+                </field>
+                <button id="bid_confirm" position="after">
+                    <button name="manager_approved" type="object" string="Aprobacion Gerente"
+                            attrs="{'invisible':[('state_manager','!=','except')]}" groups="purchase_tiw.group_general_manager_app" class="oe_highlight"/>
+                    <button name="send_approved" type="object" string="Enviar Aprobacion"
+                            attrs="{'invisible':['|', ('state','!=','draft'),('is_send','!=', False)]}"/>
+                    <button name="action_invoice_create" type="object" string="Crear Factura"
+                            attrs="{'invisible':['|', '|', ('type_purchase', 'not in', ('consu', 'service')), ('invoice_count', '=', 1), ('state', '!=', 'approved')]}"/>
+                    <!--<button name="action_confirm" type="object" string="Confirmar Pedido"/>-->
+                </button>
+
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="after">
+                    <field name="number"/>
+                </xpath>
+                <label string="Request for Quotation " position="before">
+                    <label string="Solicitud de Requisicion " attrs="{'invisible': [('state','not in',('draft'))]}"/>
+                </label>
+                <label string="Request for Quotation " position="attributes">
+                    <attribute name="attrs">{'invisible': [('state','not in',('sent'))]}</attribute>
+                </label>
+                <label string="Purchase Order " position="attributes">
+                    <attribute name="attrs">{'invisible': [('state','in',('draft','sent'))]}</attribute>
+                </label>
+                <field name="picking_type_id" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </field>
+                <field name="date_order" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+                <field name="date_order" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+
+            </field>
+        </record>
+
+        <record id="view_purchase_order_filter_inherit2" model="ir.ui.view">
+            <field name="name">purchase.order.filter.inherit2</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <filter name="state" string="Estado" context="{'group_by':'state'}"/>
+                    <filter name="state_manager" string="Aprobaciones" context="{'group_by':'state_manager'}"/>
+                    <field name="number_req" string="Requerimiento" context="{'group_by':'number_req'}"/>
+                </field>
+                <filter string="Expected Month" position="after">
+                    <filter string="Tipo de Compra" domain="[]" context="{'group_by':'type_purchase'}"/>
+                    <filter string="Estado" domain="[]" context="{'group_by':'state'}"/>
+                    <filter string="Aprobaciones" domain="[]" context="{'group_by':'state_manager'}"/>
+                </filter>
+            </field>
+        </record>
+
+        <!-- O2SGH: 17_05_2017, Modificacion menus TIW -->
+
+        <record id="purchase_req_tramite" model="ir.actions.act_window">
+            <field name="name">Requisiciones en Tramite</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="context">{
+                'readonly_by_pass': True,
+                'is_importation': False
+                }</field>
+            <field name="domain">[('state','=','sent'),('state_manager','not in',('presupuesto', 'area', 'except', 'approved')),('is_importation','=',False)]</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="search_view_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a request for quotation.
+                </p><p>
+                The quotation contains the history of the discussion/negotiation
+                you had with your supplier. Once confirmed, a request for
+                quotation is converted into a purchase order.
+            </p><p>
+                Most propositions of purchase orders are created automatically
+                by Odoo based on inventory needs.
+            </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_purchase_req_tramite" action="purchase_req_tramite"
+                  parent="purchase.menu_procurement_management" sequence="5"/>
+
+        <!-- Gerente Financiero -->
+        <record id="purchase_presupuesto" model="ir.actions.act_window">
+            <field name="name">Presupuesto</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="context">{
+                'readonly_by_pass': True,
+                'is_importation': False
+                }</field>
+            <field name="domain">[('state_manager','=','presupuesto'),('is_importation','=',False), ('control','=',True)]</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="search_view_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a request for quotation.
+                </p><p>
+                The quotation contains the history of the discussion/negotiation
+                you had with your supplier. Once confirmed, a request for
+                quotation is converted into a purchase order.
+            </p><p>
+                Most propositions of purchase orders are created automatically
+                by Odoo based on inventory needs.
+            </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_purchase_presupuesto" action="purchase_presupuesto"
+                  parent="purchase.menu_procurement_management" sequence="6"/>
+
+        <!-- Gerente General -->
+        <record id="purchase_app_gg" model="ir.actions.act_window">
+            <field name="name">Aprobacion Gerencia Gen</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="context">{
+                'readonly_by_pass': True,
+                'is_importation': False
+                }</field>
+            <field name="domain">[('state','=','bid'),('state_manager','=','except'),('is_importation','=',False)]</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="search_view_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a request for quotation.
+                </p><p>
+                The quotation contains the history of the discussion/negotiation
+                you had with your supplier. Once confirmed, a request for
+                quotation is converted into a purchase order.
+            </p><p>
+                Most propositions of purchase orders are created automatically
+                by Odoo based on inventory needs.
+            </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_purchase_app_gg" action="purchase_app_gg"
+                  parent="purchase.menu_procurement_management" sequence="7"/>
+
+
+        <!-- Genera Picking -->
+        <record id="purchase_gen_picking" model="ir.actions.act_window">
+            <field name="name">Procesar Orden</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="context">{
+                'readonly_by_pass': True,
+                'is_importation': False
+                }</field>
+            <field name="domain">[('state','=','bid'),('state_manager','=','approved'),('is_importation','=',False)]</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="search_view_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a request for quotation.
+                </p><p>
+                The quotation contains the history of the discussion/negotiation
+                you had with your supplier. Once confirmed, a request for
+                quotation is converted into a purchase order.
+            </p><p>
+                Most propositions of purchase orders are created automatically
+                by Odoo based on inventory needs.
+            </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_purchase_gen_picking" action="purchase_gen_picking"
+                  parent="purchase.menu_procurement_management" sequence="8"/>
+
+        <!--Ordenes de compras-->
+
+        <record id="purchase_form_action_inherit_petrol" model="ir.actions.act_window">
+            <field name="name">Ordenes de Compra</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="context">{
+                'readonly_by_pass': True,
+                'is_importation': False,
+                'search_default_state_manager':1,
+                'search_default_state':1,
+                }</field>
+            <field name="domain">[('state','not in',('draft','sent', 'confirmed')),('is_importation','=',False), ('is_procura', '=', False)]</field>
+            <field name="search_view_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a quotation that will be converted into a purchase order.
+                </p><p>
+                Use this menu to search within your purchase orders by
+                references, supplier, products, etc. For each purchase order,
+                you can track the related discussion with the supplier, control
+                the products received and control the supplier invoices.
+            </p>
+            </field>
+        </record>
+
+        <menuitem id="o2s_purchase_expense_distribution.menu_purchase"
+                  action="purchase_form_action_inherit_petrol"
+                  parent="purchase.menu_procurement_management" sequence="6"/>
+
+        <!-- Todas las requisiciones -->
+        <record id="purchase_form_all_requisition" model="ir.actions.act_window">
+            <field name="name">Todas las requisiciones</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="context">{
+                'readonly_by_pass': True,
+                'is_importation': False,
+                'search_default_state':1,
+                }</field>
+            <field name="domain">[('state','in',('draft','sent', 'confirmed')),('is_importation','=',False), ('is_procura', '=', False)]</field>
+            <field name="search_view_id" ref="purchase.view_purchase_order_filter"/>
+        </record>
+
+        <menuitem id="menu_purchase_form_all_requisition"
+                  action="purchase_form_all_requisition"
+                  parent="purchase.menu_procurement_management" sequence="7"/>
+
+        <record id="purchase_order_previus_control_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.previus.order.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@string='Deliveries &amp; Invoices']" position="after">
+                    <page string="Controller" attrs="{'invisible': ['|',('state','=','draft'),('is_approve_quotes','=',False)]}"
+                          groups="purchase_tiw.group_quote_previus_control">
+                        <group>
+                            <field name="control" attrs="{'readonly': [('state_manager','!=',False)]}"/>
+                            <field name="control_comment" attrs="{'required':[('control','=',True)], 'readonly': [('state_manager','!=',False)]}"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="purchase_order_add_lines_sequence" model="ir.ui.view">
+            <field name="name">purchase.order.add.lines.sequence</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="o2s_purchase_expense_distribution.purchase_order_inherited_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field/tree[@string='Purchase Order Lines']/field[@name='product_id']" position="before">
+                    <field name="line_sequence"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--Menu para control previo mission petroleum -->
+
+        <record id="purchase_form_filter_action_previus_control" model="ir.actions.act_window">
+            <field name="name">Controller</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order</field>
+            <field name="view_mode">tree,form,graph,calendar</field>
+            <field name="context">{
+                'readonly_by_pass': True,
+                'is_importation': False,
+                'search_default_state':1,
+                }</field>
+            <field name="domain">[('state','=',('sent')),('is_importation','=',False),('is_approve_quotes','=',True),('state_manager','=',False)]</field>
+            <field name="search_view_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Click to create a quotation that will be converted into a purchase order.
+                </p><p>
+                Use this menu to search within your purchase orders by
+                references, supplier, products, etc. For each purchase order,
+                you can track the related discussion with the supplier, control
+                the products received and control the supplier invoices.
+            </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_purchase_previus_control_inherit"
+                  action="purchase_form_filter_action_previus_control"
+                  parent="purchase.menu_procurement_management" groups="purchase_tiw.group_quote_previus_control" sequence="9"/>
+
+        <record id="res_company_add_purchase_amount_inherit" model="ir.ui.view">
+            <field name="name">res.company.add.purchase.amount.inherit</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="bit_hr_ec.view_res_company_inherited_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@string='Configuración Recursos Humanos']" position="after">
+                    <page string="Ajuste Compras">
+                        <group>
+                            <field name="max_amount"/>
+                        </group>
+                    </page>
+                    <page string="Firmas">
+                        <group colspan="2" col="4">
+                            <field name="manager_sig" widget="image" class="oe_left oe_avatar"
+                                   options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+                            <field name="op_manager_sig" widget="image" class="oe_left oe_avatar"
+                                   options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+                        </group>
+                        <group colspan="2" col="4">
+		 	    <field name="sec_operation_sig" widget="image" class="oe_left oe_avatar"
+                                   options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+                            <field name="purchase_sig" widget="image" class="oe_left oe_avatar"
+                                   options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+                            <field name="purchase_sig2" widget="image" class="oe_left oe_avatar"
+                                   options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+                            <field name="importation_sig" widget="image" class="oe_left oe_avatar"
+                                   options="{&quot;preview_image&quot;: &quot;image_medium&quot;, &quot;size&quot;: [90, 90]}"/>
+                        </group>
+                    </page>
+
+                </xpath>
+            </field>
+        </record>
+
+        <!--Form purchase order-->
+        <record id="view_purchase_order_form_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.form.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='origin']" position="after">
+                    <field name="number_req"/>
+                    <field name="not_apply" groups="purchase_tiw.group_purchase_not_required_sale_order" attrs="{'invisible': [('type_purchase','!=', 'service')]}"/>
+                    <field name="sale_order_id" domain="[('state','in', ('manual', 'progress'))]" attrs="{'required': [('not_apply','=', False),('type_purchase','=', 'service')], 'invisible': [('type_purchase','!=', 'service')]}" options="{'no_create': True, 'no_open': True}"/>
+                    <field name="customer_id" domain="[('customer','=', True)]" attrs="{'required': [('type_purchase','=', 'service')], 'invisible': [('type_purchase','!=', 'service')]}"
+                           options="{'no_create': True, 'no_open': True}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_purchase_order_search_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.form.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="number_req" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--&lt;!&ndash;Form purchase order&ndash;&gt;-->
+        <!--<record id="view_purchase_order_form_inherit" model="ir.ui.view">-->
+        <!--<field name="name">purchase.order.form.inherit</field>-->
+        <!--<field name="model">purchase.order</field>-->
+        <!--<field name="inherit_id" ref="purchase.purchase_order_form"/>-->
+        <!--<field name="arch" type="xml">-->
+        <!--<xpath expr="//field[@name='origin']" position="after">-->
+        <!--<field name="number_req"/>-->
+        <!--</xpath>-->
+        <!--</field>-->
+        <!--</record>-->
+        <!-- search purchase order-->
+
+        <record id="view_purchase_order_search_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.form.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="after">
+                    <field name="number_req" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!--tree purchase order-->
+        <record id="view_purchase_order_tree_inherit" model="ir.ui.view">
+            <field name="name">purchase.order.tree.inherit</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="number_req"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</openerp>

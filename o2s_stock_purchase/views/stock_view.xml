@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+	<data>
+        <record id="view_picking_form_inherit10" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit10</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <field name="move_lines" position="replace">
+                    <field name="move_lines" string="Stock Move">
+                    	<tree editable="bottom">
+		                    <field name="product_id"
+                                   on_change="onchange_product_id(product_id,location_id,location_dest_id,parent.partner_id)"/>
+                            <!--<field name="serial_item_id" domain="[('product_id','=',product_id)]"-->
+                                   <!--options="{'no_create':True}"/>-->
+                            <field name="name" invisible='0'/>
+		                    <field name="procure_method" attrs="{'readonly': [('state', '!=', 'draft')]}" groups="stock.group_adv_location"/>
+                            <field name="location_id"/>
+                        	<field name="location_dest_id"/>
+		                    <field name="product_uom_qty" sum="Total de Productos"/>
+                            <field name="qty_available"/>
+                            <button name="%(interface_action)d" type='action' string='Dividir' icon="STOCK_PREFERENCES"/>
+                            <field name="product_uom" string="Unit Of Measure" groups="product.group_uom"/>
+		                    <field name="motive"/>
+                            <field name="state"/>
+		                </tree>
+                    </field>
+                </field>
+                 <xpath expr="//button[@name='force_assign']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+            </field>
+        </record>
+	</data>
+</openerp>

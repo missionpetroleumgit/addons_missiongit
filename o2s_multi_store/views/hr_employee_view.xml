@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="view_hr_employee_add_store_form" model="ir.ui.view">
+            <field name="name">hr.employee.add.store.form</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <field name="country_id" position="before">
+                    <field name="store_id" required="1" options="{'no_create': True}" groups="multi_store.group_multi_store"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_hr_employee_add_store_filter" model="ir.ui.view">
+          <field name="name">hr.employee.add.store.filter</field>
+          <field name="model">hr.employee</field>
+          <field name="inherit_id" ref="hr.view_employee_filter"/>
+          <field name="arch" type="xml">
+              <filter string="Job" position="after">
+                  <filter string="Sucursal" icon="terp-gtk-select-all" domain="[]" context="{'group_by':'store_id'}"/>
+              </filter>
+          </field>
+      </record>
+        
+    </data>
+</openerp>

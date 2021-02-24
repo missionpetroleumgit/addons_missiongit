@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+    <!--
+    ==================
+    Menus Principales
+    ==================
+    --> 
+    <menuitem name="Gestión Documentos"
+    	id="menu_sgdoc"
+   		sequence="15"/>
+        
+       	<menuitem  name="Administración de Ingresos" id="menu_hr_adm_income" 
+   			parent="hr_payroll.payroll_configure" action="action_hr_adm_income"
+   			sequence="7"/>
+   			
+       	<menuitem  name="Administración de Egresos" id="menu_hr_expense_type" 
+  			parent="hr_payroll.payroll_configure" action="action_hr_expense_type"
+  			sequence="8"/>
+  			 
+
+   			
+   	 <!--
+    ==================
+    Otros Menu
+    ==================
+    -->
+    
+       
+   			
+   	   <menuitem  name="Quincenas del empleado" id="menu_hr_quin_empleado" 
+   			parent="hr_payroll.menu_hr_root_payroll" action="action_view_hr_payslip_quincena_form"
+   			sequence="1"/>
+   			
+   	   <menuitem  name="Roles del Empleado" id="menu_hr_rol_new_empleado" 
+   			parent="hr_payroll.menu_hr_root_payroll" action="action_view_hr_payslip_rol_form"
+   			sequence="4"/>
+   			
+   	   <menuitem  name="Procesamiento de Quincenas" id="menu_hr_pro_quincenas" 
+   			parent="hr_payroll.menu_hr_root_payroll" action="action_hr_payslip_pro_quin_tree"
+   			sequence="2"/>
+   			
+   	   <menuitem  name="Procesamiento de Rol" id="menu_hr_pro_rol" 
+   			parent="hr_payroll.menu_hr_root_payroll" action="action_hr_payslip_pro_rol_tree"
+   			sequence="5"/>
+   			
+   	 		
+	    <menuitem id="menu_hr_Ingresos" parent="hr_payroll.menu_hr_root_payroll" name="Ingresos"  groups="base.group_hr_manager,base.group_hr_user,base.group_user"/>
+		<menuitem action="wizard_import_ingresos" sequence="11" id="menu_wizard_import_ingresos"
+		 parent="menu_hr_Ingresos" 
+		 groups="base.group_hr_manager,base.group_hr_user,base.group_user" />
+		 
+		 		<menuitem action="action_hr_income_hen" sequence="12" id="menu_action_hr_income_hen"
+		 parent="menu_hr_Ingresos"/>	
+		 
+		<menuitem id="menu_hr_Egresos" parent="hr_payroll.menu_hr_root_payroll" name="Egresos" groups="base.group_hr_manager,base.group_hr_user,base.group_user"/>
+		<menuitem action="wizard_import_egresos" sequence="12" id="menu_wizard_import_egresos"
+		 parent="menu_hr_Egresos" 
+		 groups="base.group_hr_manager,base.group_hr_user,base.group_user" />
+		 
+  		<menuitem  name="Registrar" id="menu_hr_expense" 
+  			parent="menu_hr_Egresos" action="action_hr_expense"
+  			sequence="9"/>
+  			
+  		<menuitem  name="Sanciones" id="menu_hr_sanciones" 
+  			parent="menu_hr_Egresos" action="action_hr_sancion"
+  			sequence="10"/> 
+  			
+  		<menuitem  name="Registrar" id="menu_hr_income" 
+   			parent="menu_hr_Ingresos" action="action_hr_income"
+   			sequence="11"/>
+    
+   	    
+   	    
+   	    <menuitem id="menu_hr_root_liquidaciones" parent="hr.menu_hr_root" name="Liquidaciones" sequence="31"/>
+   	    
+      <menuitem  name="Acumulados" id="menu_hr_employee_acumulados" 
+   			parent="menu_hr_root_liquidaciones" action="action_hr_acumulados"
+   			sequence="1"/>
+		 
+		 
+	  <menuitem action="wizard_employee_liquidation" id="menu_wizard_employee_liquidation"
+		 parent="menu_hr_root_liquidaciones" string="Liquidar Empleado"
+		 groups="base.group_hr_manager,base.group_hr_user,base.group_user" sequence="2"/>
+		 
+		 <menuitem action="hr_employee_liquidation_action" id="hr_employee_liquidation_menu" 
+		 sequence="3" name="Liquidaciones Realizadas" parent="menu_hr_root_liquidaciones"/>
+  		 
+		 <menuitem  name="Calcular Liquidaciones" id="menu_hr_pro_liquidacion" 
+   			parent="menu_hr_root_liquidaciones" action="action_hr_payslip_pro_liquidacion"
+   			sequence="4"/> 
+   			
+   		<menuitem  name="Valores de Liquidaciones" id="menu_hr_pro_realizadas" 
+   			parent="menu_hr_root_liquidaciones" action="action_view_hr_payslip_liquidacion_realizada"
+   			sequence="5"/>
+   			
+		 
+	<menuitem id="menu_hr_Bono" parent="hr_payroll.menu_hr_root_payroll" name="Bonos" sequence="11"/>
+	<menuitem action="wizard_import_bonos"  id="menu_wizard_import_bonos"
+		 parent="menu_hr_Bono" 
+		 groups="base.group_hr_manager,base.group_hr_user,base.group_user" />
+		 
+  		 <!--<menuitem  name="Generar" id="menu_hr_Bonos" 
+   			parent="menu_hr_Bono" action="action_hr_bono"
+   			sequence="10"/> --> 
+		 
+		 
+		 <menuitem  name="Administración de Bonos" id="menu_hr_adm_bono" 
+  			parent="hr_payroll.payroll_configure" action="action_hr_adm_bono"
+  			sequence="10"/>
+  			 
+<!-- Menus Reporte Rol -->
+    <menuitem id="menu_hr_payslip" name="Rol de Pagos Último Mes" parent="hr.menu_hr_reporting" sequence="0"/>
+    <menuitem name="Rol De Pagos" action="action_hr_payslip_last_analysis_all" id="menu_hr_payslip_last_analysis_all" parent="menu_hr_payslip" sequence="1"/>
+    <menuitem name="Ingresos" action="action_hr_payslip_last_analysis_categ_all" id="menu_hr_payslip_last_categ_analysis_all" parent="menu_hr_payslip" sequence="2"/>
+    <menuitem name="Por Departamentos" action="action_hr_payslip_department_analysis_all" id="menu_hr_payslip_department_analysis_all" parent="menu_hr_payslip" sequence="3"/>
+    <menuitem name="Provisiones" action="action_hr_payslip_last_analysis_categ2_all" id="menu_hr_payslip_last_categ2_analysis_all" parent="menu_hr_payslip" sequence="4"/>
+    <menuitem name="Horas Extras Acumuladas" action="action_hr_extra_hours_analysis" id="menu_hr_payroll_analysis_all" parent="menu_hr_payslip" sequence="5"/>
+    <menuitem name="Quincenas" action="action_hr_payslip_last_quin_analysis_all" id="menu_hr_payslip_last_quin_analysis_all" parent="menu_hr_payslip" sequence="6"/>
+    <menuitem name="Archivo Bancos" action="action_hr_payslip_file_bank" id="menu_hr_payslip_file_bank" parent="menu_hr_payslip" sequence="7"/>
+    <menuitem name="Rol Resumido" action="action_hr_payslip_rol" id="menu_hr_payslip_rol_resumido" parent="menu_hr_payslip" sequence="8"/>
+    <menuitem name="Salidas e Ingresos" action="action_hr_payslip_salidas" id="menu_hr_payslip_sal_ingresos" parent="menu_hr_payslip" sequence="9"/>
+    <menuitem name="Variación de sueldos por extras" action="action_hr_payslip_variation_hours" id="menu_hr_payslip_variation_hours" parent="menu_hr_payslip" sequence="9"/>
+   	    
+
+    </data>
+</openerp>

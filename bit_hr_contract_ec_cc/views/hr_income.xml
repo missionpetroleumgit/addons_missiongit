@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<!-- Horas Extras -->
+		
+
+          <record model="ir.ui.view" id="view_hr_hora_extra_tree">
+            <field name="name">hr.hora.extra.view.tree</field>
+            <field name="model">hr.income</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Hora Extra" editable="bottom">
+		            <field name="employee_id" required="1"/>
+		            <field name="analytic_id" required="1"/>
+		            <field name="adm_id" domain="[('name','ilike','H.%')]" required="1"/>
+		            <field name="h_registro"/>
+		            <field name="horas" attrs="{'required':[('h_registro','=',True)]}" on_change="onchange_calcula_valor_hora(adm_id,employee_id, horas,analytic_id)" sum="Total Horas" />
+		            <field name="value" required="1" sum="Total Valor"/>
+		            <field name="date" required="1"/>
+                </tree>
+            </field>
+        </record>
+        
+		<record id="hr_hora_extra_search_view" model="ir.ui.view">
+		    <field name="name">hr.hora.extra.search</field>
+		    <field name="model">hr.income</field>
+		    <field name="arch" type="xml">
+		        <search string="Horas Extras">
+		            <field name="employee_id"/>
+		            <field name="adm_id"/>
+		            <field name="analytic_id"/>
+		            <field name="date"/>
+		            
+		            <filter string="Enero" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-01-31')),('date','&gt;=',time.strftime('%%Y-01-01'))]"/>
+		            <filter string="Febrero" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-02-28')),('date','&gt;=',time.strftime('%%Y-02-01'))]"/>
+		            <filter string="Marzo" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-03-31')),('date','&gt;=',time.strftime('%%Y-03-01'))]"/>
+		            <filter string="Abril" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-04-30')),('date','&gt;=',time.strftime('%%Y-04-01'))]"/>
+		            <filter string="Mayo" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-05-31')),('date','&gt;=',time.strftime('%%Y-05-01'))]"/>
+		            <filter string="Junio" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-06-30')),('date','&gt;=',time.strftime('%%Y-06-01'))]"/>
+		            <filter string="Julio" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-07-31')),('date','&gt;=',time.strftime('%%Y-07-01'))]"/>
+		            <filter string="Agosto" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-08-31')),('date','&gt;=',time.strftime('%%Y-08-01'))]"/>
+		            <filter string="Septiembre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-09-30')),('date','&gt;=',time.strftime('%%Y-09-01'))]"/>
+		            <filter string="Octubre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-10-31')),('date','&gt;=',time.strftime('%%Y-10-01'))]"/>
+		            <filter string="Noviembre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-11-30')),('date','&gt;=',time.strftime('%%Y-11-01'))]"/>
+		            <filter string="Diciembre" icon="terp-partner" domain="['|', ('date', '=', False), '&amp;',('date','&lt;=',time.strftime('%%Y-12-31')),('date','&gt;=',time.strftime('%%Y-12-01'))]"/>
+			            
+		            
+		        </search>
+		    </field>
+		</record>
+        
+        <record id="action_hr_hora_extra_cc" model="ir.actions.act_window">
+            <field name="name">Horas Extras CC</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">hr.income</field>
+            <field name="context">{}</field>
+            <field name="domain">[('adm_id.name', 'ilike', 'H.%')]</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_hr_hora_extra_tree"/>
+            <field name="search_view_id" ref="hr_hora_extra_search_view"/>
+            <field name="help" type="html">
+            
+              <p class="oe_view_nocontent_create">
+                Click para registrar un nuevo Ingreso.
+              </p>
+               </field>
+        </record>
+        
+        <delete model="ir.ui.menu" id="bit_hr_payroll_ec.menu_action_hr_income_hen" />
+        
+        <menuitem  name="Horas Extras" id="menu_hr_hora_extra_cc" 
+   			parent="bit_hr_payroll_ec.menu_hr_Ingresos" action="action_hr_hora_extra_cc"
+   			sequence="11"/>
+
+		<!-- GH: Modificacion para el registro de ingresos menos horas extras -->
+		
+	  <record id="view_hr_income_mod_reg_form" model="ir.ui.view">
+	      <field name="name">hr.income.mod.reg</field>
+	      <field name="model">hr.income</field>
+	      <field name="inherit_id" ref="bit_hr_payroll_ec.view_hr_income_form"/>
+	      <field name="arch" type="xml">
+	      <field name="adm_id" position="replace">
+	      	<field name="adm_id" required="1" select="1" attrs="{'readonly':[('state','=','procesado')]}" domain="[('name','not ilike','H.%')]"/>
+	      </field>
+	      </field>
+	  </record>
+
+	</data>
+</openerp>

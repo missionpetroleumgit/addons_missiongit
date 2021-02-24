@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<template id="report_print_egreso_hr">
+		    <t t-call="report.html_container">
+		        <t t-foreach="docs" t-as="o">
+		            <div class="page">
+			       <div class="row mt32 mb32">
+                                  <div class="col-xs-4" style="position:absolute;left:510;top:20px;font-size: 20px">
+                                    		    <t t-if="o.check">
+					                <address t-field="o.benef"/>
+					            </t>
+						    <t t-if="not o.check">
+					                <t t-if="o.type == 'payment'">
+					                    <address t-field="o.partner_id.name"/>
+					                </t>
+					                <t t-if="o.type == 'advance'">
+					                    <address t-field="o.partner_id.name"/>
+					                </t>
+					            </t>
+                            </div>
+                            <div class="col-xs-3" style="position:absolute;left:1290;top:22px;font-size: 19px"><h3>
+                                    ***<span t-esc="o.to_string(o.amount)"/></h3><br/>
+                            </div>
+			            	</div>
+			            	<div class="row mt32 mb32">
+			            		<div class="col-xs-12" style="position:absolute;left:510;top:65px;font-size: 16px">
+			            			<h3><span t-esc="get_amount_in_letters(o.amount)"/></h3>
+			            		</div>
+							</div>
+		            		<div class="row mt32 mb32">
+				        		<div class="col-xs-12" style="position:absolute;left:405;top:151px;font-size: 16px">
+					                <h3>Quito, <span t-esc="get_format(o.date)"/></h3><br/>
+				        		</div>
+								<div class="col-xs-12" style="position:absolute;left:800;top:151px;font-size: 16px">
+					                <h3><span t-esc="o.name"/></h3><br/>
+				        		</div>
+				        	</div>
+                            <div style="position:absolute;top:271px;left:5;">
+                                <table class="table table-condensed">
+	                                <tbody>
+                                        <tr t-foreach="get_lines(o.move_ids)" t-as="l">
+                                            <td><h3><span t-esc="l['account_id']"/></h3></td>
+                                            <td><h3><span t-esc="l['description']"/></h3></td>
+                                            <!--<td><span t-esc="l['ref']"/></td>
+                                            <td><span t-esc="l['name']"/></td>-->
+                                            <td class="text-right"><h3><span t-esc="l['debit']"/></h3></td>
+                                            <td/>
+                                            <td/>
+                                            <td/>
+                                            <td/>
+                                            <td class="text-right"><h3><span t-esc="l['credit']"/></h3></td>
+                                            <td/>
+                                        </tr>
+	                                </tbody>
+                                </table>
+                            </div>
+                            <div style="position:absolute;top:631px;left:5;">
+                                <table class="table table-condensed">
+						<tr>
+							<th/>
+								<th/>
+								<th/>
+								<th/>
+								<th/>
+								<th/>
+								<th/>
+								<th/>
+								<th/>
+								<th/>
+								<th/>
+								<th/>
+								<th/>
+							<!--<th class="col-xs-2">
+								<h3><strong>Total asiento: </strong></h3>
+							</th>-->
+							<div align="center" class="col-xs-8">
+								<th/>
+                                                                <th/>
+								<th/>
+                                                                <th/>
+								<th/>
+                                                                <th/>
+								<th/>
+                                                                <th/>
+								<th/>
+                                                                <th/>
+								<th/>
+                                                                <th/>
+								<th/>
+                                                                <th/>
+								<th/>
+                                                                <th/>
+								<th/>
+                                                                <th/>
+								<th/>
+                                                                <th/>
+								<th/>
+                                                                <th/>
+								<th/>
+                                                                <th/>
+								<th/>
+								<th>
+									<h3 class="text-right"><span t-esc="get_debit(o.move_ids)"/></h3>
+								</th>
+								<th/>
+                                                                <th/>
+								<th/>
+								<th>
+									<h3 class="text-right"><span t-esc="get_credit(o.move_ids)"/></h3>
+								</th>
+							</div>
+						</tr>
+					</table>
+                            </div>
+                            <div class="row mt32 mb32">
+                            <div class="col-xs-4" style="position:absolute;left:510;top:930px;font-size: 20px">
+                                                    <t t-if="o.check">
+                                                        <address t-field="o.benef"/>
+                                                    </t>
+						    <t t-if="not o.check">
+					                <t t-if="o.type == 'payment'">
+					                    <address t-field="o.partner_id.name"/>
+					                </t>
+					                <t t-if="o.type == 'advance'">
+					                    <address t-field="o.partner_id.name"/>
+					                </t>
+					            </t>
+                            </div>
+                            <div class="col-xs-3" style="position:absolute;left:1330;top:940px;font-size: 19px"><h3>
+                                    ***<span t-esc="o.to_string(o.amount)"/></h3><br/>
+                            </div>
+			            	</div>
+			            	<div class="row mt32 mb32">
+			            		<div class="col-xs-12" style="position:absolute;left:510;top:995px;font-size: 16px">
+			            			<h3><span t-esc="get_amount_in_letters(o.amount)"/></h3>
+			            		</div>
+							</div>
+		            		<div class="row mt32 mb32">
+				        		<div class="col-xs-12" style="position:absolute;left:405;top:1079px;font-size: 16px">
+					                <h3>Quito, <span t-esc="get_format(o.date)"/></h3><br/>
+				        		</div>
+				        	</div>
+  			    </div>
+		        </t>
+		    </t>
+		</template>
+	</data>
+</openerp>
+
+

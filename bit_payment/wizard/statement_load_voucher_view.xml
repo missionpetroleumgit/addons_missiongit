@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+
+        <record id="statement_load_voucher_view" model="ir.ui.view">
+             <field name="name">Voucher statements</field>
+             <field name="model">statement.load.voucher</field>
+             <field name="arch" type="xml">
+                <form string="Statement lines:" >
+                    <group>
+                        <field name="line_ids"/>
+                    </group>
+                    <footer>
+                        <button name="add_statement_lines" string="Ok" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel"/>
+                    </footer>
+                </form>
+             </field>
+        </record>
+
+        <record id="action_statement_load_voucher" model="ir.actions.act_window">
+             <field name="name">Voucher statements</field>
+             <field name="res_model">statement.load.voucher</field>
+             <field name="type">ir.actions.act_window</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">tree,form</field>
+             <field name="view_id" ref="statement_load_voucher_view"/>
+             <field name="context">{'record_id':active_id}</field>
+             <field name="target">new</field>
+       </record>
+       
+    </data>
+</openerp>
